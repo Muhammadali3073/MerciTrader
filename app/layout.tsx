@@ -14,11 +14,11 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "SyziQ - Professional Cross-Platform Software Solutions",
+  title: "Sortevo - Professional Cross-Platform Software Solutions",
   description:
-    "SyziQ offers custom software solutions across Android, iOS, Mac, Linux, Windows, and Web platforms. Hire our expert developers for your next project and accelerate your business growth.",
+    "Sortevo offers custom software solutions across Android, iOS, Mac, Linux, Windows, and Web platforms. Hire our expert developers for your next project and accelerate your business growth.",
   keywords: [
-    "SyziQ",
+    "Sortevo",
     "Software Solutions",
     "Cross-Platform Development",
     "Android Development",
@@ -32,28 +32,28 @@ export const metadata: Metadata = {
     "Professional Services",
   ],
   openGraph: {
-    title: "SyziQ - Professional Cross-Platform Software Solutions",
+    title: "Sortevo - Professional Cross-Platform Software Solutions",
     description:
       "Custom software development services for Android, iOS, Mac, Linux, Windows, and Web platforms. Let's build something great together.",
-    url: "https://syziq.com",
+    url: "https://Sortevo.com",
     type: "website",
     images: [
       {
-        url: "https://syziq.com/assets/images/og-image.jpg",
+        url: "https://Sortevo.com/assets/images/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Syziq Logo and Services",
+        alt: "Sortevo Logo and Services",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Syziq - Professional Software Solutions for All Platforms",
+    title: "Sortevo - Professional Software Solutions for All Platforms",
     description:
       "Hire our expert developers for custom software solutions across all major platforms.",
-    images: ["https://syziq.com/assets/images/twitter-card.jpg"],
+    images: ["https://Sortevo.com/assets/images/twitter-card.jpg"],
   },
-  authors: [{ name: "Syziq Team", url: "https://syziq.com/about" }],
+  authors: [{ name: "Sortevo Team", url: "https://Sortevo.com/about" }],
   viewport: "width=device-width, initial-scale=1.0",
   robots: {
     index: true,
