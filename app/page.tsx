@@ -14,7 +14,7 @@ const LINKS = {
   email: "mailto:alibajwa102@gmail.com",
   phone: "tel:+923047222234",
   resume: "/resume.pdf",
-  profilePic: "/profile_image.jpeg?v=6",
+  profilePic: "/profile_image.jpeg?v=7",
 };
 
 export default function Home() {
@@ -84,13 +84,13 @@ export default function Home() {
 
   return (
     <main id="top" className="bg-gradient-to-b from-white to-zinc-50 text-zinc-900">
-      {/* Soft background accents */}
+      {/* ===== Background accents ===== */}
       <div aria-hidden className="fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute -top-28 -left-28 h-80 w-80 rounded-full blur-3xl opacity-25 bg-blue-300 animate-floatSlow" />
         <div className="absolute top-12 -right-28 h-96 w-96 rounded-full blur-3xl opacity-20 bg-cyan-300 animate-floatSlow animation-delay-1200" />
       </div>
 
-      {/* AppBar */}
+      {/* ===== AppBar ===== */}
       <header className="sticky top-0 z-50 border-b border-zinc-200 bg-white/70 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 sm:px-6 py-3">
           <div className="flex items-center gap-3">
@@ -120,7 +120,7 @@ export default function Home() {
           <div className="md:hidden">
             <details ref={menuRef} className="relative">
               <summary className="btn-ghost cursor-pointer select-none">Menu</summary>
-              <div className="absolute right-0 mt-2 w-60 rounded-xl border border-zinc-200 bg-white/80 backdrop-blur-md shadow-lg p-2 grid gap-1 z-50">
+              <div className="absolute right-0 mt-2 w-60 rounded-xl border border-zinc-200 bg-white/85 backdrop-blur-md shadow-lg p-2 grid gap-1 z-50">
                 {[
                   ["#projects", "Projects"],
                   ["#skills", "Skills"],
@@ -138,7 +138,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero */}
+      {/* ===== Hero ===== */}
       <section className="mx-auto max-w-6xl px-4 sm:px-6 pt-12 pb-16 grid md:grid-cols-2 gap-10 items-center fade-in-up">
         <div className="flex flex-col gap-5">
           <span className="inline-flex w-fit items-center gap-2 rounded-full border border-zinc-200 px-3 py-1 text-xs font-medium text-zinc-600 bg-white/60 backdrop-blur-sm">
@@ -173,19 +173,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Highlights (Aurora Cards) */}
+      {/* ===== Highlights (Unified Card) ===== */}
       <section className="mx-auto max-w-6xl px-4 sm:px-6 pb-4">
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           {highlights.map((h) => (
-            <div key={h.label} className="aurora-card">
+            <article key={h.label} className="card">
               <div className="text-2xl font-bold">{h.value}</div>
               <div className="text-xs tracking-wide uppercase text-zinc-500">{h.label}</div>
-            </div>
+            </article>
           ))}
         </div>
       </section>
 
-      {/* Services (Glass Cards) */}
+      {/* ===== Services (Unified Card) ===== */}
       <section id="services" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
         <div className="section-header">
           <h2>Services</h2>
@@ -193,17 +193,17 @@ export default function Home() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-6">
           {services.map((s) => (
-            <div key={s.title} className="glass-card">
+            <article key={s.title} className="card">
               <h3 className="text-lg font-semibold">{s.title}</h3>
               <ul className="mt-2 list-disc pl-5 text-sm text-zinc-700 space-y-1">
                 {s.points.map((p) => <li key={p}>{p}</li>)}
               </ul>
-            </div>
+            </article>
           ))}
         </div>
       </section>
 
-      {/* Skills (Chips) */}
+      {/* ===== Skills (chips) ===== */}
       <section id="skills" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
         <div className="section-header">
           <h2>Skills & Tools</h2>
@@ -216,7 +216,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Projects (Gradient Border Cards) */}
+      {/* ===== Projects (Unified Card) ===== */}
       <section id="projects" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
         <div className="section-header">
           <h2>Selected Projects</h2>
@@ -224,7 +224,7 @@ export default function Home() {
         </div>
         <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((p) => (
-            <div key={p.title} className="gradient-card group">
+            <article key={p.title} className="card group">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold group-hover:underline underline-offset-4">{p.title}</h3>
                 <svg viewBox="0 0 24 24" className="h-5 w-5 text-zinc-400 group-hover:text-zinc-700">
@@ -244,15 +244,15 @@ export default function Home() {
                   ))}
                 </div>
               )}
-            </div>
+            </article>
           ))}
         </div>
       </section>
 
-      {/* Experience — only Digital Upgraders */}
+      {/* ===== Experience (Unified Card) ===== */}
       <section id="experience" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
         <div className="section-header"><h2>Experience</h2></div>
-        <div className="gradient-card">
+        <article className="card">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div className="text-lg font-semibold">Senior Flutter Developer · Digital Upgraders LLC (Remote)</div>
             <div className="text-sm text-zinc-500">Feb 2023 – Present</div>
@@ -262,28 +262,30 @@ export default function Home() {
             <li>Implemented real-time features, offline capabilities, and performance optimizations.</li>
             <li>Collaborated with designers & backend; mentored developers; owned CI/CD and releases.</li>
           </ul>
-        </div>
+        </article>
       </section>
 
-      {/* Education */}
+      {/* ===== Education (Unified Card) ===== */}
       <section id="education" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
         <div className="section-header"><h2>Education</h2></div>
-        <div className="glass-card">
+        <article className="card">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div className="text-lg font-semibold">BS — Computer Science</div>
             <div className="text-sm text-zinc-500">Oct 2017 – Oct 2021</div>
           </div>
           <div className="mt-1 text-zinc-600">University of Management & Technology, Lahore</div>
-        </div>
+        </article>
       </section>
 
-      {/* Contact */}
+      {/* ===== Contact (Unified Card, larger padding) ===== */}
       <section id="contact" className="mx-auto max-w-6xl px-4 sm:px-6 py-16">
-        <div className="card-lg">
+        <article className="card-lg">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div>
               <h3 className="text-xl font-semibold">Let’s build something great.</h3>
-              <p className="mt-1 text-zinc-600">Tell me about your idea, and I’ll propose a practical, high-impact plan.</p>
+              <p className="mt-1 text-zinc-600">
+                Tell me about your idea, and I’ll propose a practical, high-impact plan.
+              </p>
             </div>
             <div className="flex flex-wrap gap-3">
               <a href={LINKS.email} className="btn-primary">Email me</a>
@@ -293,7 +295,7 @@ export default function Home() {
               <a href={LINKS.resume} target="_blank" className="btn-outline">Download CV</a>
             </div>
           </div>
-        </div>
+        </article>
         <footer className="mt-10 text-center text-sm text-zinc-500">
           © {new Date().getFullYear()} {NAME}. All rights reserved.
         </footer>
@@ -302,9 +304,20 @@ export default function Home() {
       {/* Back to top */}
       <a href="#top" className="back-to-top">↑</a>
 
-      {/* Styles (unique cards + polish) */}
+      {/* ===== Design tokens + unified card CSS ===== */}
       <style>{`
         html { scroll-behavior: smooth; }
+
+        /* Design tokens (adjust once, used everywhere) */
+        :root {
+          --card-bg: 255 255 255;            /* white */
+          --card-border: 24 24 27 / 0.08;    /* zinc-900 @ 8% */
+          --glow-a: #60a5fa;                 /* blue-400 */
+          --glow-b: #22d3ee;                 /* cyan-400 */
+          --shadow: 0 14px 40px rgba(0,0,0,.06);
+          --shadow-hover: 0 18px 44px rgba(0,0,0,.08);
+          --radius: 1.25rem;
+        }
 
         /* Buttons & nav */
         .btn-primary { 
@@ -316,82 +329,47 @@ export default function Home() {
         .btn-ghost {
           @apply rounded-xl border border-zinc-200 px-3 py-2 text-sm hover:bg-zinc-50;
         }
-        .nav-link {
-          @apply hover:text-blue-600 transition;
-        }
-        .menu-item {
-          @apply rounded-lg px-3 py-2 text-sm hover:bg-zinc-50;
-        }
-        .menu-cta {
-          @apply rounded-lg px-3 py-2 text-sm bg-blue-600 text-white hover:bg-blue-500;
-        }
+        .nav-link { @apply hover:text-blue-600 transition; }
+        .menu-item { @apply rounded-lg px-3 py-2 text-sm hover:bg-zinc-50; }
+        .menu-cta { @apply rounded-lg px-3 py-2 text-sm bg-blue-600 text-white hover:bg-blue-500; }
 
-        /* Sections */
         .section-header h2 { @apply text-2xl font-semibold; }
         .section-header p { @apply mt-2 text-zinc-600; }
 
-        /* Unique card styles */
-        .aurora-card {
+        /* ==== Unified Card Style (used everywhere) ==== */
+        .card, .card-lg {
           position: relative;
-          border-radius: 1rem;
-          padding: 1.1rem;
-          background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.85));
-          border: 1px solid rgba(24,24,27,0.08);
-          box-shadow: 0 10px 25px rgba(0,0,0,.06);
+          background: linear-gradient(180deg, rgba(var(--card-bg), 0.96), rgba(var(--card-bg), 0.92));
+          border-radius: var(--radius);
+          border: 1px solid rgba(var(--card-border));
+          box-shadow: var(--shadow);
+          transition: transform .22s ease, box-shadow .22s ease;
           overflow: hidden;
         }
-        .aurora-card::before {
-          content: "";
-          position: absolute;
-          inset: -1px;
-          border-radius: 1rem;
-          background: conic-gradient(from 180deg at 50% 50%, #60a5fa, #22d3ee, #a78bfa, #60a5fa);
-          filter: blur(18px);
-          opacity: .18;
-          z-index: 0;
-        }
-        .aurora-card > * { position: relative; z-index: 1; }
-
-        .glass-card {
-          @apply rounded-2xl p-5 border;
-          background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.65));
-          border-color: rgba(24,24,27,0.08);
-          box-shadow: 0 12px 30px rgba(0,0,0,.06);
-          backdrop-filter: blur(6px);
-          transition: transform .25s ease, box-shadow .25s ease;
-        }
-        .glass-card:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(0,0,0,.08); }
-
-        .gradient-card {
-          position: relative;
-          border-radius: 1.25rem;
-          padding: 1.1rem;
-          background: white;
-          box-shadow: 0 12px 28px rgba(0,0,0,.06);
-          transition: transform .25s ease, box-shadow .25s ease;
-        }
-        .gradient-card::before {
+        .card::before, .card-lg::before {
           content: "";
           position: absolute;
           inset: 0;
-          padding: 1px;
+          padding: 1px;                     /* creates the border frame */
           border-radius: inherit;
-          background: linear-gradient(120deg, rgba(96,165,250,.9), rgba(34,211,238,.9));
-          -webkit-mask: 
-            linear-gradient(#fff 0 0) content-box, 
+          background: linear-gradient(120deg, var(--glow-a), var(--glow-b));
+          -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
             linear-gradient(#fff 0 0);
           -webkit-mask-composite: xor;
-                  mask-composite: exclude;
+                  mask-composite: exclude;  /* punch hole to show inner bg */
+          opacity: 0.75;                    /* border intensity */
+          pointer-events: none;
         }
-        .gradient-card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(0,0,0,.08); }
+        .card { padding: 1.25rem; }
+        .card-lg { padding: 2rem; border-radius: calc(var(--radius) + .25rem); }
 
-        .card-lg {
-          @apply rounded-3xl border p-8;
-          background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8));
-          border-color: rgba(24,24,27,0.08);
-          box-shadow: 0 14px 40px rgba(0,0,0,.06);
+        .card:hover, .card-lg:hover {
+          transform: translateY(-3px);
+          box-shadow: var(--shadow-hover);
         }
 
+        /* Chips, tags, links */
         .chip {
           @apply inline-block rounded-full border border-zinc-200 bg-white px-3 py-1 text-sm text-zinc-700;
           box-shadow: 0 4px 10px rgba(0,0,0,.04);
@@ -399,19 +377,15 @@ export default function Home() {
         }
         .chip:hover { transform: translateY(-1px); }
 
-        .tag {
-          @apply rounded-full bg-zinc-100 px-2 py-0.5 text-xs text-zinc-700;
-        }
-        .link {
-          @apply text-sm font-semibold text-zinc-700 hover:text-blue-600 underline;
-        }
+        .tag { @apply rounded-full bg-zinc-100 px-2 py-0.5 text-xs text-zinc-700; }
+        .link { @apply text-sm font-semibold text-zinc-700 hover:text-blue-600 underline; }
 
-        /* Avatar ring effect */
+        /* Avatar ring (subtle, on hero) */
         .avatar-ring {
           position: absolute;
           inset: -10px;
           border-radius: 9999px;
-          background: conic-gradient(from 0deg, #60a5fa, #a78bfa, #22d3ee, #60a5fa);
+          background: conic-gradient(from 0deg, var(--glow-a), #a78bfa, var(--glow-b), var(--glow-a));
           filter: blur(14px);
           opacity: .25;
           z-index: -1;
