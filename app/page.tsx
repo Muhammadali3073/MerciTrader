@@ -1,11 +1,4 @@
-// app/page.tsx
-// Full portfolio rewrite — classic, polished UI + subtle animations
-// - Uses profile image as favicon (public/profile_image.jpeg)
-// - Single-role experience (Senior Flutter Developer · Digital Upgraders LLC)
-// - Framer Motion for tasteful motion; falls back gracefully if not installed
-
 import Image from "next/image";
-import { motion } from "framer-motion";
 
 export const metadata = {
   title: "Muhammad Ali Nawaz · Flutter Developer",
@@ -87,27 +80,12 @@ export default function Home() {
     },
   ];
 
-  const experience = [
-    {
-      role: "Senior Flutter Developer",
-      company: "Digital Upgraders LLC (Remote)",
-      period: "Feb 2023 – Present",
-      points: [
-        "Lead development of cross‑platform apps with clean architecture and robust state management.",
-        "Implemented real‑time features, offline capabilities, and performance optimizations.",
-        "Collaborated with designers & backend; mentored developers; owned CI/CD and releases.",
-      ],
-    },
-  ];
-
-  const fade = { hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } };
-
   return (
     <main className="min-h-screen w-full bg-gradient-to-b from-white to-gray-100 text-gray-900">
       {/* Background orbs */}
       <div className="fixed inset-0 -z-10 overflow-hidden" aria-hidden>
-        <div className="absolute -top-24 -left-24 h-80 w-80 rounded-full blur-3xl opacity-20 bg-blue-400 animate-[floatSlow_8s_ease-in-out_infinite]" />
-        <div className="absolute top-16 -right-24 h-96 w-96 rounded-full blur-3xl opacity-20 bg-cyan-400 animate-[floatSlow_8s_ease-in-out_infinite] [animation-delay:1.2s]" />
+        <div className="absolute -top-24 -left-24 h-80 w-80 rounded-full blur-3xl opacity-20 bg-blue-400 animate-floatSlow" />
+        <div className="absolute top-16 -right-24 h-96 w-96 rounded-full blur-3xl opacity-20 bg-cyan-400 animate-floatSlow animation-delay-1200" />
       </div>
 
       {/* Header */}
@@ -128,7 +106,7 @@ export default function Home() {
       </header>
 
       {/* Hero */}
-      <motion.section initial="hidden" animate="show" variants={fade} transition={{ duration: 0.6 }} className="mx-auto max-w-6xl px-6 pt-14 pb-20 grid md:grid-cols-2 gap-12 items-center">
+      <section className="mx-auto max-w-6xl px-6 pt-14 pb-20 grid md:grid-cols-2 gap-12 items-center fade-in-up">
         <div className="flex flex-col gap-5">
           <span className="inline-flex w-fit items-center gap-2 rounded-full border border-gray-300 px-3 py-1 text-xs font-medium text-gray-600">
             <span className="inline-block h-2 w-2 rounded-full bg-green-500" />
@@ -147,19 +125,19 @@ export default function Home() {
             <a href={LINKS.phone} className="hover:text-blue-600">Call</a>
           </div>
         </div>
-        <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.6 }} className="flex justify-center">
+        <div className="flex justify-center scale-in">
           <Image src={LINKS.profilePic} alt={NAME} width={256} height={256} className="w-64 h-64 rounded-full object-cover border-4 border-white shadow-lg" />
-        </motion.div>
-      </motion.section>
+        </div>
+      </section>
 
       {/* Highlights */}
       <section className="mx-auto max-w-6xl px-6 pb-6">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {highlights.map((item) => (
-            <motion.div key={item.label} whileHover={{ y: -2, boxShadow: "0 10px 25px rgba(0,0,0,.06)" }} className="rounded-2xl border border-gray-200 p-5 bg-white">
+            <div key={item.label} className="card rounded-2xl border border-gray-200 p-5 bg-white">
               <div className="text-2xl font-bold">{item.value}</div>
               <div className="text-sm text-gray-500">{item.label}</div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>
@@ -169,9 +147,9 @@ export default function Home() {
         <h2 className="text-2xl font-semibold">Skills & Tools</h2>
         <div className="mt-6 flex flex-wrap gap-2">
           {skills.map((s) => (
-            <motion.span key={s} whileHover={{ scale: 1.05 }} className="rounded-full border border-gray-300 bg-white px-3 py-1 text-sm text-gray-700">
+            <span key={s} className="inline-block rounded-full border border-gray-300 bg-white px-3 py-1 text-sm text-gray-700 hover:scale-105 transition-transform">
               {s}
-            </motion.span>
+            </span>
           ))}
         </div>
       </section>
@@ -181,7 +159,7 @@ export default function Home() {
         <h2 className="text-2xl font-semibold">Selected Projects</h2>
         <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((p) => (
-            <motion.div key={p.title} whileHover={{ y: -2, boxShadow: "0 10px 25px rgba(0,0,0,.06)" }} className="rounded-2xl border border-gray-200 p-5 bg-white">
+            <div key={p.title} className="card rounded-2xl border border-gray-200 p-5 bg-white">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold">{p.title}</h3>
                 <svg viewBox="0 0 24 24" className="h-5 w-5 text-gray-400"><path fill="currentColor" d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3Z"/></svg>
@@ -201,7 +179,7 @@ export default function Home() {
                   ))}
                 </div>
               )}
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>
@@ -209,17 +187,17 @@ export default function Home() {
       {/* Experience */}
       <section id="experience" className="mx-auto max-w-6xl px-6 py-10">
         <h2 className="text-2xl font-semibold">Experience</h2>
-        {experience.map((job) => (
-          <motion.div key={job.role} whileHover={{ y: -2, boxShadow: "0 10px 25px rgba(0,0,0,.06)" }} className="mt-6 rounded-2xl border border-gray-200 bg-white p-5">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <div className="text-lg font-semibold">{job.role} · {job.company}</div>
-              <div className="text-sm text-gray-500">{job.period}</div>
-            </div>
-            <ul className="mt-3 list-disc pl-5 text-gray-700 space-y-1">
-              {job.points.map((pt) => <li key={pt}>{pt}</li>)}
-            </ul>
-          </motion.div>
-        ))}
+        <div className="card mt-6 rounded-2xl border border-gray-200 bg-white p-5">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="text-lg font-semibold">Senior Flutter Developer · Digital Upgraders LLC (Remote)</div>
+            <div className="text-sm text-gray-500">Feb 2023 – Present</div>
+          </div>
+          <ul className="mt-3 list-disc pl-5 text-gray-700 space-y-1">
+            <li>Lead development of cross‑platform apps with clean architecture and robust state management.</li>
+            <li>Implemented real‑time features, offline capabilities, and performance optimizations.</li>
+            <li>Collaborated with designers & backend; mentored developers; owned CI/CD and releases.</li>
+          </ul>
+        </div>
       </section>
 
       {/* Contact */}
@@ -238,9 +216,16 @@ export default function Home() {
         <footer className="mt-10 text-center text-sm text-gray-500">© {new Date().getFullYear()} {NAME}. All rights reserved.</footer>
       </section>
 
-      {/* Minimal CSS keyframes (no extra file required) */}
+      {/* Minimal CSS keyframes + hover polish */}
       <style>{`
         @keyframes floatSlow { 0%,100% { transform: translateY(0) } 50% { transform: translateY(10px) } }
+        .animate-floatSlow { animation: floatSlow 8s ease-in-out infinite; }
+        .animation-delay-1200 { animation-delay: 1.2s; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: translateY(0) } }
+        .fade-in-up { animation: fadeInUp .6s ease-out both; }
+        .card { transition: transform .25s ease, box-shadow .25s ease; }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,.06); }
+        .scale-in { animation: fadeInUp .5s ease-out both; }
       `}</style>
     </main>
   );
