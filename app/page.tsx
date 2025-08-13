@@ -774,6 +774,28 @@ export default function Home() {
     z-index: 1;
     white-space: nowrap;
   }
+  /* Typewriter */
+.typing {
+  position: relative;
+  display: inline-block;
+}
+
+.caret {
+  display: inline-block;
+  margin-left: 2px;
+  opacity: 1;
+  animation: blink 1s step-end infinite;
+}
+.caret.idle { opacity: .65; }
+
+@keyframes blink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* Optional: subtle glow on typed headline */
+.hero__title .typing { text-shadow: 0 0 14px rgba(94,129,244,.18); }
+
       `}</style>
     </main>
   );
