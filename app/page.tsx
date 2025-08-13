@@ -21,6 +21,68 @@ const LINKS = {
   whatsapp: "https://wa.me/923047222234",
 };
 
+function TypingText({
+  text,
+  startDelay = 0,
+  speed = 30,            // ms per character
+  ariaLive = "polite",
+  showCaret = true,
+}: {
+  text: string;
+  startDelay?: number;
+  speed?: number;
+  ariaLive?: "polite" | "assertive" | "off";
+  showCaret?: boolean;
+}) {
+  const [out, setOut] = useState("");
+  const [done, setDone] = useState(false);
+
+  // Respect reduced motion
+  const prefersReduced =
+    typeof window !== "undefined" &&
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  useEffect(() => {
+    if (prefersReduced) {
+      setOut(text);
+      setDone(true);
+      return;
+    }
+
+    let mounted = true;
+    let i = 0;
+    const startTimer = setTimeout(() => {
+      const tick = () => {
+        if (!mounted) return;
+        if (i <= text.length) {
+          setOut(text.slice(0, i));
+          i += 1;
+          timer = window.setTimeout(tick, speed);
+        } else {
+          setDone(true);
+        }
+      };
+      tick();
+    }, startDelay);
+
+    let timer: number | undefined;
+    return () => {
+      mounted = false;
+      clearTimeout(startTimer);
+      if (timer) clearTimeout(timer);
+    };
+  }, [text, startDelay, speed, prefersReduced]);
+
+  return (
+    <span className="typing" aria-live={ariaLive} aria-atomic="true">
+      {out}
+      {showCaret && <span className={`caret ${done ? "idle" : ""}`} aria-hidden="true">|</span>}
+    </span>
+  );
+}
+
+
 export default function Home() {
   // Mobile menu (auto-close)
   const menuRef = useRef<HTMLDetailsElement | null>(null);
@@ -223,8 +285,12 @@ export default function Home() {
   <span className="availability__dot" aria-hidden />
   <span className="availability__text">Open to opportunities</span>
 </span>
-          <h1 className="hero__title">{ROLE}</h1>
-          <p className="hero__tagline">{TAGLINE}</p>
+          <h1 className="hero__title">
+  <TypingText text={ROLE} speed={18} startDelay={200} ariaLive="polite" />
+</h1>
+<p className="hero__tagline">
+  <TypingText text={TAGLINE} speed={14} startDelay={ROLE.length * 18 + 600} />
+</p>
           <div className="hero__cta">
             <a href="#contact" className="btn btn--primary">
               Start a project
