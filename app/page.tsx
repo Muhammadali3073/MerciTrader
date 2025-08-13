@@ -69,13 +69,13 @@ export default function Home() {
 
   const highlights = [
     { label: "Experience", value: "3+ yrs" },
-    { label: "Platforms", value: "iOS · Android · Web" },
+    { label: "Platforms", value: "IOS · Android · Web" },
     { label: "Focus", value: "Performance & UX" },
     { label: "Methodology", value: "Agile" },
   ];
 
   const services = [
-    { title: "Flutter App Development", icon: <Icon.Layers className="h-5 w-5" />, points: ["iOS, Android & Web", "Clean Architecture", "State Management (Bloc/GetX/Riverpod)"] },
+    { title: "Flutter App Development", icon: <Icon.Layers className="h-5 w-5" />, points: ["IOS, Android & Web", "Clean Architecture", "State Management (Bloc/GetX/Riverpod)"] },
     { title: "Integrations & Backend", icon: <Icon.Tool className="h-5 w-5" />, points: ["REST APIs / Firebase", "Auth, Push, Analytics", "Payments & Subscriptions"] },
     { title: "Quality & Delivery", icon: <Icon.Shield className="h-5 w-5" />, points: ["Unit/Widget/Integration Tests", "CI/CD (Fastlane)", "Store release & monitoring"] },
   ];
@@ -90,7 +90,7 @@ export default function Home() {
   ];
 
   const projects = [
-    { title: "Comnow (Digital Call System)", tags: ["Flutter", "iOS", "Android"], blurb: "Digital communication with messaging, voice notes, and efficient in-app workflows.", links: [{ label: "App Store", href: "https://apps.apple.com/ae/app/comnow/id1614790733" }] },
+    { title: "Comnow (Digital Call System)", tags: ["Flutter", "IOS", "Android"], blurb: "Digital communication with messaging, voice notes, and efficient in-app workflows.", links: [{ label: "App Store", href: "https://apps.apple.com/ae/app/comnow/id1614790733" }] },
     { title: "Crime Scene Guide", tags: ["Flutter", "Play Store"], blurb: "Scene documentation and note-taking to streamline investigation workflows.", links: [{ label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.INAR.investigation" }] },
     { title: "LHFADEZ Barbering", tags: ["Flutter", "Stripe", "Scheduling"], blurb: "Booking for haircuts & grooming with seamless scheduling and promotions.", links: [{ label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.rubikkube.lhfadezbarbering.android" }] },
     { title: "Only Nikah", tags: ["Flutter", "Firebase"], blurb: "Nikah services with guided flows and notifications.", links: [{ label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.hyxio.only_nikkah" }] },
