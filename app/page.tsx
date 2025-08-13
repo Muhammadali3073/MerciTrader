@@ -1,5 +1,11 @@
+// app/page.tsx
+// Full portfolio rewrite — classic, polished UI + subtle animations
+// - Uses profile image as favicon (public/profile_image.jpeg)
+// - Single-role experience (Senior Flutter Developer · Digital Upgraders LLC)
+// - Framer Motion for tasteful motion; falls back gracefully if not installed
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export const metadata = {
   title: "Muhammad Ali Nawaz · Flutter Developer",
@@ -7,15 +13,18 @@ export const metadata = {
     "Senior Flutter Developer building high‑performance apps with clean architecture, smooth UX, and robust integrations.",
   icons: {
     icon: [
-      { rel: "icon", url: "/favicon.jpeg" },
+      { rel: "icon", url: "/profile_image.jpeg", type: "image/jpeg" }, // profile photo as favicon
+      { url: "/favicon.ico" }, // optional fallback
     ],
+    apple: [{ url: "/profile_image.jpeg" }],
+    shortcut: [{ url: "/profile_image.jpeg" }],
   },
 };
 
 const NAME = "Muhammad Ali Nawaz";
 const ROLE = "Senior Flutter Developer";
 const TAGLINE =
-  "I design and ship fast, reliable Flutter apps for iOS, Android, and web — clean architecture, smooth UX, strong testing.";
+  "I design and ship fast, reliable Flutter apps for iOS, Android & Web — clean architecture, smooth UX, strong testing.";
 
 const LINKS = {
   linkedin: "https://www.linkedin.com/in/muhammad-ali-nawaz-19a082177",
@@ -23,7 +32,7 @@ const LINKS = {
   email: "mailto:alibajwa102@gmail.com",
   phone: "tel:+923047222234",
   resume: "/resume.pdf",
-  profilePic: "/profile_image.jpeg?v=2",
+  profilePic: "/profile_image.jpeg?v=3",
 };
 
 export default function Home() {
@@ -47,8 +56,7 @@ export default function Home() {
     {
       title: "Comnow (Digital Call System)",
       tags: ["Flutter", "iOS", "Android"],
-      blurb:
-        "Digital communication with messaging, voice notes, and efficient in‑app workflows.",
+      blurb: "Digital communication with messaging, voice notes, and efficient in‑app workflows.",
       links: [
         { label: "App Store", href: "https://apps.apple.com/ae/app/comnow/id1614790733" },
       ],
@@ -56,8 +64,7 @@ export default function Home() {
     {
       title: "Crime Scene Guide",
       tags: ["Flutter", "Play Store"],
-      blurb:
-        "Scene documentation and note‑taking to streamline investigation workflows.",
+      blurb: "Scene documentation and note‑taking to streamline investigation workflows.",
       links: [
         { label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.INAR.investigation" },
       ],
@@ -65,8 +72,7 @@ export default function Home() {
     {
       title: "LHFADEZ Barbering",
       tags: ["Flutter", "Stripe", "Scheduling"],
-      blurb:
-        "Booking for haircuts & grooming with seamless scheduling and promotions.",
+      blurb: "Booking for haircuts & grooming with seamless scheduling and promotions.",
       links: [
         { label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.rubikkube.lhfadezbarbering.android" },
       ],
@@ -74,18 +80,10 @@ export default function Home() {
     {
       title: "Only Nikah",
       tags: ["Flutter", "Firebase"],
-      blurb:
-        "Nikah services with guided flows and notifications.",
+      blurb: "Nikah services with guided flows and notifications.",
       links: [
         { label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.hyxio.only_nikkah" },
       ],
-    },
-    {
-      title: "AW Admin Dashboard (Web)",
-      tags: ["Flutter Web", "Admin"],
-      blurb:
-        "Data tables, CRUD, bulk actions, OTP, notifications, reports, and user management.",
-      links: [],
     },
   ];
 
@@ -97,91 +95,71 @@ export default function Home() {
       points: [
         "Lead development of cross‑platform apps with clean architecture and robust state management.",
         "Implemented real‑time features, offline capabilities, and performance optimizations.",
-        "Collaborated with designers & backend teams; mentored developers; owned CI/CD and releases.",
+        "Collaborated with designers & backend; mentored developers; owned CI/CD and releases.",
       ],
     },
   ];
 
+  const fade = { hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } };
+
   return (
-    <main className="min-h-screen w-full bg-white text-zinc-900">
-      {/* Decorative background */}
+    <main className="min-h-screen w-full bg-gradient-to-b from-white to-gray-100 text-gray-900">
+      {/* Background orbs */}
       <div className="fixed inset-0 -z-10 overflow-hidden" aria-hidden>
-        <div className="absolute -top-28 -left-24 h-80 w-80 rounded-full blur-3xl opacity-20 bg-blue-400" />
-        <div className="absolute top-10 -right-20 h-96 w-96 rounded-full blur-3xl opacity-20 bg-cyan-400" />
+        <div className="absolute -top-24 -left-24 h-80 w-80 rounded-full blur-3xl opacity-20 bg-blue-400 animate-[floatSlow_8s_ease-in-out_infinite]" />
+        <div className="absolute top-16 -right-24 h-96 w-96 rounded-full blur-3xl opacity-20 bg-cyan-400 animate-[floatSlow_8s_ease-in-out_infinite] [animation-delay:1.2s]" />
       </div>
 
       {/* Header */}
-      <header className="sticky top-0 z-40 backdrop-blur bg-white/70 border-b border-zinc-100">
+      <header className="sticky top-0 z-40 backdrop-blur bg-white/80 border-b border-gray-200">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-3">
-            <Image
-              src={LINKS.profilePic}
-              alt={NAME}
-              width={40}
-              height={40}
-              className="h-10 w-10 rounded-full object-cover border border-zinc-200"
-              priority
-            />
-            <span className="text-sm font-medium text-zinc-700">{NAME}</span>
+            <Image src={LINKS.profilePic} alt={NAME} width={40} height={40} className="h-10 w-10 rounded-full object-cover border border-gray-200" />
+            <span className="text-sm font-medium">{NAME}</span>
           </div>
-          <nav className="hidden md:flex items-center gap-6 text-sm text-zinc-700">
-            <a href="#projects" className="hover:text-zinc-900">Projects</a>
-            <a href="#skills" className="hover:text-zinc-900">Skills</a>
-            <a href="#experience" className="hover:text-zinc-900">Experience</a>
-            <a href="#contact" className="hover:text-zinc-900">Contact</a>
-            <a
-              href={LINKS.resume}
-              className="rounded-xl bg-zinc-900 px-4 py-2 text-white font-semibold hover:bg-zinc-800"
-              target="_blank"
-              rel="noopener noreferrer"
-            >Resume</a>
+          <nav className="hidden md:flex items-center gap-6 text-sm">
+            <a href="#projects" className="hover:text-blue-600">Projects</a>
+            <a href="#skills" className="hover:text-blue-600">Skills</a>
+            <a href="#experience" className="hover:text-blue-600">Experience</a>
+            <a href="#contact" className="hover:text-blue-600">Contact</a>
+            <a href={LINKS.resume} target="_blank" rel="noopener noreferrer" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500">Resume</a>
           </nav>
         </div>
       </header>
 
       {/* Hero */}
-      <section className="mx-auto max-w-6xl px-6 pt-14 pb-20 grid md:grid-cols-2 gap-12 items-center">
+      <motion.section initial="hidden" animate="show" variants={fade} transition={{ duration: 0.6 }} className="mx-auto max-w-6xl px-6 pt-14 pb-20 grid md:grid-cols-2 gap-12 items-center">
         <div className="flex flex-col gap-5">
-          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-zinc-200 px-3 py-1 text-xs font-medium text-zinc-600">
-            <span className="inline-block h-2 w-2 rounded-full bg-emerald-500" />
+          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-gray-300 px-3 py-1 text-xs font-medium text-gray-600">
+            <span className="inline-block h-2 w-2 rounded-full bg-green-500" />
             Open to opportunities
           </span>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
-            {ROLE}
-          </h1>
-          <p className="max-w-xl text-zinc-600 text-base sm:text-lg leading-relaxed">{TAGLINE}</p>
-          <div className="flex flex-wrap items-center gap-3">
-            <a href="#contact" className="rounded-xl bg-zinc-900 text-white px-5 py-3 text-sm font-semibold shadow-sm hover:bg-zinc-800">Start a project</a>
-            <a href="#projects" className="rounded-xl border border-zinc-300 px-5 py-3 text-sm font-semibold text-zinc-800 hover:bg-zinc-50">View projects</a>
+          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">{ROLE}</h1>
+          <p className="max-w-xl text-gray-600 text-base sm:text-lg leading-relaxed">{TAGLINE}</p>
+          <div className="flex gap-3">
+            <a href="#contact" className="bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-500">Start a project</a>
+            <a href="#projects" className="border border-gray-300 px-5 py-3 rounded-lg hover:bg-gray-50">View projects</a>
           </div>
-          <div className="mt-4 flex flex-wrap items-center gap-5 text-zinc-500 text-sm">
-            <a href={LINKS.linkedin} className="hover:text-zinc-800" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <a href={LINKS.github} className="hover:text-zinc-800" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href={LINKS.email} className="hover:text-zinc-800">Email</a>
-            <a href={LINKS.phone} className="hover:text-zinc-800">Call</a>
+          <div className="mt-3 flex flex-wrap gap-5 text-sm text-gray-600">
+            <a href={LINKS.linkedin} target="_blank" className="hover:text-blue-600">LinkedIn</a>
+            <a href={LINKS.github} target="_blank" className="hover:text-blue-600">GitHub</a>
+            <a href={LINKS.email} className="hover:text-blue-600">Email</a>
+            <a href={LINKS.phone} className="hover:text-blue-600">Call</a>
           </div>
         </div>
-        <div className="flex justify-center relative">
-          <div className="absolute -inset-2 rounded-full bg-gradient-to-tr from-blue-400/20 to-cyan-400/20 blur-2xl" />
-          <Image
-            src={LINKS.profilePic}
-            alt={NAME}
-            width={256}
-            height={256}
-            className="relative w-64 h-64 rounded-full object-cover border-4 border-white shadow-xl"
-            priority
-          />
-        </div>
-      </section>
+        <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.6 }} className="flex justify-center">
+          <Image src={LINKS.profilePic} alt={NAME} width={256} height={256} className="w-64 h-64 rounded-full object-cover border-4 border-white shadow-lg" />
+        </motion.div>
+      </motion.section>
 
       {/* Highlights */}
       <section className="mx-auto max-w-6xl px-6 pb-6">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {highlights.map((item) => (
-            <div key={item.label} className="rounded-2xl border border-zinc-200 p-5 bg-white/70">
+            <motion.div key={item.label} whileHover={{ y: -2, boxShadow: "0 10px 25px rgba(0,0,0,.06)" }} className="rounded-2xl border border-gray-200 p-5 bg-white">
               <div className="text-2xl font-bold">{item.value}</div>
-              <div className="text-sm text-zinc-500">{item.label}</div>
-            </div>
+              <div className="text-sm text-gray-500">{item.label}</div>
+            </motion.div>
           ))}
         </div>
       </section>
@@ -189,115 +167,81 @@ export default function Home() {
       {/* Skills */}
       <section id="skills" className="mx-auto max-w-6xl px-6 py-10">
         <h2 className="text-2xl font-semibold">Skills & Tools</h2>
-        <p className="mt-2 text-zinc-600">Technologies used to deliver reliable, scalable mobile apps.</p>
         <div className="mt-6 flex flex-wrap gap-2">
           {skills.map((s) => (
-            <span key={s} className="rounded-full border border-zinc-300 bg-white px-3 py-1 text-sm text-zinc-700">
+            <motion.span key={s} whileHover={{ scale: 1.05 }} className="rounded-full border border-gray-300 bg-white px-3 py-1 text-sm text-gray-700">
               {s}
-            </span>
+            </motion.span>
           ))}
         </div>
       </section>
 
       {/* Projects */}
       <section id="projects" className="mx-auto max-w-6xl px-6 py-10">
-        <div className="flex items-end justify-between gap-4">
-          <div>
-            <h2 className="text-2xl font-semibold">Selected Projects</h2>
-            <p className="mt-2 text-zinc-600">Work focused on performance, UX, and architecture.</p>
-          </div>
-        </div>
+        <h2 className="text-2xl font-semibold">Selected Projects</h2>
         <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((p) => (
-            <div key={p.title} className="group rounded-2xl border border-zinc-200 p-5 hover:shadow-md transition-shadow bg-white/80">
+            <motion.div key={p.title} whileHover={{ y: -2, boxShadow: "0 10px 25px rgba(0,0,0,.06)" }} className="rounded-2xl border border-gray-200 p-5 bg-white">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold group-hover:underline">{p.title}</h3>
-                <svg viewBox="0 0 24 24" className="h-5 w-5 text-zinc-400 group-hover:text-zinc-800"><path fill="currentColor" d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3Z"/></svg>
+                <h3 className="text-lg font-semibold">{p.title}</h3>
+                <svg viewBox="0 0 24 24" className="h-5 w-5 text-gray-400"><path fill="currentColor" d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3Z"/></svg>
               </div>
-              <p className="mt-2 text-sm text-zinc-600">{p.blurb}</p>
+              <p className="mt-2 text-sm text-gray-600">{p.blurb}</p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {p.tags.map((t) => (
-                  <span key={t} className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs text-zinc-700">{t}</span>
+                  <span key={t} className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-700">{t}</span>
                 ))}
               </div>
               {p.links.length > 0 && (
                 <div className="mt-4 flex flex-wrap gap-2">
                   {p.links.map((l) => (
-                    <a key={l.href} href={l.href} className="text-sm font-semibold text-zinc-700 hover:text-zinc-900 underline" target="_blank" rel="noopener noreferrer">
+                    <a key={l.href} href={l.href} className="text-sm font-semibold text-gray-700 hover:text-blue-600 underline" target="_blank" rel="noopener noreferrer">
                       {l.label}
                     </a>
                   ))}
                 </div>
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
 
-      {/* Experience — ONLY Digital Upgraders */}
+      {/* Experience */}
       <section id="experience" className="mx-auto max-w-6xl px-6 py-10">
         <h2 className="text-2xl font-semibold">Experience</h2>
-        <div className="mt-6 space-y-6">
-          {experience.map((job, idx) => (
-            <div key={idx} className="rounded-2xl border border-zinc-200 bg-white/80 p-5">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <div className="text-lg font-semibold">{job.role} · {job.company}</div>
-                <div className="text-sm text-zinc-500">{job.period}</div>
-              </div>
-              <ul className="mt-3 list-disc pl-5 text-zinc-700 space-y-1">
-                {job.points.map((pt) => (
-                  <li key={pt}>{pt}</li>
-                ))}
-              </ul>
+        {experience.map((job) => (
+          <motion.div key={job.role} whileHover={{ y: -2, boxShadow: "0 10px 25px rgba(0,0,0,.06)" }} className="mt-6 rounded-2xl border border-gray-200 bg-white p-5">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="text-lg font-semibold">{job.role} · {job.company}</div>
+              <div className="text-sm text-gray-500">{job.period}</div>
             </div>
-          ))}
-        </div>
+            <ul className="mt-3 list-disc pl-5 text-gray-700 space-y-1">
+              {job.points.map((pt) => <li key={pt}>{pt}</li>)}
+            </ul>
+          </motion.div>
+        ))}
       </section>
 
       {/* Contact */}
       <section id="contact" className="mx-auto max-w-6xl px-6 py-16">
-        <div className="rounded-3xl border border-zinc-200 bg-gradient-to-br from-zinc-50 to-white p-8 md:p-10">
-          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-            <div>
-              <h3 className="text-xl font-semibold">Let’s build something great.</h3>
-              <p className="mt-1 text-zinc-600">Tell me about your idea, and I’ll propose a practical, high‑impact plan.</p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <a
-                href={LINKS.email}
-                className="rounded-xl bg-zinc-900 text-white px-5 py-3 text-sm font-semibold shadow-sm hover:bg-zinc-800"
-              >
-                Email me
-              </a>
-              <a
-                href={LINKS.phone}
-                className="rounded-xl border border-zinc-300 px-5 py-3 text-sm font-semibold text-zinc-800 hover:bg-zinc-50"
-              >
-                Call
-              </a>
-              <a
-                href={LINKS.linkedin}
-                className="rounded-xl border border-zinc-300 px-5 py-3 text-sm font-semibold text-zinc-800 hover:bg-zinc-50"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                LinkedIn
-              </a>
-              <a
-                href={LINKS.resume}
-                className="rounded-xl border border-zinc-300 px-5 py-3 text-sm font-semibold text-zinc-800 hover:bg-zinc-50"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Download CV
-              </a>
-            </div>
+        <div className="rounded-3xl border border-gray-200 bg-white p-8">
+          <h3 className="text-xl font-semibold">Let’s build something great.</h3>
+          <p className="mt-1 text-gray-600">Tell me about your idea, and I’ll propose a practical, high‑impact plan.</p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <a href={LINKS.email} className="bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-500">Email me</a>
+            <a href={LINKS.phone} className="border border-gray-300 px-5 py-3 rounded-lg hover:bg-gray-50">Call</a>
+            <a href={LINKS.linkedin} target="_blank" className="border border-gray-300 px-5 py-3 rounded-lg hover:bg-gray-50">LinkedIn</a>
+            <a href={LINKS.github} target="_blank" className="border border-gray-300 px-5 py-3 rounded-lg hover:bg-gray-50">GitHub</a>
+            <a href={LINKS.resume} target="_blank" className="border border-gray-300 px-5 py-3 rounded-lg hover:bg-gray-50">Download CV</a>
           </div>
         </div>
-        <footer className="mt-10 text-center text-sm text-zinc-500">
-          © {new Date().getFullYear()} {NAME}. All rights reserved.
-        </footer>
+        <footer className="mt-10 text-center text-sm text-gray-500">© {new Date().getFullYear()} {NAME}. All rights reserved.</footer>
       </section>
+
+      {/* Minimal CSS keyframes (no extra file required) */}
+      <style>{`
+        @keyframes floatSlow { 0%,100% { transform: translateY(0) } 50% { transform: translateY(10px) } }
+      `}</style>
     </main>
   );
 }
