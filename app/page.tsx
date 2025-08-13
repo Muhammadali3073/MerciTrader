@@ -8,9 +8,7 @@ export const metadata = {
   icons: {
     icon: [
       { rel: "icon", url: "/favicon.jpeg" },
-      { url: "/favicon.ico" }, // fallback if needed
     ],
-    shortcut: [{ url: "/new-favicon.ico" }],
   },
 };
 
