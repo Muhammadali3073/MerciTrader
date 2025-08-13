@@ -99,9 +99,26 @@ export default function Home() {
             <a href="#projects" className="hover:text-blue-600">Projects</a>
             <a href="#skills" className="hover:text-blue-600">Skills</a>
             <a href="#experience" className="hover:text-blue-600">Experience</a>
+            <a href="#education" className="hover:text-blue-600">Education</a>
             <a href="#contact" className="hover:text-blue-600">Contact</a>
             <a href={LINKS.resume} target="_blank" rel="noopener noreferrer" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500">Resume</a>
           </nav>
+
+          {/* Mobile menu */}
+          <details className="md:hidden relative">
+            <summary className="list-none cursor-pointer rounded-lg border border-gray-300 px-3 py-2 text-sm hover:bg-gray-50 select-none flex items-center gap-2">
+              <span>Menu</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" className="text-gray-500"><path fill="currentColor" d="M4 6h16v2H4V6Zm0 5h16v2H4v-2Zm0 5h16v2H4v-2Z"/></svg>
+            </summary>
+            <div className="absolute right-0 mt-2 w-56 rounded-xl border border-gray-200 bg-white shadow-lg p-2 grid gap-1 z-50">
+              <a href="#projects" className="rounded-lg px-3 py-2 text-sm hover:bg-gray-50">Projects</a>
+              <a href="#skills" className="rounded-lg px-3 py-2 text-sm hover:bg-gray-50">Skills</a>
+              <a href="#experience" className="rounded-lg px-3 py-2 text-sm hover:bg-gray-50">Experience</a>
+              <a href="#education" className="rounded-lg px-3 py-2 text-sm hover:bg-gray-50">Education</a>
+              <a href="#contact" className="rounded-lg px-3 py-2 text-sm hover:bg-gray-50">Contact</a>
+              <a href={LINKS.resume} target="_blank" rel="noopener noreferrer" className="rounded-lg px-3 py-2 text-sm bg-blue-600 text-white hover:bg-blue-500">Resume</a>
+            </div>
+          </details>
         </div>
       </header>
 
@@ -197,6 +214,18 @@ export default function Home() {
             <li>Implemented real‑time features, offline capabilities, and performance optimizations.</li>
             <li>Collaborated with designers & backend; mentored developers; owned CI/CD and releases.</li>
           </ul>
+        </div>
+      </section>
+
+      {/* Education */}
+      <section id="education" className="mx-auto max-w-6xl px-6 py-10">
+        <h2 className="text-2xl font-semibold">Education</h2>
+        <div className="card mt-6 rounded-2xl border border-gray-200 bg-white p-5">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="text-lg font-semibold">BS — Computer Science</div>
+            <div className="text-sm text-gray-500">Oct 2017 – Oct 2021</div>
+          </div>
+          <div className="mt-1 text-gray-600">University of Management & Technology, Lahore</div>
         </div>
       </section>
 
