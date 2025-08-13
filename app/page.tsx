@@ -21,22 +21,27 @@ const LINKS = {
 export default function Home() {
   // Theme
   const [dark, setDark] = useState(false);
+
+  // Sync initial theme with localStorage or OS, then apply to <html>
   useEffect(() => {
-    const stored = localStorage.getItem("theme");
-    const prefers = matchMedia?.("(prefers-color-scheme: dark)").matches;
-    const enable = stored ? stored === "dark" : prefers;
-    setDark(enable);
+    try {
+      const stored = localStorage.getItem("theme");
+      const prefers = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const enable = stored ? stored === 'dark' : prefers;
+      setDark(enable);
+      document.documentElement.classList.toggle('dark', enable);
+    } catch {}
   }, []);
+
+  // Persist whenever user toggles
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", dark);
-    localStorage.setItem("theme", dark ? "dark" : "light");
+    document.documentElement.classList.toggle('dark', dark);
+    try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch {}
   }, [dark]);
 
   // Mobile menu
   const menuRef = useRef<HTMLDetailsElement | null>(null);
-  const closeMenu = () => {
-    if (menuRef.current) menuRef.current.open = false;
-  };
+  const closeMenu = () => { if (menuRef.current) menuRef.current.open = false; };
 
   const highlights = [
     { label: "Experience", value: "3+ yrs" },
@@ -52,6 +57,12 @@ export default function Home() {
     "Clean Architecture", "Unit/Widget/Integration Tests", "CI/CD (Fastlane)",
     "Platform Channels (Pigeon)", "ML Kit (OCR)", "Push Notifications", "Maps & Geolocation",
     "Git/GitHub", "Jira", "Asana", "VS Code", "Android Studio", "Xcode",
+  ];
+
+  const services = [
+    { title: 'Flutter App Development', points: ['iOS, Android & Web', 'Clean Architecture', 'State Management (Bloc/GetX/Riverpod)'] },
+    { title: 'Integrations & Backend', points: ['REST / Firebase', 'Auth, Push, Analytics', 'Payments & Subscriptions'] },
+    { title: 'Quality & Delivery', points: ['Unit/Widget/Integration Tests', 'CI/CD (Fastlane)', 'Play Store / App Store release'] },
   ];
 
   const projects = [
@@ -93,13 +104,7 @@ export default function Home() {
       <header className="sticky top-0 z-50 border-b border-zinc-200/80 bg-white/70 backdrop-blur dark:bg-zinc-900/60 dark:border-zinc-800">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 sm:px-6 py-3">
           <div className="flex items-center gap-3">
-            <Image
-              src={LINKS.profilePic}
-              alt={NAME}
-              width={36}
-              height={36}
-              className="h-9 w-9 rounded-full object-cover ring-1 ring-inset ring-zinc-200 dark:ring-zinc-700"
-            />
+            <Image src={LINKS.profilePic} alt={NAME} width={36} height={36} className="h-9 w-9 rounded-full object-cover ring-1 ring-inset ring-zinc-200 dark:ring-zinc-700" />
             <span className="text-sm font-medium">{NAME}</span>
           </div>
 
@@ -109,65 +114,25 @@ export default function Home() {
             <a href="#skills" className="nav-link">Skills</a>
             <a href="#experience" className="nav-link">Experience</a>
             <a href="#education" className="nav-link">Education</a>
+            <a href="#services" className="nav-link">Services</a>
             <a href="#contact" className="nav-link">Contact</a>
-            <a
-              href={LINKS.resume}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary"
-            >
-              Resume
-            </a>
-            <button
-              aria-label="Toggle theme"
-              onClick={() => setDark(v => !v)}
-              className="btn-ghost"
-            >
-              {dark ? "Light" : "Dark"}
-            </button>
+            <a href={LINKS.resume} target="_blank" rel="noopener noreferrer" className="btn-primary">Resume</a>
+            <button aria-label="Toggle theme" aria-pressed={dark} onClick={() => setDark(v => !v)} className="btn-ghost">{dark ? "Light" : "Dark"}</button>
           </nav>
 
           {/* Mobile actions */}
           <div className="md:hidden flex items-center gap-2">
-            <button
-              aria-label="Toggle theme"
-              onClick={() => setDark(v => !v)}
-              className="btn-ghost"
-              title="Toggle theme"
-            >
-              {dark ? "☀️" : "🌙"}
-            </button>
+            <button aria-label="Toggle theme" aria-pressed={dark} onClick={() => setDark(v => !v)} className="btn-ghost" title="Toggle theme">{dark ? "☀️" : "🌙"}</button>
             <details ref={menuRef} className="relative">
               <summary className="btn-ghost cursor-pointer select-none flex items-center gap-2">
                 <span>Menu</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" className="text-zinc-500"><path fill="currentColor" d="M4 6h16v2H4V6Zm0 5h16v2H4v-2Zm0 5h16v2H4v-2Z"/></svg>
               </summary>
               <div className="absolute right-0 mt-2 w-60 rounded-xl border border-zinc-200 bg-white shadow-lg p-2 grid gap-1 z-50 dark:bg-zinc-900 dark:border-zinc-700">
-                {[
-                  ["#projects", "Projects"],
-                  ["#skills", "Skills"],
-                  ["#experience", "Experience"],
-                  ["#education", "Education"],
-                  ["#contact", "Contact"],
-                ].map(([href, label]) => (
-                  <a
-                    key={href}
-                    href={href}
-                    onClick={closeMenu}
-                    className="rounded-lg px-3 py-2 text-sm hover:bg-zinc-50 dark:hover:bg-zinc-800"
-                  >
-                    {label}
-                  </a>
+                {[["#projects","Projects"],["#skills","Skills"],["#experience","Experience"],["#education","Education"],["#services","Services"],["#contact","Contact"]].map(([href,label]) => (
+                  <a key={href} href={href} onClick={closeMenu} className="rounded-lg px-3 py-2 text-sm hover:bg-zinc-50 dark:hover:bg-zinc-800">{label}</a>
                 ))}
-                <a
-                  href={LINKS.resume}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={closeMenu}
-                  className="rounded-lg px-3 py-2 text-sm bg-blue-600 text-white hover:bg-blue-500"
-                >
-                  Resume
-                </a>
+                <a href={LINKS.resume} target="_blank" rel="noopener noreferrer" onClick={closeMenu} className="rounded-lg px-3 py-2 text-sm bg-blue-600 text-white hover:bg-blue-500">Resume</a>
               </div>
             </details>
           </div>
@@ -177,14 +142,9 @@ export default function Home() {
       {/* Hero */}
       <section className="mx-auto max-w-6xl px-4 sm:px-6 pt-12 pb-16 grid md:grid-cols-2 gap-10 items-center fade-in-up">
         <div className="flex flex-col gap-5">
-          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-zinc-300 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:text-zinc-400">
-            <span className="inline-block h-2 w-2 rounded-full bg-emerald-500" />
-            Open to opportunities
-          </span>
+          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-zinc-300 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:text-zinc-400"><span className="inline-block h-2 w-2 rounded-full bg-emerald-500" />Open to opportunities</span>
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">{ROLE}</h1>
-          <p className="max-w-xl text-zinc-600 text-base sm:text-lg leading-relaxed dark:text-zinc-300">
-            {TAGLINE}
-          </p>
+          <p className="max-w-xl text-zinc-600 text-base sm:text-lg leading-relaxed dark:text-zinc-300">{TAGLINE}</p>
           <div className="flex gap-3">
             <a href="#contact" className="btn-primary">Start a project</a>
             <a href="#projects" className="btn-outline">View projects</a>
@@ -197,20 +157,13 @@ export default function Home() {
           </div>
         </div>
         <div className="flex justify-center scale-in">
-          <Image
-            src={LINKS.profilePic}
-            alt={NAME}
-            width={280}
-            height={280}
-            className="w-64 h-64 sm:w-72 sm:h-72 rounded-full object-cover ring-4 ring-white shadow-xl dark:ring-zinc-800"
-            priority
-          />
+          <Image src={LINKS.profilePic} alt={NAME} width={280} height={280} className="w-64 h-64 sm:w-72 sm:h-72 rounded-full object-cover ring-4 ring-white shadow-xl dark:ring-zinc-800" priority />
         </div>
       </section>
 
       {/* Highlights */}
       <section className="mx-auto max-w-6xl px-4 sm:px-6 pb-4">
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           {highlights.map((h) => (
             <div key={h.label} className="card">
               <div className="text-2xl font-bold">{h.value}</div>
@@ -220,47 +173,42 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Services */}
+      <section id="services" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
+        <div className="section-header"><h2>Services</h2><p>Everything you need to ship and scale a quality Flutter app.</p></div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+          {services.map((s) => (
+            <div key={s.title} className="card">
+              <h3 className="text-lg font-semibold">{s.title}</h3>
+              <ul className="mt-2 list-disc pl-5 text-sm text-zinc-700 dark:text-zinc-300 space-y-1">
+                {s.points.map(p => <li key={p}>{p}</li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Skills */}
       <section id="skills" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
-        <div className="section-header">
-          <h2>Skills & Tools</h2>
-          <p>Technologies used to deliver reliable, scalable mobile apps.</p>
-        </div>
+        <div className="section-header"><h2>Skills & Tools</h2><p>Technologies used to deliver reliable, scalable mobile apps.</p></div>
         <div className="mt-6 flex flex-wrap gap-2">
-          {skills.map((s) => (
-            <span key={s} className="chip">{s}</span>
-          ))}
+          {skills.map((s) => (<span key={s} className="chip">{s}</span>))}
         </div>
       </section>
 
       {/* Projects */}
       <section id="projects" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
-        <div className="section-header">
-          <h2>Selected Projects</h2>
-          <p>Focused on performance, UX, and maintainable architecture.</p>
-        </div>
+        <div className="section-header"><h2>Selected Projects</h2><p>Focused on performance, UX, and maintainable architecture.</p></div>
         <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((p) => (
             <div key={p.title} className="card group">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold group-hover:underline underline-offset-4">{p.title}</h3>
-                <svg viewBox="0 0 24 24" className="h-5 w-5 text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-200">
-                  <path fill="currentColor" d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3Z"/>
-                </svg>
+                <svg viewBox="0 0 24 24" className="h-5 w-5 text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-200"><path fill="currentColor" d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3Z"/></svg>
               </div>
               <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-300">{p.blurb}</p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {p.tags.map((t) => <span key={t} className="tag">{t}</span>)}
-              </div>
-              {p.links.length > 0 && (
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {p.links.map((l) => (
-                    <a key={l.href} href={l.href} className="link" target="_blank" rel="noopener noreferrer">
-                      {l.label}
-                    </a>
-                  ))}
-                </div>
-              )}
+              <div className="mt-3 flex flex-wrap gap-2">{p.tags.map((t) => <span key={t} className="tag">{t}</span>)}</div>
+              {p.links.length > 0 && (<div className="mt-4 flex flex-wrap gap-2">{p.links.map((l) => (<a key={l.href} href={l.href} className="link" target="_blank" rel="noopener noreferrer">{l.label}</a>))}</div>)}
             </div>
           ))}
         </div>
@@ -268,9 +216,7 @@ export default function Home() {
 
       {/* Experience — only Digital Upgraders */}
       <section id="experience" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
-        <div className="section-header">
-          <h2>Experience</h2>
-        </div>
+        <div className="section-header"><h2>Experience</h2></div>
         <div className="card">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div className="text-lg font-semibold">Senior Flutter Developer · Digital Upgraders LLC (Remote)</div>
@@ -286,9 +232,7 @@ export default function Home() {
 
       {/* Education */}
       <section id="education" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
-        <div className="section-header">
-          <h2>Education</h2>
-        </div>
+        <div className="section-header"><h2>Education</h2></div>
         <div className="card">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div className="text-lg font-semibold">BS — Computer Science</div>
@@ -315,13 +259,15 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <footer className="mt-10 text-center text-sm text-zinc-500 dark:text-zinc-400">
-          © {new Date().getFullYear()} {NAME}. All rights reserved.
-        </footer>
+        <footer className="mt-10 text-center text-sm text-zinc-500 dark:text-zinc-400">© {new Date().getFullYear()} {NAME}. All rights reserved.</footer>
       </section>
+
+      {/* Back to top (mobile) */}
+      <a href="#top" className="fixed bottom-5 right-5 md:hidden rounded-full bg-blue-600 text-white px-4 py-3 shadow-lg hover:bg-blue-500">↑</a>
 
       {/* Utilities & animations */}
       <style>{`
+        html { scroll-behavior: smooth; }
         .btn-primary { @apply rounded-lg bg-blue-600 text-white px-5 py-3 text-sm font-semibold shadow-sm hover:bg-blue-500; }
         .btn-outline { @apply rounded-lg border border-zinc-300 px-5 py-3 text-sm font-semibold text-zinc-800 hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800; }
         .btn-ghost { @apply rounded-lg border border-zinc-300 px-3 py-2 text-sm hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-800; }
