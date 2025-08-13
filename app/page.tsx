@@ -1,6 +1,4 @@
-// app/page.tsx — Fresh colorful redesign (animated gradient bg + glass cards + refined spacing)
-// Light-only, no extra packages, no skill icons (as requested)
-
+// app/page.tsx — Light-only portfolio with premium gradient UI, unified cards, and pro "Open to opportunities" badge
 "use client";
 
 import { useRef } from "react";
@@ -9,7 +7,7 @@ import Image from "next/image";
 const NAME = "Muhammad Ali Nawaz";
 const ROLE = "Senior Flutter Developer";
 const TAGLINE =
-  "I build fast, reliable Flutter apps for iOS, Android & Web — clean architecture, smooth UX, and robust testing.";
+  "I design and ship fast, reliable Flutter apps for iOS, Android & Web — clean architecture, smooth UX, and strong testing.";
 
 const LINKS = {
   linkedin: "https://www.linkedin.com/in/muhammad-ali-nawaz-19a082177",
@@ -17,259 +15,192 @@ const LINKS = {
   email: "mailto:alibajwa102@gmail.com",
   phone: "tel:+923047222234",
   resume: "/resume.pdf",
-  profilePic: "/profile_image.jpeg?v=10",
+  profilePic: "/profile_image.jpeg?v=11",
   whatsapp: "https://wa.me/923047222234",
 };
 
+/* ---------- Minimal inline icon set (no deps) ---------- */
+const Icon = {
+  Menu: (p: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" aria-hidden {...p}>
+      <path fill="currentColor" d="M4 6h16v2H4V6Zm0 5h16v2H4v-2Zm0 5h16v2H4v-2Z"/>
+    </svg>
+  ),
+  External: (p: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" aria-hidden {...p}>
+      <path fill="currentColor" d="M14 3h7v7h-2V6.41l-8.29 8.3-1.42-1.42 8.3-8.29H14V3Zm-9 6h6v2H7v8h10v-4h2v6H5V9Z"/>
+    </svg>
+  ),
+  Mail: (p: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" aria-hidden {...p}>
+      <path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/>
+    </svg>
+  ),
+  Phone: (p: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" aria-hidden {...p}>
+      <path fill="currentColor" d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24 11.36 11.36 0 0 0 3.56.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 7a1 1 0 0 1 1-1h2.49a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.56 1 1 0 0 1-.24 1.01l-2.2 2.2Z"/>
+    </svg>
+  ),
+  Github: (p: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" aria-hidden {...p}>
+      <path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.17-3.37-1.17-.45-1.16-1.1-1.47-1.1-1.47-.9-.61.07-.6.07-.6 1 .07 1.52 1.04 1.52 1.04.89 1.52 2.34 1.08 2.91.82.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .85-.27 2.8 1.02A9.76 9.76 0 0 1 12 6.8c.86 0 1.73.12 2.54.35 1.95-1.29 2.8-1.02 2.8-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.85-2.34 4.7-4.57 4.95.36.31.67.92.67 1.86v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/>
+    </svg>
+  ),
+  LinkedIn: (p: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" aria-hidden {...p}>
+      <path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14ZM8.34 18v-7.3H6V18h2.34ZM7.17 9a1.35 1.35 0 1 0 0-2.7 1.35 1.35 0 0 0 0 2.7ZM18 18v-3.94c0-2.1-1.12-3.08-2.62-3.08-1.21 0-1.74.67-2.04 1.14V10.7H11V18h2.34v-3.86c0-.2.01-.41.08-.56.18-.41.6-.84 1.3-.84.92 0 1.29.64 1.29 1.58V18H18Z"/>
+    </svg>
+  ),
+  Doc: (p: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" aria-hidden {...p}>
+      <path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Zm0 2.5L17.5 8H14V4.5ZM8 12h8v2H8v-2Zm0 4h8v2H8v-2Z"/>
+    </svg>
+  ),
+};
+
+/* ---------------------- Page ---------------------- */
 export default function Home() {
   // Mobile menu (auto-close)
   const menuRef = useRef<HTMLDetailsElement | null>(null);
-  const closeMenu = () => {
-    if (menuRef.current) menuRef.current.open = false;
-  };
+  const closeMenu = () => { if (menuRef.current) menuRef.current.open = false; };
 
-  // Content
   const highlights = [
     { label: "Experience", value: "3+ yrs" },
     { label: "Platforms", value: "iOS · Android · Web" },
     { label: "Focus", value: "Performance & UX" },
-    { label: "Method", value: "Agile Delivery" },
+    { label: "Methodology", value: "Agile" },
+  ];
+
+  // Text-only skills (as requested)
+  const skills = [
+    "Flutter","Dart","iOS","Android","Flutter Web",
+    "Bloc","Riverpod","GetX","Provider",
+    "REST APIs","Firebase","Firestore","Auth","FCM",
+    "SQLite","Hive","Clean Architecture","Testing","CI/CD",
+    "Native Channels","ML Kit","Push Notifications","Maps & Geo",
+    "Git","GitHub","Jira","Asana","VS Code","Android Studio","Xcode",
   ];
 
   const services = [
     {
-      title: "End-to-End Flutter",
-      points: [
-        "iOS, Android & Web from one codebase",
-        "Clean Architecture & modular design",
-        "State management (Bloc / Riverpod / GetX)",
-      ],
-      hue: "--c1",
+      title: "Flutter App Development",
+      points: ["iOS, Android & Web", "Clean Architecture", "State Management (Bloc/GetX/Riverpod)"],
     },
     {
       title: "Integrations & Backend",
-      points: [
-        "REST APIs / Firebase / Firestore / Auth",
-        "Push, Analytics, Payments & Subscriptions",
-        "Maps, Location, Media, Realtime",
-      ],
-      hue: "--c2",
+      points: ["REST APIs / Firebase", "Auth, Push, Analytics", "Payments & Subscriptions"],
     },
     {
-      title: "Quality & Release",
-      points: [
-        "Unit / Widget / Integration tests",
-        "CI/CD (Fastlane), versioning, automation",
-        "App Store & Play Store submissions",
-      ],
-      hue: "--c3",
-    },
-  ];
-
-  // Skills (no icons; grouped & colorful)
-  const skillGroups: { title: string; hue: string; items: string[] }[] = [
-    {
-      title: "Core",
-      hue: "--c1",
-      items: ["Flutter", "Dart", "Flutter Web", "Clean Architecture"],
-    },
-    {
-      title: "State Management",
-      hue: "--c2",
-      items: ["Bloc", "Riverpod", "GetX", "Provider"],
-    },
-    {
-      title: "Data & Cloud",
-      hue: "--c3",
-      items: ["REST APIs", "Firebase", "Firestore", "Auth", "FCM", "SQLite", "Hive"],
-    },
-    {
-      title: "Quality & DevOps",
-      hue: "--c4",
-      items: ["Testing", "CI/CD", "Fastlane", "Code Review"],
-    },
-    {
-      title: "Native & Features",
-      hue: "--c5",
-      items: ["Native Channels", "ML Kit", "Push Notifications", "Maps & Geo"],
-    },
-    {
-      title: "Tooling",
-      hue: "--c6",
-      items: ["Git", "GitHub", "Jira", "Asana", "VS Code", "Android Studio", "Xcode"],
+      title: "Quality & Delivery",
+      points: ["Unit/Widget/Integration Tests", "CI/CD (Fastlane)", "Store release & monitoring"],
     },
   ];
 
   const projects = [
-    {
-      title: "Comnow (Digital Call System)",
-      tags: ["Flutter", "iOS", "Android"],
-      blurb:
-        "Digital communication with messaging, voice notes and efficient in-app workflows.",
-      links: [{ label: "App Store", href: "https://apps.apple.com/ae/app/comnow/id1614790733" }],
-    },
-    {
-      title: "Crime Scene Guide",
-      tags: ["Flutter", "Play Store"],
-      blurb: "Scene documentation and note-taking to streamline investigation workflows.",
-      links: [
-        {
-          label: "Google Play",
-          href: "https://play.google.com/store/apps/details?id=com.INAR.investigation",
-        },
-      ],
-    },
-    {
-      title: "LHFADEZ Barbering",
-      tags: ["Flutter", "Stripe", "Scheduling"],
-      blurb:
-        "Booking for haircuts & grooming with seamless scheduling, payments and promotions.",
-      links: [
-        {
-          label: "Google Play",
-          href: "https://play.google.com/store/apps/details?id=com.rubikkube.lhfadezbarbering.android",
-        },
-      ],
-    },
-    {
-      title: "Only Nikah",
-      tags: ["Flutter", "Firebase"],
-      blurb: "Nikah services with guided flows, notifications and admin tooling.",
-      links: [
-        {
-          label: "Google Play",
-          href: "https://play.google.com/store/apps/details?id=com.hyxio.only_nikkah",
-        },
-      ],
-    },
+    { title: "Comnow (Digital Call System)", tags: ["Flutter", "iOS", "Android"], blurb: "Digital communication with messaging, voice notes, and efficient in-app workflows.", links: [{ label: "App Store", href: "https://apps.apple.com/ae/app/comnow/id1614790733" }] },
+    { title: "Crime Scene Guide", tags: ["Flutter", "Play Store"], blurb: "Scene documentation and note-taking to streamline investigation workflows.", links: [{ label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.INAR.investigation" }] },
+    { title: "LHFADEZ Barbering", tags: ["Flutter", "Stripe", "Scheduling"], blurb: "Booking for haircuts & grooming with seamless scheduling and promotions.", links: [{ label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.rubikkube.lhfadezbarbering.android" }] },
+    { title: "Only Nikah", tags: ["Flutter", "Firebase"], blurb: "Nikah services with guided flows and notifications.", links: [{ label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.hyxio.only_nikkah" }] },
   ];
 
   return (
-    <main id="top" className="site">
-      {/* ===================== NAVBAR ===================== */}
-      <header className="navbar">
-        <div className="container">
-          <div className="brand">
-            <Image
-              src={LINKS.profilePic}
-              alt={NAME}
-              width={40}
-              height={40}
-              className="avatar"
-              priority
-            />
-            <span className="brand__name">{NAME}</span>
+    <main id="top" className="bg-canvas text-zinc-900">
+      {/* Background: layered colorful gradient + soft blobs */}
+      <div aria-hidden className="bg-wrap">
+        <div className="bg-gradient-layer" />
+        <div className="bg-blob bg-blob-a" />
+        <div className="bg-blob bg-blob-b" />
+      </div>
+
+      {/* Header */}
+      <header className="sticky top-0 z-50 border-b border-white/60 bg-white/65 backdrop-blur-md">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 sm:px-6 py-3">
+          <div className="flex items-center gap-3">
+            <Image src={LINKS.profilePic} alt={NAME} width={40} height={40} className="h-10 w-10 rounded-full object-cover ring-2 ring-white shadow-sm" priority />
+            <span className="text-sm font-semibold tracking-wide">{NAME}</span>
           </div>
 
           {/* Desktop nav */}
-          <nav className="nav-desktop">
-            <a href="#projects" className="nav-link">
-              Projects
-            </a>
-            <a href="#skills" className="nav-link">
-              Skills
-            </a>
-            <a href="#experience" className="nav-link">
-              Experience
-            </a>
-            <a href="#education" className="nav-link">
-              Education
-            </a>
-            <a href="#services" className="nav-link">
-              Services
-            </a>
-            <a href="#contact" className="nav-link">
-              Contact
-            </a>
-            <a
-              href={LINKS.resume}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn--primary"
-            >
-              Resume
-            </a>
+          <nav className="hidden md:flex items-center gap-5 text-sm">
+            <a href="#projects" className="nav-link">Projects</a>
+            <a href="#skills" className="nav-link">Skills</a>
+            <a href="#experience" className="nav-link">Experience</a>
+            <a href="#education" className="nav-link">Education</a>
+            <a href="#services" className="nav-link">Services</a>
+            <a href="#contact" className="nav-link">Contact</a>
+            <a href={LINKS.resume} target="_blank" rel="noopener noreferrer" className="btn-primary">Resume</a>
           </nav>
 
-          {/* Mobile menu */}
-          <details ref={menuRef} className="menu">
-            <summary className="btn btn--ghost">Menu</summary>
-            <div className="menu__sheet">
-              {["#projects", "#skills", "#experience", "#education", "#services", "#contact"].map(
-                (href) => (
-                  <a key={href} href={href} className="menu__item" onClick={closeMenu}>
-                    {href.replace("#", "")}
-                  </a>
-                ),
-              )}
-              <a
-                href={LINKS.resume}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="menu__cta"
-                onClick={closeMenu}
-              >
-                Resume
-              </a>
-            </div>
-          </details>
+          {/* Mobile actions */}
+          <div className="md:hidden">
+            <details ref={menuRef} className="relative">
+              <summary className="btn-ghost cursor-pointer select-none flex items-center gap-2" aria-label="Open menu">
+                <Icon.Menu className="h-4 w-4" /> Menu
+              </summary>
+              <div className="absolute right-0 mt-2 w-64 rounded-2xl border border-white/70 bg-white/85 backdrop-blur-lg shadow-xl p-2 grid gap-1 z-50">
+                {["#projects","#skills","#experience","#education","#services","#contact"].map((href) => (
+                  <a key={href} href={href} onClick={closeMenu} className="menu-item">{href.replace('#','')}</a>
+                ))}
+                <a href={LINKS.resume} target="_blank" rel="noopener noreferrer" onClick={closeMenu} className="menu-cta">Resume</a>
+              </div>
+            </details>
+          </div>
         </div>
       </header>
 
-      {/* ===================== HERO ===================== */}
-      <section className="hero container">
-        <div className="hero__text">
-          <span className="pill">Open to opportunities</span>
-          <h1 className="hero__title">{ROLE}</h1>
-          <p className="hero__tagline">{TAGLINE}</p>
-          <div className="hero__cta">
-            <a href="#contact" className="btn btn--primary">
-              Start a project
-            </a>
-            <a href="#projects" className="btn btn--outline">
-              View projects
-            </a>
+      {/* Hero */}
+      <section className="mx-auto max-w-6xl px-4 sm:px-6 pt-12 sm:pt-14 pb-12 sm:pb-16 grid md:grid-cols-2 gap-10 items-center fade-in-up">
+        <div className="flex flex-col gap-5">
+          {/* Premium availability badge */}
+          <span className="availability" aria-live="polite">
+            <span className="availability__dot" aria-hidden />
+            <span className="availability__text">Open to opportunities</span>
+            <span className="availability__shine" aria-hidden />
+          </span>
+
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08]">
+            {ROLE}
+          </h1>
+
+          <p className="max-w-xl text-zinc-700 text-base sm:text-lg leading-relaxed">
+            {TAGLINE}
+          </p>
+
+          <div className="flex flex-wrap gap-3">
+            <a href="#contact" className="btn-primary">Start a project</a>
+            <a href="#projects" className="btn-outline">View projects</a>
           </div>
 
-          <div className="hero__links">
-            <a href={LINKS.linkedin} target="_blank" className="link">
-              LinkedIn
-            </a>
-            <a href={LINKS.github} target="_blank" className="link">
-              GitHub
-            </a>
-            <a href={LINKS.email} className="link">
-              Email
-            </a>
-            <a href={LINKS.phone} className="link">
-              Call
-            </a>
-            <a href={LINKS.whatsapp} target="_blank" className="link">
-              WhatsApp
-            </a>
+          <div className="mt-3 flex flex-wrap gap-4 text-sm text-zinc-700">
+            <a href={LINKS.linkedin} target="_blank" className="icon-link"><Icon.LinkedIn className="h-4 w-4"/> LinkedIn</a>
+            <a href={LINKS.github} target="_blank" className="icon-link"><Icon.Github className="h-4 w-4"/> GitHub</a>
+            <a href={LINKS.email} className="icon-link"><Icon.Mail className="h-4 w-4"/> Email</a>
+            <a href={LINKS.phone} className="icon-link"><Icon.Phone className="h-4 w-4"/> Call</a>
           </div>
         </div>
 
-        <div className="hero__photo">
-          <div className="photo-wrap">
-            <div className="photo-ring" />
+        {/* Avatar */}
+        <div className="flex md:justify-end justify-center">
+          <div className="relative inline-block scale-in">
+            <div className="avatar-ring" />
             <Image
               src={LINKS.profilePic}
               alt={NAME}
               width={280}
               height={280}
-              className="photo"
+              className="w-44 h-44 sm:w-64 sm:h-64 md:w-72 md:h-72 rounded-full object-cover border-4 border-white shadow-xl"
               priority
             />
           </div>
         </div>
       </section>
 
-      {/* ===================== HIGHLIGHTS ===================== */}
-      <section className="section container">
-        <div className="grid grid--stats">
-          {highlights.map((h, i) => (
-            <article key={h.label} className={`stat card hue-${(i % 6) + 1}`}>
+      {/* Highlights */}
+      <section className="mx-auto max-w-6xl px-4 sm:px-6 pb-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {highlights.map((h) => (
+            <article key={h.label} className="stat">
+              <div className="stat__bg" aria-hidden />
               <div className="stat__value">{h.value}</div>
               <div className="stat__label">{h.label}</div>
             </article>
@@ -277,81 +208,61 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===================== SERVICES ===================== */}
-      <section id="services" className="section container">
-        <header className="section__head">
+      {/* Services */}
+      <section id="services" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
+        <div className="section-header">
           <h2>Services</h2>
           <p>Everything you need to ship and scale a quality Flutter app.</p>
-        </header>
-
-        <div className="grid grid--cards">
-          {services.map((s, i) => (
-            <article key={s.title} className={`card card--pad hue-${(i % 6) + 1}`}>
-              <h3 className="card__title">{s.title}</h3>
-              <ul className="list">
-                {s.points.map((p) => (
-                  <li key={p}>{p}</li>
-                ))}
+        </div>
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {services.map((s) => (
+            <article key={s.title} className="card">
+              <h3 className="text-lg font-semibold">{s.title}</h3>
+              <ul className="mt-2 list-disc pl-5 text-sm text-zinc-700 space-y-1">
+                {s.points.map((p) => <li key={p}>{p}</li>)}
               </ul>
             </article>
           ))}
         </div>
       </section>
 
-      {/* ===================== SKILLS ===================== */}
-      <section id="skills" className="section container">
-        <header className="section__head">
+      {/* Skills (text-only chips, colorful) */}
+      <section id="skills" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
+        <div className="section-header">
           <h2>Skills & Tools</h2>
           <p>A focused toolbox I use to ship quality apps fast.</p>
-        </header>
-
-        <div className="grid grid--skills">
-          {skillGroups.map((g, i) => (
-            <article key={g.title} className={`card card--pad hue-${(i % 6) + 1}`}>
-              <div className="group-head">
-                <h3 className="group-head__title">{g.title}</h3>
-                <span className="group-head__line" />
-              </div>
-              <div className="chips">
-                {g.items.map((s) => (
-                  <span key={s} className="chip">
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </article>
+        </div>
+        <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-3">
+          {skills.map((s) => (
+            <span key={s} className="chip">
+              <span className="chip__glow" aria-hidden />
+              {s}
+            </span>
           ))}
         </div>
       </section>
 
-      {/* ===================== PROJECTS ===================== */}
-      <section id="projects" className="section container">
-        <header className="section__head">
+      {/* Projects */}
+      <section id="projects" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
+        <div className="section-header">
           <h2>Selected Projects</h2>
-          <p>Performance, UX and maintainability — proven in production.</p>
-        </header>
-
-        <div className="grid grid--cards">
-          {projects.map((p, i) => (
-            <article key={p.title} className={`card card--pad hue-${(i % 6) + 1}`}>
-              <div className="card__top">
-                <h3 className="card__title">{p.title}</h3>
-                <span className="ribbon">Live</span>
+          <p>Focused on performance, UX, and maintainable architecture.</p>
+        </div>
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {projects.map((p) => (
+            <article key={p.title} className="card group">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold group-hover:underline underline-offset-4">{p.title}</h3>
+                <Icon.External className="h-5 w-5 text-zinc-400 group-hover:text-zinc-700" />
               </div>
-              <p className="card__blurb">{p.blurb}</p>
-              <div className="tags">
-                {p.tags.map((t) => (
-                  <span key={t} className="tag">
-                    {t}
-                  </span>
-                ))}
+              <p className="mt-2 text-sm text-zinc-700">{p.blurb}</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {p.tags.map((t) => <span key={t} className="tag">{t}</span>)}
               </div>
               {p.links.length > 0 && (
-                <div className="links">
+                <div className="mt-4 flex flex-wrap gap-2">
                   {p.links.map((l) => (
-                    <a key={l.href} href={l.href} className="link" target="_blank" rel="noopener noreferrer">
-                      {l.label}
-                    </a>
+                    <a key={l.href} href={l.href} className="link" target="_blank" rel="noopener noreferrer">{l.label}</a>
                   ))}
                 </div>
               )}
@@ -360,302 +271,270 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===================== EXPERIENCE ===================== */}
-      <section id="experience" className="section container">
-        <header className="section__head">
-          <h2>Experience</h2>
-        </header>
-
-        <article className="card card--pad hue-2">
-          <div className="xp-head">
-            <div className="xp-head__role">
-              Senior Flutter Developer · Digital Upgraders LLC (Remote)
-            </div>
-            <div className="xp-head__time">Feb 2023 – Present</div>
+      {/* Experience */}
+      <section id="experience" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
+        <div className="section-header"><h2>Experience</h2></div>
+        <article className="card">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="text-lg font-semibold">Senior Flutter Developer · Digital Upgraders LLC (Remote)</div>
+            <div className="text-sm text-zinc-600">Feb 2023 – Present</div>
           </div>
-          <ul className="list">
-            <li>Led cross-platform development with feature-based architecture.</li>
-            <li>Implemented realtime features, offline capability & perf optimizations.</li>
-            <li>Mentored developers, owned CI/CD and store releases.</li>
+          <ul className="mt-3 list-disc pl-5 text-zinc-700 space-y-1 text-sm">
+            <li>Lead development of cross-platform apps with clean architecture and robust state management.</li>
+            <li>Implemented real-time features, offline capabilities, and performance optimizations.</li>
+            <li>Collaborated with designers & backend; mentored developers; owned CI/CD and releases.</li>
           </ul>
         </article>
       </section>
 
-      {/* ===================== EDUCATION ===================== */}
-      <section id="education" className="section container">
-        <header className="section__head">
-          <h2>Education</h2>
-        </header>
-
-        <article className="card card--pad hue-3">
-          <div className="xp-head">
-            <div className="xp-head__role">BS — Computer Science</div>
-            <div className="xp-head__time">Oct 2017 – Oct 2021</div>
+      {/* Education */}
+      <section id="education" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
+        <div className="section-header"><h2>Education</h2></div>
+        <article className="card">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="text-lg font-semibold">BS — Computer Science</div>
+            <div className="text-sm text-zinc-600">Oct 2017 – Oct 2021</div>
           </div>
-          <p className="muted">University of Management & Technology, Lahore</p>
+          <div className="mt-1 text-zinc-700 text-sm">University of Management & Technology, Lahore</div>
         </article>
       </section>
 
-      {/* ===================== CONTACT ===================== */}
-      <section id="contact" className="cta container">
-        <article className="card card--cta hue-5">
-          <div className="cta__row">
+      {/* Contact */}
+      <section id="contact" className="mx-auto max-w-6xl px-4 sm:px-6 py-16">
+        <article className="card-lg">
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div>
-              <h3 className="cta__title">Let’s build something great.</h3>
-              <p className="cta__text">
-                Tell me about your idea and I’ll propose a practical, high-impact plan.
-              </p>
+              <h3 className="text-xl font-semibold">Let’s build something great.</h3>
+              <p className="mt-1 text-zinc-700">Tell me about your idea, and I’ll propose a practical, high-impact plan.</p>
             </div>
-            <div className="cta__actions">
-              <a href={LINKS.email} className="btn btn--primary">
-                Email
-              </a>
-              <a href={LINKS.phone} className="btn btn--outline">
-                Call
-              </a>
-              <a href={LINKS.whatsapp} target="_blank" className="btn btn--outline">
-                WhatsApp
-              </a>
-              <a href={LINKS.linkedin} target="_blank" className="btn btn--outline">
-                LinkedIn
-              </a>
-              <a href={LINKS.github} target="_blank" className="btn btn--outline">
-                GitHub
-              </a>
-              <a href={LINKS.resume} target="_blank" className="btn btn--outline">
-                Download CV
-              </a>
+            <div className="flex flex-wrap gap-3">
+              <a href={LINKS.email} className="btn-primary"><Icon.Mail className="h-4 w-4"/> &nbsp;Email</a>
+              <a href={LINKS.phone} className="btn-outline"><Icon.Phone className="h-4 w-4"/> &nbsp;Call</a>
+              <a href={LINKS.linkedin} target="_blank" className="btn-outline"><Icon.LinkedIn className="h-4 w-4"/> &nbsp;LinkedIn</a>
+              <a href={LINKS.github} target="_blank" className="btn-outline"><Icon.Github className="h-4 w-4"/> &nbsp;GitHub</a>
+              <a href={LINKS.resume} target="_blank" className="btn-outline"><Icon.Doc className="h-4 w-4"/> &nbsp;Download CV</a>
             </div>
           </div>
         </article>
-        <footer className="footer">© {new Date().getFullYear()} {NAME}. All rights reserved.</footer>
+        <footer className="mt-10 text-center text-sm text-zinc-600">
+          © {new Date().getFullYear()} {NAME}. All rights reserved.
+        </footer>
       </section>
 
-      {/* ===================== STYLES ===================== */}
+      {/* Back to top */}
+      <a href="#top" className="back-to-top" aria-label="Back to top">↑</a>
+
+      {/* =================== Styles =================== */}
       <style>{`
-        /* ====== Design tokens (colors & radii) ====== */
-        :root{
-          --radius: 18px;
+        html { scroll-behavior: smooth; }
 
-          /* Vibrant brand hues */
-          --c1: 255 107 107;   /* coral red */
-          --c2: 78 205 196;    /* teal */
-          --c3: 94 129 244;    /* blue */
-          --c4: 255 200 87;    /* amber */
-          --c5: 156 39 176;    /* purple */
-          --c6: 0 209 178;     /* aqua */
-
-          /* Card surface */
-          --card-bg: 255 255 255 / .08; /* glass */
-          --card-bd: 255 255 255 / .22;
-
-          /* Text */
-          --txt: 255 255 255;
-          --muted: 236 239 241;
+        /* --- Color system for the whole page --- */
+        :root {
+          --bg-a: #fef9f4;   /* warm cream */
+          --bg-b: #f1f7ff;   /* soft blue */
+          --bg-c: #f6f5ff;   /* lilac */
+          --grad-a: #5b9dff; /* blue */
+          --grad-b: #22d3ee; /* cyan */
+          --grad-c: #a78bfa; /* purple */
+          --grad-d: #f472b6; /* pink */
+          --card-border: 24,24,27,0.08;
+          --shadow: 0 14px 40px rgba(0,0,0,.06);
+          --shadow-hover: 0 18px 44px rgba(0,0,0,.08);
+          --radius: 1.25rem;
         }
 
-        /* ====== Site background (animated gradient) ====== */
-        .site{
+        /* Background canvas */
+        .bg-canvas {
+          position: relative;
           min-height: 100dvh;
-          color: rgb(var(--txt));
-          background: linear-gradient(125deg, #0b1026, #1b0b2a 30%, #130b34 55%, #0b1e2a 85%);
-          background-size: 180% 180%;
-          animation: bgMove 18s ease-in-out infinite;
+          background: radial-gradient(90% 60% at 10% 0%, var(--bg-a), transparent 60%),
+                      radial-gradient(70% 60% at 100% 0%, var(--bg-b), transparent 60%),
+                      radial-gradient(70% 80% at 100% 100%, var(--bg-c), #ffffff 60%);
         }
-        @keyframes bgMove {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
+        .bg-wrap { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: -1; }
+        .bg-gradient-layer {
+          position: absolute; inset: -20%;
+          background: radial-gradient(120% 80% at 0% 0%, rgba(250,250,255,.65), transparent 60%),
+                      radial-gradient(90% 80% at 100% 0%, rgba(232,250,255,.55), transparent 60%),
+                      radial-gradient(110% 100% at 100% 100%, rgba(245,235,255,.5), transparent 60%);
+          filter: blur(2px);
         }
+        .bg-blob { position: absolute; border-radius: 9999px; filter: blur(44px); opacity: .28; }
+        .bg-blob-a { width: 38rem; height: 38rem; top: -6rem; left: -8rem; background: conic-gradient(from 0deg, var(--grad-a), var(--grad-b), transparent 60%); }
+        .bg-blob-b { width: 44rem; height: 44rem; right: -10rem; top: 6rem; background: conic-gradient(from 120deg, var(--grad-c), var(--grad-d), transparent 55%); }
 
-        /* Subtle floating blobs for depth */
-        .site::before, .site::after{
-          content:"";
-          position:fixed; inset:auto;
-          width:620px; height:620px; border-radius:9999px;
-          filter: blur(80px); opacity:.35; pointer-events:none; z-index:0;
+        /* Buttons & nav */
+        .btn-primary{
+          display:inline-flex; align-items:center; gap:.5rem;
+          padding:.8rem 1.25rem; border-radius:12px;
+          font-size:.92rem; font-weight:700; color:#fff;
+          background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+          box-shadow: 0 10px 20px rgba(96,165,250,.25);
+          text-decoration:none;
+          transition: transform .15s ease, box-shadow .2s ease, opacity .2s ease;
         }
-        .site::before{ background: radial-gradient(closest-side, rgba(255,107,107,.35), transparent); top:-180px; left:-160px; }
-        .site::after{ background: radial-gradient(closest-side, rgba(94,129,244,.35), transparent); bottom:-200px; right:-180px; }
+        .btn-primary:hover{ transform: translateY(-1px); box-shadow: 0 12px 26px rgba(96,165,250,.3); opacity: .97; }
 
-        /* ====== Layout containers ====== */
-        .container{ max-width: 1120px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
-        .section{ padding: 48px 0; }
-        .cta{ padding: 72px 0; }
+        .btn-outline{
+          display:inline-flex; align-items:center; gap:.5rem;
+          padding:.8rem 1.25rem; border-radius:12px;
+          font-size:.92rem; font-weight:700; color:#0b1220;
+          border:1px solid rgba(24,24,27,.12); background:#fff;
+          text-decoration:none;
+          transition: background .2s ease, transform .15s ease;
+        }
+        .btn-outline:hover{ background: #f8fafc; transform: translateY(-1px); }
 
-        /* ====== Navbar ====== */
-        .navbar{
-          position: sticky; top: 0; z-index: 50;
-          background: rgba(9, 13, 31, .35);
-          backdrop-filter: blur(10px);
-          border-bottom: 1px solid rgba(255,255,255,.08);
+        .btn-ghost{
+          display:inline-flex; align-items:center; gap:.5rem;
+          padding:.55rem .85rem; border-radius:12px; font-size:.9rem;
+          border:1px solid rgba(24,24,27,.12); background:#fff;
+          transition: background .2s ease;
         }
-        .navbar .container{
-          display:flex; align-items:center; justify-content:space-between; padding: 12px 20px;
-        }
-        .brand{ display:flex; align-items:center; gap:10px; }
-        .brand__name{ font-size:.95rem; font-weight:600; opacity:.95; }
-        .avatar{ border-radius:9999px; border:2px solid rgba(255,255,255,.5); }
+        .btn-ghost:hover{ background:#f2f6ff; }
 
-        .nav-desktop{ display:none; gap:18px; align-items:center; }
-        .nav-link{ color:rgba(255,255,255,.92); text-decoration:none; font-size:.92rem; }
-        .nav-link:hover{ color:white; }
-        .menu{ display:block; }
-        .menu > summary{ cursor:pointer; }
-        .menu__sheet{
-          position:absolute; right:10px; top:50px; width:250px;
-          background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.16); border-radius:14px;
-          backdrop-filter: blur(10px);
-          padding:8px; display:grid; gap:6px;
-        }
-        .menu[open] .menu__sheet{ animation: sheet .2s ease-out both; }
-        @keyframes sheet{ from{ opacity:0; transform:translateY(-6px) } to{ opacity:1; transform:translateY(0) } }
-        .menu__item{
-          display:block; padding:.6rem .8rem; border-radius:10px; color:white; text-decoration:none;
-        }
-        .menu__item:hover{ background: rgba(255,255,255,.08); }
-        .menu__cta{
-          display:block; text-align:center; padding:.65rem .8rem; border-radius:10px; color:#0b1026; text-decoration:none;
-          background: linear-gradient(135deg, rgb(var(--c3)), rgb(var(--c2)));
-          font-weight:700;
-        }
+        .nav-link{ color:#0b1220; text-decoration:none; font-weight:600; letter-spacing:.01em; }
+        .nav-link:hover{ color:#2563eb; }
 
-        /* Desktop breakpoint */
-        @media (min-width: 900px){
-          .nav-desktop{ display:flex; }
-          .menu{ display:none; }
+        .menu-item{
+          display:block; padding:.65rem .8rem; border-radius:12px;
+          color:#0b1220; text-decoration:none; font-weight:600;
         }
+        .menu-item:hover{ background:#f2f6ff; }
+        .menu-cta{
+          display:block; padding:.65rem .8rem; border-radius:12px; color:#fff;
+          text-decoration:none; text-align:center; font-weight:800;
+          background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+        }
+        .icon-link{ display:inline-flex; align-items:center; gap:.45rem; text-decoration:none; color:#0b1220; font-weight:600; }
+        .icon-link:hover{ color:#2563eb; }
 
-        /* ====== Hero ====== */
-        .hero{
-          padding: 56px 0 36px;
-          display:grid; grid-template-columns: 1fr; gap: 28px; align-items:center;
-        }
-        @media (min-width: 900px){
-          .hero{ grid-template-columns: 1.2fr .8fr; gap: 40px; padding: 72px 0 40px; }
-        }
-        .hero__text{ display:flex; flex-direction:column; gap:18px; }
-        .pill{
-          display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:9999px;
-          background: rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); font-size:.8rem;
-        }
-        .hero__title{ font-size: clamp(1.9rem, 2.8vw + 1rem, 3.2rem); line-height:1.1; font-weight:800; letter-spacing:.2px; }
-        .hero__tagline{ max-width: 46ch; color: rgba(255,255,255,.85); font-size: clamp(.98rem, .35vw + .9rem, 1.1rem); }
+        .section-header h2{ font-size:1.45rem; font-weight:800; letter-spacing:.01em; }
+        .section-header p{ margin-top:.45rem; color:#4b5563; }
 
-        .hero__cta{ display:flex; flex-wrap:wrap; gap:12px; margin-top:2px; }
-        .btn{
-          display:inline-flex; align-items:center; justify-content:center; gap:.5rem; cursor:pointer;
-          padding:.8rem 1.2rem; border-radius:14px; font-size:.94rem; font-weight:700; text-decoration:none;
-          transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+        /* Unified gradient-border card */
+        .card,.card-lg,.stat{
+          position:relative; overflow:hidden; background:#fff;
+          border-radius: var(--radius);
+          border: 1px solid rgba(var(--card-border));
+          box-shadow: var(--shadow);
+          transition: transform .2s ease, box-shadow .22s ease, border-color .2s ease;
         }
-        .btn--primary{
-          color:#0b1026; background: linear-gradient(135deg, rgb(var(--c3)), rgb(var(--c2)));
-          box-shadow: 0 12px 30px rgba(94,129,244,.25);
-        }
-        .btn--primary:hover{ transform: translateY(-1px); filter: brightness(1.02); }
-        .btn--outline{
-          color:white; border:1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.04);
-        }
-        .btn--outline:hover{ background: rgba(255,255,255,.08); transform: translateY(-1px); }
-
-        .hero__links{ display:flex; flex-wrap:wrap; gap:14px; margin-top:8px; }
-        .link{ color: white; text-decoration: underline; text-underline-offset: 4px; }
-        .link:hover{ color: rgb(255,255,255); filter: brightness(1.1); }
-
-        .hero__photo{ display:flex; justify-content:center; }
-        .photo-wrap{ position:relative; display:inline-block; }
-        .photo{ width: 280px; height: 280px; object-fit: cover; border-radius:9999px; border: 4px solid rgba(255,255,255,.55); box-shadow: 0 20px 60px rgba(0,0,0,.35); }
-        .photo-ring{
-          position:absolute; inset:-14px; border-radius:9999px;
-          background: conic-gradient(from 0deg, rgb(var(--c3)), rgb(var(--c5)), rgb(var(--c2)), rgb(var(--c3)));
-          filter: blur(18px); opacity:.32; z-index:-1;
-        }
-
-        /* ====== Cards & grids ====== */
-        .card{
-          position:relative; background: rgba(var(--card-bg));
-          border: 1px solid rgba(var(--card-bd)); border-radius: var(--radius);
-          overflow:hidden; transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
-          box-shadow: 0 18px 40px rgba(0,0,0,.25);
-        }
-        .card::before{
+        .card::before,.card-lg::before,.stat::before{
           content:""; position:absolute; inset:0; padding:1px; border-radius:inherit;
-          background: conic-gradient(from 10deg, rgb(var(--c3)), rgb(var(--c2)), rgb(var(--c5)), rgb(var(--c4)), rgb(var(--c6)), rgb(var(--c3)));
-          -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-          -webkit-mask-composite: xor; mask-composite: exclude; opacity:.55; pointer-events:none;
+          background: linear-gradient(120deg, var(--grad-a), var(--grad-b), var(--grad-c), var(--grad-d), var(--grad-a));
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor; mask-composite: exclude;
+          opacity: .9; pointer-events: none;
         }
-        .card:hover{ transform: translateY(-3px); }
+        .card{ padding:1.2rem; }
+        .card-lg{ padding:1.7rem; border-radius: calc(var(--radius) + .25rem); }
+        .card:hover,.card-lg:hover,.stat:hover{ transform: translateY(-3px); box-shadow: var(--shadow-hover); border-color: rgba(24,24,27,.14); }
 
-        .card--pad{ padding: 18px; }
-        .card--cta{ padding: 26px; }
-        @media (min-width: 900px){ .card--pad{ padding: 22px; } .card--cta{ padding: 34px; } }
-
-        /* Color accents per card */
-        .hue-1::before{ background: conic-gradient(from 10deg, rgb(var(--c1)), rgb(var(--c2)), rgb(var(--c3))); }
-        .hue-2::before{ background: conic-gradient(from 10deg, rgb(var(--c2)), rgb(var(--c3)), rgb(var(--c4))); }
-        .hue-3::before{ background: conic-gradient(from 10deg, rgb(var(--c3)), rgb(var(--c4)), rgb(var(--c5))); }
-        .hue-4::before{ background: conic-gradient(from 10deg, rgb(var(--c4)), rgb(var(--c5)), rgb(var(--c6))); }
-        .hue-5::before{ background: conic-gradient(from 10deg, rgb(var(--c5)), rgb(var(--c6)), rgb(var(--c1))); }
-        .hue-6::before{ background: conic-gradient(from 10deg, rgb(var(--c6)), rgb(var(--c1)), rgb(var(--c2))); }
-
-        /* Stats (highlights) */
-        .grid--stats{
-          display:grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
+        /* Stats */
+        .stat{ padding:1.15rem 1.25rem; }
+        .stat__bg{
+          position:absolute; right:-22px; top:-22px; width:96px; height:96px; border-radius:50%;
+          background: radial-gradient(60px 60px at 30% 30%, rgba(96,165,250,.35), rgba(34,211,238,.24), transparent 70%);
+          filter: blur(2px);
         }
-        @media (min-width: 800px){ .grid--stats{ grid-template-columns: repeat(4, 1fr); gap: 18px; } }
-        .stat{ padding: 18px; }
-        .stat__value{ font-size: 1.35rem; font-weight: 900; letter-spacing:.2px; }
-        .stat__label{ margin-top: 4px; font-size:.72rem; letter-spacing:.12em; text-transform: uppercase; color: rgba(var(--muted), .85); }
+        .stat__value{ font-size:1.25rem; font-weight:900; letter-spacing:.2px; }
+        .stat__label{ font-size:.72rem; text-transform:uppercase; letter-spacing:.14em; color:#6b7280; margin-top:.15rem; }
 
-        /* Cards grid (services, projects) */
-        .grid--cards{
-          display:grid; grid-template-columns: 1fr; gap: 16px;
-        }
-        @media (min-width: 800px){ .grid--cards{ grid-template-columns: repeat(3, 1fr); gap: 18px; } }
-
-        .card__title{ font-weight: 800; letter-spacing:.2px; }
-        .card__top{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
-        .card__blurb{ margin-top: 8px; color: rgba(255,255,255,.88); }
-        .ribbon{
-          display:inline-block; font-size:.7rem; font-weight:800; padding: .25rem .55rem; border-radius: 9999px;
-          color:#0b1026; background: linear-gradient(135deg, rgb(var(--c4)), rgb(var(--c1)));
-        }
-        .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
-        .tag{
-          display:inline-block; font-size:.72rem; padding:.18rem .52rem; border-radius:9999px;
-          background: rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18);
-        }
-        .links{ display:flex; flex-wrap:wrap; gap:12px; margin-top:12px; }
-
-        /* Skills */
-        .grid--skills{
-          display:grid; grid-template-columns: 1fr; gap: 16px;
-        }
-        @media (min-width: 900px){ .grid--skills{ grid-template-columns: repeat(3, 1fr); gap: 18px; } }
-        .group-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
-        .group-head__title{ font-weight: 900; letter-spacing:.3px; }
-        .group-head__line{ flex:1; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,.2), rgba(255,255,255,0)); }
-        .chips{ display:flex; flex-wrap:wrap; gap:10px; }
+        /* Skill chips (colorful + airy) */
         .chip{
-          display:inline-flex; align-items:center; justify-content:center; padding:.45rem .8rem; border-radius:12px; font-weight:700;
-          background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
-          border: 1px solid rgba(255,255,255,.18);
-          box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+          position:relative; display:inline-flex; align-items:center; justify-content:center;
+          padding:.55rem .9rem; border-radius:9999px; font-weight:700; font-size:.88rem;
+          color:#0b1220; background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
+          border:1px solid rgba(24,24,27,.08);
+          box-shadow: 0 10px 22px rgba(0,0,0,.06);
+          letter-spacing:.01em;
+        }
+        .chip__glow{
+          position:absolute; inset:-2px; border-radius:inherit; z-index:-1;
+          background: conic-gradient(from 0deg, rgba(91,157,255,.25), rgba(164,120,255,.25), rgba(244,114,182,.25), rgba(34,211,238,.25), rgba(91,157,255,.25));
+          filter: blur(10px);
+          opacity:.55;
         }
 
-        /* Lists */
-        .list{ margin-top: 8px; padding-left: 1.1rem; line-height: 1.6; }
-        .list li + li{ margin-top: 6px; }
-        .muted{ color: rgba(var(--muted), .85); }
+        /* Tags & links */
+        .tag{ display:inline-block; padding:.2rem .55rem; border-radius:9999px; background:#f4f4f5; color:#3f3f46; font-size:.75rem; font-weight:600; }
+        .link{ color:#0b1220; font-weight:800; text-decoration:underline; }
+        .link:hover{ color:#2563eb; }
 
-        /* CTA */
-        .card--cta{ box-shadow: 0 30px 80px rgba(0,0,0,.35); }
-        .cta__row{ display:flex; flex-direction:column; gap:20px; align-items:flex-start; }
-        .cta__title{ font-size: clamp(1.2rem, .9vw + 1rem, 1.6rem); font-weight:900; }
-        .cta__text{ margin-top: 6px; color: rgba(255,255,255,.9); }
-        .cta__actions{ display:flex; flex-wrap:wrap; gap:10px; margin-top:4px; }
-        .footer{ margin-top: 14px; text-align:center; color: rgba(255,255,255,.7); font-size:.9rem; }
+        /* Avatar ring */
+        .avatar-ring{
+          position:absolute; inset:-12px; border-radius:9999px;
+          background: conic-gradient(from 0deg, var(--grad-a), var(--grad-c), var(--grad-d), var(--grad-b), var(--grad-a));
+          filter: blur(16px); opacity:.28; z-index:-1;
+        }
 
+        /* Back to top */
+        .back-to-top{
+          position:fixed; right:1.1rem; bottom:1.1rem; border-radius:9999px;
+          padding:.65rem 1rem; color:#fff; text-decoration:none; font-weight:900;
+          background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+          box-shadow: 0 14px 28px rgba(34,211,238,.25);
+        }
+        .back-to-top:hover{ filter: brightness(.98); }
+
+        /* ===== Premium "Open to opportunities" badge ===== */
+        .availability{
+          position:relative; display:inline-flex; align-items:center; gap:10px;
+          padding:9px 16px; border-radius:9999px;
+          font-size:.85rem; font-weight:900; letter-spacing:.02em;
+          color:#0b1026;
+          background:
+            linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.82)),
+            radial-gradient(120% 140% at 0% 0%, rgba(255,255,255,.28), transparent 60%);
+          border:1px solid rgba(255,255,255,.85);
+          box-shadow:
+            0 12px 26px rgba(0,0,0,.18),
+            inset 0 1px 0 rgba(255,255,255,.85),
+            inset 0 -1px 0 rgba(255,255,255,.35);
+          overflow:hidden; transform: translateZ(0);
+        }
+        .availability::before{
+          content:""; position:absolute; inset:-2px; border-radius:inherit;
+          background: conic-gradient(from 10deg,
+            rgba(91,157,255,.35), rgba(34,211,238,.35), rgba(167,139,250,.35), rgba(244,114,182,.35), rgba(91,157,255,.35));
+          filter: blur(12px); opacity:.28; z-index:-1;
+        }
+        .availability__dot{
+          width:9px; height:9px; border-radius:9999px;
+          background: linear-gradient(135deg, #22c55e, #86efac);
+          box-shadow: 0 0 0 3px rgba(34,197,94,.15), 0 0 16px rgba(34,197,94,.55);
+          animation: pulseDot 2.2s ease-in-out infinite;
+        }
+        @keyframes pulseDot{
+          0%,100%{ box-shadow: 0 0 0 3px rgba(34,197,94,.15), 0 0 12px rgba(34,197,94,.45); transform: scale(1) }
+          50%   { box-shadow: 0 0 0 5px rgba(34,197,94,.22), 0 0 20px rgba(34,197,94,.6);  transform: scale(1.06) }
+        }
+        .availability__text{ position:relative; z-index:1; white-space:nowrap; }
+        .availability__shine{
+          position:absolute; inset:-40%;
+          background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,.7) 45%, rgba(255,255,255,.92) 50%, rgba(255,255,255,.7) 55%, transparent 65%);
+          transform: translateX(-60%);
+          animation: shine 4.8s ease-in-out infinite;
+          pointer-events:none; mix-blend-mode: screen; opacity:.65;
+        }
+        @keyframes shine{
+          0% { transform: translateX(-60%) rotate(0.001deg); }
+          55%{ transform: translateX(60%)  rotate(0.001deg); }
+          100%{ transform: translateX(60%) rotate(0.001deg); }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp{ from{ opacity:0; transform:translateY(10px) } to{ opacity:1; transform:translateY(0) } }
+        .fade-in-up{ animation: fadeInUp .6s ease-out both; }
+        .scale-in{ animation: fadeInUp .5s ease-out both; }
+
+        /* Responsive tweaks */
+        @media (max-width: 640px){
+          header .btn-primary{ padding:.65rem 1rem; }
+          .back-to-top{ right:.8rem; bottom:.8rem; }
+          .availability{ padding:8px 14px; gap:9px; font-size:.82rem; }
+        }
       `}</style>
     </main>
   );
