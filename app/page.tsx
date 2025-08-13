@@ -24,13 +24,17 @@ const LINKS = {
 function TypingText({
   text,
   startDelay = 0,
-  speed = 30, // ms per character
+  speed = 30,       // typing speed
+  deleteSpeed = 20, // deleting speed
+  pause = 1500,     // pause after typing before deleting
   ariaLive = "polite",
   showCaret = true,
 }: {
   text: string;
   startDelay?: number;
   speed?: number;
+  deleteSpeed?: number;
+  pause?: number;
   ariaLive?: "polite" | "assertive" | "off";
   showCaret?: boolean;
 }) {
@@ -52,27 +56,43 @@ function TypingText({
 
     let mounted = true;
     let i = 0;
-    let tickTimer: ReturnType<typeof setTimeout> | null = null;
-    const startTimer: ReturnType<typeof setTimeout> = setTimeout(() => {
-      const tick = () => {
-        if (!mounted) return;
+    let forward = true; // typing direction
+    let timer: ReturnType<typeof setTimeout> | null = null;
+
+    const run = () => {
+      if (!mounted) return;
+
+      if (forward) {
+        // Typing forward
         if (i <= text.length) {
           setOut(text.slice(0, i));
           i += 1;
-          tickTimer = setTimeout(tick, speed);
+          timer = setTimeout(run, speed);
         } else {
-          setDone(true);
+          forward = false;
+          timer = setTimeout(run, pause);
         }
-      };
-      tick();
-    }, startDelay);
+      } else {
+        // Deleting backward
+        if (i >= 0) {
+          setOut(text.slice(0, i));
+          i -= 1;
+          timer = setTimeout(run, deleteSpeed);
+        } else {
+          forward = true;
+          timer = setTimeout(run, pause);
+        }
+      }
+    };
+
+    const startTimer = setTimeout(run, startDelay);
 
     return () => {
       mounted = false;
       clearTimeout(startTimer);
-      if (tickTimer) clearTimeout(tickTimer);
+      if (timer) clearTimeout(timer);
     };
-  }, [text, startDelay, speed, prefersReduced]);
+  }, [text, startDelay, speed, deleteSpeed, pause, prefersReduced]);
 
   return (
     <span className="typing" aria-live={ariaLive} aria-atomic="true">
@@ -81,6 +101,7 @@ function TypingText({
     </span>
   );
 }
+
 
 
 
@@ -286,9 +307,17 @@ export default function Home() {
   <span className="availability__dot" aria-hidden />
   <span className="availability__text">Open to opportunities</span>
 </span>
-          <h1 className="hero__title">
-  <TypingText text={ROLE} speed={18} startDelay={200} ariaLive="polite" />
+        <h1 className="hero__title">
+  <TypingText
+    text={ROLE}
+    speed={18}
+    deleteSpeed={14}
+    pause={1500}
+    startDelay={200}
+    ariaLive="polite"
+  />
 </h1>
+
 <p className="hero__tagline">
   <TypingText text={TAGLINE} speed={14} startDelay={ROLE.length * 18 + 600} />
 </p>
