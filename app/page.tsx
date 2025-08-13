@@ -1,3 +1,10 @@
+"use client";
+
+// app/page.tsx
+// Full portfolio with: mobile menu auto-close + dark theme toggle
+// Uses CSS-only animations; profile image as favicon is defined in metadata of layout or can be added here if needed
+
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 export const metadata = {
@@ -6,8 +13,8 @@ export const metadata = {
     "Senior Flutter Developer building high‑performance apps with clean architecture, smooth UX, and robust integrations.",
   icons: {
     icon: [
-      { rel: "icon", url: "/profile_image.jpeg", type: "image/jpeg" }, // profile photo as favicon
-      { url: "/favicon.ico" }, // optional fallback
+      { rel: "icon", url: "/profile_image.jpeg", type: "image/jpeg" },
+      { url: "/favicon.ico" },
     ],
     apple: [{ url: "/profile_image.jpeg" }],
     shortcut: [{ url: "/profile_image.jpeg" }],
@@ -25,10 +32,32 @@ const LINKS = {
   email: "mailto:alibajwa102@gmail.com",
   phone: "tel:+923047222234",
   resume: "/resume.pdf",
-  profilePic: "/profile_image.jpeg?v=3",
+  profilePic: "/profile_image.jpeg?v=4",
 };
 
 export default function Home() {
+  const [dark, setDark] = useState(false);
+  const detailsRef = useRef<HTMLDetailsElement | null>(null);
+
+  // hydrate theme from OS or localStorage
+  useEffect(() => {
+    const stored = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const enabled = stored ? stored === "dark" : prefersDark;
+    setDark(enabled);
+  }, []);
+
+  // apply theme class to <html>
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.toggle("dark", dark);
+    localStorage.setItem("theme", dark ? "dark" : "light");
+  }, [dark]);
+
+  const closeMobileMenu = () => {
+    if (detailsRef.current) detailsRef.current.open = false;
+  };
+
   const highlights = [
     { label: "Experience", value: "3+ yrs" },
     { label: "Platforms", value: "iOS · Android · Web" },
@@ -81,65 +110,79 @@ export default function Home() {
   ];
 
   return (
-    <main className="min-h-screen w-full bg-gradient-to-b from-white to-gray-100 text-gray-900">
+    <main className="min-h-screen w-full bg-gradient-to-b from-white to-gray-100 text-gray-900 dark:from-gray-950 dark:to-black dark:text-gray-100">
       {/* Background orbs */}
       <div className="fixed inset-0 -z-10 overflow-hidden" aria-hidden>
-        <div className="absolute -top-24 -left-24 h-80 w-80 rounded-full blur-3xl opacity-20 bg-blue-400 animate-floatSlow" />
-        <div className="absolute top-16 -right-24 h-96 w-96 rounded-full blur-3xl opacity-20 bg-cyan-400 animate-floatSlow animation-delay-1200" />
+        <div className="absolute -top-24 -left-24 h-80 w-80 rounded-full blur-3xl opacity-20 bg-blue-400 animate-floatSlow dark:opacity-10" />
+        <div className="absolute top-16 -right-24 h-96 w-96 rounded-full blur-3xl opacity-20 bg-cyan-400 animate-floatSlow animation-delay-1200 dark:opacity-10" />
       </div>
 
       {/* Header */}
-      <header className="sticky top-0 z-40 backdrop-blur bg-white/80 border-b border-gray-200">
+      <header className="sticky top-0 z-40 backdrop-blur bg-white/80 border-b border-gray-200 dark:bg-gray-900/70 dark:border-gray-800">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-3">
-            <Image src={LINKS.profilePic} alt={NAME} width={40} height={40} className="h-10 w-10 rounded-full object-cover border border-gray-200" />
+            <Image src={LINKS.profilePic} alt={NAME} width={40} height={40} className="h-10 w-10 rounded-full object-cover border border-gray-200 dark:border-gray-700" />
             <span className="text-sm font-medium">{NAME}</span>
           </div>
+
+          {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-6 text-sm">
-            <a href="#projects" className="hover:text-blue-600">Projects</a>
-            <a href="#skills" className="hover:text-blue-600">Skills</a>
-            <a href="#experience" className="hover:text-blue-600">Experience</a>
-            <a href="#education" className="hover:text-blue-600">Education</a>
-            <a href="#contact" className="hover:text-blue-600">Contact</a>
+            <a href="#projects" className="hover:text-blue-600 dark:hover:text-blue-400">Projects</a>
+            <a href="#skills" className="hover:text-blue-600 dark:hover:text-blue-400">Skills</a>
+            <a href="#experience" className="hover:text-blue-600 dark:hover:text-blue-400">Experience</a>
+            <a href="#education" className="hover:text-blue-600 dark:hover:text-blue-400">Education</a>
+            <a href="#contact" className="hover:text-blue-600 dark:hover:text-blue-400">Contact</a>
             <a href={LINKS.resume} target="_blank" rel="noopener noreferrer" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500">Resume</a>
+            <button aria-label="Toggle theme" onClick={() => setDark((v) => !v)} className="rounded-lg border border-gray-300 px-3 py-2 text-sm hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">
+              {dark ? "Light" : "Dark"}
+            </button>
           </nav>
 
           {/* Mobile menu */}
-          <details className="md:hidden relative">
-            <summary className="list-none cursor-pointer rounded-lg border border-gray-300 px-3 py-2 text-sm hover:bg-gray-50 select-none flex items-center gap-2">
-              <span>Menu</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" className="text-gray-500"><path fill="currentColor" d="M4 6h16v2H4V6Zm0 5h16v2H4v-2Zm0 5h16v2H4v-2Z"/></svg>
-            </summary>
-            <div className="absolute right-0 mt-2 w-56 rounded-xl border border-gray-200 bg-white shadow-lg p-2 grid gap-1 z-50">
-              <a href="#projects" className="rounded-lg px-3 py-2 text-sm hover:bg-gray-50">Projects</a>
-              <a href="#skills" className="rounded-lg px-3 py-2 text-sm hover:bg-gray-50">Skills</a>
-              <a href="#experience" className="rounded-lg px-3 py-2 text-sm hover:bg-gray-50">Experience</a>
-              <a href="#education" className="rounded-lg px-3 py-2 text-sm hover:bg-gray-50">Education</a>
-              <a href="#contact" className="rounded-lg px-3 py-2 text-sm hover:bg-gray-50">Contact</a>
-              <a href={LINKS.resume} target="_blank" rel="noopener noreferrer" className="rounded-lg px-3 py-2 text-sm bg-blue-600 text-white hover:bg-blue-500">Resume</a>
-            </div>
-          </details>
+          <div className="md:hidden flex items-center gap-2">
+            <button aria-label="Toggle theme" onClick={() => setDark((v) => !v)} className="rounded-lg border border-gray-300 px-3 py-2 text-sm hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">
+              {dark ? "☀️" : "🌙"}
+            </button>
+            <details ref={detailsRef} className="relative">
+              <summary className="list-none cursor-pointer rounded-lg border border-gray-300 px-3 py-2 text-sm hover:bg-gray-50 select-none flex items-center gap-2 dark:border-gray-700 dark:hover:bg-gray-800">
+                <span>Menu</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" className="text-gray-500"><path fill="currentColor" d="M4 6h16v2H4V6Zm0 5h16v2H4v-2Zm0 5h16v2H4v-2Z"/></svg>
+              </summary>
+              <div className="absolute right-0 mt-2 w-56 rounded-xl border border-gray-200 bg-white shadow-lg p-2 grid gap-1 z-50 dark:bg-gray-900 dark:border-gray-700">
+                {[
+                  ["#projects", "Projects"],
+                  ["#skills", "Skills"],
+                  ["#experience", "Experience"],
+                  ["#education", "Education"],
+                  ["#contact", "Contact"],
+                ].map(([href, label]) => (
+                  <a key={href} href={href} onClick={closeMobileMenu} className="rounded-lg px-3 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-800">{label}</a>
+                ))}
+                <a href={LINKS.resume} target="_blank" rel="noopener noreferrer" onClick={closeMobileMenu} className="rounded-lg px-3 py-2 text-sm bg-blue-600 text-white hover:bg-blue-500">Resume</a>
+              </div>
+            </details>
+          </div>
         </div>
       </header>
 
       {/* Hero */}
       <section className="mx-auto max-w-6xl px-6 pt-14 pb-20 grid md:grid-cols-2 gap-12 items-center fade-in-up">
         <div className="flex flex-col gap-5">
-          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-gray-300 px-3 py-1 text-xs font-medium text-gray-600">
+          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-gray-300 px-3 py-1 text-xs font-medium text-gray-600 dark:border-gray-700 dark:text-gray-400">
             <span className="inline-block h-2 w-2 rounded-full bg-green-500" />
             Open to opportunities
           </span>
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">{ROLE}</h1>
-          <p className="max-w-xl text-gray-600 text-base sm:text-lg leading-relaxed">{TAGLINE}</p>
+          <p className="max-w-xl text-gray-600 text-base sm:text-lg leading-relaxed dark:text-gray-300">{TAGLINE}</p>
           <div className="flex gap-3">
             <a href="#contact" className="bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-500">Start a project</a>
-            <a href="#projects" className="border border-gray-300 px-5 py-3 rounded-lg hover:bg-gray-50">View projects</a>
+            <a href="#projects" className="border border-gray-300 px-5 py-3 rounded-lg hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">View projects</a>
           </div>
-          <div className="mt-3 flex flex-wrap gap-5 text-sm text-gray-600">
-            <a href={LINKS.linkedin} target="_blank" className="hover:text-blue-600">LinkedIn</a>
-            <a href={LINKS.github} target="_blank" className="hover:text-blue-600">GitHub</a>
-            <a href={LINKS.email} className="hover:text-blue-600">Email</a>
-            <a href={LINKS.phone} className="hover:text-blue-600">Call</a>
+          <div className="mt-3 flex flex-wrap gap-5 text-sm text-gray-600 dark:text-gray-400">
+            <a href={LINKS.linkedin} target="_blank" className="hover:text-blue-600 dark:hover:text-blue-400">LinkedIn</a>
+            <a href={LINKS.github} target="_blank" className="hover:text-blue-600 dark:hover:text-blue-400">GitHub</a>
+            <a href={LINKS.email} className="hover:text-blue-600 dark:hover:text-blue-400">Email</a>
+            <a href={LINKS.phone} className="hover:text-blue-600 dark:hover:text-blue-400">Call</a>
           </div>
         </div>
         <div className="flex justify-center scale-in">
@@ -151,9 +194,9 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-6 pb-6">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {highlights.map((item) => (
-            <div key={item.label} className="card rounded-2xl border border-gray-200 p-5 bg-white">
+            <div key={item.label} className="card rounded-2xl border border-gray-200 p-5 bg-white dark:bg-gray-900 dark:border-gray-700">
               <div className="text-2xl font-bold">{item.value}</div>
-              <div className="text-sm text-gray-500">{item.label}</div>
+              <div className="text-sm text-gray-500 dark:text-gray-400">{item.label}</div>
             </div>
           ))}
         </div>
@@ -164,7 +207,7 @@ export default function Home() {
         <h2 className="text-2xl font-semibold">Skills & Tools</h2>
         <div className="mt-6 flex flex-wrap gap-2">
           {skills.map((s) => (
-            <span key={s} className="inline-block rounded-full border border-gray-300 bg-white px-3 py-1 text-sm text-gray-700 hover:scale-105 transition-transform">
+            <span key={s} className="inline-block rounded-full border border-gray-300 bg-white px-3 py-1 text-sm text-gray-700 hover:scale-105 transition-transform dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300">
               {s}
             </span>
           ))}
@@ -176,21 +219,21 @@ export default function Home() {
         <h2 className="text-2xl font-semibold">Selected Projects</h2>
         <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((p) => (
-            <div key={p.title} className="card rounded-2xl border border-gray-200 p-5 bg-white">
+            <div key={p.title} className="card rounded-2xl border border-gray-200 p-5 bg-white dark:bg-gray-900 dark:border-gray-700">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold">{p.title}</h3>
                 <svg viewBox="0 0 24 24" className="h-5 w-5 text-gray-400"><path fill="currentColor" d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3Z"/></svg>
               </div>
-              <p className="mt-2 text-sm text-gray-600">{p.blurb}</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{p.blurb}</p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {p.tags.map((t) => (
-                  <span key={t} className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-700">{t}</span>
+                  <span key={t} className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-700 dark:bg-gray-800 dark:text-gray-300">{t}</span>
                 ))}
               </div>
               {p.links.length > 0 && (
                 <div className="mt-4 flex flex-wrap gap-2">
                   {p.links.map((l) => (
-                    <a key={l.href} href={l.href} className="text-sm font-semibold text-gray-700 hover:text-blue-600 underline" target="_blank" rel="noopener noreferrer">
+                    <a key={l.href} href={l.href} className="text-sm font-semibold text-gray-700 hover:text-blue-600 underline dark:text-gray-300 dark:hover:text-blue-400" target="_blank" rel="noopener noreferrer">
                       {l.label}
                     </a>
                   ))}
@@ -204,12 +247,12 @@ export default function Home() {
       {/* Experience */}
       <section id="experience" className="mx-auto max-w-6xl px-6 py-10">
         <h2 className="text-2xl font-semibold">Experience</h2>
-        <div className="card mt-6 rounded-2xl border border-gray-200 bg-white p-5">
+        <div className="card mt-6 rounded-2xl border border-gray-200 bg-white p-5 dark:bg-gray-900 dark:border-gray-700">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div className="text-lg font-semibold">Senior Flutter Developer · Digital Upgraders LLC (Remote)</div>
-            <div className="text-sm text-gray-500">Feb 2023 – Present</div>
+            <div className="text-sm text-gray-500 dark:text-gray-400">Feb 2023 – Present</div>
           </div>
-          <ul className="mt-3 list-disc pl-5 text-gray-700 space-y-1">
+          <ul className="mt-3 list-disc pl-5 text-gray-700 space-y-1 dark:text-gray-300">
             <li>Lead development of cross‑platform apps with clean architecture and robust state management.</li>
             <li>Implemented real‑time features, offline capabilities, and performance optimizations.</li>
             <li>Collaborated with designers & backend; mentored developers; owned CI/CD and releases.</li>
@@ -220,29 +263,29 @@ export default function Home() {
       {/* Education */}
       <section id="education" className="mx-auto max-w-6xl px-6 py-10">
         <h2 className="text-2xl font-semibold">Education</h2>
-        <div className="card mt-6 rounded-2xl border border-gray-200 bg-white p-5">
+        <div className="card mt-6 rounded-2xl border border-gray-200 bg-white p-5 dark:bg-gray-900 dark:border-gray-700">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div className="text-lg font-semibold">BS — Computer Science</div>
-            <div className="text-sm text-gray-500">Oct 2017 – Oct 2021</div>
+            <div className="text-sm text-gray-500 dark:text-gray-400">Oct 2017 – Oct 2021</div>
           </div>
-          <div className="mt-1 text-gray-600">University of Management & Technology, Lahore</div>
+          <div className="mt-1 text-gray-600 dark:text-gray-300">University of Management & Technology, Lahore</div>
         </div>
       </section>
 
       {/* Contact */}
       <section id="contact" className="mx-auto max-w-6xl px-6 py-16">
-        <div className="rounded-3xl border border-gray-200 bg-white p-8">
+        <div className="rounded-3xl border border-gray-200 bg-white p-8 dark:bg-gray-900 dark:border-gray-700">
           <h3 className="text-xl font-semibold">Let’s build something great.</h3>
-          <p className="mt-1 text-gray-600">Tell me about your idea, and I’ll propose a practical, high‑impact plan.</p>
+          <p className="mt-1 text-gray-600 dark:text-gray-300">Tell me about your idea, and I’ll propose a practical, high‑impact plan.</p>
           <div className="mt-5 flex flex-wrap gap-3">
             <a href={LINKS.email} className="bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-500">Email me</a>
-            <a href={LINKS.phone} className="border border-gray-300 px-5 py-3 rounded-lg hover:bg-gray-50">Call</a>
-            <a href={LINKS.linkedin} target="_blank" className="border border-gray-300 px-5 py-3 rounded-lg hover:bg-gray-50">LinkedIn</a>
-            <a href={LINKS.github} target="_blank" className="border border-gray-300 px-5 py-3 rounded-lg hover:bg-gray-50">GitHub</a>
-            <a href={LINKS.resume} target="_blank" className="border border-gray-300 px-5 py-3 rounded-lg hover:bg-gray-50">Download CV</a>
+            <a href={LINKS.phone} className="border border-gray-300 px-5 py-3 rounded-lg hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">Call</a>
+            <a href={LINKS.linkedin} target="_blank" className="border border-gray-300 px-5 py-3 rounded-lg hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">LinkedIn</a>
+            <a href={LINKS.github} target="_blank" className="border border-gray-300 px-5 py-3 rounded-lg hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">GitHub</a>
+            <a href={LINKS.resume} target="_blank" className="border border-gray-300 px-5 py-3 rounded-lg hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">Download CV</a>
           </div>
         </div>
-        <footer className="mt-10 text-center text-sm text-gray-500">© {new Date().getFullYear()} {NAME}. All rights reserved.</footer>
+        <footer className="mt-10 text-center text-sm text-gray-500 dark:text-gray-400">© {new Date().getFullYear()} {NAME}. All rights reserved.</footer>
       </section>
 
       {/* Minimal CSS keyframes + hover polish */}
