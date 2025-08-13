@@ -14,7 +14,7 @@ const LINKS = {
   email: "mailto:alibajwa102@gmail.com",
   phone: "tel:+923047222234",
   resume: "/resume.pdf",
-  profilePic: "/profile_image.jpeg?v=7",
+  profilePic: "/profile_image.jpeg?v=8",
 };
 
 export default function Home() {
@@ -84,10 +84,10 @@ export default function Home() {
 
   return (
     <main id="top" className="bg-gradient-to-b from-white to-zinc-50 text-zinc-900">
-      {/* ===== Background accents ===== */}
+      {/* ===== Background accents (soft gradient blobs) ===== */}
       <div aria-hidden className="fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-28 -left-28 h-80 w-80 rounded-full blur-3xl opacity-25 bg-blue-300 animate-floatSlow" />
-        <div className="absolute top-12 -right-28 h-96 w-96 rounded-full blur-3xl opacity-20 bg-cyan-300 animate-floatSlow animation-delay-1200" />
+        <div className="absolute -top-28 -left-28 h-80 w-80 rounded-full blur-3xl opacity-25 bg-gradient-to-br from-blue-300 to-cyan-300 animate-floatSlow" />
+        <div className="absolute top-12 -right-28 h-96 w-96 rounded-full blur-3xl opacity-20 bg-gradient-to-tr from-cyan-300 to-indigo-300 animate-floatSlow animation-delay-1200" />
       </div>
 
       {/* ===== AppBar ===== */}
@@ -97,9 +97,9 @@ export default function Home() {
             <Image
               src={LINKS.profilePic}
               alt={NAME}
-              width={36}
-              height={36}
-              className="h-9 w-9 rounded-full object-cover ring-1 ring-inset ring-white shadow-sm"
+              width={40}
+              height={40}
+              className="h-10 w-10 rounded-full object-cover ring-2 ring-white shadow-sm"
               priority
             />
             <span className="text-sm font-medium">{NAME}</span>
@@ -142,7 +142,7 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-4 sm:px-6 pt-12 pb-16 grid md:grid-cols-2 gap-10 items-center fade-in-up">
         <div className="flex flex-col gap-5">
           <span className="inline-flex w-fit items-center gap-2 rounded-full border border-zinc-200 px-3 py-1 text-xs font-medium text-zinc-600 bg-white/60 backdrop-blur-sm">
-            <span className="inline-block h-2 w-2 rounded-full bg-emerald-500" />
+            <span className="inline-block h-2 w-2 rounded-full bg-gradient-to-r from-emerald-500 to-green-400" />
             Open to opportunities
           </span>
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">{ROLE}</h1>
@@ -158,8 +158,10 @@ export default function Home() {
             <a href={LINKS.phone} className="hover:text-blue-600">Call</a>
           </div>
         </div>
-        <div className="flex justify-center scale-in">
-          <div className="relative">
+
+        {/* Avatar block (centered, perfectly aligned) */}
+        <div className="flex md:justify-end justify-center">
+          <div className="relative inline-block scale-in">
             <div className="avatar-ring" />
             <Image
               src={LINKS.profilePic}
@@ -173,7 +175,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== Highlights (Unified Card) ===== */}
+      {/* ===== Highlights (Unified Gradient Card) ===== */}
       <section className="mx-auto max-w-6xl px-4 sm:px-6 pb-4">
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           {highlights.map((h) => (
@@ -185,7 +187,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== Services (Unified Card) ===== */}
+      {/* ===== Services (Unified Gradient Card) ===== */}
       <section id="services" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
         <div className="section-header">
           <h2>Services</h2>
@@ -203,20 +205,20 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== Skills (chips) ===== */}
+      {/* ===== Skills & Tools (improved gradient chips grid) ===== */}
       <section id="skills" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
         <div className="section-header">
           <h2>Skills & Tools</h2>
           <p>Technologies used to deliver reliable, scalable mobile apps.</p>
         </div>
-        <div className="mt-6 flex flex-wrap gap-2">
+        <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           {skills.map((s) => (
-            <span key={s} className="chip">{s}</span>
+            <span key={s} className="chip-gradient">{s}</span>
           ))}
         </div>
       </section>
 
-      {/* ===== Projects (Unified Card) ===== */}
+      {/* ===== Projects (Unified Gradient Card) ===== */}
       <section id="projects" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
         <div className="section-header">
           <h2>Selected Projects</h2>
@@ -249,7 +251,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== Experience (Unified Card) ===== */}
+      {/* ===== Experience (Unified Gradient Card) ===== */}
       <section id="experience" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
         <div className="section-header"><h2>Experience</h2></div>
         <article className="card">
@@ -265,7 +267,7 @@ export default function Home() {
         </article>
       </section>
 
-      {/* ===== Education (Unified Card) ===== */}
+      {/* ===== Education (Unified Gradient Card) ===== */}
       <section id="education" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
         <div className="section-header"><h2>Education</h2></div>
         <article className="card">
@@ -277,7 +279,7 @@ export default function Home() {
         </article>
       </section>
 
-      {/* ===== Contact (Unified Card, larger padding) ===== */}
+      {/* ===== Contact (Unified Gradient Card, larger padding) ===== */}
       <section id="contact" className="mx-auto max-w-6xl px-4 sm:px-6 py-16">
         <article className="card-lg">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
@@ -304,105 +306,112 @@ export default function Home() {
       {/* Back to top */}
       <a href="#top" className="back-to-top">↑</a>
 
-      {/* ===== Design tokens + unified card CSS ===== */}
+      {/* ===== Tokens + Gradient Card CSS (no Tailwind @apply used) ===== */}
       <style>{`
         html { scroll-behavior: smooth; }
 
-        /* Design tokens (adjust once, used everywhere) */
-        :root {
-          --card-bg: 255 255 255;            /* white */
-          --card-border: 24 24 27 / 0.08;    /* zinc-900 @ 8% */
-          --glow-a: #60a5fa;                 /* blue-400 */
-          --glow-b: #22d3ee;                 /* cyan-400 */
+        :root{
+          --card-bg: 255,255,255;
+          --card-border: 24,24,27,0.08;
+          --grad-a: #60a5fa; /* blue-400 */
+          --grad-b: #22d3ee; /* cyan-400 */
+          --grad-c: #a78bfa; /* violet-400 */
           --shadow: 0 14px 40px rgba(0,0,0,.06);
           --shadow-hover: 0 18px 44px rgba(0,0,0,.08);
           --radius: 1.25rem;
         }
 
-        /* Buttons & nav */
-        .btn-primary { 
-          @apply rounded-xl bg-blue-600 text-white px-5 py-3 text-sm font-semibold shadow-sm hover:bg-blue-500;
+        /* Buttons & nav (pure CSS) */
+        .btn-primary{
+          display:inline-flex;align-items:center;justify-content:center;
+          padding:.75rem 1.25rem;border-radius:12px;font-size:.875rem;font-weight:600;
+          color:#fff;background:linear-gradient(135deg,var(--grad-a),var(--grad-b));
+          box-shadow:0 10px 20px rgba(96,165,250,.25);
+          transition:transform .15s ease, box-shadow .2s ease, opacity .2s ease;
         }
-        .btn-outline { 
-          @apply rounded-xl border border-zinc-300 px-5 py-3 text-sm font-semibold text-zinc-800 hover:bg-zinc-50;
-        }
-        .btn-ghost {
-          @apply rounded-xl border border-zinc-200 px-3 py-2 text-sm hover:bg-zinc-50;
-        }
-        .nav-link { @apply hover:text-blue-600 transition; }
-        .menu-item { @apply rounded-lg px-3 py-2 text-sm hover:bg-zinc-50; }
-        .menu-cta { @apply rounded-lg px-3 py-2 text-sm bg-blue-600 text-white hover:bg-blue-500; }
+        .btn-primary:hover{ transform:translateY(-1px); box-shadow:0 12px 26px rgba(96,165,250,.3); opacity:.95; }
 
-        .section-header h2 { @apply text-2xl font-semibold; }
-        .section-header p { @apply mt-2 text-zinc-600; }
-
-        /* ==== Unified Card Style (used everywhere) ==== */
-        .card, .card-lg {
-          position: relative;
-          background: linear-gradient(180deg, rgba(var(--card-bg), 0.96), rgba(var(--card-bg), 0.92));
-          border-radius: var(--radius);
-          border: 1px solid rgba(var(--card-border));
-          box-shadow: var(--shadow);
-          transition: transform .22s ease, box-shadow .22s ease;
-          overflow: hidden;
+        .btn-outline{
+          display:inline-flex;align-items:center;justify-content:center;
+          padding:.75rem 1.25rem;border-radius:12px;font-size:.875rem;font-weight:600;
+          color:#0b1220;border:1px solid #e5e7eb;background:#fff; transition:background .2s ease, transform .15s ease;
         }
-        .card::before, .card-lg::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          padding: 1px;                     /* creates the border frame */
-          border-radius: inherit;
-          background: linear-gradient(120deg, var(--glow-a), var(--glow-b));
-          -webkit-mask:
-            linear-gradient(#fff 0 0) content-box,
-            linear-gradient(#fff 0 0);
-          -webkit-mask-composite: xor;
-                  mask-composite: exclude;  /* punch hole to show inner bg */
-          opacity: 0.75;                    /* border intensity */
-          pointer-events: none;
+        .btn-outline:hover{ background:#f8fafc; transform:translateY(-1px); }
+
+        .btn-ghost{
+          display:inline-flex;align-items:center;justify-content:center;
+          padding:.5rem .75rem;border-radius:12px;font-size:.875rem;border:1px solid #e7e7e9;background:#fff;transition:background .2s ease;
         }
-        .card { padding: 1.25rem; }
-        .card-lg { padding: 2rem; border-radius: calc(var(--radius) + .25rem); }
+        .btn-ghost:hover{ background:#f8fafc; }
 
-        .card:hover, .card-lg:hover {
-          transform: translateY(-3px);
-          box-shadow: var(--shadow-hover);
+        .nav-link{ color:#0b1220; text-decoration:none; transition:color .15s ease; }
+        .nav-link:hover{ color:#2563eb; }
+
+        .menu-item{ display:block; padding:.5rem .75rem; border-radius:10px; color:#0b1220; text-decoration:none; }
+        .menu-item:hover{ background:#f8fafc; }
+        .menu-cta{ display:block; padding:.5rem .75rem; border-radius:10px; color:#fff; text-decoration:none; background:linear-gradient(135deg,var(--grad-a),var(--grad-b)); text-align:center; }
+
+        .section-header h2{ font-size:1.5rem; font-weight:600; }
+        .section-header p{ margin-top:.5rem; color:#52525b; }
+
+        /* Unified gradient-border card */
+        .card,.card-lg{
+          position:relative; overflow:hidden; background:rgba(var(--card-bg),0.97);
+          border-radius:var(--radius); border:1px solid rgba(var(--card-border));
+          box-shadow:var(--shadow); transition:transform .22s ease, box-shadow .22s ease;
+        }
+        .card::before,.card-lg::before{
+          content:""; position:absolute; inset:0; padding:1px; border-radius:inherit;
+          background:linear-gradient(120deg,var(--grad-a),var(--grad-b),var(--grad-c),var(--grad-a));
+          -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite:xor; mask-composite:exclude; opacity:.8; pointer-events:none;
+        }
+        .card{ padding:1.25rem; }
+        .card-lg{ padding:2rem; border-radius:calc(var(--radius) + .25rem); }
+        .card:hover,.card-lg:hover{ transform:translateY(-3px); box-shadow:var(--shadow-hover); }
+
+        /* Gradient chips (Skills) */
+        .chip-gradient{
+          display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+          padding:.5rem .9rem; border-radius:9999px; font-size:.875rem; color:#0b1220;
+          background:linear-gradient(180deg,#ffffff 0%, #f8fbff 100%);
+          border:1px solid rgba(24,24,27,.08);
+          position:relative; box-shadow:0 6px 14px rgba(0,0,0,.05);
+        }
+        .chip-gradient::after{
+          content:""; position:absolute; inset:0; border-radius:inherit; padding:1px;
+          background:linear-gradient(120deg,var(--grad-a),var(--grad-b));
+          -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite:xor; mask-composite:exclude; opacity:.7; pointer-events:none;
         }
 
-        /* Chips, tags, links */
-        .chip {
-          @apply inline-block rounded-full border border-zinc-200 bg-white px-3 py-1 text-sm text-zinc-700;
-          box-shadow: 0 4px 10px rgba(0,0,0,.04);
-          transition: transform .15s ease;
-        }
-        .chip:hover { transform: translateY(-1px); }
+        /* Tags and text links */
+        .tag{ display:inline-block; padding:.15rem .5rem; border-radius:9999px; background:#f4f4f5; color:#3f3f46; font-size:.75rem; }
+        .link{ color:#0b1220; font-weight:600; text-decoration:underline; }
+        .link:hover{ color:#2563eb; }
 
-        .tag { @apply rounded-full bg-zinc-100 px-2 py-0.5 text-xs text-zinc-700; }
-        .link { @apply text-sm font-semibold text-zinc-700 hover:text-blue-600 underline; }
-
-        /* Avatar ring (subtle, on hero) */
-        .avatar-ring {
-          position: absolute;
-          inset: -10px;
-          border-radius: 9999px;
-          background: conic-gradient(from 0deg, var(--glow-a), #a78bfa, var(--glow-b), var(--glow-a));
-          filter: blur(14px);
-          opacity: .25;
-          z-index: -1;
+        /* Avatar ring */
+        .avatar-ring{
+          position:absolute; inset:-12px; border-radius:9999px;
+          background:conic-gradient(from 0deg,var(--grad-a),var(--grad-c),var(--grad-b),var(--grad-a));
+          filter:blur(16px); opacity:.28; z-index:-1;
         }
 
         /* Back to top */
-        .back-to-top {
-          @apply fixed bottom-5 right-5 rounded-full bg-blue-600 text-white px-4 py-3 shadow-lg hover:bg-blue-500;
+        .back-to-top{
+          position:fixed; right:1.25rem; bottom:1.25rem; border-radius:9999px;
+          padding:.65rem 1rem; color:#fff; background:linear-gradient(135deg,var(--grad-a),var(--grad-b));
+          text-decoration:none; box-shadow:0 14px 28px rgba(34,211,238,.25);
         }
+        .back-to-top:hover{ filter:brightness(.98); }
 
         /* Animations */
-        @keyframes floatSlow { 0%,100% { transform: translateY(0) } 50% { transform: translateY(10px) } }
-        .animate-floatSlow { animation: floatSlow 9s ease-in-out infinite; }
-        .animation-delay-1200 { animation-delay: 1.2s; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: translateY(0) } }
-        .fade-in-up { animation: fadeInUp .6s ease-out both; }
-        .scale-in { animation: fadeInUp .5s ease-out both; }
+        @keyframes floatSlow{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(10px) } }
+        .animate-floatSlow{ animation:floatSlow 9s ease-in-out infinite; }
+        .animation-delay-1200{ animation-delay:1.2s; }
+        @keyframes fadeInUp{ from{ opacity:0; transform:translateY(10px) } to{ opacity:1; transform:translateY(0) } }
+        .fade-in-up{ animation:fadeInUp .6s ease-out both; }
+        .scale-in{ animation:fadeInUp .5s ease-out both; }
       `}</style>
     </main>
   );
