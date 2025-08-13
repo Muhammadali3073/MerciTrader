@@ -322,39 +322,17 @@ export default function Home() {
 
       {/* Utilities & animations */}
       <style>{`
-        .btn-primary {
-          @apply rounded-lg bg-blue-600 text-white px-5 py-3 text-sm font-semibold shadow-sm hover:bg-blue-500;
-        }
-        .btn-outline {
-          @apply rounded-lg border border-zinc-300 px-5 py-3 text-sm font-semibold text-zinc-800 hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800;
-        }
-        .btn-ghost {
-          @apply rounded-lg border border-zinc-300 px-3 py-2 text-sm hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-800;
-        }
-        .nav-link {
-          @apply hover:text-blue-600 dark:hover:text-blue-400 transition;
-        }
-        .section-header h2 {
-          @apply text-2xl font-semibold;
-        }
-        .section-header p {
-          @apply mt-2 text-zinc-600 dark:text-zinc-300;
-        }
-        .card {
-          @apply rounded-2xl border border-zinc-200 bg-white p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:bg-zinc-900 dark:border-zinc-700;
-        }
-        .card-lg {
-          @apply rounded-3xl border border-zinc-200 bg-white p-8 dark:bg-zinc-900 dark:border-zinc-700;
-        }
-        .chip {
-          @apply inline-block rounded-full border border-zinc-300 bg-white px-3 py-1 text-sm text-zinc-700 hover:scale-105 transition-transform dark:bg-zinc-900 dark:border-zinc-700 dark:text-zinc-300;
-        }
-        .tag {
-          @apply rounded-full bg-zinc-100 px-2 py-0.5 text-xs text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300;
-        }
-        .link {
-          @apply text-sm font-semibold text-zinc-700 hover:text-blue-600 underline dark:text-zinc-300 dark:hover:text-blue-400;
-        }
+        .btn-primary { @apply rounded-lg bg-blue-600 text-white px-5 py-3 text-sm font-semibold shadow-sm hover:bg-blue-500; }
+        .btn-outline { @apply rounded-lg border border-zinc-300 px-5 py-3 text-sm font-semibold text-zinc-800 hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800; }
+        .btn-ghost { @apply rounded-lg border border-zinc-300 px-3 py-2 text-sm hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-800; }
+        .nav-link { @apply hover:text-blue-600 dark:hover:text-blue-400 transition; }
+        .section-header h2 { @apply text-2xl font-semibold; }
+        .section-header p { @apply mt-2 text-zinc-600 dark:text-zinc-300; }
+        .card { @apply rounded-2xl border border-zinc-200 bg-white p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:bg-zinc-900 dark:border-zinc-700; }
+        .card-lg { @apply rounded-3xl border border-zinc-200 bg-white p-8 dark:bg-zinc-900 dark:border-zinc-700; }
+        .chip { @apply inline-block rounded-full border border-zinc-300 bg-white px-3 py-1 text-sm text-zinc-700 hover:scale-105 transition-transform dark:bg-zinc-900 dark:border-zinc-700 dark:text-zinc-300; }
+        .tag { @apply rounded-full bg-zinc-100 px-2 py-0.5 text-xs text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300; }
+        .link { @apply text-sm font-semibold text-zinc-700 hover:text-blue-600 underline dark:text-zinc-300 dark:hover:text-blue-400; }
         @keyframes floatSlow { 0%,100% { transform: translateY(0) } 50% { transform: translateY(10px) } }
         .animate-floatSlow { animation: floatSlow 8s ease-in-out infinite; }
         .animation-delay-1200 { animation-delay: 1.2s; }
