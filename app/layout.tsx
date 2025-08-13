@@ -19,6 +19,15 @@ export const metadata: Metadata = {
   description:
     "Sortevo offers custom software solutions across Android, iOS, Mac, Linux, Windows, and Web platforms. Hire our expert developers for your next project and accelerate your business growth.",
   keywords: [
+    "Muhammad Ali Nawaz",
+    "Ali",
+    "Muhammad"
+    "Ali Nawaz",
+    "Flutter",
+    "Flutter Developer",
+    "Mobile",
+    "App",
+    "Moblie App",
     "Sortevo",
     "Software Solutions",
     "Cross-Platform Development",
@@ -48,9 +57,6 @@ export const metadata: Metadata = {
     "IT Support Services",
   ],
   openGraph: {
-    title: "Sortevo - Professional Cross-Platform Software Solutions",
-    description:
-      "Custom software development services for Android, iOS, Mac, Linux, Windows, and Web platforms. Let's build something great together.",
     url: "https://Sortevo.com",
     type: "website",
     images: [
@@ -75,9 +81,16 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  title: "Muhammad Ali Nawaz · Flutter Developer",
+  description:
+    "Senior Flutter Developer building high-performance apps with clean architecture, smooth UX, and robust integrations.",
   icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    icon: [
+      { url: "/profile_image.jpeg", type: "image/jpeg" }, // profile image as favicon
+      { url: "/favicon.ico" }, // optional fallback
+    ],
+    apple: [{ url: "/profile_image.jpeg" }],
+    shortcut: [{ url: "/profile_image.jpeg" }],
   },
 };
 
