@@ -26,7 +26,7 @@ function TypingText({
   startDelay = 0,
   speed = 30,       // typing speed
   deleteSpeed = 20, // deleting speed
-  pause = 1500,     // pause after typing before deleting
+  pause = 10000,     // pause after typing before deleting
   ariaLive = "polite",
   showCaret = true,
 }: {
@@ -310,10 +310,10 @@ export default function Home() {
         <h1 className="hero__title">
   <TypingText
     text={ROLE}
-    speed={18}
-    deleteSpeed={14}
-    pause={1500}
-    startDelay={200}
+    speed={30}
+    deleteSpeed={30}
+    pause={10000}
+    startDelay={2000}
     ariaLive="polite"
   />
 </h1>
