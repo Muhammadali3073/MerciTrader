@@ -1,4 +1,6 @@
-// app/page.tsx — Light-only, colorful portfolio with unified gradient-border cards (no skill icons)
+// app/page.tsx — Fresh colorful redesign (animated gradient bg + glass cards + refined spacing)
+// Light-only, no extra packages, no skill icons (as requested)
+
 "use client";
 
 import { useRef } from "react";
@@ -7,7 +9,7 @@ import Image from "next/image";
 const NAME = "Muhammad Ali Nawaz";
 const ROLE = "Senior Flutter Developer";
 const TAGLINE =
-  "I design and ship fast, reliable Flutter apps for iOS, Android & Web — clean architecture, smooth UX, and strong testing.";
+  "I build fast, reliable Flutter apps for iOS, Android & Web — clean architecture, smooth UX, and robust testing.";
 
 const LINKS = {
   linkedin: "https://www.linkedin.com/in/muhammad-ali-nawaz-19a082177",
@@ -15,221 +17,337 @@ const LINKS = {
   email: "mailto:alibajwa102@gmail.com",
   phone: "tel:+923047222234",
   resume: "/resume.pdf",
-  profilePic: "/profile_image.jpeg?v=11",
+  profilePic: "/profile_image.jpeg?v=10",
   whatsapp: "https://wa.me/923047222234",
 };
 
 export default function Home() {
   // Mobile menu (auto-close)
   const menuRef = useRef<HTMLDetailsElement | null>(null);
-  const closeMenu = () => { if (menuRef.current) menuRef.current.open = false; };
+  const closeMenu = () => {
+    if (menuRef.current) menuRef.current.open = false;
+  };
 
+  // Content
   const highlights = [
     { label: "Experience", value: "3+ yrs" },
     { label: "Platforms", value: "iOS · Android · Web" },
     { label: "Focus", value: "Performance & UX" },
-    { label: "Methodology", value: "Agile" },
-  ];
-
-  // Concise, balanced skills list (NO ICONS)
-  const skills = [
-    "Flutter","Dart","iOS","Android","Flutter Web",
-    "Bloc","Riverpod","GetX","Provider",
-    "REST APIs","Firebase","Firestore","Auth","FCM",
-    "SQLite","Hive","Clean Architecture","Testing","CI/CD",
-    "Native Channels","ML Kit","Push Notifications","Maps & Geo",
-    "Git","GitHub","Jira","Asana","VS Code","Android Studio","Xcode",
+    { label: "Method", value: "Agile Delivery" },
   ];
 
   const services = [
     {
-      title: "Flutter App Development",
-      points: ["iOS, Android & Web", "Clean Architecture", "State Management (Bloc/GetX/Riverpod)"],
-      color: "from-sky-400 to-cyan-400",
+      title: "End-to-End Flutter",
+      points: [
+        "iOS, Android & Web from one codebase",
+        "Clean Architecture & modular design",
+        "State management (Bloc / Riverpod / GetX)",
+      ],
+      hue: "--c1",
     },
     {
       title: "Integrations & Backend",
-      points: ["REST APIs / Firebase", "Auth, Push, Analytics", "Payments & Subscriptions"],
-      color: "from-fuchsia-400 to-pink-400",
+      points: [
+        "REST APIs / Firebase / Firestore / Auth",
+        "Push, Analytics, Payments & Subscriptions",
+        "Maps, Location, Media, Realtime",
+      ],
+      hue: "--c2",
     },
     {
-      title: "Quality & Delivery",
-      points: ["Unit/Widget/Integration Tests", "CI/CD (Fastlane)", "Store release & monitoring"],
-      color: "from-emerald-400 to-lime-400",
+      title: "Quality & Release",
+      points: [
+        "Unit / Widget / Integration tests",
+        "CI/CD (Fastlane), versioning, automation",
+        "App Store & Play Store submissions",
+      ],
+      hue: "--c3",
+    },
+  ];
+
+  // Skills (no icons; grouped & colorful)
+  const skillGroups: { title: string; hue: string; items: string[] }[] = [
+    {
+      title: "Core",
+      hue: "--c1",
+      items: ["Flutter", "Dart", "Flutter Web", "Clean Architecture"],
+    },
+    {
+      title: "State Management",
+      hue: "--c2",
+      items: ["Bloc", "Riverpod", "GetX", "Provider"],
+    },
+    {
+      title: "Data & Cloud",
+      hue: "--c3",
+      items: ["REST APIs", "Firebase", "Firestore", "Auth", "FCM", "SQLite", "Hive"],
+    },
+    {
+      title: "Quality & DevOps",
+      hue: "--c4",
+      items: ["Testing", "CI/CD", "Fastlane", "Code Review"],
+    },
+    {
+      title: "Native & Features",
+      hue: "--c5",
+      items: ["Native Channels", "ML Kit", "Push Notifications", "Maps & Geo"],
+    },
+    {
+      title: "Tooling",
+      hue: "--c6",
+      items: ["Git", "GitHub", "Jira", "Asana", "VS Code", "Android Studio", "Xcode"],
     },
   ];
 
   const projects = [
-    { title: "Comnow (Digital Call System)", tags: ["Flutter", "iOS", "Android"], blurb: "Digital communication with messaging, voice notes, and efficient in-app workflows.", links: [{ label: "App Store", href: "https://apps.apple.com/ae/app/comnow/id1614790733" }] },
-    { title: "Crime Scene Guide", tags: ["Flutter", "Play Store"], blurb: "Scene documentation and note-taking to streamline investigation workflows.", links: [{ label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.INAR.investigation" }] },
-    { title: "LHFADEZ Barbering", tags: ["Flutter", "Stripe", "Scheduling"], blurb: "Booking for haircuts & grooming with seamless scheduling and promotions.", links: [{ label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.rubikkube.lhfadezbarbering.android" }] },
-    { title: "Only Nikah", tags: ["Flutter", "Firebase"], blurb: "Nikah services with guided flows and notifications.", links: [{ label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.hyxio.only_nikkah" }] },
+    {
+      title: "Comnow (Digital Call System)",
+      tags: ["Flutter", "iOS", "Android"],
+      blurb:
+        "Digital communication with messaging, voice notes and efficient in-app workflows.",
+      links: [{ label: "App Store", href: "https://apps.apple.com/ae/app/comnow/id1614790733" }],
+    },
+    {
+      title: "Crime Scene Guide",
+      tags: ["Flutter", "Play Store"],
+      blurb: "Scene documentation and note-taking to streamline investigation workflows.",
+      links: [
+        {
+          label: "Google Play",
+          href: "https://play.google.com/store/apps/details?id=com.INAR.investigation",
+        },
+      ],
+    },
+    {
+      title: "LHFADEZ Barbering",
+      tags: ["Flutter", "Stripe", "Scheduling"],
+      blurb:
+        "Booking for haircuts & grooming with seamless scheduling, payments and promotions.",
+      links: [
+        {
+          label: "Google Play",
+          href: "https://play.google.com/store/apps/details?id=com.rubikkube.lhfadezbarbering.android",
+        },
+      ],
+    },
+    {
+      title: "Only Nikah",
+      tags: ["Flutter", "Firebase"],
+      blurb: "Nikah services with guided flows, notifications and admin tooling.",
+      links: [
+        {
+          label: "Google Play",
+          href: "https://play.google.com/store/apps/details?id=com.hyxio.only_nikkah",
+        },
+      ],
+    },
   ];
 
   return (
-    <main id="top" className="bg-gradient-to-b from-white via-[#fbfdff] to-[#f7f8ff] text-zinc-900">
-      {/* Background colorful blobs */}
-      <div aria-hidden className="fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-28 -left-24 h-80 w-80 rounded-full blur-3xl opacity-30 bg-gradient-to-br from-sky-300 to-cyan-300 animate-floatSlow" />
-        <div className="absolute top-10 -right-28 h-96 w-96 rounded-full blur-3xl opacity-25 bg-gradient-to-tr from-pink-300 to-fuchsia-300 animate-floatSlow animation-delay-1200" />
-        <div className="absolute bottom-0 left-1/3 translate-x-[-50%] h-72 w-72 rounded-full blur-3xl opacity-20 bg-gradient-to-tr from-lime-300 to-emerald-300 animate-floatSlow animation-delay-2400" />
-      </div>
-
-      {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-zinc-200 bg-white/70 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 lg:px-6 py-3">
-          <div className="flex items-center gap-3">
+    <main id="top" className="site">
+      {/* ===================== NAVBAR ===================== */}
+      <header className="navbar">
+        <div className="container">
+          <div className="brand">
             <Image
               src={LINKS.profilePic}
               alt={NAME}
-              width={42}
-              height={42}
-              className="h-10 w-10 rounded-full object-cover ring-2 ring-white shadow-sm"
+              width={40}
+              height={40}
+              className="avatar"
               priority
             />
-            <span className="text-sm font-semibold tracking-tight">{NAME}</span>
+            <span className="brand__name">{NAME}</span>
           </div>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-6 text-[0.92rem]">
-            <a href="#projects" className="nav-link">Projects</a>
-            <a href="#skills" className="nav-link">Skills</a>
-            <a href="#experience" className="nav-link">Experience</a>
-            <a href="#education" className="nav-link">Education</a>
-            <a href="#services" className="nav-link">Services</a>
-            <a href="#contact" className="nav-link">Contact</a>
-            <a href={LINKS.resume} target="_blank" rel="noopener noreferrer" className="btn-primary">Resume</a>
+          <nav className="nav-desktop">
+            <a href="#projects" className="nav-link">
+              Projects
+            </a>
+            <a href="#skills" className="nav-link">
+              Skills
+            </a>
+            <a href="#experience" className="nav-link">
+              Experience
+            </a>
+            <a href="#education" className="nav-link">
+              Education
+            </a>
+            <a href="#services" className="nav-link">
+              Services
+            </a>
+            <a href="#contact" className="nav-link">
+              Contact
+            </a>
+            <a
+              href={LINKS.resume}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn--primary"
+            >
+              Resume
+            </a>
           </nav>
 
           {/* Mobile menu */}
-          <div className="md:hidden">
-            <details ref={menuRef} className="relative">
-              <summary className="btn-ghost cursor-pointer select-none">Menu</summary>
-              <div className="absolute right-0 mt-2 w-64 rounded-xl border border-zinc-200 bg-white/95 backdrop-blur-md shadow-lg p-2 grid gap-1 z-50">
-                {["#projects","#skills","#experience","#education","#services","#contact"].map((href) => (
-                  <a key={href} href={href} onClick={closeMenu} className="menu-item">{href.replace("#", "")}</a>
-                ))}
-                <a
-                  href={LINKS.resume}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={closeMenu}
-                  className="menu-cta"
-                >
-                  Resume
-                </a>
-              </div>
-            </details>
-          </div>
+          <details ref={menuRef} className="menu">
+            <summary className="btn btn--ghost">Menu</summary>
+            <div className="menu__sheet">
+              {["#projects", "#skills", "#experience", "#education", "#services", "#contact"].map(
+                (href) => (
+                  <a key={href} href={href} className="menu__item" onClick={closeMenu}>
+                    {href.replace("#", "")}
+                  </a>
+                ),
+              )}
+              <a
+                href={LINKS.resume}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="menu__cta"
+                onClick={closeMenu}
+              >
+                Resume
+              </a>
+            </div>
+          </details>
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="mx-auto max-w-6xl px-4 lg:px-6 pt-12 lg:pt-16 pb-12 lg:pb-18 grid md:grid-cols-2 gap-10 items-center fade-in-up">
-        <div className="flex flex-col gap-6">
-          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-zinc-200 px-3 py-1 text-xs font-medium text-zinc-600 bg-white/70 backdrop-blur-sm">
-            <span className="inline-block h-2 w-2 rounded-full bg-gradient-to-r from-emerald-500 to-lime-400" />
-            Open to opportunities
-          </span>
-          <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
-            {ROLE}
-          </h1>
-          <p className="max-w-xl text-zinc-600 text-lg leading-relaxed">
-            {TAGLINE}
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <a href="#contact" className="btn-primary">Start a project</a>
-            <a href="#projects" className="btn-outline">View projects</a>
+      {/* ===================== HERO ===================== */}
+      <section className="hero container">
+        <div className="hero__text">
+          <span className="pill">Open to opportunities</span>
+          <h1 className="hero__title">{ROLE}</h1>
+          <p className="hero__tagline">{TAGLINE}</p>
+          <div className="hero__cta">
+            <a href="#contact" className="btn btn--primary">
+              Start a project
+            </a>
+            <a href="#projects" className="btn btn--outline">
+              View projects
+            </a>
           </div>
-          <div className="mt-2 flex flex-wrap gap-4 text-sm text-zinc-700">
-            <a href={LINKS.linkedin} target="_blank" className="icon-link">LinkedIn</a>
-            <a href={LINKS.github} target="_blank" className="icon-link">GitHub</a>
-            <a href={LINKS.email} className="icon-link">Email</a>
-            <a href={LINKS.phone} className="icon-link">Call</a>
-            <a href={LINKS.whatsapp} target="_blank" className="icon-link">WhatsApp</a>
+
+          <div className="hero__links">
+            <a href={LINKS.linkedin} target="_blank" className="link">
+              LinkedIn
+            </a>
+            <a href={LINKS.github} target="_blank" className="link">
+              GitHub
+            </a>
+            <a href={LINKS.email} className="link">
+              Email
+            </a>
+            <a href={LINKS.phone} className="link">
+              Call
+            </a>
+            <a href={LINKS.whatsapp} target="_blank" className="link">
+              WhatsApp
+            </a>
           </div>
         </div>
 
-        {/* Avatar (centered on mobile, right on desktop) */}
-        <div className="flex md:justify-end justify-center">
-          <div className="relative inline-block scale-in">
-            <div className="avatar-ring" />
+        <div className="hero__photo">
+          <div className="photo-wrap">
+            <div className="photo-ring" />
             <Image
               src={LINKS.profilePic}
               alt={NAME}
-              width={320}
-              height={320}
-              className="w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72 rounded-full object-cover border-4 border-white shadow-xl"
+              width={280}
+              height={280}
+              className="photo"
               priority
             />
           </div>
         </div>
       </section>
 
-      {/* Highlights – colorful stat cards */}
-      <section className="mx-auto max-w-6xl px-4 lg:px-6 pb-4">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {/* ===================== HIGHLIGHTS ===================== */}
+      <section className="section container">
+        <div className="grid grid--stats">
           {highlights.map((h, i) => (
-            <article key={h.label} className={`stat stat--${i}`}>
-              <div className="stat-value">{h.value}</div>
-              <div className="stat-label">{h.label}</div>
+            <article key={h.label} className={`stat card hue-${(i % 6) + 1}`}>
+              <div className="stat__value">{h.value}</div>
+              <div className="stat__label">{h.label}</div>
             </article>
           ))}
         </div>
       </section>
 
-      {/* Services – colorful headers */}
-      <section id="services" className="mx-auto max-w-6xl px-4 lg:px-6 py-12">
-        <div className="section-header">
+      {/* ===================== SERVICES ===================== */}
+      <section id="services" className="section container">
+        <header className="section__head">
           <h2>Services</h2>
           <p>Everything you need to ship and scale a quality Flutter app.</p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-8">
-          {services.map((s) => (
-            <article key={s.title} className="card">
-              <div className={`pill ${s.color}`}>{s.title}</div>
-              <ul className="mt-4 grid gap-2.5 text-sm text-zinc-700">
-                {s.points.map((p) => <li key={p} className="li-dot">{p}</li>)}
+        </header>
+
+        <div className="grid grid--cards">
+          {services.map((s, i) => (
+            <article key={s.title} className={`card card--pad hue-${(i % 6) + 1}`}>
+              <h3 className="card__title">{s.title}</h3>
+              <ul className="list">
+                {s.points.map((p) => (
+                  <li key={p}>{p}</li>
+                ))}
               </ul>
             </article>
           ))}
         </div>
       </section>
 
-      {/* Skills – colorful chips, roomy spacing (NO ICONS) */}
-      <section id="skills" className="mx-auto max-w-6xl px-4 lg:px-6 py-12">
-        <div className="section-header">
+      {/* ===================== SKILLS ===================== */}
+      <section id="skills" className="section container">
+        <header className="section__head">
           <h2>Skills & Tools</h2>
           <p>A focused toolbox I use to ship quality apps fast.</p>
-        </div>
+        </header>
 
-        <div className="mt-7 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-3.5">
-          {skills.map((s, idx) => (
-            <span key={s} className={`chip chip-${(idx % 6) + 1}`} title={s}>
-              {s}
-            </span>
+        <div className="grid grid--skills">
+          {skillGroups.map((g, i) => (
+            <article key={g.title} className={`card card--pad hue-${(i % 6) + 1}`}>
+              <div className="group-head">
+                <h3 className="group-head__title">{g.title}</h3>
+                <span className="group-head__line" />
+              </div>
+              <div className="chips">
+                {g.items.map((s) => (
+                  <span key={s} className="chip">
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </article>
           ))}
         </div>
       </section>
 
-      {/* Projects */}
-      <section id="projects" className="mx-auto max-w-6xl px-4 lg:px-6 py-12">
-        <div className="section-header">
+      {/* ===================== PROJECTS ===================== */}
+      <section id="projects" className="section container">
+        <header className="section__head">
           <h2>Selected Projects</h2>
-          <p>Focused on performance, UX, and maintainable architecture.</p>
-        </div>
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((p) => (
-            <article key={p.title} className="card group">
-              <h3 className="text-lg font-semibold tracking-tight group-hover:underline underline-offset-4">
-                {p.title}
-              </h3>
-              <p className="mt-2 text-sm text-zinc-600">{p.blurb}</p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {p.tags.map((t) => <span key={t} className="tag">{t}</span>)}
+          <p>Performance, UX and maintainability — proven in production.</p>
+        </header>
+
+        <div className="grid grid--cards">
+          {projects.map((p, i) => (
+            <article key={p.title} className={`card card--pad hue-${(i % 6) + 1}`}>
+              <div className="card__top">
+                <h3 className="card__title">{p.title}</h3>
+                <span className="ribbon">Live</span>
+              </div>
+              <p className="card__blurb">{p.blurb}</p>
+              <div className="tags">
+                {p.tags.map((t) => (
+                  <span key={t} className="tag">
+                    {t}
+                  </span>
+                ))}
               </div>
               {p.links.length > 0 && (
-                <div className="mt-4 flex flex-wrap gap-2">
+                <div className="links">
                   {p.links.map((l) => (
                     <a key={l.href} href={l.href} className="link" target="_blank" rel="noopener noreferrer">
                       {l.label}
@@ -242,216 +360,302 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Experience */}
-      <section id="experience" className="mx-auto max-w-6xl px-4 lg:px-6 py-12">
-        <div className="section-header"><h2>Experience</h2></div>
-        <article className="card">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <div className="text-lg font-semibold">Senior Flutter Developer · Digital Upgraders LLC (Remote)</div>
-            <div className="text-sm text-zinc-500">Feb 2023 – Present</div>
+      {/* ===================== EXPERIENCE ===================== */}
+      <section id="experience" className="section container">
+        <header className="section__head">
+          <h2>Experience</h2>
+        </header>
+
+        <article className="card card--pad hue-2">
+          <div className="xp-head">
+            <div className="xp-head__role">
+              Senior Flutter Developer · Digital Upgraders LLC (Remote)
+            </div>
+            <div className="xp-head__time">Feb 2023 – Present</div>
           </div>
-          <ul className="mt-4 grid gap-2.5 text-sm text-zinc-700">
-            <li className="li-dot">Lead development of cross-platform apps with clean architecture and robust state management.</li>
-            <li className="li-dot">Implemented real-time features, offline capabilities, and performance optimizations.</li>
-            <li className="li-dot">Collaborated with designers & backend; mentored developers; owned CI/CD and releases.</li>
+          <ul className="list">
+            <li>Led cross-platform development with feature-based architecture.</li>
+            <li>Implemented realtime features, offline capability & perf optimizations.</li>
+            <li>Mentored developers, owned CI/CD and store releases.</li>
           </ul>
         </article>
       </section>
 
-      {/* Education */}
-      <section id="education" className="mx-auto max-w-6xl px-4 lg:px-6 py-12">
-        <div className="section-header"><h2>Education</h2></div>
-        <article className="card">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <div className="text-lg font-semibold">BS — Computer Science</div>
-            <div className="text-sm text-zinc-500">Oct 2017 – Oct 2021</div>
+      {/* ===================== EDUCATION ===================== */}
+      <section id="education" className="section container">
+        <header className="section__head">
+          <h2>Education</h2>
+        </header>
+
+        <article className="card card--pad hue-3">
+          <div className="xp-head">
+            <div className="xp-head__role">BS — Computer Science</div>
+            <div className="xp-head__time">Oct 2017 – Oct 2021</div>
           </div>
-          <div className="mt-1 text-zinc-600 text-sm">University of Management & Technology, Lahore</div>
+          <p className="muted">University of Management & Technology, Lahore</p>
         </article>
       </section>
 
-      {/* CTA / Contact */}
-      <section id="contact" className="mx-auto max-w-6xl px-4 lg:px-6 py-16">
-        <article className="card-lg">
-          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+      {/* ===================== CONTACT ===================== */}
+      <section id="contact" className="cta container">
+        <article className="card card--cta hue-5">
+          <div className="cta__row">
             <div>
-              <h3 className="text-2xl font-bold">Let’s build something great.</h3>
-              <p className="mt-2 text-zinc-600">Tell me about your idea, and I’ll propose a practical, high-impact plan.</p>
+              <h3 className="cta__title">Let’s build something great.</h3>
+              <p className="cta__text">
+                Tell me about your idea and I’ll propose a practical, high-impact plan.
+              </p>
             </div>
-            <div className="flex flex-wrap gap-3">
-              <a href={LINKS.email} className="btn-primary">Email</a>
-              <a href={LINKS.phone} className="btn-outline">Call</a>
-              <a href={LINKS.whatsapp} target="_blank" className="btn-outline">WhatsApp</a>
-              <a href={LINKS.linkedin} target="_blank" className="btn-outline">LinkedIn</a>
-              <a href={LINKS.github} target="_blank" className="btn-outline">GitHub</a>
-              <a href={LINKS.resume} target="_blank" className="btn-outline">Download CV</a>
+            <div className="cta__actions">
+              <a href={LINKS.email} className="btn btn--primary">
+                Email
+              </a>
+              <a href={LINKS.phone} className="btn btn--outline">
+                Call
+              </a>
+              <a href={LINKS.whatsapp} target="_blank" className="btn btn--outline">
+                WhatsApp
+              </a>
+              <a href={LINKS.linkedin} target="_blank" className="btn btn--outline">
+                LinkedIn
+              </a>
+              <a href={LINKS.github} target="_blank" className="btn btn--outline">
+                GitHub
+              </a>
+              <a href={LINKS.resume} target="_blank" className="btn btn--outline">
+                Download CV
+              </a>
             </div>
           </div>
         </article>
-        <footer className="mt-10 text-center text-sm text-zinc-500">
-          © {new Date().getFullYear()} {NAME}. All rights reserved.
-        </footer>
+        <footer className="footer">© {new Date().getFullYear()} {NAME}. All rights reserved.</footer>
       </section>
 
-      {/* Back to top */}
-      <a href="#top" className="back-to-top" aria-label="Back to top">↑</a>
-
-      {/* Tokens + Colorful Card CSS */}
+      {/* ===================== STYLES ===================== */}
       <style>{`
-        html { scroll-behavior: smooth; }
+        /* ====== Design tokens (colors & radii) ====== */
         :root{
-          --card-bg: 255,255,255;
-          --card-border: 24,24,27,0.08;
-          --grad-a: #60a5fa;      /* sky-400 */
-          --grad-b: #22d3ee;      /* cyan-400 */
-          --grad-c: #a78bfa;      /* violet-400 */
-          --shadow: 0 18px 40px rgba(0,0,0,.06);
-          --shadow-hover: 0 22px 44px rgba(0,0,0,.09);
-          --radius: 1.25rem;
+          --radius: 18px;
+
+          /* Vibrant brand hues */
+          --c1: 255 107 107;   /* coral red */
+          --c2: 78 205 196;    /* teal */
+          --c3: 94 129 244;    /* blue */
+          --c4: 255 200 87;    /* amber */
+          --c5: 156 39 176;    /* purple */
+          --c6: 0 209 178;     /* aqua */
+
+          /* Card surface */
+          --card-bg: 255 255 255 / .08; /* glass */
+          --card-bd: 255 255 255 / .22;
+
+          /* Text */
+          --txt: 255 255 255;
+          --muted: 236 239 241;
         }
 
-        /* Buttons & nav */
-        .btn-primary{
-          display:inline-flex; align-items:center; gap:.5rem;
-          padding:.85rem 1.3rem; border-radius:14px;
-          font-size:.95rem; font-weight:700; color:#fff;
-          background:linear-gradient(135deg,#6366f1,#22d3ee); /* indigo -> cyan */
-          box-shadow:0 12px 22px rgba(99,102,241,.25);
-          transition:transform .15s ease, box-shadow .2s ease, opacity .2s ease;
-          text-decoration:none;
+        /* ====== Site background (animated gradient) ====== */
+        .site{
+          min-height: 100dvh;
+          color: rgb(var(--txt));
+          background: linear-gradient(125deg, #0b1026, #1b0b2a 30%, #130b34 55%, #0b1e2a 85%);
+          background-size: 180% 180%;
+          animation: bgMove 18s ease-in-out infinite;
         }
-        .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 16px 28px rgba(99,102,241,.28); opacity:.97; }
-        .btn-outline{
-          display:inline-flex; align-items:center; gap:.5rem;
-          padding:.85rem 1.3rem; border-radius:14px;
-          font-size:.95rem; font-weight:700; color:#0b1220;
-          border:1px solid #e6e8ee; background:#fff; text-decoration:none;
-          transition:background .2s ease, transform .15s ease, box-shadow .2s ease;
-        }
-        .btn-outline:hover{ background:#f7faff; transform:translateY(-2px); box-shadow:0 10px 18px rgba(34,211,238,.15); }
-        .btn-ghost{
-          display:inline-flex; align-items:center; gap:.5rem;
-          padding:.55rem .9rem; border-radius:12px; font-size:.92rem;
-          border:1px solid #ececf1; background:#fff; transition:background .2s ease;
-        }
-        .btn-ghost:hover{ background:#f8faff; }
-        .nav-link{ color:#0b1220; text-decoration:none; font-weight:600; letter-spacing:.2px; }
-        .nav-link:hover{ color:#2563eb; }
-        .icon-link{ color:#0b1220; text-decoration:none; font-weight:600; }
-        .icon-link:hover{ color:#2563eb; }
-
-        .menu-item{ display:block; padding:.7rem .9rem; border-radius:12px; color:#0b1220; text-decoration:none; font-weight:600; }
-        .menu-item:hover{ background:#f6f8ff; }
-        .menu-cta{
-          display:block; padding:.7rem .9rem; border-radius:12px; color:#fff; text-decoration:none;
-          background:linear-gradient(135deg,#22d3ee,#06b6d4); text-align:center; font-weight:700;
+        @keyframes bgMove {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
         }
 
-        .section-header h2{ font-size:1.6rem; font-weight:800; letter-spacing:-.02em; }
-        .section-header p{ margin-top:.55rem; color:#5b5e68; font-size:1rem; }
-
-        /* Unified gradient-border card */
-        .card,.card-lg,.stat{
-          position:relative; overflow:hidden;
-          background:rgba(var(--card-bg),0.98); border-radius:var(--radius);
-          border:1px solid rgba(var(--card-border)); box-shadow:var(--shadow);
-          transition:transform .22s ease, box-shadow .22s ease;
+        /* Subtle floating blobs for depth */
+        .site::before, .site::after{
+          content:"";
+          position:fixed; inset:auto;
+          width:620px; height:620px; border-radius:9999px;
+          filter: blur(80px); opacity:.35; pointer-events:none; z-index:0;
         }
-        .card::before,.card-lg::before,.stat::before{
-          content:""; position:absolute; inset:0; padding:1px; border-radius:inherit;
-          background:linear-gradient(120deg,#60a5fa,#22d3ee,#a78bfa,#60a5fa);
-          -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-          -webkit-mask-composite:xor; mask-composite:exclude; opacity:.9; pointer-events:none;
+        .site::before{ background: radial-gradient(closest-side, rgba(255,107,107,.35), transparent); top:-180px; left:-160px; }
+        .site::after{ background: radial-gradient(closest-side, rgba(94,129,244,.35), transparent); bottom:-200px; right:-180px; }
+
+        /* ====== Layout containers ====== */
+        .container{ max-width: 1120px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
+        .section{ padding: 48px 0; }
+        .cta{ padding: 72px 0; }
+
+        /* ====== Navbar ====== */
+        .navbar{
+          position: sticky; top: 0; z-index: 50;
+          background: rgba(9, 13, 31, .35);
+          backdrop-filter: blur(10px);
+          border-bottom: 1px solid rgba(255,255,255,.08);
         }
-        .card{ padding:1.35rem; }
-        .card-lg{ padding:2rem; border-radius:calc(var(--radius) + .25rem); }
-        .card:hover,.card-lg:hover,.stat:hover{ transform:translateY(-4px); box-shadow:var(--shadow-hover); }
+        .navbar .container{
+          display:flex; align-items:center; justify-content:space-between; padding: 12px 20px;
+        }
+        .brand{ display:flex; align-items:center; gap:10px; }
+        .brand__name{ font-size:.95rem; font-weight:600; opacity:.95; }
+        .avatar{ border-radius:9999px; border:2px solid rgba(255,255,255,.5); }
 
-        /* Stat cards: extra color bands per index */
-        .stat{ padding:1.2rem 1.25rem; }
-        .stat-value{ font-size:1.35rem; font-weight:900; letter-spacing:.2px; }
-        .stat-label{ font-size:.72rem; text-transform:uppercase; letter-spacing:.14em; color:#6b7280; margin-top:.2rem; }
-        .stat--0{ background:linear-gradient(180deg,#ffffff 0%, #f0f7ff 100%); }
-        .stat--1{ background:linear-gradient(180deg,#ffffff 0%, #fff4f9 100%); }
-        .stat--2{ background:linear-gradient(180deg,#ffffff 0%, #f3fff3 100%); }
-        .stat--3{ background:linear-gradient(180deg,#ffffff 0%, #fffdf3 100%); }
+        .nav-desktop{ display:none; gap:18px; align-items:center; }
+        .nav-link{ color:rgba(255,255,255,.92); text-decoration:none; font-size:.92rem; }
+        .nav-link:hover{ color:white; }
+        .menu{ display:block; }
+        .menu > summary{ cursor:pointer; }
+        .menu__sheet{
+          position:absolute; right:10px; top:50px; width:250px;
+          background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.16); border-radius:14px;
+          backdrop-filter: blur(10px);
+          padding:8px; display:grid; gap:6px;
+        }
+        .menu[open] .menu__sheet{ animation: sheet .2s ease-out both; }
+        @keyframes sheet{ from{ opacity:0; transform:translateY(-6px) } to{ opacity:1; transform:translateY(0) } }
+        .menu__item{
+          display:block; padding:.6rem .8rem; border-radius:10px; color:white; text-decoration:none;
+        }
+        .menu__item:hover{ background: rgba(255,255,255,.08); }
+        .menu__cta{
+          display:block; text-align:center; padding:.65rem .8rem; border-radius:10px; color:#0b1026; text-decoration:none;
+          background: linear-gradient(135deg, rgb(var(--c3)), rgb(var(--c2)));
+          font-weight:700;
+        }
 
-        /* Services pill headers */
+        /* Desktop breakpoint */
+        @media (min-width: 900px){
+          .nav-desktop{ display:flex; }
+          .menu{ display:none; }
+        }
+
+        /* ====== Hero ====== */
+        .hero{
+          padding: 56px 0 36px;
+          display:grid; grid-template-columns: 1fr; gap: 28px; align-items:center;
+        }
+        @media (min-width: 900px){
+          .hero{ grid-template-columns: 1.2fr .8fr; gap: 40px; padding: 72px 0 40px; }
+        }
+        .hero__text{ display:flex; flex-direction:column; gap:18px; }
         .pill{
-          display:inline-flex; align-items:center; padding:.55rem .8rem; border-radius:9999px;
-          font-weight:800; font-size:.85rem; color:#0b1220; letter-spacing:.3px;
-          background:#fff; border:1px solid rgba(24,24,27,.08);
-          box-shadow:0 8px 16px rgba(0,0,0,.05), inset 0 0 0 1px rgba(255,255,255,.6);
-          position:relative;
+          display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:9999px;
+          background: rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); font-size:.8rem;
         }
-        .pill::after{
-          content:""; position:absolute; inset:0; border-radius:inherit; padding:1px;
-          background:linear-gradient(135deg,#22d3ee,#a78bfa);
-          -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-          -webkit-mask-composite:xor; mask-composite:exclude; opacity:.8; pointer-events:none;
-        }
-        .pill.from-sky-400.to-cyan-400{ background:linear-gradient(180deg,#ffffff 0%, #f0fbff 100%); }
-        .pill.from-fuchsia-400.to-pink-400{ background:linear-gradient(180deg,#ffffff 0%, #fff0f6 100%); }
-        .pill.from-emerald-400.to-lime-400{ background:linear-gradient(180deg,#ffffff 0%, #f0fff3 100%); }
+        .hero__title{ font-size: clamp(1.9rem, 2.8vw + 1rem, 3.2rem); line-height:1.1; font-weight:800; letter-spacing:.2px; }
+        .hero__tagline{ max-width: 46ch; color: rgba(255,255,255,.85); font-size: clamp(.98rem, .35vw + .9rem, 1.1rem); }
 
-        /* Skills chips – 6 hues cycling */
+        .hero__cta{ display:flex; flex-wrap:wrap; gap:12px; margin-top:2px; }
+        .btn{
+          display:inline-flex; align-items:center; justify-content:center; gap:.5rem; cursor:pointer;
+          padding:.8rem 1.2rem; border-radius:14px; font-size:.94rem; font-weight:700; text-decoration:none;
+          transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+        }
+        .btn--primary{
+          color:#0b1026; background: linear-gradient(135deg, rgb(var(--c3)), rgb(var(--c2)));
+          box-shadow: 0 12px 30px rgba(94,129,244,.25);
+        }
+        .btn--primary:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+        .btn--outline{
+          color:white; border:1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.04);
+        }
+        .btn--outline:hover{ background: rgba(255,255,255,.08); transform: translateY(-1px); }
+
+        .hero__links{ display:flex; flex-wrap:wrap; gap:14px; margin-top:8px; }
+        .link{ color: white; text-decoration: underline; text-underline-offset: 4px; }
+        .link:hover{ color: rgb(255,255,255); filter: brightness(1.1); }
+
+        .hero__photo{ display:flex; justify-content:center; }
+        .photo-wrap{ position:relative; display:inline-block; }
+        .photo{ width: 280px; height: 280px; object-fit: cover; border-radius:9999px; border: 4px solid rgba(255,255,255,.55); box-shadow: 0 20px 60px rgba(0,0,0,.35); }
+        .photo-ring{
+          position:absolute; inset:-14px; border-radius:9999px;
+          background: conic-gradient(from 0deg, rgb(var(--c3)), rgb(var(--c5)), rgb(var(--c2)), rgb(var(--c3)));
+          filter: blur(18px); opacity:.32; z-index:-1;
+        }
+
+        /* ====== Cards & grids ====== */
+        .card{
+          position:relative; background: rgba(var(--card-bg));
+          border: 1px solid rgba(var(--card-bd)); border-radius: var(--radius);
+          overflow:hidden; transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+          box-shadow: 0 18px 40px rgba(0,0,0,.25);
+        }
+        .card::before{
+          content:""; position:absolute; inset:0; padding:1px; border-radius:inherit;
+          background: conic-gradient(from 10deg, rgb(var(--c3)), rgb(var(--c2)), rgb(var(--c5)), rgb(var(--c4)), rgb(var(--c6)), rgb(var(--c3)));
+          -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          -webkit-mask-composite: xor; mask-composite: exclude; opacity:.55; pointer-events:none;
+        }
+        .card:hover{ transform: translateY(-3px); }
+
+        .card--pad{ padding: 18px; }
+        .card--cta{ padding: 26px; }
+        @media (min-width: 900px){ .card--pad{ padding: 22px; } .card--cta{ padding: 34px; } }
+
+        /* Color accents per card */
+        .hue-1::before{ background: conic-gradient(from 10deg, rgb(var(--c1)), rgb(var(--c2)), rgb(var(--c3))); }
+        .hue-2::before{ background: conic-gradient(from 10deg, rgb(var(--c2)), rgb(var(--c3)), rgb(var(--c4))); }
+        .hue-3::before{ background: conic-gradient(from 10deg, rgb(var(--c3)), rgb(var(--c4)), rgb(var(--c5))); }
+        .hue-4::before{ background: conic-gradient(from 10deg, rgb(var(--c4)), rgb(var(--c5)), rgb(var(--c6))); }
+        .hue-5::before{ background: conic-gradient(from 10deg, rgb(var(--c5)), rgb(var(--c6)), rgb(var(--c1))); }
+        .hue-6::before{ background: conic-gradient(from 10deg, rgb(var(--c6)), rgb(var(--c1)), rgb(var(--c2))); }
+
+        /* Stats (highlights) */
+        .grid--stats{
+          display:grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
+        }
+        @media (min-width: 800px){ .grid--stats{ grid-template-columns: repeat(4, 1fr); gap: 18px; } }
+        .stat{ padding: 18px; }
+        .stat__value{ font-size: 1.35rem; font-weight: 900; letter-spacing:.2px; }
+        .stat__label{ margin-top: 4px; font-size:.72rem; letter-spacing:.12em; text-transform: uppercase; color: rgba(var(--muted), .85); }
+
+        /* Cards grid (services, projects) */
+        .grid--cards{
+          display:grid; grid-template-columns: 1fr; gap: 16px;
+        }
+        @media (min-width: 800px){ .grid--cards{ grid-template-columns: repeat(3, 1fr); gap: 18px; } }
+
+        .card__title{ font-weight: 800; letter-spacing:.2px; }
+        .card__top{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+        .card__blurb{ margin-top: 8px; color: rgba(255,255,255,.88); }
+        .ribbon{
+          display:inline-block; font-size:.7rem; font-weight:800; padding: .25rem .55rem; border-radius: 9999px;
+          color:#0b1026; background: linear-gradient(135deg, rgb(var(--c4)), rgb(var(--c1)));
+        }
+        .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+        .tag{
+          display:inline-block; font-size:.72rem; padding:.18rem .52rem; border-radius:9999px;
+          background: rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18);
+        }
+        .links{ display:flex; flex-wrap:wrap; gap:12px; margin-top:12px; }
+
+        /* Skills */
+        .grid--skills{
+          display:grid; grid-template-columns: 1fr; gap: 16px;
+        }
+        @media (min-width: 900px){ .grid--skills{ grid-template-columns: repeat(3, 1fr); gap: 18px; } }
+        .group-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
+        .group-head__title{ font-weight: 900; letter-spacing:.3px; }
+        .group-head__line{ flex:1; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,.2), rgba(255,255,255,0)); }
+        .chips{ display:flex; flex-wrap:wrap; gap:10px; }
         .chip{
-          display:inline-flex; align-items:center; justify-content:center;
-          padding:.6rem .9rem; border-radius:14px; font-size:.9rem; font-weight:700;
-          color:#0b1220; border:1px solid rgba(24,24,27,.08); background:#fff;
-          box-shadow:0 8px 18px rgba(0,0,0,.05); transition:transform .15s ease, box-shadow .2s ease;
-          white-space:nowrap;
-        }
-        .chip:hover{ transform:translateY(-2px); box-shadow:0 14px 26px rgba(0,0,0,.08); }
-        .chip-1{ background:linear-gradient(180deg,#ffffff 0%, #f0f7ff 100%); }
-        .chip-2{ background:linear-gradient(180deg,#ffffff 0%, #fef6ff 100%); }
-        .chip-3{ background:linear-gradient(180deg,#ffffff 0%, #f2fff8 100%); }
-        .chip-4{ background:linear-gradient(180deg,#ffffff 0%, #fff9f2 100%); }
-        .chip-5{ background:linear-gradient(180deg,#ffffff 0%, #f3fbff 100%); }
-        .chip-6{ background:linear-gradient(180deg,#ffffff 0%, #f8f2ff 100%); }
-
-        /* List bullets */
-        .li-dot{ position:relative; padding-left:1.1rem; }
-        .li-dot::before{
-          content:""; position:absolute; left:0; top:.55rem; width:.5rem; height:.5rem; border-radius:9999px;
-          background:linear-gradient(135deg,#60a5fa,#22d3ee);
-          box-shadow:0 0 0 2px #fff;
+          display:inline-flex; align-items:center; justify-content:center; padding:.45rem .8rem; border-radius:12px; font-weight:700;
+          background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+          border: 1px solid rgba(255,255,255,.18);
+          box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
         }
 
-        /* Tags & links */
-        .tag{ display:inline-block; padding:.22rem .55rem; border-radius:9999px; background:#f4f4f5; color:#3f3f46; font-size:.75rem; font-weight:700; }
-        .link{ color:#0b1220; font-weight:800; text-decoration:underline; }
-        .link:hover{ color:#2563eb; }
+        /* Lists */
+        .list{ margin-top: 8px; padding-left: 1.1rem; line-height: 1.6; }
+        .list li + li{ margin-top: 6px; }
+        .muted{ color: rgba(var(--muted), .85); }
 
-        /* Avatar ring */
-        .avatar-ring{
-          position:absolute; inset:-12px; border-radius:9999px;
-          background:conic-gradient(from 0deg,#60a5fa,#a78bfa,#22d3ee,#60a5fa);
-          filter:blur(16px); opacity:.32; z-index:-1;
-        }
+        /* CTA */
+        .card--cta{ box-shadow: 0 30px 80px rgba(0,0,0,.35); }
+        .cta__row{ display:flex; flex-direction:column; gap:20px; align-items:flex-start; }
+        .cta__title{ font-size: clamp(1.2rem, .9vw + 1rem, 1.6rem); font-weight:900; }
+        .cta__text{ margin-top: 6px; color: rgba(255,255,255,.9); }
+        .cta__actions{ display:flex; flex-wrap:wrap; gap:10px; margin-top:4px; }
+        .footer{ margin-top: 14px; text-align:center; color: rgba(255,255,255,.7); font-size:.9rem; }
 
-        /* Back to top */
-        .back-to-top{
-          position:fixed; right:1.25rem; bottom:1.25rem; border-radius:9999px;
-          padding:.7rem 1rem; color:#fff; background:linear-gradient(135deg,#22d3ee,#6366f1);
-          text-decoration:none; box-shadow:0 16px 28px rgba(34,211,238,.25);
-        }
-        .back-to-top:hover{ filter:brightness(.98); }
-
-        /* Animations */
-        @keyframes floatSlow{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(10px) } }
-        .animate-floatSlow{ animation:floatSlow 10s ease-in-out infinite; }
-        .animation-delay-1200{ animation-delay:1.2s; }
-        .animation-delay-2400{ animation-delay:2.4s; }
-        @keyframes fadeInUp{ from{ opacity:0; transform:translateY(10px) } to{ opacity:1; transform:translateY(0) } }
-        .fade-in-up{ animation:fadeInUp .6s ease-out both; }
-        .scale-in{ animation:fadeInUp .55s ease-out both; }
-
-        /* Responsive tweaks */
-        @media (max-width: 640px){
-          header .btn-primary{ padding:.7rem 1.1rem; }
-          .back-to-top{ right:.9rem; bottom:.9rem; }
-        }
       `}</style>
     </main>
   );
