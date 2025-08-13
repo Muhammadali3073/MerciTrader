@@ -1,5 +1,5 @@
 // app/page.tsx — Fresh colorful redesign (animated gradient bg + glass cards + refined spacing)
-// Light-only, no extra packages, no skill icons
+// Light-only, no extra packages, no skill icons (as requested)
 
 "use client";
 
@@ -44,7 +44,6 @@ export default function Home() {
         "Clean Architecture & modular design",
         "State management (Bloc / Riverpod / GetX)",
       ],
-      hue: "--c1",
     },
     {
       title: "Integrations & Backend",
@@ -53,7 +52,6 @@ export default function Home() {
         "Push, Analytics, Payments & Subscriptions",
         "Maps, Location, Media, Realtime",
       ],
-      hue: "--c2",
     },
     {
       title: "Quality & Release",
@@ -62,17 +60,17 @@ export default function Home() {
         "CI/CD (Fastlane), versioning, automation",
         "App Store & Play Store submissions",
       ],
-      hue: "--c3",
     },
   ];
 
-  const skillGroups: { title: string; hue: string; items: string[] }[] = [
-    { title: "Core", hue: "--c1", items: ["Flutter", "Dart", "Flutter Web", "Clean Architecture"] },
-    { title: "State Management", hue: "--c2", items: ["Bloc", "Riverpod", "GetX", "Provider"] },
-    { title: "Data & Cloud", hue: "--c3", items: ["REST APIs", "Firebase", "Firestore", "Auth", "FCM", "SQLite", "Hive"] },
-    { title: "Quality & DevOps", hue: "--c4", items: ["Testing", "CI/CD", "Fastlane", "Code Review"] },
-    { title: "Native & Features", hue: "--c5", items: ["Native Channels", "ML Kit", "Push Notifications", "Maps & Geo"] },
-    { title: "Tooling", hue: "--c6", items: ["Git", "GitHub", "Jira", "Asana", "VS Code", "Android Studio", "Xcode"] },
+  // Skills (no icons; grouped & colorful)
+  const skillGroups: { title: string; items: string[] }[] = [
+    { title: "Core", items: ["Flutter", "Dart", "Flutter Web", "Clean Architecture"] },
+    { title: "State Management", items: ["Bloc", "Riverpod", "GetX", "Provider"] },
+    { title: "Data & Cloud", items: ["REST APIs", "Firebase", "Firestore", "Auth", "FCM", "SQLite", "Hive"] },
+    { title: "Quality & DevOps", items: ["Testing", "CI/CD", "Fastlane", "Code Review"] },
+    { title: "Native & Features", items: ["Native Channels", "ML Kit", "Push Notifications", "Maps & Geo"] },
+    { title: "Tooling", items: ["Git", "GitHub", "Jira", "Asana", "VS Code", "Android Studio", "Xcode"] },
   ];
 
   const projects = [
@@ -142,7 +140,7 @@ export default function Home() {
           <details ref={menuRef} className="menu">
             <summary className="btn btn--ghost">Menu</summary>
             <div className="menu__sheet">
-              {["#projects", "#skills", "#experience", "#education", "#services", "#contact"].map(href => (
+              {["#projects", "#skills", "#experience", "#education", "#services", "#contact"].map((href) => (
                 <a key={href} href={href} className="menu__item" onClick={closeMenu}>
                   {href.replace("#", "")}
                 </a>
@@ -226,7 +224,9 @@ export default function Home() {
             <article key={s.title} className={`card card--pad hue-${(i % 6) + 1}`}>
               <h3 className="card__title">{s.title}</h3>
               <ul className="list">
-                {s.points.map(p => <li key={p}>{p}</li>)}
+                {s.points.map((p) => (
+                  <li key={p}>{p}</li>
+                ))}
               </ul>
             </article>
           ))}
@@ -248,7 +248,9 @@ export default function Home() {
                 <span className="group-head__line" />
               </div>
               <div className="chips">
-                {g.items.map(s => <span key={s} className="chip">{s}</span>)}
+                {g.items.map((s) => (
+                  <span key={s} className="chip">{s}</span>
+                ))}
               </div>
             </article>
           ))}
@@ -271,11 +273,13 @@ export default function Home() {
               </div>
               <p className="card__blurb">{p.blurb}</p>
               <div className="tags">
-                {p.tags.map(t => <span key={t} className="tag">{t}</span>)}
+                {p.tags.map((t) => (
+                  <span key={t} className="tag">{t}</span>
+                ))}
               </div>
               {!!p.links.length && (
                 <div className="links">
-                  {p.links.map(l => (
+                  {p.links.map((l) => (
                     <a key={l.href} href={l.href} className="link" target="_blank" rel="noopener noreferrer">
                       {l.label}
                     </a>
@@ -380,9 +384,11 @@ export default function Home() {
           50% { background-position: 100% 50%; }
           100% { background-position: 0% 50%; }
         }
-        @media (prefers-reduced-motion: reduce) { .site { animation: none; } }
+        @media (prefers-reduced-motion: reduce) {
+          .site { animation: none; }
+        }
 
-        /* Subtle floating blobs for depth (responsive) */
+        /* Subtle floating blobs for depth */
         .site::before, .site::after{
           content:"";
           position:fixed; inset:auto;
@@ -391,6 +397,7 @@ export default function Home() {
         }
         .site::before{ background: radial-gradient(closest-side, rgba(255,107,107,.35), transparent); top:-180px; left:-160px; }
         .site::after{ background: radial-gradient(closest-side, rgba(94,129,244,.35), transparent); bottom:-200px; right:-180px; }
+
         @media (max-width: 640px){
           .site::before, .site::after { width:360px; height:360px; filter: blur(60px); }
           .site::before { top:-140px; left:-120px; }
@@ -399,7 +406,6 @@ export default function Home() {
 
         /* ====== Layout containers ====== */
         .container{ max-width: 1120px; margin: 0 auto; padding: 0 16px; position: relative; z-index: 1; }
-        @media (min-width: 480px){ .container { padding: 0 18px; } }
         @media (min-width: 900px){ .container { padding: 0 20px; } }
 
         .section{ padding: 40px 0; }
@@ -436,4 +442,206 @@ export default function Home() {
           padding:8px; display:grid; gap:6px;
         }
         .menu[open] .menu__sheet{ animation: sheet .2s ease-out both; }
-        @keyframes sheet{ from{ opacity:0; transform:translate
+        @keyframes sheet{ from{ opacity:0; transform:translateY(-6px) } to{ opacity:1; transform:translateY(0) } }
+        .menu__item{
+          display:block; padding:.7rem .9rem; border-radius:10px; color:white; text-decoration:none;
+        }
+        .menu__item:hover{ background: rgba(255,255,255,.08); }
+        .menu__cta{
+          display:block; text-align:center; padding:.75rem .9rem; border-radius:10px; color:#0b1026; text-decoration:none;
+          background: linear-gradient(135deg, rgb(var(--c3)), rgb(var(--c2)));
+          font-weight:700;
+        }
+
+        /* Desktop breakpoint */
+        @media (min-width: 900px){
+          .nav-desktop{ display:flex; }
+          .menu{ display:none; }
+        }
+
+        /* ====== Hero ====== */
+        .hero{
+          padding: 40px 0 28px;
+          display:grid; grid-template-columns: 1fr; gap: 22px; align-items:center;
+        }
+        @media (min-width: 900px){
+          .hero{ grid-template-columns: 1.2fr .8fr; gap: 40px; padding: 72px 0 40px; }
+        }
+        .hero__text{ display:flex; flex-direction:column; gap:16px; }
+
+        .hero__title{ font-size: clamp(1.6rem, 2.8vw + 0.6rem, 3.2rem); line-height:1.1; font-weight:800; letter-spacing:.2px; }
+        .hero__tagline{ max-width: 60ch; color: rgba(255,255,255,.85); font-size: clamp(.96rem, .35vw + .86rem, 1.1rem); }
+
+        .hero__cta{ display:flex; flex-wrap:wrap; gap:10px; margin-top:2px; }
+        @media (min-width: 900px){ .hero__cta{ gap:12px; } }
+
+        .btn{
+          display:inline-flex; align-items:center; justify-content:center; gap:.5rem; cursor:pointer;
+          padding:.78rem 1.1rem; border-radius:14px; font-size:.94rem; font-weight:700; text-decoration:none;
+          transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+        }
+        .btn--primary{
+          color:#0b1026; background: linear-gradient(135deg, rgb(var(--c3)), rgb(var(--c2)));
+          box-shadow: 0 12px 30px rgba(94,129,244,.25);
+        }
+        .btn--primary:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+        .btn--outline{
+          color:white; border:1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.04);
+        }
+        .btn--outline:hover{ background: rgba(255,255,255,.08); transform: translateY(-1px); }
+
+        .hero__links{ display:flex; flex-wrap:wrap; gap:12px; margin-top:8px; }
+        .link{ color: white; text-decoration: underline; text-underline-offset: 4px; }
+        .link:hover{ color: rgb(255,255,255); filter: brightness(1.1); }
+
+        .hero__photo{ display:flex; justify-content:center; }
+        .photo-wrap{ position:relative; display:inline-block; }
+        .photo{
+          width: clamp(150px, 42vw, 280px);
+          height: clamp(150px, 42vw, 280px);
+          object-fit: cover; border-radius:9999px; border: 4px solid rgba(255,255,255,.55); box-shadow: 0 20px 60px rgba(0,0,0,.35);
+        }
+        .photo-ring{
+          position:absolute; inset:-14px; border-radius:9999px;
+          background: conic-gradient(from 0deg, rgb(var(--c3)), rgb(var(--c5)), rgb(var(--c2)), rgb(var(--c3)));
+          filter: blur(18px); opacity:.32; z-index:-1;
+        }
+
+        /* ====== Cards & grids ====== */
+        .card{
+          position:relative; background: rgba(var(--card-bg));
+          border: 1px solid rgba(var(--card-bd)); border-radius: var(--radius);
+          overflow:hidden; transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+          box-shadow: 0 18px 40px rgba(0,0,0,.25);
+        }
+        .card::before{
+          content:""; position:absolute; inset:0; padding:1px; border-radius:inherit;
+          background: conic-gradient(from 10deg, rgb(var(--c3)), rgb(var(--c2)), rgb(var(--c5)), rgb(var(--c4)), rgb(var(--c6)), rgb(var(--c3)));
+          -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          -webkit-mask-composite: xor; mask-composite: exclude; opacity:.55; pointer-events:none;
+        }
+        .card:hover{ transform: translateY(-3px); }
+
+        .card--pad{ padding: 16px; }
+        .card--cta{ padding: 22px; }
+        @media (min-width: 900px){ .card--pad{ padding: 22px; } .card--cta{ padding: 34px; } }
+
+        /* Color accents per card */
+        .hue-1::before{ background: conic-gradient(from 10deg, rgb(var(--c1)), rgb(var(--c2)), rgb(var(--c3))); }
+        .hue-2::before{ background: conic-gradient(from 10deg, rgb(var(--c2)), rgb(var(--c3)), rgb(var(--c4))); }
+        .hue-3::before{ background: conic-gradient(from 10deg, rgb(var(--c3)), rgb(var(--c4)), rgb(var(--c5))); }
+        .hue-4::before{ background: conic-gradient(from 10deg, rgb(var(--c4)), rgb(var(--c5)), rgb(var(--c6))); }
+        .hue-5::before{ background: conic-gradient(from 10deg, rgb(var(--c5)), rgb(var(--c6)), rgb(var(--c1))); }
+        .hue-6::before{ background: conic-gradient(from 10deg, rgb(var(--c6)), rgb(var(--c1)), rgb(var(--c2))); }
+
+        /* Stats (highlights) */
+        .grid--stats{
+          display:grid; grid-template-columns: 1fr; gap: 12px;
+        }
+        @media (min-width: 480px){ .grid--stats{ grid-template-columns: repeat(2, 1fr); gap: 14px; } }
+        @media (min-width: 900px){ .grid--stats{ grid-template-columns: repeat(4, 1fr); gap: 18px; } }
+        .stat{ padding: 16px; }
+        .stat__value{ font-size: 1.22rem; font-weight: 900; letter-spacing:.2px; }
+        .stat__label{ margin-top: 4px; font-size:.72rem; letter-spacing:.12em; text-transform: uppercase; color: rgba(var(--muted), .85); }
+
+        /* Cards grid (services, projects) */
+        .grid--cards{
+          display:grid; grid-template-columns: 1fr; gap: 14px;
+        }
+        @media (min-width: 680px){ .grid--cards{ grid-template-columns: repeat(2, 1fr); gap: 16px; } }
+        @media (min-width: 1024px){ .grid--cards{ grid-template-columns: repeat(3, 1fr); gap: 18px; } }
+
+        .card__title{ font-weight: 800; letter-spacing:.2px; }
+        .card__top{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+        .card__blurb{ margin-top: 8px; color: rgba(255,255,255,.88); }
+        .ribbon{
+          display:inline-block; font-size:.7rem; font-weight:800; padding: .25rem .55rem; border-radius: 9999px;
+          color:#0b1026; background: linear-gradient(135deg, rgb(var(--c4)), rgb(var(--c1)));
+        }
+        .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+        .tag{
+          display:inline-block; font-size:.72rem; padding:.18rem .52rem; border-radius:9999px;
+          background: rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18);
+        }
+        .links{ display:flex; flex-wrap:wrap; gap:12px; margin-top:12px; }
+
+        /* Skills */
+        .grid--skills{
+          display:grid; grid-template-columns: 1fr; gap: 14px;
+        }
+        @media (min-width: 700px){ .grid--skills{ grid-template-columns: repeat(2, 1fr); gap: 16px; } }
+        @media (min-width: 1024px){ .grid--skills{ grid-template-columns: repeat(3, 1fr); gap: 18px; } }
+        .group-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
+        .group-head__title{ font-weight: 900; letter-spacing:.3px; }
+        .group-head__line{ flex:1; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,.2), rgba(255,255,255,0)); }
+        .chips{ display:flex; flex-wrap:wrap; gap:10px; }
+        .chip{
+          display:inline-flex; align-items:center; justify-content:center; padding:.45rem .8rem; border-radius:12px; font-weight:700;
+          background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+          border: 1px solid rgba(255,255,255,.18);
+          box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+        }
+
+        /* Lists */
+        .list{ margin-top: 8px; padding-left: 1.1rem; line-height: 1.6; }
+        .list li + li{ margin-top: 6px; }
+        .muted{ color: rgba(var(--muted), .85); }
+
+        /* CTA */
+        .card--cta{ box-shadow: 0 30px 80px rgba(0,0,0,.35); }
+        .cta__row{ display:flex; flex-direction:column; gap:18px; align-items:flex-start; }
+        @media (min-width: 880px){
+          .cta__row{ flex-direction:row; justify-content:space-between; align-items:center; gap:24px; }
+        }
+        .cta__title{ font-size: clamp(1.1rem, .9vw + 1rem, 1.6rem); font-weight:900; }
+        .cta__text{ margin-top: 6px; color: rgba(255,255,255,.9); }
+        .cta__actions{ display:flex; flex-wrap:wrap; gap:10px; margin-top:4px; }
+
+        .footer{ margin-top: 14px; text-align:center; color: rgba(255,255,255,.7); font-size:.9rem; }
+
+        /* Availability badge */
+        .availability {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 6px 14px;
+          border-radius: 9999px;
+          background: linear-gradient(135deg, rgba(78,205,196,0.15), rgba(94,129,244,0.15));
+          border: 1px solid rgba(255,255,255,0.18);
+          position: relative;
+          overflow: hidden;
+          font-size: .85rem;
+          font-weight: 600;
+          color: #fff;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+          flex-wrap: wrap;
+        }
+        .availability::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%);
+          transform: translateX(-100%);
+          animation: shine 3s ease-in-out infinite;
+        }
+        @keyframes shine {
+          0% { transform: translateX(-100%); }
+          50% { transform: translateX(100%); }
+          100% { transform: translateX(100%); }
+        }
+        .availability__dot {
+          width: 10px; height: 10px; border-radius: 50%;
+          background: rgb(78,205,196);
+          box-shadow: 0 0 10px rgba(78,205,196,0.7);
+          animation: pulse 1.8s infinite;
+        }
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.4); opacity: 0.7; }
+        }
+        .availability__text { position: relative; z-index: 1; white-space: nowrap; }
+        @media (max-width: 360px){ .availability__text { white-space: normal; } }
+      `}</style>
+    </main>
+  );
+}
