@@ -220,10 +220,9 @@ export default function Home() {
       <section className="hero container">
         <div className="hero__text">
           <span className="availability" aria-live="polite">
-            <span className="availability__dot" aria-hidden />
-            <span className="availability__text">Open to opportunities</span>
-            <span className="availability__shine" aria-hidden />
-          </span>
+  <span className="availability__dot" aria-hidden />
+  <span className="availability__text">Open to opportunities</span>
+</span>
           <h1 className="hero__title">{ROLE}</h1>
           <p className="hero__tagline">{TAGLINE}</p>
           <div className="hero__cta">
@@ -660,6 +659,55 @@ export default function Home() {
         .cta__actions{ display:flex; flex-wrap:wrap; gap:10px; margin-top:4px; }
         .footer{ margin-top: 14px; text-align:center; color: rgba(255,255,255,.7); font-size:.9rem; }
 
+.availability {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, rgba(78,205,196,0.15), rgba(94,129,244,0.15));
+    border: 1px solid rgba(255,255,255,0.18);
+    position: relative;
+    overflow: hidden;
+    font-size: .85rem;
+    font-weight: 600;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  /* Animated gradient shine */
+  .availability::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%);
+    transform: translateX(-100%);
+    animation: shine 3s ease-in-out infinite;
+  }
+  @keyframes shine {
+    0% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  .availability__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgb(78,205,196);
+    box-shadow: 0 0 10px rgba(78,205,196,0.7);
+    animation: pulse 1.8s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.7; }
+  }
+
+  .availability__text {
+    position: relative;
+    z-index: 1;
+    white-space: nowrap;
+  }
       `}</style>
     </main>
   );
