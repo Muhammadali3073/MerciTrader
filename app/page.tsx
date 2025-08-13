@@ -5,64 +5,126 @@
 const NAME = "Muhammad Ali Nawaz";
 const ROLE = "Flutter Developer";
 const TAGLINE =
-  "I design and build high‑performance mobile apps with Flutter — clean architecture, smooth UX, and robust backends.";
+  "I build fast, reliable Flutter apps with clean architecture, smooth UX, and robust backends.";
 
 const LINKS = {
   linkedin:
-    "https://www.linkedin.com/in/muhammad-ali-nawaz-19a082177?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+    "https://www.linkedin.com/in/muhammad-ali-nawaz-19a082177",
   github: "https://github.com/Muhammadali3073",
   email: "mailto:alibajwa102@gmail.com",
-  resume: "#", // replace with a real file link
+  phone: "tel:+923047222234",
+  resume: "/resume.pdf", // put your PDF in /public as resume.pdf
 };
 
 export default function Home() {
   const skills = [
-    "Flutter", "Dart", "Riverpod/Bloc", "Clean Architecture", "Firebase (Auth, Firestore, FCM)",
-    "REST/GraphQL", "SQLite/Drift", "Hive", "Native Channels (Pigeon)", "ML Kit (OCR)",
-    "Maps & Geolocation", "Push Notifications", "CI/CD (Fastlane)", "Unit/Widget/Integration Tests",
+    // Core
+    "Flutter", "Dart", "Android/iOS", "Flutter Web",
+    // State mgmt
+    "Bloc", "Provider", "GetX", "Riverpod",
+    // Backend & Data
+    "REST APIs", "Firebase (Auth, Firestore, FCM)", "Firestore", "SQLite/Sqflite", "Hive", "Shared Preferences",
+    // Architecture & Quality
+    "Clean Architecture", "Unit/Widget/Integration Tests", "CI/CD (Fastlane)",
+    // Native & Integrations
+    "Native Channels (Pigeon)", "ML Kit (OCR)", "Push Notifications", "Maps & Geolocation",
+    // Tooling
+    "Git/GitHub", "Jira", "Asana", "VS Code", "Android Studio", "Xcode",
   ];
 
   const highlights = [
-    { label: "Production Releases", value: "Multiple" },
+    { label: "Experience", value: "3+ yrs" },
     { label: "Platforms", value: "iOS · Android · Web" },
-    { label: "Architecture", value: "Clean · Modular" },
     { label: "Focus", value: "Performance & UX" },
+    { label: "Methodology", value: "Agile" },
   ];
 
   const projects = [
     {
-      title: "SmartScan OCR",
-      tags: ["Flutter", "ML Kit", "Riverpod"],
+      title: "Comnow (Digital Call System)",
+      tags: ["Flutter", "iOS", "Android"],
       blurb:
-        "On‑device OCR with number detection, edit & confirm flows, export to CSV/PDF, and offline cache.",
-      link: "#",
+        "Improve digital communication with messaging, voice notes, and efficient in‑app workflows.",
+      links: [
+        { label: "App Store", href: "https://apps.apple.com/ae/app/comnow/id1614790733" },
+      ],
     },
     {
-      title: "LiveTrack Pro",
-      tags: ["Flutter", "WebSockets", "Maps"],
+      title: "Crime Scene Guide",
+      tags: ["Flutter", "Play Store"],
       blurb:
-        "Real‑time location tracking with background updates, geofencing, and push notifications.",
-      link: "#",
+        "Scene documentation and note‑taking tool to streamline investigation workflows.",
+      links: [
+        { label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.INAR.investigation" },
+      ],
     },
     {
-      title: "ChefConnect",
-      tags: ["Flutter", "Firebase", "Stripe"],
+      title: "LHFADEZ Barbering",
+      tags: ["Flutter", "Stripe", "Scheduling"],
       blurb:
-        "Food ordering with grab‑and‑go & preorder flows, chef dashboards, and order analytics.",
-      link: "#",
+        "Booking app for haircuts and grooming with seamless scheduling and promotions.",
+      links: [
+        { label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.rubikkube.lhfadezbarbering.android" },
+      ],
+    },
+    {
+      title: "Only Nikah",
+      tags: ["Flutter", "Firebase"],
+      blurb:
+        "Nikah services app with guided flows and notifications.",
+      links: [
+        { label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.hyxio.only_nikkah" },
+      ],
+    },
+    {
+      title: "AW Admin Dashboard (Web)",
+      tags: ["Flutter Web", "Admin"],
+      blurb:
+        "Data tables, CRUD, bulk actions, OTP, notifications, reports, and user management.",
+      links: [],
     },
   ];
 
   const experience = [
     {
       role: "Flutter Developer",
-      company: "Freelance / Contract",
-      period: "Present",
+      company: "DataCrypt (Remote)",
+      period: "Mar 2024 – Present",
       points: [
-        "Shipped cross‑platform apps using Flutter with backend integrations (Firebase/REST).",
-        "Implemented clean architecture, feature flags, and automated testing.",
-        "Optimized rendering and startup time; delivered smooth 60fps experiences.",
+        "Built secure mobile apps with robust encryption and user‑friendly flows.",
+        "Collaborated across teams to deliver features efficiently and reliably.",
       ],
+    },
+    {
+      role: "Senior Flutter Developer",
+      company: "Digital Upgraders LLC (Remote)",
+      period: "Feb 2023 – Feb 2024",
+      points: [
+        "Led a Flutter team; implemented real‑time updates and offline support.",
+        "Optimized performance and mentored junior developers.",
+      ],
+    },
+    {
+      role: "Flutter Developer",
+      company: "Blue Horn Technologies (On‑site)",
+      period: "Nov 2021 – Jan 2023",
+      points: [
+        "Developed Flutter apps from scratch and integrated external APIs.",
+        "Worked with UI/UX to craft user‑friendly interfaces and conducted reviews.",
+      ],
+    },
+  ];
+
+  const education = [
+    {
+      degree: "BS — Computer Science",
+      org: "University of Management & Technology, Lahore",
+      period: "Oct 2017 – Oct 2021",
+    },
+    {
+      degree: "Intermediate of Computer Science",
+      org: "Al‑Noor Colleges, Muridke",
+      period: "Sep 2015 – Sep 2017",
     },
   ];
 
@@ -75,21 +137,24 @@ export default function Home() {
       </div>
 
       {/* Header */}
-      <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-        <div className="flex items-center gap-3">
-          <div className="h-9 w-9 rounded-xl bg-zinc-900 text-white grid place-items-center font-bold">MA</div>
-          <span className="text-sm font-medium text-zinc-700">{NAME}</span>
+      <header className="sticky top-0 z-40 backdrop-blur bg-white/70 border-b border-zinc-100">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+          <div className="flex items-center gap-3">
+            <div className="h-9 w-9 rounded-xl bg-zinc-900 text-white grid place-items-center font-bold">MA</div>
+            <span className="text-sm font-medium text-zinc-700">{NAME}</span>
+          </div>
+          <nav className="hidden md:flex items-center gap-6 text-sm text-zinc-700">
+            <a href="#projects" className="hover:text-zinc-900">Projects</a>
+            <a href="#skills" className="hover:text-zinc-900">Skills</a>
+            <a href="#experience" className="hover:text-zinc-900">Experience</a>
+            <a href="#education" className="hover:text-zinc-900">Education</a>
+            <a href="#contact" className="hover:text-zinc-900">Contact</a>
+            <a
+              href={LINKS.resume}
+              className="rounded-xl bg-zinc-900 px-4 py-2 text-white font-semibold hover:bg-zinc-800"
+            >Resume</a>
+          </nav>
         </div>
-        <nav className="hidden md:flex items-center gap-6 text-sm text-zinc-700">
-          <a href="#projects" className="hover:text-zinc-900">Projects</a>
-          <a href="#skills" className="hover:text-zinc-900">Skills</a>
-          <a href="#experience" className="hover:text-zinc-900">Experience</a>
-          <a href="#contact" className="hover:text-zinc-900">Contact</a>
-          <a
-            href={LINKS.resume}
-            className="rounded-xl bg-zinc-900 px-4 py-2 text-white font-semibold hover:bg-zinc-800"
-          >Resume</a>
-        </nav>
       </header>
 
       {/* Hero */}
@@ -120,7 +185,7 @@ export default function Home() {
             </div>
 
             {/* Socials */}
-            <div className="mt-2 flex items-center gap-5 text-zinc-500">
+            <div className="mt-2 flex flex-wrap items-center gap-5 text-zinc-500">
               <a href={LINKS.linkedin} className="hover:text-zinc-800" aria-label="LinkedIn">
                 <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.13 1.45-2.13 2.94v5.66H9.38V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
               </a>
@@ -129,6 +194,9 @@ export default function Home() {
               </a>
               <a href={LINKS.email} className="hover:text-zinc-800" aria-label="Email">
                 <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>
+              </a>
+              <a href={LINKS.phone} className="hover:text-zinc-800" aria-label="Phone">
+                <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.8-.4 1.1-.2 1.2.5 2.4.8 3.7.8.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C11.3 21 3 12.7 3 2c0-.6.4-1 1-1h3.2c.6 0 1 .4 1 1 0 1.3.3 2.6.8 3.7.1.4 0 .8-.3 1.1l-2.1 2z"/></svg>
               </a>
             </div>
           </div>
@@ -189,7 +257,7 @@ export default function Home() {
         </div>
         <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((p) => (
-            <a key={p.title} href={p.link} className="group rounded-2xl border border-zinc-200 p-5 hover:shadow-md transition-shadow bg-white/80">
+            <div key={p.title} className="group rounded-2xl border border-zinc-200 p-5 hover:shadow-md transition-shadow bg-white/80">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold group-hover:underline">{p.title}</h3>
                 <svg viewBox="0 0 24 24" className="h-5 w-5 text-zinc-400 group-hover:text-zinc-800"><path fill="currentColor" d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3Z"/></svg>
@@ -200,7 +268,16 @@ export default function Home() {
                   <span key={t} className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs text-zinc-700">{t}</span>
                 ))}
               </div>
-            </a>
+              {p.links.length > 0 && (
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {p.links.map((l) => (
+                    <a key={l.href} href={l.href} className="text-sm font-semibold text-zinc-700 hover:text-zinc-900 underline">
+                      {l.label}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
         </div>
       </section>
@@ -225,12 +302,25 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Education */}
+      <section id="education" className="mx-auto max-w-6xl px-6 py-10">
+        <h2 className="text-2xl font-semibold">Education</h2>
+        <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+          {education.map((e) => (
+            <div key={e.degree} className="rounded-2xl border border-zinc-200 bg-white/80 p-5">
+              <div className="text-lg font-semibold">{e.degree}</div>
+              <div className="text-sm text-zinc-500">{e.org} · {e.period}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Testimonial (placeholder) */}
       <section className="mx-auto max-w-6xl px-6 py-10">
         <div className="rounded-3xl border border-zinc-200 bg-gradient-to-br from-zinc-50 to-white p-8 md:p-10">
           <figure className="mx-auto max-w-3xl text-center">
             <blockquote className="text-lg text-zinc-700">“{NAME} delivered a polished app on time, communicated clearly, and exceeded our performance targets.”</blockquote>
-            <figcaption className="mt-2 text-sm text-zinc-500">— Client name, Company (replace with real quote)</figcaption>
+            <figcaption className="mt-2 text-sm text-zinc-500">— Client name, Company (replace with a real quote)</figcaption>
           </figure>
         </div>
       </section>
@@ -249,6 +339,12 @@ export default function Home() {
                 className="rounded-xl bg-zinc-900 text-white px-5 py-3 text-sm font-semibold shadow-sm hover:bg-zinc-800"
               >
                 Email me
+              </a>
+              <a
+                href={LINKS.phone}
+                className="rounded-xl border border-zinc-300 px-5 py-3 text-sm font-semibold text-zinc-800 hover:bg-zinc-50"
+              >
+                Call
               </a>
               <a
                 href={LINKS.resume}
