@@ -3,7 +3,7 @@
 
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 
 const NAME = "Muhammad Ali Nawaz";
@@ -24,7 +24,7 @@ const LINKS = {
 function TypingText({
   text,
   startDelay = 0,
-  speed = 30,            // ms per character
+  speed = 30, // ms per character
   ariaLive = "polite",
   showCaret = true,
 }: {
@@ -40,7 +40,7 @@ function TypingText({
   // Respect reduced motion
   const prefersReduced =
     typeof window !== "undefined" &&
-    window.matchMedia &&
+    typeof window.matchMedia !== "undefined" &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   useEffect(() => {
@@ -52,13 +52,14 @@ function TypingText({
 
     let mounted = true;
     let i = 0;
-    const startTimer = setTimeout(() => {
+    let tickTimer: ReturnType<typeof setTimeout> | null = null;
+    const startTimer: ReturnType<typeof setTimeout> = setTimeout(() => {
       const tick = () => {
         if (!mounted) return;
         if (i <= text.length) {
           setOut(text.slice(0, i));
           i += 1;
-          timer = window.setTimeout(tick, speed);
+          tickTimer = setTimeout(tick, speed);
         } else {
           setDone(true);
         }
@@ -66,11 +67,10 @@ function TypingText({
       tick();
     }, startDelay);
 
-    let timer: number | undefined;
     return () => {
       mounted = false;
       clearTimeout(startTimer);
-      if (timer) clearTimeout(timer);
+      if (tickTimer) clearTimeout(tickTimer);
     };
   }, [text, startDelay, speed, prefersReduced]);
 
@@ -81,6 +81,7 @@ function TypingText({
     </span>
   );
 }
+
 
 
 export default function Home() {
