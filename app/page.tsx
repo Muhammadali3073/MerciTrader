@@ -1,20 +1,29 @@
 // app/page.tsx
-// Portfolio homepage for Muhammad Ali Nawaz — Flutter Developer
-// Next.js App Router + TailwindCSS
-// Drop your LinkedIn profile picture into /public/linkedin-profile.jpg
-// Drop your resume into /public/resume.pdf
+// Complete portfolio page — Muhammad Ali Nawaz (Flutter Developer)
+// - Uses profile photo at /public/profile_image.jpeg (cache-busted)
+// - Uses favicon at /public/new-favicon.ico (fallback /favicon.ico)
+// - Experience: ONLY Senior Flutter Developer · Digital Upgraders LLC (Remote), Feb 2023 – Present
+// - Resume link: /public/resume.pdf
+
+import Image from "next/image";
 
 export const metadata = {
   title: "Muhammad Ali Nawaz · Flutter Developer",
   description:
-    "Flutter Developer building high‑performance apps with clean architecture, smooth UX, and robust integrations.",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+    "Senior Flutter Developer building high‑performance apps with clean architecture, smooth UX, and robust integrations.",
+  icons: {
+    icon: [
+      { rel: "icon", url: "/new-favicon.ico" },
+      { url: "/favicon.ico" }, // fallback if needed
+    ],
+    shortcut: [{ url: "/new-favicon.ico" }],
+  },
 };
 
 const NAME = "Muhammad Ali Nawaz";
-const ROLE = "Flutter Developer";
+const ROLE = "Senior Flutter Developer";
 const TAGLINE =
-  "I build high‑performance Flutter apps with clean architecture, exceptional UX, and robust integrations.";
+  "I design and ship fast, reliable Flutter apps for iOS, Android, and web — clean architecture, smooth UX, strong testing.";
 
 const LINKS = {
   linkedin: "https://www.linkedin.com/in/muhammad-ali-nawaz-19a082177",
@@ -22,7 +31,7 @@ const LINKS = {
   email: "mailto:alibajwa102@gmail.com",
   phone: "tel:+923047222234",
   resume: "/resume.pdf",
-  profilePic: "/profile_image.jpg",
+  profilePic: "/profile_image.jpeg?v=2",
 };
 
 export default function Home() {
@@ -34,17 +43,11 @@ export default function Home() {
   ];
 
   const skills = [
-    // Core
     "Flutter", "Dart", "Android/iOS", "Flutter Web",
-    // State mgmt
     "Bloc", "Provider", "GetX", "Riverpod",
-    // Backend & Data
-    "REST APIs", "Firebase (Auth, Firestore, FCM)", "Firestore", "SQLite/Sqflite", "Hive", "Shared Preferences",
-    // Architecture & Quality
+    "REST APIs", "Firebase (Auth, Firestore, FCM)", "SQLite/Sqflite", "Hive",
     "Clean Architecture", "Unit/Widget/Integration Tests", "CI/CD (Fastlane)",
-    // Native & Integrations
     "Native Channels (Pigeon)", "ML Kit (OCR)", "Push Notifications", "Maps & Geolocation",
-    // Tooling
     "Git/GitHub", "Jira", "Asana", "VS Code", "Android Studio", "Xcode",
   ];
 
@@ -96,30 +99,13 @@ export default function Home() {
 
   const experience = [
     {
-      role: "Flutter Developer",
-      company: "DataCrypt (Remote)",
-      period: "Mar 2024 – Present",
-      points: [
-        "Built secure mobile apps with robust encryption and user‑friendly flows.",
-        "Collaborated across teams to deliver features efficiently and reliably.",
-      ],
-    },
-    {
       role: "Senior Flutter Developer",
       company: "Digital Upgraders LLC (Remote)",
-      period: "Feb 2023 – Feb 2024",
+      period: "Feb 2023 – Present",
       points: [
-        "Led a Flutter team; implemented real‑time updates and offline support.",
-        "Optimized performance and mentored junior developers.",
-      ],
-    },
-    {
-      role: "Flutter Developer",
-      company: "Blue Horn Technologies (On‑site)",
-      period: "Nov 2021 – Jan 2023",
-      points: [
-        "Developed Flutter apps from scratch and integrated external APIs.",
-        "Worked with UI/UX to craft user‑friendly interfaces and conducted reviews.",
+        "Lead development of cross‑platform apps with clean architecture and robust state management.",
+        "Implemented real‑time features, offline capabilities, and performance optimizations.",
+        "Collaborated with designers & backend teams; mentored developers; owned CI/CD and releases.",
       ],
     },
   ];
@@ -129,11 +115,6 @@ export default function Home() {
       degree: "BS — Computer Science",
       org: "University of Management & Technology, Lahore",
       period: "Oct 2017 – Oct 2021",
-    },
-    {
-      degree: "Intermediate of Computer Science",
-      org: "Al‑Noor Colleges, Muridke",
-      period: "Sep 2015 – Sep 2017",
     },
   ];
 
@@ -149,10 +130,13 @@ export default function Home() {
       <header className="sticky top-0 z-40 backdrop-blur bg-white/70 border-b border-zinc-100">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-3">
-            <img
+            <Image
               src={LINKS.profilePic}
               alt={NAME}
+              width={40}
+              height={40}
               className="h-10 w-10 rounded-full object-cover border border-zinc-200"
+              priority
             />
             <span className="text-sm font-medium text-zinc-700">{NAME}</span>
           </div>
@@ -160,7 +144,6 @@ export default function Home() {
             <a href="#projects" className="hover:text-zinc-900">Projects</a>
             <a href="#skills" className="hover:text-zinc-900">Skills</a>
             <a href="#experience" className="hover:text-zinc-900">Experience</a>
-            <a href="#education" className="hover:text-zinc-900">Education</a>
             <a href="#contact" className="hover:text-zinc-900">Contact</a>
             <a
               href={LINKS.resume}
@@ -196,10 +179,13 @@ export default function Home() {
         </div>
         <div className="flex justify-center relative">
           <div className="absolute -inset-2 rounded-full bg-gradient-to-tr from-blue-400/20 to-cyan-400/20 blur-2xl" />
-          <img
+          <Image
             src={LINKS.profilePic}
             alt={NAME}
+            width={256}
+            height={256}
             className="relative w-64 h-64 rounded-full object-cover border-4 border-white shadow-xl"
+            priority
           />
         </div>
       </section>
@@ -264,7 +250,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Experience */}
+      {/* Experience — ONLY Digital Upgraders */}
       <section id="experience" className="mx-auto max-w-6xl px-6 py-10">
         <h2 className="text-2xl font-semibold">Experience</h2>
         <div className="mt-6 space-y-6">
@@ -279,19 +265,6 @@ export default function Home() {
                   <li key={pt}>{pt}</li>
                 ))}
               </ul>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Education */}
-      <section id="education" className="mx-auto max-w-6xl px-6 py-10">
-        <h2 className="text-2xl font-semibold">Education</h2>
-        <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
-          {education.map((e) => (
-            <div key={e.degree} className="rounded-2xl border border-zinc-200 bg-white/80 p-5">
-              <div className="text-lg font-semibold">{e.degree}</div>
-              <div className="text-sm text-zinc-500">{e.org} · {e.period}</div>
             </div>
           ))}
         </div>
@@ -317,6 +290,14 @@ export default function Home() {
                 className="rounded-xl border border-zinc-300 px-5 py-3 text-sm font-semibold text-zinc-800 hover:bg-zinc-50"
               >
                 Call
+              </a>
+              <a
+                href={LINKS.linkedin}
+                className="rounded-xl border border-zinc-300 px-5 py-3 text-sm font-semibold text-zinc-800 hover:bg-zinc-50"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                LinkedIn
               </a>
               <a
                 href={LINKS.resume}
