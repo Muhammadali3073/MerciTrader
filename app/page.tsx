@@ -80,45 +80,21 @@ export default function Home() {
     { title: "Quality & Delivery", icon: <Icon.Shield className="h-5 w-5" />, points: ["Unit/Widget/Integration Tests", "CI/CD (Fastlane)", "Store release & monitoring"] },
   ];
 
-  const skills = [
-    "Flutter", "Dart", "Android/iOS", "Flutter Web",
-    "Bloc", "Provider", "GetX", "Riverpod",
-    "REST APIs", "Firebase (Auth, Firestore, FCM)", "SQLite/Sqflite", "Hive",
-    "Clean Architecture", "Unit/Widget/Integration Tests", "CI/CD (Fastlane)",
-    "Platform Channels (Pigeon)", "ML Kit (OCR)", "Push Notifications", "Maps & Geolocation",
-    "Git/GitHub", "Jira", "Asana", "VS Code", "Android Studio", "Xcode",
-  ];
+const skills = [
+  "Flutter","Dart","iOS","Android","Flutter Web",
+  "Bloc","Riverpod","GetX","Provider",
+  "REST APIs","Firebase","Firestore","Auth","FCM",
+  "SQLite","Hive","Clean Architecture","Testing","CI/CD",
+  "Native Channels","ML Kit","Push Notifications","Maps & Geo",
+  "Git","GitHub","Jira","Asana","VS Code","Android Studio","Xcode",
+];
+
 
   const projects = [
     { title: "Comnow (Digital Call System)", tags: ["Flutter", "IOS", "Android"], blurb: "Digital communication with messaging, voice notes, and efficient in-app workflows.", links: [{ label: "App Store", href: "https://apps.apple.com/ae/app/comnow/id1614790733" }] },
     { title: "Crime Scene Guide", tags: ["Flutter", "Play Store"], blurb: "Scene documentation and note-taking to streamline investigation workflows.", links: [{ label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.INAR.investigation" }] },
     { title: "LHFADEZ Barbering", tags: ["Flutter", "Stripe", "Scheduling"], blurb: "Booking for haircuts & grooming with seamless scheduling and promotions.", links: [{ label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.rubikkube.lhfadezbarbering.android" }] },
     { title: "Only Nikah", tags: ["Flutter", "Firebase"], blurb: "Nikah services with guided flows and notifications.", links: [{ label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.hyxio.only_nikkah" }] },
-  ];
-
-  // ---- Blog posts (add/replace with your content) ----
-  const posts = [
-    {
-      title: "How I structure scalable Flutter apps (Clean Architecture)",
-      date: "2024-11-20",
-      tags: ["Flutter", "Architecture", "Best Practices"],
-      excerpt: "Layers, feature-first folders, dependency inversion, and when to pick Bloc vs Riverpod.",
-      href: "#",
-    },
-    {
-      title: "Optimizing list performance: 9 tricks for silky-smooth scrolling",
-      date: "2024-09-03",
-      tags: ["Performance", "Lists", "DX"],
-      excerpt: "From RepaintBoundary to item caching and image decoding pipelines.",
-      href: "#",
-    },
-    {
-      title: "CI/CD for Flutter with Fastlane + GitHub Actions",
-      date: "2024-06-18",
-      tags: ["CI/CD", "Fastlane", "Release"],
-      excerpt: "Automate signing, versioning, screenshots, and store submissions.",
-      href: "#",
-    },
   ];
 
   return (
@@ -144,7 +120,6 @@ export default function Home() {
             <a href="#experience" className="nav-link">Experience</a>
             <a href="#education" className="nav-link">Education</a>
             <a href="#services" className="nav-link">Services</a>
-            <a href="#blog" className="nav-link">Blog</a>
             <a href="#contact" className="nav-link">Contact</a>
             <a href={LINKS.resume} target="_blank" rel="noopener noreferrer" className="btn-primary">Resume</a>
           </nav>
@@ -227,18 +202,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== Skills & Tools ===== */}
-      <section id="skills" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
-        <div className="section-header">
-          <h2>Skills & Tools</h2>
-          <p>Technologies used to deliver reliable, scalable mobile apps.</p>
-        </div>
-        <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2.5 sm:gap-3">
-          {skills.map((s) => (
-            <span key={s} className="chip-gradient"><span className="dot" />{s}</span>
-          ))}
-        </div>
-      </section>
+      {/* ===== Skills & Tools (unified card grid) ===== */}
+<section id="skills" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
+  <div className="section-header">
+    <h2>Skills & Tools</h2>
+    <p>A focused toolbox I use to ship quality apps fast.</p>
+  </div>
+  <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
+    {skills.map((s) => (
+      <div key={s} className="skill-card" title={s}>
+        <span className="skill-card__icon">{iconForSkill(s)}</span>
+        <span className="skill-card__label">{s}</span>
+      </div>
+    ))}
+  </div>
+</section>
+
 
       {/* ===== Projects ===== */}
       <section id="projects" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
@@ -291,28 +270,6 @@ export default function Home() {
           </div>
           <div className="mt-1 text-zinc-600 text-sm">University of Management & Technology, Lahore</div>
         </article>
-      </section>
-
-      {/* ===== Blog ===== */}
-      <section id="blog" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
-        <div className="section-header">
-          <h2>Blog</h2>
-          <p>Deep dives, notes, and how‑tos from real projects.</p>
-        </div>
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {posts.map((post) => (
-            <article key={post.title} className="card">
-              <div className="post-thumb" aria-hidden />
-              <div className="mt-3 flex items-center justify-between text-xs text-zinc-500">
-                <time dateTime={post.date}>{new Date(post.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</time>
-                <div className="flex flex-wrap gap-1.5">{post.tags.map(t => <span key={t} className="tag">{t}</span>)}</div>
-              </div>
-              <h3 className="mt-2 text-base sm:text-lg font-semibold">{post.title}</h3>
-              <p className="mt-1 text-sm text-zinc-600">{post.excerpt}</p>
-              <a href={post.href} className="mt-3 inline-flex items-center gap-2 link">Read more <Icon.External className="h-4 w-4"/></a>
-            </article>
-          ))}
-        </div>
       </section>
 
       {/* ===== CTA / Contact ===== */}
@@ -400,6 +357,24 @@ export default function Home() {
           header .btn-primary{ padding:.6rem 1rem; }
           .back-to-top{ right:.9rem; bottom:.9rem; }
         }
+
+        /* NEW: Skill cards */
+.skill-card{
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:.55rem; padding:1rem .75rem; min-height:96px; border-radius:14px;
+  background:radial-gradient(120% 120% at 0% 0%, #ffffff 0%, #f8fbff 60%, #f0f5ff 100%);
+  border:1px solid rgba(24,24,27,.08); box-shadow:0 10px 20px rgba(0,0,0,.05);
+  transition:transform .18s ease, box-shadow .22s ease; text-align:center;
+}
+.skill-card:hover{ transform:translateY(-2px); box-shadow:0 16px 26px rgba(0,0,0,.08); }
+.skill-card__icon{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:36px; height:36px; border-radius:10px;
+  background:linear-gradient(135deg,var(--grad-a),var(--grad-b)); color:#fff;
+  box-shadow:0 8px 18px rgba(34,211,238,.25);
+}
+.skill-card__label{ font-size:.85rem; font-weight:600; color:#0b1220; letter-spacing:.1px; }
+
       `}</style>
     </main>
   );
