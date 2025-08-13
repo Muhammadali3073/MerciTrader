@@ -15,7 +15,7 @@ const LINKS = {
   email: "mailto:alibajwa102@gmail.com",
   phone: "tel:+923047222234",
   resume: "/resume.pdf",
-  profilePic: "/profile_image.jpeg?v=9",
+  profilePic: "/profile_image.jpeg?v=10",
   whatsapp: "https://wa.me/923047222234",
 };
 
@@ -62,6 +62,20 @@ const Icon = {
   ),
 };
 
+// Map skills to icons
+function iconForSkill(label: string) {
+  const k = label.toLowerCase();
+  if (k.includes("ios") || k.includes("android") || k.includes("mobile")) return <Icon.Layers className="h-5 w-5" />;
+  if (k.includes("web")) return <Icon.Store className="h-5 w-5" />;
+  if (k.includes("api") || k.includes("rest")) return <Icon.Tool className="h-5 w-5" />;
+  if (k.includes("firebase") || k.includes("fcm")) return <Icon.Rocket className="h-5 w-5" />;
+  if (k.includes("sqlite") || k.includes("hive")) return <Icon.Shield className="h-5 w-5" />;
+  if (k.includes("bloc") || k.includes("riverpod") || k.includes("getx") || k.includes("provider")) return <Icon.Layers className="h-5 w-5" />;
+  if (k.includes("git")) return <Icon.Github className="h-5 w-5" />;
+  if (k.includes("test") || k.includes("ci/cd") || k.includes("fastlane")) return <Icon.Rocket className="h-5 w-5" />;
+  return <Icon.Tool className="h-5 w-5" />;
+}
+
 export default function Home() {
   // Mobile menu (auto-close)
   const menuRef = useRef<HTMLDetailsElement | null>(null);
@@ -69,29 +83,41 @@ export default function Home() {
 
   const highlights = [
     { label: "Experience", value: "3+ yrs" },
-    { label: "Platforms", value: "IOS · Android · Web" },
+    { label: "Platforms", value: "iOS · Android · Web" },
     { label: "Focus", value: "Performance & UX" },
     { label: "Methodology", value: "Agile" },
   ];
 
-  const services = [
-    { title: "Flutter App Development", icon: <Icon.Layers className="h-5 w-5" />, points: ["IOS, Android & Web", "Clean Architecture", "State Management (Bloc/GetX/Riverpod)"] },
-    { title: "Integrations & Backend", icon: <Icon.Tool className="h-5 w-5" />, points: ["REST APIs / Firebase", "Auth, Push, Analytics", "Payments & Subscriptions"] },
-    { title: "Quality & Delivery", icon: <Icon.Shield className="h-5 w-5" />, points: ["Unit/Widget/Integration Tests", "CI/CD (Fastlane)", "Store release & monitoring"] },
+  // Concise, balanced skills list
+  const skills = [
+    "Flutter","Dart","iOS","Android","Flutter Web",
+    "Bloc","Riverpod","GetX","Provider",
+    "REST APIs","Firebase","Firestore","Auth","FCM",
+    "SQLite","Hive","Clean Architecture","Testing","CI/CD",
+    "Native Channels","ML Kit","Push Notifications","Maps & Geo",
+    "Git","GitHub","Jira","Asana","VS Code","Android Studio","Xcode",
   ];
 
-const skills = [
-  "Flutter","Dart","iOS","Android","Flutter Web",
-  "Bloc","Riverpod","GetX","Provider",
-  "REST APIs","Firebase","Firestore","Auth","FCM",
-  "SQLite","Hive","Clean Architecture","Testing","CI/CD",
-  "Native Channels","ML Kit","Push Notifications","Maps & Geo",
-  "Git","GitHub","Jira","Asana","VS Code","Android Studio","Xcode",
-];
-
+  const services = [
+    {
+      title: "Flutter App Development",
+      icon: <Icon.Layers className="h-5 w-5" />,
+      points: ["iOS, Android & Web", "Clean Architecture", "State Management (Bloc/GetX/Riverpod)"],
+    },
+    {
+      title: "Integrations & Backend",
+      icon: <Icon.Tool className="h-5 w-5" />,
+      points: ["REST APIs / Firebase", "Auth, Push, Analytics", "Payments & Subscriptions"],
+    },
+    {
+      title: "Quality & Delivery",
+      icon: <Icon.Shield className="h-5 w-5" />,
+      points: ["Unit/Widget/Integration Tests", "CI/CD (Fastlane)", "Store release & monitoring"],
+    },
+  ];
 
   const projects = [
-    { title: "Comnow (Digital Call System)", tags: ["Flutter", "IOS", "Android"], blurb: "Digital communication with messaging, voice notes, and efficient in-app workflows.", links: [{ label: "App Store", href: "https://apps.apple.com/ae/app/comnow/id1614790733" }] },
+    { title: "Comnow (Digital Call System)", tags: ["Flutter", "iOS", "Android"], blurb: "Digital communication with messaging, voice notes, and efficient in-app workflows.", links: [{ label: "App Store", href: "https://apps.apple.com/ae/app/comnow/id1614790733" }] },
     { title: "Crime Scene Guide", tags: ["Flutter", "Play Store"], blurb: "Scene documentation and note-taking to streamline investigation workflows.", links: [{ label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.INAR.investigation" }] },
     { title: "LHFADEZ Barbering", tags: ["Flutter", "Stripe", "Scheduling"], blurb: "Booking for haircuts & grooming with seamless scheduling and promotions.", links: [{ label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.rubikkube.lhfadezbarbering.android" }] },
     { title: "Only Nikah", tags: ["Flutter", "Firebase"], blurb: "Nikah services with guided flows and notifications.", links: [{ label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.hyxio.only_nikkah" }] },
@@ -99,13 +125,13 @@ const skills = [
 
   return (
     <main id="top" className="bg-gradient-to-b from-white to-zinc-50 text-zinc-900">
-      {/* ===== Background accents (soft gradient blobs) ===== */}
+      {/* Background accents */}
       <div aria-hidden className="fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute -top-28 -left-28 h-80 w-80 rounded-full blur-3xl opacity-25 bg-gradient-to-br from-blue-300 to-cyan-300 animate-floatSlow" />
         <div className="absolute top-12 -right-28 h-96 w-96 rounded-full blur-3xl opacity-20 bg-gradient-to-tr from-cyan-300 to-indigo-300 animate-floatSlow animation-delay-1200" />
       </div>
 
-      {/* ===== AppBar ===== */}
+      {/* Header */}
       <header className="sticky top-0 z-50 border-b border-zinc-200 bg-white/70 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 sm:px-6 py-3">
           <div className="flex items-center gap-3">
@@ -131,7 +157,7 @@ const skills = [
                 <Icon.Menu className="h-4 w-4" /> Menu
               </summary>
               <div className="absolute right-0 mt-2 w-64 rounded-xl border border-zinc-200 bg-white/90 backdrop-blur-md shadow-lg p-2 grid gap-1 z-50">
-                {["#projects","#skills","#experience","#education","#services","#blog","#contact"].map((href) => (
+                {["#projects","#skills","#experience","#education","#services","#contact"].map((href) => (
                   <a key={href} href={href} onClick={closeMenu} className="menu-item">{href.replace('#','')}</a>
                 ))}
                 <a href={LINKS.resume} target="_blank" rel="noopener noreferrer" onClick={closeMenu} className="menu-cta">Resume</a>
@@ -141,7 +167,7 @@ const skills = [
         </div>
       </header>
 
-      {/* ===== Hero ===== */}
+      {/* Hero */}
       <section className="mx-auto max-w-6xl px-4 sm:px-6 pt-10 sm:pt-12 pb-12 sm:pb-16 grid md:grid-cols-2 gap-8 sm:gap-10 items-center fade-in-up">
         <div className="flex flex-col gap-5">
           <span className="inline-flex w-fit items-center gap-2 rounded-full border border-zinc-200 px-3 py-1 text-xs font-medium text-zinc-600 bg-white/60 backdrop-blur-sm">
@@ -172,19 +198,20 @@ const skills = [
         </div>
       </section>
 
-      {/* ===== Highlights ===== */}
+      {/* Highlights (unified stat cards) */}
       <section className="mx-auto max-w-6xl px-4 sm:px-6 pb-4">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
           {highlights.map((h) => (
-            <article key={h.label} className="card">
-              <div className="text-xl sm:text-2xl font-bold">{h.value}</div>
-              <div className="text-[11px] sm:text-xs tracking-wide uppercase text-zinc-500">{h.label}</div>
+            <article key={h.label} className="stat">
+              <div className="icon-bg" aria-hidden />
+              <div className="stat-value">{h.value}</div>
+              <div className="stat-label">{h.label}</div>
             </article>
           ))}
         </div>
       </section>
 
-      {/* ===== Services ===== */}
+      {/* Services */}
       <section id="services" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
         <div className="section-header">
           <h2>Services</h2>
@@ -193,7 +220,10 @@ const skills = [
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mt-6">
           {services.map((s) => (
             <article key={s.title} className="card">
-              <div className="flex items-center gap-2 text-zinc-700"><span className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-zinc-50 border border-zinc-200">{s.icon}</span><h3 className="text-base sm:text-lg font-semibold">{s.title}</h3></div>
+              <div className="flex items-center gap-2 text-zinc-700">
+                <span className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-zinc-50 border border-zinc-200">{s.icon}</span>
+                <h3 className="text-base sm:text-lg font-semibold">{s.title}</h3>
+              </div>
               <ul className="mt-2 list-disc pl-5 text-sm text-zinc-700 space-y-1">
                 {s.points.map((p) => <li key={p}>{p}</li>)}
               </ul>
@@ -202,24 +232,23 @@ const skills = [
         </div>
       </section>
 
-      {/* ===== Skills & Tools (unified card grid) ===== */}
-<section id="skills" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
-  <div className="section-header">
-    <h2>Skills & Tools</h2>
-    <p>A focused toolbox I use to ship quality apps fast.</p>
-  </div>
-  <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
-    {skills.map((s) => (
-      <div key={s} className="skill-card" title={s}>
-        <span className="skill-card__icon">{iconForSkill(s)}</span>
-        <span className="skill-card__label">{s}</span>
-      </div>
-    ))}
-  </div>
-</section>
+      {/* Skills & Tools (tile design) */}
+      <section id="skills" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
+        <div className="section-header">
+          <h2>Skills & Tools</h2>
+          <p>A focused toolbox I use to ship quality apps fast.</p>
+        </div>
+        <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
+          {skills.map((s) => (
+            <div key={s} className="skill-card" title={s}>
+              <span className="skill-card__icon">{iconForSkill(s)}</span>
+              <span className="skill-card__label">{s}</span>
+            </div>
+          ))}
+        </div>
+      </section>
 
-
-      {/* ===== Projects ===== */}
+      {/* Projects */}
       <section id="projects" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
         <div className="section-header">
           <h2>Selected Projects</h2>
@@ -235,16 +264,18 @@ const skills = [
               <p className="mt-2 text-sm text-zinc-600">{p.blurb}</p>
               <div className="mt-3 flex flex-wrap gap-2">{p.tags.map((t) => <span key={t} className="tag">{t}</span>)}</div>
               {p.links.length > 0 && (
-                <div className="mt-4 flex flex-wrap gap-2">{p.links.map((l) => (
-                  <a key={l.href} href={l.href} className="link" target="_blank" rel="noopener noreferrer">{l.label}</a>
-                ))}</div>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {p.links.map((l) => (
+                    <a key={l.href} href={l.href} className="link" target="_blank" rel="noopener noreferrer">{l.label}</a>
+                  ))}
+                </div>
               )}
             </article>
           ))}
         </div>
       </section>
 
-      {/* ===== Experience ===== */}
+      {/* Experience */}
       <section id="experience" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
         <div className="section-header"><h2>Experience</h2></div>
         <article className="card">
@@ -260,7 +291,7 @@ const skills = [
         </article>
       </section>
 
-      {/* ===== Education ===== */}
+      {/* Education */}
       <section id="education" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
         <div className="section-header"><h2>Education</h2></div>
         <article className="card">
@@ -272,7 +303,7 @@ const skills = [
         </article>
       </section>
 
-      {/* ===== CTA / Contact ===== */}
+      {/* CTA / Contact */}
       <section id="contact" className="mx-auto max-w-6xl px-4 sm:px-6 py-16">
         <article className="card-lg">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
@@ -296,7 +327,7 @@ const skills = [
       {/* Back to top */}
       <a href="#top" className="back-to-top" aria-label="Back to top">↑</a>
 
-      {/* ===== Tokens + Gradient Card CSS ===== */}
+      {/* Tokens + Gradient Card CSS */}
       <style>{`
         html { scroll-behavior: smooth; }
         :root{ --card-bg: 255,255,255; --card-border: 24,24,27,0.08; --grad-a: #60a5fa; --grad-b: #22d3ee; --grad-c: #a78bfa; --shadow: 0 14px 40px rgba(0,0,0,.06); --shadow-hover: 0 18px 44px rgba(0,0,0,.08); --radius: 1.25rem; }
@@ -320,22 +351,28 @@ const skills = [
         .section-header p{ margin-top:.5rem; color:#52525b; }
 
         /* Unified gradient-border card */
-        .card,.card-lg{ position:relative; overflow:hidden; background:rgba(var(--card-bg),0.97); border-radius:var(--radius); border:1px solid rgba(var(--card-border)); box-shadow:var(--shadow); transition:transform .22s ease, box-shadow .22s ease; }
-        .card::before,.card-lg::before{ content:""; position:absolute; inset:0; padding:1px; border-radius:inherit; background:linear-gradient(120deg,var(--grad-a),var(--grad-b),var(--grad-c),var(--grad-a)); -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite:xor; mask-composite:exclude; opacity:.8; pointer-events:none; }
+        .card,.card-lg,.stat{ position:relative; overflow:hidden; background:rgba(var(--card-bg),0.97); border-radius:var(--radius); border:1px solid rgba(var(--card-border)); box-shadow:var(--shadow); transition:transform .22s ease, box-shadow .22s ease; }
+        .card::before,.card-lg::before,.stat::before{ content:""; position:absolute; inset:0; padding:1px; border-radius:inherit; background:linear-gradient(120deg,var(--grad-a),var(--grad-b),var(--grad-c),var(--grad-a)); -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite:xor; mask-composite:exclude; opacity:.8; pointer-events:none; }
         .card{ padding:1.1rem; }
         .card-lg{ padding:1.6rem; border-radius:calc(var(--radius) + .25rem); }
-        .card:hover,.card-lg:hover{ transform:translateY(-3px); box-shadow:var(--shadow-hover); }
+        .card:hover,.card-lg:hover,.stat:hover{ transform:translateY(-3px); box-shadow:var(--shadow-hover); }
 
-        /* Gradient chips (Skills) */
-        .chip-gradient{ display:inline-flex; align-items:center; gap:.5rem; padding:.45rem .85rem; border-radius:9999px; font-size:.875rem; color:#0b1220; background:linear-gradient(180deg,#ffffff 0%, #f8fbff 100%); border:1px solid rgba(24,24,27,.08); position:relative; box-shadow:0 6px 14px rgba(0,0,0,.05); }
-        .chip-gradient::after{ content:""; position:absolute; inset:0; border-radius:inherit; padding:1px; background:linear-gradient(120deg,var(--grad-a),var(--grad-b)); -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite:xor; mask-composite:exclude; opacity:.7; pointer-events:none; }
-        .dot{ width:8px; height:8px; border-radius:9999px; background:linear-gradient(135deg,var(--grad-a),var(--grad-b)); display:inline-block; }
+        /* Stats */
+        .stat{ padding:1.1rem 1.2rem; }
+        .icon-bg{ position:absolute; right:-24px; top:-24px; width:92px; height:92px; border-radius:50%; background:radial-gradient(60px 60px at 30% 30%, rgba(96,165,250,.35), rgba(34,211,238,.2), transparent 70%); filter:blur(2px); }
+        .stat-value{ font-size:1.2rem; font-weight:800; letter-spacing:.2px; }
+        .stat-label{ font-size:.7rem; text-transform:uppercase; letter-spacing:.12em; color:#71717a; margin-top:.15rem; }
+
+        /* Skill tiles */
+        .skill-card{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.55rem; padding:1rem .75rem; min-height:96px; border-radius:14px; background:radial-gradient(120% 120% at 0% 0%, #ffffff 0%, #f8fbff 60%, #f0f5ff 100%); border:1px solid rgba(24,24,27,.08); box-shadow:0 10px 20px rgba(0,0,0,.05); transition:transform .18s ease, box-shadow .22s ease; text-align:center; }
+        .skill-card:hover{ transform:translateY(-2px); box-shadow:0 16px 26px rgba(0,0,0,.08); }
+        .skill-card__icon{ display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:10px; background:linear-gradient(135deg,var(--grad-a),var(--grad-b)); color:#fff; box-shadow:0 8px 18px rgba(34,211,238,.25); }
+        .skill-card__label{ font-size:.85rem; font-weight:600; color:#0b1220; letter-spacing:.1px; }
 
         /* Tags, links, thumbnails */
         .tag{ display:inline-block; padding:.15rem .5rem; border-radius:9999px; background:#f4f4f5; color:#3f3f46; font-size:.75rem; }
         .link{ color:#0b1220; font-weight:600; text-decoration:underline; }
         .link:hover{ color:#2563eb; }
-        .post-thumb{ height:130px; border-radius:14px; background:radial-gradient(110% 110% at 10% 10%, #eef7ff 0%, #e6fbff 40%, #f0e9ff 100%); border:1px solid rgba(24,24,27,.08); box-shadow: inset 0 0 0 1px rgba(255,255,255,.4); }
 
         /* Avatar ring */
         .avatar-ring{ position:absolute; inset:-12px; border-radius:9999px; background:conic-gradient(from 0deg,var(--grad-a),var(--grad-c),var(--grad-b),var(--grad-a)); filter:blur(16px); opacity:.28; z-index:-1; }
@@ -352,29 +389,11 @@ const skills = [
         .fade-in-up{ animation:fadeInUp .6s ease-out both; }
         .scale-in{ animation:fadeInUp .5s ease-out both; }
 
-        /* --- Responsive tweaks --- */
+        /* Responsive tweaks */
         @media (max-width: 640px){
           header .btn-primary{ padding:.6rem 1rem; }
           .back-to-top{ right:.9rem; bottom:.9rem; }
         }
-
-        /* NEW: Skill cards */
-.skill-card{
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:.55rem; padding:1rem .75rem; min-height:96px; border-radius:14px;
-  background:radial-gradient(120% 120% at 0% 0%, #ffffff 0%, #f8fbff 60%, #f0f5ff 100%);
-  border:1px solid rgba(24,24,27,.08); box-shadow:0 10px 20px rgba(0,0,0,.05);
-  transition:transform .18s ease, box-shadow .22s ease; text-align:center;
-}
-.skill-card:hover{ transform:translateY(-2px); box-shadow:0 16px 26px rgba(0,0,0,.08); }
-.skill-card__icon{
-  display:inline-flex; align-items:center; justify-content:center;
-  width:36px; height:36px; border-radius:10px;
-  background:linear-gradient(135deg,var(--grad-a),var(--grad-b)); color:#fff;
-  box-shadow:0 8px 18px rgba(34,211,238,.25);
-}
-.skill-card__label{ font-size:.85rem; font-weight:600; color:#0b1220; letter-spacing:.1px; }
-
       `}</style>
     </main>
   );
