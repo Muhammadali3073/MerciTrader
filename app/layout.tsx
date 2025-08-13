@@ -13,48 +13,23 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-
 export const metadata: Metadata = {
-  title: "Sortevo - Professional Cross-Platform Software Solutions",
+  title: "Muhammad Ali Nawaz · Flutter Developer",
   description:
-    "Sortevo offers custom software solutions across Android, iOS, Mac, Linux, Windows, and Web platforms. Hire our expert developers for your next project and accelerate your business growth.",
+    "Senior Flutter Developer building high-performance apps with clean architecture, smooth UX, and robust integrations.",
   keywords: [
     "Muhammad Ali Nawaz",
     "Ali",
-    "Muhammad"
-    "Ali Nawaz",
-    "Flutter",
     "Flutter Developer",
-    "Mobile",
-    "App",
-    "Moblie App",
+    "Mobile App",
     "Sortevo",
     "Software Solutions",
     "Cross-Platform Development",
     "Android Development",
     "iOS Development",
-    "Mac Software",
-    "Linux Applications",
-    "Windows Programs",
     "Web Development",
-    "Freelance Developers",
-    "Custom Applications",
-    "Professional Services",
-    "Enterprise Software Development",
-    "SaaS Solutions",
-    "Mobile App Development",
-    "Cloud Integration",
-    "AI and Machine Learning",
-    "IoT Development",
-    "Blockchain Development",
     "Full-Stack Development",
-    "Agile Development",
-    "DevOps Services",
     "UX/UI Design",
-    "Custom Software Integration",
-    "API Development",
-    "Tech Consultancy",
-    "IT Support Services",
   ],
   openGraph: {
     url: "https://Sortevo.com",
@@ -75,19 +50,10 @@ export const metadata: Metadata = {
       "Hire our expert developers for custom software solutions across all major platforms.",
     images: ["https://Sortevo.com/assets/images/twitter-card.jpg"],
   },
-  authors: [{ name: "Sortevo Team", url: "https://Sortevo.com/about" }],
-  viewport: "width=device-width, initial-scale=1.0",
-  robots: {
-    index: true,
-    follow: true,
-  },
-  title: "Muhammad Ali Nawaz · Flutter Developer",
-  description:
-    "Senior Flutter Developer building high-performance apps with clean architecture, smooth UX, and robust integrations.",
   icons: {
     icon: [
-      { url: "/profile_image.jpeg", type: "image/jpeg" }, // profile image as favicon
-      { url: "/favicon.ico" }, // optional fallback
+      { url: "/profile_image.jpeg", type: "image/jpeg" },
+      { url: "/favicon.ico" },
     ],
     apple: [{ url: "/profile_image.jpeg" }],
     shortcut: [{ url: "/profile_image.jpeg" }],
@@ -96,9 +62,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body
