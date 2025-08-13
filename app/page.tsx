@@ -1,9 +1,3 @@
-// app/page.tsx
-// Complete portfolio page — Muhammad Ali Nawaz (Flutter Developer)
-// - Uses profile photo at /public/profile_image.jpeg (cache-busted)
-// - Uses favicon at /public/new-favicon.ico (fallback /favicon.ico)
-// - Experience: ONLY Senior Flutter Developer · Digital Upgraders LLC (Remote), Feb 2023 – Present
-// - Resume link: /public/resume.pdf
 
 import Image from "next/image";
 
@@ -13,7 +7,7 @@ export const metadata = {
     "Senior Flutter Developer building high‑performance apps with clean architecture, smooth UX, and robust integrations.",
   icons: {
     icon: [
-      { rel: "icon", url: "/new-favicon.ico" },
+      { rel: "icon", url: "/favicon.jpeg" },
       { url: "/favicon.ico" }, // fallback if needed
     ],
     shortcut: [{ url: "/new-favicon.ico" }],
@@ -107,14 +101,6 @@ export default function Home() {
         "Implemented real‑time features, offline capabilities, and performance optimizations.",
         "Collaborated with designers & backend teams; mentored developers; owned CI/CD and releases.",
       ],
-    },
-  ];
-
-  const education = [
-    {
-      degree: "BS — Computer Science",
-      org: "University of Management & Technology, Lahore",
-      period: "Oct 2017 – Oct 2021",
     },
   ];
 
