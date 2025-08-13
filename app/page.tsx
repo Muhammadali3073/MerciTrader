@@ -1,4 +1,4 @@
-// app/page.tsx — Light-only portfolio with unified gradient-border cards + inline SVG icons (no extra deps)
+// app/page.tsx — Light-only portfolio with unified gradient-border cards (no extra deps)
 "use client";
 
 import { useRef } from "react";
@@ -62,20 +62,6 @@ const Icon = {
   ),
 };
 
-// Map skills to icons
-function iconForSkill(label: string) {
-  const k = label.toLowerCase();
-  if (k.includes("ios") || k.includes("android") || k.includes("mobile")) return <Icon.Layers className="h-5 w-5" />;
-  if (k.includes("web")) return <Icon.Store className="h-5 w-5" />;
-  if (k.includes("api") || k.includes("rest")) return <Icon.Tool className="h-5 w-5" />;
-  if (k.includes("firebase") || k.includes("fcm")) return <Icon.Rocket className="h-5 w-5" />;
-  if (k.includes("sqlite") || k.includes("hive")) return <Icon.Shield className="h-5 w-5" />;
-  if (k.includes("bloc") || k.includes("riverpod") || k.includes("getx") || k.includes("provider")) return <Icon.Layers className="h-5 w-5" />;
-  if (k.includes("git")) return <Icon.Github className="h-5 w-5" />;
-  if (k.includes("test") || k.includes("ci/cd") || k.includes("fastlane")) return <Icon.Rocket className="h-5 w-5" />;
-  return <Icon.Tool className="h-5 w-5" />;
-}
-
 export default function Home() {
   // Mobile menu (auto-close)
   const menuRef = useRef<HTMLDetailsElement | null>(null);
@@ -88,7 +74,7 @@ export default function Home() {
     { label: "Methodology", value: "Agile" },
   ];
 
-  // Concise, balanced skills list
+  // Concise, balanced skills list (icons removed)
   const skills = [
     "Flutter","Dart","iOS","Android","Flutter Web",
     "Bloc","Riverpod","GetX","Provider",
@@ -232,18 +218,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Skills & Tools (tile design) */}
+      {/* Skills & Tools — icon-free premium pills */}
       <section id="skills" className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
         <div className="section-header">
           <h2>Skills & Tools</h2>
           <p>A focused toolbox I use to ship quality apps fast.</p>
         </div>
-        <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
+
+        <div className="mt-6 flex flex-wrap gap-2.5 sm:gap-3">
           {skills.map((s) => (
-            <div key={s} className="skill-card" title={s}>
-              <span className="skill-card__icon">{iconForSkill(s)}</span>
-              <span className="skill-card__label">{s}</span>
-            </div>
+            <span key={s} className="skill-pill" title={s}>{s}</span>
           ))}
         </div>
       </section>
@@ -363,13 +347,25 @@ export default function Home() {
         .stat-value{ font-size:1.2rem; font-weight:800; letter-spacing:.2px; }
         .stat-label{ font-size:.7rem; text-transform:uppercase; letter-spacing:.12em; color:#71717a; margin-top:.15rem; }
 
-        /* Skill tiles */
-        .skill-card{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.55rem; padding:1rem .75rem; min-height:96px; border-radius:14px; background:radial-gradient(120% 120% at 0% 0%, #ffffff 0%, #f8fbff 60%, #f0f5ff 100%); border:1px solid rgba(24,24,27,.08); box-shadow:0 10px 20px rgba(0,0,0,.05); transition:transform .18s ease, box-shadow .22s ease; text-align:center; }
-        .skill-card:hover{ transform:translateY(-2px); box-shadow:0 16px 26px rgba(0,0,0,.08); }
-        .skill-card__icon{ display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:10px; background:linear-gradient(135deg,var(--grad-a),var(--grad-b)); color:#fff; box-shadow:0 8px 18px rgba(34,211,238,.25); }
-        .skill-card__label{ font-size:.85rem; font-weight:600; color:#0b1220; letter-spacing:.1px; }
+        /* Skill pills (icon-free) */
+        .skill-pill{
+          display:inline-flex; align-items:center; gap:.5rem;
+          padding:.55rem .95rem; border-radius:9999px; font-size:.9rem; font-weight:600; color:#0b1220;
+          background:linear-gradient(180deg,#ffffff 0%, #f8fbff 100%);
+          border:1px solid rgba(24,24,27,.08);
+          position:relative;
+          box-shadow:0 8px 18px rgba(0,0,0,.05);
+          transition:transform .15s ease, box-shadow .22s ease, background .2s ease;
+        }
+        .skill-pill::after{
+          content:""; position:absolute; inset:0; border-radius:inherit; padding:1px;
+          background:linear-gradient(120deg,var(--grad-a),var(--grad-b));
+          -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite:xor; mask-composite:exclude; opacity:.7; pointer-events:none;
+        }
+        .skill-pill:hover{ transform:translateY(-1px); box-shadow:0 12px 22px rgba(0,0,0,.08); background:linear-gradient(180deg,#ffffff 0%, #f5f9ff 100%); }
 
-        /* Tags, links, thumbnails */
+        /* Tags, links */
         .tag{ display:inline-block; padding:.15rem .5rem; border-radius:9999px; background:#f4f4f5; color:#3f3f46; font-size:.75rem; }
         .link{ color:#0b1220; font-weight:600; text-decoration:underline; }
         .link:hover{ color:#2563eb; }
