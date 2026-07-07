@@ -12,7 +12,7 @@ const TAGLINE =
   "I build fast, reliable Flutter apps for iOS, Android & Web — clean architecture, smooth UX, and robust testing.";
 
 const LINKS = {
-  linkedin: "https://www.linkedin.com/in/muhammad-ali-nawaz-19a082177",
+  linkedin: "https://www.linkedin.com/in/muhammad-ali-nawaz-19a082177/",
   github: "https://github.com/Muhammadali3073",
   email: "mailto:alibajwa102@gmail.com",
   phone: "tel:+923047222234",
@@ -127,12 +127,12 @@ export default function Home() {
             <a href="#services" className="nav-link">Services</a>
             <a href="#contact" className="nav-link">Contact</a>
             <a
-              href={LINKS.resume}
+              href={LINKS.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn--primary"
             >
-              Resume
+              LinkedIn
             </a>
           </nav>
 
@@ -146,13 +146,13 @@ export default function Home() {
                 </a>
               ))}
               <a
-                href={LINKS.resume}
+                href={LINKS.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="menu__cta"
                 onClick={closeMenu}
               >
-                Resume
+                LinkedIn Profile
               </a>
             </div>
           </details>
@@ -171,7 +171,7 @@ export default function Home() {
           <p className="hero__tagline">{TAGLINE}</p>
 
           <div className="hero__cta">
-            <a href="#contact" className="btn btn--primary">Start a project</a>
+            <a href={LINKS.linkedin} target="_blank" className="btn btn--primary">Connect on LinkedIn</a>
             <a href="#projects" className="btn btn--outline">View projects</a>
           </div>
 
@@ -330,16 +330,16 @@ export default function Home() {
         <article className="card card--cta hue-5">
           <div className="cta__row">
             <div>
-              <h3 className="cta__title">Let’s build something great.</h3>
+              <h3 className="cta__title">Let's build something great.</h3>
               <p className="cta__text">
-                Tell me about your idea and I’ll propose a practical, high-impact plan.
+                Connect with me on LinkedIn or reach out directly. I'd love to discuss your project and propose a practical, high-impact plan.
               </p>
             </div>
             <div className="cta__actions">
-              <a href={LINKS.email} className="btn btn--primary">Email</a>
+              <a href={LINKS.linkedin} target="_blank" className="btn btn--primary">LinkedIn</a>
+              <a href={LINKS.email} className="btn btn--outline">Email</a>
               <a href={LINKS.phone} className="btn btn--outline">Call</a>
               <a href={LINKS.whatsapp} target="_blank" className="btn btn--outline">WhatsApp</a>
-              <a href={LINKS.linkedin} target="_blank" className="btn btn--outline">LinkedIn</a>
               <a href={LINKS.github} target="_blank" className="btn btn--outline">GitHub</a>
               <a href={LINKS.resume} target="_blank" className="btn btn--outline">Download CV</a>
             </div>
