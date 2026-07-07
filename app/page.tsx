@@ -1,9 +1,9 @@
-// app/page.tsx — Fresh colorful redesign (animated gradient bg + glass cards + refined spacing)
-// Light-only, no extra packages, no skill icons (as requested)
+// app/page.tsx — Enhanced with loading animations on all elements
+// Fresh colorful redesign + animated gradient bg + glass cards + refined spacing
 
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 
 const NAME = "Muhammad Ali Nawaz";
@@ -27,6 +27,38 @@ export default function Home() {
   const closeMenu = () => {
     if (menuRef.current) menuRef.current.open = false;
   };
+
+  // Loading states for staggered animations
+  const [loadedSections, setLoadedSections] = useState({
+    hero: false,
+    highlights: false,
+    services: false,
+    skills: false,
+    projects: false,
+    experience: false,
+    education: false,
+    contact: false,
+  });
+
+  useEffect(() => {
+    // Stagger section loading
+    const timings = {
+      hero: 100,
+      highlights: 300,
+      services: 500,
+      skills: 700,
+      projects: 900,
+      experience: 1100,
+      education: 1300,
+      contact: 1500,
+    };
+
+    Object.entries(timings).forEach(([section, delay]) => {
+      setTimeout(() => {
+        setLoadedSections((prev) => ({ ...prev, [section]: true }));
+      }, delay);
+    });
+  }, []);
 
   // Content
   const highlights = [
@@ -103,7 +135,7 @@ export default function Home() {
   return (
     <main id="top" className="site">
       {/* ===================== NAVBAR ===================== */}
-      <header className="navbar">
+      <header className={`navbar ${loadedSections.hero ? "loaded" : ""}`}>
         <div className="container">
           <div className="brand">
             <Image
@@ -160,7 +192,7 @@ export default function Home() {
       </header>
 
       {/* ===================== HERO ===================== */}
-      <section className="hero container">
+      <section className={`hero container ${loadedSections.hero ? "loaded" : ""}`}>
         <div className="hero__text">
           <span className="availability" aria-live="polite">
             <span className="availability__dot" aria-hidden />
@@ -201,10 +233,10 @@ export default function Home() {
       </section>
 
       {/* ===================== HIGHLIGHTS ===================== */}
-      <section className="section container">
+      <section className={`section container ${loadedSections.highlights ? "loaded" : ""}`}>
         <div className="grid grid--stats">
           {highlights.map((h, i) => (
-            <article key={h.label} className={`stat card hue-${(i % 6) + 1}`}>
+            <article key={h.label} className={`stat card hue-${(i % 6) + 1} load-item`} style={{ animationDelay: `${i * 100}ms` }}>
               <div className="stat__value">{h.value}</div>
               <div className="stat__label">{h.label}</div>
             </article>
@@ -213,7 +245,7 @@ export default function Home() {
       </section>
 
       {/* ===================== SERVICES ===================== */}
-      <section id="services" className="section container">
+      <section id="services" className={`section container ${loadedSections.services ? "loaded" : ""}`}>
         <header className="section__head">
           <h2>Services</h2>
           <p>Everything you need to ship and scale a quality Flutter app.</p>
@@ -221,7 +253,7 @@ export default function Home() {
 
         <div className="grid grid--cards">
           {services.map((s, i) => (
-            <article key={s.title} className={`card card--pad hue-${(i % 6) + 1}`}>
+            <article key={s.title} className={`card card--pad hue-${(i % 6) + 1} load-item`} style={{ animationDelay: `${i * 100}ms` }}>
               <h3 className="card__title">{s.title}</h3>
               <ul className="list">
                 {s.points.map((p) => (
@@ -234,7 +266,7 @@ export default function Home() {
       </section>
 
       {/* ===================== SKILLS ===================== */}
-      <section id="skills" className="section container">
+      <section id="skills" className={`section container ${loadedSections.skills ? "loaded" : ""}`}>
         <header className="section__head">
           <h2>Skills & Tools</h2>
           <p>A focused toolbox I use to ship quality apps fast.</p>
@@ -242,7 +274,7 @@ export default function Home() {
 
         <div className="grid grid--skills">
           {skillGroups.map((g, i) => (
-            <article key={g.title} className={`card card--pad hue-${(i % 6) + 1}`}>
+            <article key={g.title} className={`card card--pad hue-${(i % 6) + 1} load-item`} style={{ animationDelay: `${i * 100}ms` }}>
               <div className="group-head">
                 <h3 className="group-head__title">{g.title}</h3>
                 <span className="group-head__line" />
@@ -258,7 +290,7 @@ export default function Home() {
       </section>
 
       {/* ===================== PROJECTS ===================== */}
-      <section id="projects" className="section container">
+      <section id="projects" className={`section container ${loadedSections.projects ? "loaded" : ""}`}>
         <header className="section__head">
           <h2>Selected Projects</h2>
           <p>Performance, UX and maintainability — proven in production.</p>
@@ -266,7 +298,7 @@ export default function Home() {
 
         <div className="grid grid--cards">
           {projects.map((p, i) => (
-            <article key={p.title} className={`card card--pad hue-${(i % 6) + 1}`}>
+            <article key={p.title} className={`card card--pad hue-${(i % 6) + 1} load-item`} style={{ animationDelay: `${i * 100}ms` }}>
               <div className="card__top">
                 <h3 className="card__title">{p.title}</h3>
                 <span className="ribbon">Live</span>
@@ -292,12 +324,12 @@ export default function Home() {
       </section>
 
       {/* ===================== EXPERIENCE ===================== */}
-      <section id="experience" className="section container">
+      <section id="experience" className={`section container ${loadedSections.experience ? "loaded" : ""}`}>
         <header className="section__head">
           <h2>Experience</h2>
         </header>
 
-        <article className="card card--pad hue-2">
+        <article className="card card--pad hue-2 load-item">
           <div className="xp-head">
             <div className="xp-head__role">Senior Flutter Developer · Digital Upgraders LLC (Remote)</div>
             <div className="xp-head__time">Feb 2023 – Present</div>
@@ -311,12 +343,12 @@ export default function Home() {
       </section>
 
       {/* ===================== EDUCATION ===================== */}
-      <section id="education" className="section container">
+      <section id="education" className={`section container ${loadedSections.education ? "loaded" : ""}`}>
         <header className="section__head">
           <h2>Education</h2>
         </header>
 
-        <article className="card card--pad hue-3">
+        <article className="card card--pad hue-3 load-item">
           <div className="xp-head">
             <div className="xp-head__role">BS — Computer Science</div>
             <div className="xp-head__time">Oct 2017 – Oct 2021</div>
@@ -326,8 +358,8 @@ export default function Home() {
       </section>
 
       {/* ===================== CONTACT ===================== */}
-      <section id="contact" className="cta container">
-        <article className="card card--cta hue-5">
+      <section id="contact" className={`cta container ${loadedSections.contact ? "loaded" : ""}`}>
+        <article className="card card--cta hue-5 load-item">
           <div className="cta__row">
             <div>
               <h3 className="cta__title">Let's build something great.</h3>
@@ -412,6 +444,120 @@ export default function Home() {
         @media (min-width: 900px){ .section{ padding: 56px 0; } }
         .cta{ padding: 64px 0; }
         @media (min-width: 900px){ .cta{ padding: 80px 0; } }
+
+        /* ====== Loading animations ====== */
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes fadeInScale {
+          from {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        @keyframes slideInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes slideInRight {
+          from {
+            opacity: 0;
+            transform: translateX(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        /* Section loading state */
+        .section:not(.loaded),
+        .cta:not(.loaded) {
+          opacity: 0;
+        }
+
+        .section.loaded,
+        .cta.loaded {
+          animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .navbar.loaded {
+          animation: slideInDown 0.5s ease-out forwards;
+        }
+
+        @keyframes slideInDown {
+          from {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* Hero section loading */
+        .hero:not(.loaded) {
+          opacity: 0;
+        }
+
+        .hero.loaded {
+          animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .hero.loaded .hero__text {
+          animation: slideInLeft 0.8s ease-out forwards;
+        }
+
+        .hero.loaded .hero__photo {
+          animation: slideInRight 0.8s ease-out forwards;
+        }
+
+        /* Individual item loading */
+        .load-item {
+          opacity: 0;
+          animation: fadeInScale 0.5s ease-out forwards;
+        }
+
+        /* Stagger animations for grid items */
+        .section.loaded .load-item,
+        .cta.loaded .load-item {
+          opacity: 0;
+          animation: fadeInScale 0.5s ease-out forwards;
+        }
+
+        /* Skeleton loading effect */
+        @keyframes skeleton-loading {
+          0% {
+            background: linear-gradient(90deg, rgba(255,255,255,.05) 25%, rgba(255,255,255,.1) 50%, rgba(255,255,255,.05) 75%);
+            background-size: 200% 100%;
+            background-position: 200% 0;
+          }
+          100% {
+            background-size: 200% 100%;
+            background-position: -200% 0;
+          }
+        }
 
         /* ====== Navbar ====== */
         .navbar{
