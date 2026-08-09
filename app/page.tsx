@@ -1,5 +1,5 @@
-// app/page.tsx — Enhanced with loading animations on all elements
-// Fresh colorful redesign + animated gradient bg + glass cards + refined spacing
+// app/page.tsx — Enhanced with advanced animations, better UX & accessibility
+// Premium dark theme + smooth interactions + optimized performance
 
 "use client";
 
@@ -37,6 +37,7 @@ export default function Home() {
     projects: false,
     experience: false,
     education: false,
+    testimonials: false,
     contact: false,
   });
 
@@ -50,7 +51,8 @@ export default function Home() {
       projects: 900,
       experience: 1100,
       education: 1300,
-      contact: 1500,
+      testimonials: 1500,
+      contact: 1700,
     };
 
     Object.entries(timings).forEach(([section, delay]) => {
@@ -95,7 +97,7 @@ export default function Home() {
     },
   ];
 
-  // Skills (no icons; grouped & colorful)
+  // Skills (grouped & colorful)
   const skillGroups: { title: string; items: string[] }[] = [
     { title: "Core", items: ["Flutter", "Dart", "Flutter Web", "Clean Architecture"] },
     { title: "State Management", items: ["Bloc", "Riverpod", "GetX", "Provider"] },
@@ -129,6 +131,28 @@ export default function Home() {
       tags: ["Flutter", "Firebase"],
       blurb: "Nikah services with guided flows, notifications and admin tooling.",
       links: [{ label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.hyxio.only_nikkah" }],
+    },
+  ];
+
+  const experiences = [
+    {
+      role: "Senior Flutter Developer",
+      company: "Digital Upgraders LLC",
+      location: "Remote",
+      time: "Feb 2023 – Present",
+      points: [
+        "Led cross-platform development with feature-based architecture.",
+        "Implemented realtime features, offline capability & perf optimizations.",
+        "Mentored developers, owned CI/CD and store releases.",
+      ],
+    },
+  ];
+
+  const testimonials = [
+    {
+      text: "Muhammad is an exceptional developer with a keen eye for detail and a passion for creating seamless user experiences.",
+      author: "Project Lead",
+      role: "Digital Upgraders LLC",
     },
   ];
 
@@ -170,7 +194,7 @@ export default function Home() {
 
           {/* Mobile menu */}
           <details ref={menuRef} className="menu">
-            <summary className="btn btn--ghost">Menu</summary>
+            <summary className="btn btn--ghost" aria-label="Toggle navigation menu">Menu</summary>
             <div className="menu__sheet">
               {["#projects", "#skills", "#experience", "#education", "#services", "#contact"].map((href) => (
                 <a key={href} href={href} className="menu__item" onClick={closeMenu}>
@@ -203,16 +227,16 @@ export default function Home() {
           <p className="hero__tagline">{TAGLINE}</p>
 
           <div className="hero__cta">
-            <a href={LINKS.linkedin} target="_blank" className="btn btn--primary">Connect on LinkedIn</a>
+            <a href={LINKS.linkedin} target="_blank" rel="noopener noreferrer" className="btn btn--primary">Connect on LinkedIn</a>
             <a href="#projects" className="btn btn--outline">View projects</a>
           </div>
 
           <div className="hero__links">
-            <a href={LINKS.linkedin} target="_blank" className="link">LinkedIn</a>
-            <a href={LINKS.github} target="_blank" className="link">GitHub</a>
+            <a href={LINKS.linkedin} target="_blank" rel="noopener noreferrer" className="link">LinkedIn</a>
+            <a href={LINKS.github} target="_blank" rel="noopener noreferrer" className="link">GitHub</a>
             <a href={LINKS.email} className="link">Email</a>
             <a href={LINKS.phone} className="link">Call</a>
-            <a href={LINKS.whatsapp} target="_blank" className="link">WhatsApp</a>
+            <a href={LINKS.whatsapp} target="_blank" rel="noopener noreferrer" className="link">WhatsApp</a>
           </div>
         </div>
 
@@ -313,7 +337,7 @@ export default function Home() {
                 <div className="links">
                   {p.links.map((l) => (
                     <a key={l.href} href={l.href} className="link" target="_blank" rel="noopener noreferrer">
-                      {l.label}
+                      {l.label} →
                     </a>
                   ))}
                 </div>
@@ -329,17 +353,22 @@ export default function Home() {
           <h2>Experience</h2>
         </header>
 
-        <article className="card card--pad hue-2 load-item">
-          <div className="xp-head">
-            <div className="xp-head__role">Senior Flutter Developer · Digital Upgraders LLC (Remote)</div>
-            <div className="xp-head__time">Feb 2023 – Present</div>
-          </div>
-          <ul className="list">
-            <li>Led cross-platform development with feature-based architecture.</li>
-            <li>Implemented realtime features, offline capability & perf optimizations.</li>
-            <li>Mentored developers, owned CI/CD and store releases.</li>
-          </ul>
-        </article>
+        {experiences.map((exp, i) => (
+          <article key={exp.role} className={`card card--pad hue-${(i % 6) + 2} load-item`} style={{ animationDelay: `${i * 100}ms` }}>
+            <div className="xp-head">
+              <div>
+                <div className="xp-head__role">{exp.role} · {exp.company}</div>
+                <div className="xp-head__location">{exp.location}</div>
+              </div>
+              <div className="xp-head__time">{exp.time}</div>
+            </div>
+            <ul className="list">
+              {exp.points.map((p) => (
+                <li key={p}>{p}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
       </section>
 
       {/* ===================== EDUCATION ===================== */}
@@ -357,6 +386,25 @@ export default function Home() {
         </article>
       </section>
 
+      {/* ===================== TESTIMONIALS ===================== */}
+      <section id="testimonials" className={`section container ${loadedSections.testimonials ? "loaded" : ""}`}>
+        <header className="section__head">
+          <h2>What People Say</h2>
+        </header>
+
+        <div className="grid grid--testimonials">
+          {testimonials.map((t, i) => (
+            <article key={t.author} className={`testimonial card hue-${(i % 6) + 1} load-item`} style={{ animationDelay: `${i * 100}ms` }}>
+              <p className="testimonial__text">"{t.text}"</p>
+              <div className="testimonial__author">
+                <strong>{t.author}</strong>
+                <span>{t.role}</span>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
       {/* ===================== CONTACT ===================== */}
       <section id="contact" className={`cta container ${loadedSections.contact ? "loaded" : ""}`}>
         <article className="card card--cta hue-5 load-item">
@@ -368,12 +416,12 @@ export default function Home() {
               </p>
             </div>
             <div className="cta__actions">
-              <a href={LINKS.linkedin} target="_blank" className="btn btn--primary">LinkedIn</a>
+              <a href={LINKS.linkedin} target="_blank" rel="noopener noreferrer" className="btn btn--primary">LinkedIn</a>
               <a href={LINKS.email} className="btn btn--outline">Email</a>
               <a href={LINKS.phone} className="btn btn--outline">Call</a>
-              <a href={LINKS.whatsapp} target="_blank" className="btn btn--outline">WhatsApp</a>
-              <a href={LINKS.github} target="_blank" className="btn btn--outline">GitHub</a>
-              <a href={LINKS.resume} target="_blank" className="btn btn--outline">Download CV</a>
+              <a href={LINKS.whatsapp} target="_blank" rel="noopener noreferrer" className="btn btn--outline">WhatsApp</a>
+              <a href={LINKS.github} target="_blank" rel="noopener noreferrer" className="btn btn--outline">GitHub</a>
+              <a href={LINKS.resume} target="_blank" rel="noopener noreferrer" className="btn btn--outline">Download CV</a>
             </div>
           </div>
         </article>
@@ -546,19 +594,6 @@ export default function Home() {
           animation: fadeInScale 0.5s ease-out forwards;
         }
 
-        /* Skeleton loading effect */
-        @keyframes skeleton-loading {
-          0% {
-            background: linear-gradient(90deg, rgba(255,255,255,.05) 25%, rgba(255,255,255,.1) 50%, rgba(255,255,255,.05) 75%);
-            background-size: 200% 100%;
-            background-position: 200% 0;
-          }
-          100% {
-            background-size: 200% 100%;
-            background-position: -200% 0;
-          }
-        }
-
         /* ====== Navbar ====== */
         .navbar{
           position: sticky; top: 0; z-index: 50;
@@ -576,7 +611,7 @@ export default function Home() {
         .avatar{ border-radius:9999px; border:2px solid rgba(255,255,255,.5); }
 
         .nav-desktop{ display:none; gap:18px; align-items:center; }
-        .nav-link{ color:rgba(255,255,255,.92); text-decoration:none; font-size:.92rem; }
+        .nav-link{ color:rgba(255,255,255,.92); text-decoration:none; font-size:.92rem; transition: color 0.2s ease; }
         .nav-link:hover{ color:white; }
 
         .menu{ display:block; }
@@ -590,14 +625,15 @@ export default function Home() {
         .menu[open] .menu__sheet{ animation: sheet .2s ease-out both; }
         @keyframes sheet{ from{ opacity:0; transform:translateY(-6px) } to{ opacity:1; transform:translateY(0) } }
         .menu__item{
-          display:block; padding:.7rem .9rem; border-radius:10px; color:white; text-decoration:none;
+          display:block; padding:.7rem .9rem; border-radius:10px; color:white; text-decoration:none; transition: background 0.2s ease;
         }
         .menu__item:hover{ background: rgba(255,255,255,.08); }
         .menu__cta{
           display:block; text-align:center; padding:.75rem .9rem; border-radius:10px; color:#0b1026; text-decoration:none;
           background: linear-gradient(135deg, rgb(var(--c3)), rgb(var(--c2)));
-          font-weight:700;
+          font-weight:700; transition: filter 0.2s ease;
         }
+        .menu__cta:hover{ filter: brightness(1.1); }
 
         /* Desktop breakpoint */
         @media (min-width: 900px){
@@ -625,6 +661,7 @@ export default function Home() {
           display:inline-flex; align-items:center; justify-content:center; gap:.5rem; cursor:pointer;
           padding:.78rem 1.1rem; border-radius:14px; font-size:.94rem; font-weight:700; text-decoration:none;
           transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+          border: none;
         }
         .btn--primary{
           color:#0b1026; background: linear-gradient(135deg, rgb(var(--c3)), rgb(var(--c2)));
@@ -635,10 +672,19 @@ export default function Home() {
           color:white; border:1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.04);
         }
         .btn--outline:hover{ background: rgba(255,255,255,.08); transform: translateY(-1px); }
+        .btn--ghost{
+          background: transparent;
+          border: 1px solid rgba(255,255,255,.2);
+          color: white;
+        }
+        .btn--ghost:hover{
+          background: rgba(255,255,255,.05);
+          border-color: rgba(255,255,255,.4);
+        }
 
         .hero__links{ display:flex; flex-wrap:wrap; gap:12px; margin-top:8px; }
-        .link{ color: white; text-decoration: underline; text-underline-offset: 4px; }
-        .link:hover{ color: rgb(255,255,255); filter: brightness(1.1); }
+        .link{ color: white; text-decoration: underline; text-underline-offset: 4px; transition: filter 0.2s ease; }
+        .link:hover{ filter: brightness(1.1); }
 
         .hero__photo{ display:flex; justify-content:center; }
         .photo-wrap{ position:relative; display:inline-block; }
@@ -666,7 +712,7 @@ export default function Home() {
           -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
           -webkit-mask-composite: xor; mask-composite: exclude; opacity:.55; pointer-events:none;
         }
-        .card:hover{ transform: translateY(-3px); }
+        .card:hover{ transform: translateY(-3px); box-shadow: 0 22px 60px rgba(0,0,0,.35); }
 
         .card--pad{ padding: 16px; }
         .card--cta{ padding: 22px; }
@@ -728,10 +774,66 @@ export default function Home() {
           box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
         }
 
+        /* Experience */
+        .xp-head{
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          gap: 20px;
+          flex-wrap: wrap;
+        }
+        .xp-head__role{
+          font-weight: 800;
+          font-size: 1.1rem;
+          letter-spacing: 0.2px;
+        }
+        .xp-head__location{
+          font-size: 0.9rem;
+          color: rgba(255, 255, 255, 0.65);
+          margin-top: 4px;
+        }
+        .xp-head__time{
+          color: rgba(255, 255, 255, 0.65);
+          font-size: 0.9rem;
+          white-space: nowrap;
+        }
+
+        /* Testimonials */
+        .grid--testimonials{
+          display:grid; grid-template-columns: 1fr; gap: 14px;
+        }
+        @media (min-width: 768px){ .grid--testimonials{ grid-template-columns: 1fr 1fr; gap: 16px; } }
+        .testimonial{ min-height: 240px; padding: 24px; }
+        .testimonial__text{
+          font-size: 1rem;
+          font-style: italic;
+          color: rgba(255, 255, 255, 0.9);
+          line-height: 1.6;
+          margin: 0 0 20px;
+        }
+        .testimonial__author{
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
+        .testimonial__author strong{
+          font-weight: 700;
+          font-size: 0.95rem;
+        }
+        .testimonial__author span{
+          font-size: 0.85rem;
+          color: rgba(255, 255, 255, 0.65);
+        }
+
         /* Lists */
         .list{ margin-top: 8px; padding-left: 1.1rem; line-height: 1.6; }
         .list li + li{ margin-top: 6px; }
         .muted{ color: rgba(var(--muted), .85); }
+
+        /* Section heading */
+        .section__head{ margin-bottom: 32px; }
+        .section__head h2{ margin: 0 0 12px; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; }
+        .section__head p{ margin: 0; color: rgba(255, 255, 255, 0.7); font-size: 0.95rem; }
 
         /* CTA */
         .card--cta{ box-shadow: 0 30px 80px rgba(0,0,0,.35); }
@@ -787,6 +889,17 @@ export default function Home() {
         }
         .availability__text { position: relative; z-index: 1; white-space: nowrap; }
         @media (max-width: 360px){ .availability__text { white-space: normal; } }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+          * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+        }
+
+        /* Focus visible for keyboard navigation */
+        *:focus-visible {
+          outline: 2px solid rgb(var(--c3));
+          outline-offset: 2px;
+        }
       `}</style>
     </main>
   );
