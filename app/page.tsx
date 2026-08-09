@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import Head from "next/head";
 import Image from "next/image";
 
 const BRAND = "MarciTrader";
@@ -12,12 +13,15 @@ const LINKS = {
   email: "mailto:alibajwa102@gmail.com",
   phone: "tel:+923047222234",
   resume: "/resume.pdf",
-  profilePic: "/profile_image.jpeg?v=10",
+  profilePic: "/marci/logo.png",
+  heroImg: "/marci/hero.png",
 };
 
 export default function Home() {
   const menuRef = useRef<HTMLDetailsElement | null>(null);
-  const closeMenu = () => { if (menuRef.current) menuRef.current.open = false; };
+  const closeMenu = () => {
+    if (menuRef.current) menuRef.current.open = false;
+  };
 
   const [navSolid, setNavSolid] = useState(false);
   useEffect(() => {
@@ -47,10 +51,19 @@ export default function Home() {
 
   return (
     <main className="mt-root">
+      <Head>
+        <title>MarciTrader — Smart trading tools & signals</title>
+        <meta name="description" content="MarciTrader provides realtime trading signals, portfolio insights, and backtesting tools for active traders." />
+        <meta property="og:title" content="MarciTrader — Smart trading tools" />
+        <meta property="og:description" content="Realtime signals, portfolio insights and backtesting for traders." />
+        <meta property="og:image" content="/marci/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Head>
+
       <header className={`topbar ${navSolid ? 'solid' : ''}`}>
         <div className="wrap">
           <div className="brand">
-            <Image src={LINKS.profilePic} alt={BRAND} width={44} height={44} className="logo" />
+            <Image src={LINKS.profilePic} alt={`${BRAND} logo`} width={44} height={44} className="logo" />
             <div className="brand__name">{BRAND}</div>
           </div>
           <nav className="nav-desktop">
@@ -96,14 +109,9 @@ export default function Home() {
           </div>
 
           <div className="hero-right">
-            <div className="mock">
-              <div className="mock__header">Signal Stream</div>
-              <div className="mock__chart">📈 1h  •  BTC/USD</div>
-              <div className="mock__list">
-                <div className="row"><strong>BUY</strong> BTC  0.003 • 1m ago</div>
-                <div className="row"><strong>SELL</strong> ETH  0.1 • 2m ago</div>
-                <div className="row"><strong>BUY</strong> SOL  2 • 5m ago</div>
-              </div>
+            {/* hero image (replace /marci/hero.png in /public) */}
+            <div className="hero-image-wrap">
+              <Image src={LINKS.heroImg} alt="MarciTrader dashboard" width={560} height={340} className="hero-visual" priority />
             </div>
           </div>
         </div>
@@ -223,10 +231,8 @@ export default function Home() {
         .logos{ display:flex; gap:8px }
         .logo-pill{ background: rgba(255,255,255,0.03); padding:6px 8px; border-radius:8px; font-weight:700 }
 
-        .hero-right .mock{ background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); border-radius:14px; padding:16px; border:1px solid rgba(255,255,255,0.04) }
-        .mock__header{ font-weight:800; margin-bottom:8px }
-        .mock__chart{ background: rgba(0,0,0,0.18); padding:10px; border-radius:8px; margin-bottom:12px }
-        .mock__list .row{ padding:8px 10px; border-radius:8px; margin-bottom:8px; background: rgba(255,255,255,0.02) }
+        .hero-right .hero-image-wrap{ border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,0.04); box-shadow: 0 18px 40px rgba(0,0,0,0.3); }
+        .hero-visual{ display:block; width:100%; height:auto }
 
         .section{ padding:56px 0 }
         .section.alt{ background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent) }
