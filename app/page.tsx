@@ -1,905 +1,268 @@
-// app/page.tsx — Enhanced with advanced animations, better UX & accessibility
-// Premium dark theme + smooth interactions + optimized performance
-
 "use client";
 
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 
-const NAME = "Muhammad Ali Nawaz";
-const ROLE = "Senior Flutter Developer";
-const TAGLINE =
-  "I build fast, reliable Flutter apps for iOS, Android & Web — clean architecture, smooth UX, and robust testing.";
+const BRAND = "MarciTrader";
+const TAGLINE = "Smart trading tools. Clear signals. Faster decisions.";
 
 const LINKS = {
-  linkedin: "https://www.linkedin.com/in/muhammad-ali-nawaz-19a082177/",
+  linkedin: "https://www.linkedin.com/",
   github: "https://github.com/Muhammadali3073",
   email: "mailto:alibajwa102@gmail.com",
   phone: "tel:+923047222234",
   resume: "/resume.pdf",
   profilePic: "/profile_image.jpeg?v=10",
-  whatsapp: "https://wa.me/923047222234",
 };
 
 export default function Home() {
-  // Mobile menu (auto-close)
   const menuRef = useRef<HTMLDetailsElement | null>(null);
-  const closeMenu = () => {
-    if (menuRef.current) menuRef.current.open = false;
-  };
+  const closeMenu = () => { if (menuRef.current) menuRef.current.open = false; };
 
-  // Loading states for staggered animations
-  const [loadedSections, setLoadedSections] = useState({
-    hero: false,
-    highlights: false,
-    services: false,
-    skills: false,
-    projects: false,
-    experience: false,
-    education: false,
-    testimonials: false,
-    contact: false,
-  });
-
+  const [navSolid, setNavSolid] = useState(false);
   useEffect(() => {
-    // Stagger section loading
-    const timings = {
-      hero: 100,
-      highlights: 300,
-      services: 500,
-      skills: 700,
-      projects: 900,
-      experience: 1100,
-      education: 1300,
-      testimonials: 1500,
-      contact: 1700,
-    };
-
-    Object.entries(timings).forEach(([section, delay]) => {
-      setTimeout(() => {
-        setLoadedSections((prev) => ({ ...prev, [section]: true }));
-      }, delay);
-    });
+    const onScroll = () => setNavSolid(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Content
-  const highlights = [
-    { label: "Experience", value: "3+ yrs" },
-    { label: "Platforms", value: "iOS · Android · Web" },
-    { label: "Focus", value: "Performance & UX" },
-    { label: "Method", value: "Agile Delivery" },
+  const features = [
+    { title: "Realtime Signals", body: "Low-latency market signals curated by proven strategies." },
+    { title: "Portfolio Insights", body: "Visualize exposure, P&L, and risk in a single dashboard." },
+    { title: "Backtesting", body: "Test strategies against historical data with ease." },
+    { title: "Alerts & Automation", body: "Email, SMS and webhook alerts; automate routine actions." },
   ];
 
-  const services = [
-    {
-      title: "End-to-End Flutter",
-      points: [
-        "iOS, Android & Web from one codebase",
-        "Clean Architecture & modular design",
-        "State management (Bloc / Riverpod / GetX)",
-      ],
-    },
-    {
-      title: "Integrations & Backend",
-      points: [
-        "REST APIs / Firebase / Firestore / Auth",
-        "Push, Analytics, Payments & Subscriptions",
-        "Maps, Location, Media, Realtime",
-      ],
-    },
-    {
-      title: "Quality & Release",
-      points: [
-        "Unit / Widget / Integration tests",
-        "CI/CD (Fastlane), versioning, automation",
-        "App Store & Play Store submissions",
-      ],
-    },
-  ];
-
-  // Skills (grouped & colorful)
-  const skillGroups: { title: string; items: string[] }[] = [
-    { title: "Core", items: ["Flutter", "Dart", "Flutter Web", "Clean Architecture"] },
-    { title: "State Management", items: ["Bloc", "Riverpod", "GetX", "Provider"] },
-    { title: "Data & Cloud", items: ["REST APIs", "Firebase", "Firestore", "Auth", "FCM", "SQLite", "Hive"] },
-    { title: "Quality & DevOps", items: ["Testing", "CI/CD", "Fastlane", "Code Review"] },
-    { title: "Native & Features", items: ["Native Channels", "ML Kit", "Push Notifications", "Maps & Geo"] },
-    { title: "Tooling", items: ["Git", "GitHub", "Jira", "Asana", "VS Code", "Android Studio", "Xcode"] },
-  ];
-
-  const projects = [
-    {
-      title: "Comnow (Digital Call System)",
-      tags: ["Flutter", "iOS", "Android"],
-      blurb: "Digital communication with messaging, voice notes and efficient in-app workflows.",
-      links: [{ label: "App Store", href: "https://apps.apple.com/ae/app/comnow/id1614790733" }],
-    },
-    {
-      title: "Crime Scene Guide",
-      tags: ["Flutter", "Play Store"],
-      blurb: "Scene documentation and note-taking to streamline investigation workflows.",
-      links: [{ label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.INAR.investigation" }],
-    },
-    {
-      title: "LHFADEZ Barbering",
-      tags: ["Flutter", "Stripe", "Scheduling"],
-      blurb: "Booking for haircuts & grooming with seamless scheduling, payments and promotions.",
-      links: [{ label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.rubikkube.lhfadezbarbering.android" }],
-    },
-    {
-      title: "Only Nikah",
-      tags: ["Flutter", "Firebase"],
-      blurb: "Nikah services with guided flows, notifications and admin tooling.",
-      links: [{ label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.hyxio.only_nikkah" }],
-    },
-  ];
-
-  const experiences = [
-    {
-      role: "Senior Flutter Developer",
-      company: "Digital Upgraders LLC",
-      location: "Remote",
-      time: "Feb 2023 – Present",
-      points: [
-        "Led cross-platform development with feature-based architecture.",
-        "Implemented realtime features, offline capability & perf optimizations.",
-        "Mentored developers, owned CI/CD and store releases.",
-      ],
-    },
+  const products = [
+    { title: "Signal Stream", desc: "Fast, filtered signals for active traders.", link: "#" },
+    { title: "Trade Journal", desc: "Capture trades, notes and outcomes to improve edge.", link: "#" },
+    { title: "Strategy Lab", desc: "A/B test ideas and iterate quickly.", link: "#" },
   ];
 
   const testimonials = [
-    {
-      text: "Muhammad is an exceptional developer with a keen eye for detail and a passion for creating seamless user experiences.",
-      author: "Project Lead",
-      role: "Digital Upgraders LLC",
-    },
+    { text: "MarciTrader helped me cut my reaction time in half — signals are clean and reliable.", author: "A. Khan, Trader" },
+    { text: "A simple interface with powerful analytics under the hood.", author: "S. Patel, Quant" },
   ];
 
   return (
-    <main id="top" className="site">
-      {/* ===================== NAVBAR ===================== */}
-      <header className={`navbar ${loadedSections.hero ? "loaded" : ""}`}>
-        <div className="container">
+    <main className="mt-root">
+      <header className={`topbar ${navSolid ? 'solid' : ''}`}>
+        <div className="wrap">
           <div className="brand">
-            <Image
-              src={LINKS.profilePic}
-              alt={NAME}
-              width={40}
-              height={40}
-              className="avatar"
-              priority
-              sizes="40px"
-            />
-            <span className="brand__name">{NAME}</span>
+            <Image src={LINKS.profilePic} alt={BRAND} width={44} height={44} className="logo" />
+            <div className="brand__name">{BRAND}</div>
           </div>
-
-          {/* Desktop nav */}
           <nav className="nav-desktop">
-            <a href="#projects" className="nav-link">Projects</a>
-            <a href="#skills" className="nav-link">Skills</a>
-            <a href="#experience" className="nav-link">Experience</a>
-            <a href="#education" className="nav-link">Education</a>
-            <a href="#services" className="nav-link">Services</a>
-            <a href="#contact" className="nav-link">Contact</a>
-            <a
-              href={LINKS.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn--primary"
-            >
-              LinkedIn
-            </a>
+            <a href="#features">Features</a>
+            <a href="#products">Products</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#contact">Contact</a>
+            <a href={LINKS.github} target="_blank" rel="noreferrer" className="btn">GitHub</a>
           </nav>
 
-          {/* Mobile menu */}
           <details ref={menuRef} className="menu">
-            <summary className="btn btn--ghost" aria-label="Toggle navigation menu">Menu</summary>
-            <div className="menu__sheet">
-              {["#projects", "#skills", "#experience", "#education", "#services", "#contact"].map((href) => (
-                <a key={href} href={href} className="menu__item" onClick={closeMenu}>
-                  {href.replace("#", "")}
-                </a>
-              ))}
-              <a
-                href={LINKS.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="menu__cta"
-                onClick={closeMenu}
-              >
-                LinkedIn Profile
-              </a>
+            <summary className="menu-btn" aria-label="Open menu">Menu</summary>
+            <div className="menu-sheet">
+              <a href="#features" onClick={closeMenu}>Features</a>
+              <a href="#products" onClick={closeMenu}>Products</a>
+              <a href="#pricing" onClick={closeMenu}>Pricing</a>
+              <a href="#contact" onClick={closeMenu}>Contact</a>
+              <a href={LINKS.github} target="_blank" rel="noreferrer" className="menu-cta" onClick={closeMenu}>GitHub</a>
             </div>
           </details>
         </div>
       </header>
 
-      {/* ===================== HERO ===================== */}
-      <section className={`hero container ${loadedSections.hero ? "loaded" : ""}`}>
-        <div className="hero__text">
-          <span className="availability" aria-live="polite">
-            <span className="availability__dot" aria-hidden />
-            <span className="availability__text">Open to opportunities</span>
-          </span>
+      <section className="hero">
+        <div className="wrap hero-inner">
+          <div className="hero-left">
+            <h1>{BRAND}</h1>
+            <p className="lead">{TAGLINE}</p>
 
-          <h1 className="hero__title">{ROLE}</h1>
-          <p className="hero__tagline">{TAGLINE}</p>
-
-          <div className="hero__cta">
-            <a href={LINKS.linkedin} target="_blank" rel="noopener noreferrer" className="btn btn--primary">Connect on LinkedIn</a>
-            <a href="#projects" className="btn btn--outline">View projects</a>
-          </div>
-
-          <div className="hero__links">
-            <a href={LINKS.linkedin} target="_blank" rel="noopener noreferrer" className="link">LinkedIn</a>
-            <a href={LINKS.github} target="_blank" rel="noopener noreferrer" className="link">GitHub</a>
-            <a href={LINKS.email} className="link">Email</a>
-            <a href={LINKS.phone} className="link">Call</a>
-            <a href={LINKS.whatsapp} target="_blank" rel="noopener noreferrer" className="link">WhatsApp</a>
-          </div>
-        </div>
-
-        <div className="hero__photo">
-          <div className="photo-wrap">
-            <div className="photo-ring" />
-            <Image
-              src={LINKS.profilePic}
-              alt={NAME}
-              width={280}
-              height={280}
-              className="photo"
-              priority
-              sizes="(min-width: 900px) 280px, 42vw"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* ===================== HIGHLIGHTS ===================== */}
-      <section className={`section container ${loadedSections.highlights ? "loaded" : ""}`}>
-        <div className="grid grid--stats">
-          {highlights.map((h, i) => (
-            <article key={h.label} className={`stat card hue-${(i % 6) + 1} load-item`} style={{ animationDelay: `${i * 100}ms` }}>
-              <div className="stat__value">{h.value}</div>
-              <div className="stat__label">{h.label}</div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {/* ===================== SERVICES ===================== */}
-      <section id="services" className={`section container ${loadedSections.services ? "loaded" : ""}`}>
-        <header className="section__head">
-          <h2>Services</h2>
-          <p>Everything you need to ship and scale a quality Flutter app.</p>
-        </header>
-
-        <div className="grid grid--cards">
-          {services.map((s, i) => (
-            <article key={s.title} className={`card card--pad hue-${(i % 6) + 1} load-item`} style={{ animationDelay: `${i * 100}ms` }}>
-              <h3 className="card__title">{s.title}</h3>
-              <ul className="list">
-                {s.points.map((p) => (
-                  <li key={p}>{p}</li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {/* ===================== SKILLS ===================== */}
-      <section id="skills" className={`section container ${loadedSections.skills ? "loaded" : ""}`}>
-        <header className="section__head">
-          <h2>Skills & Tools</h2>
-          <p>A focused toolbox I use to ship quality apps fast.</p>
-        </header>
-
-        <div className="grid grid--skills">
-          {skillGroups.map((g, i) => (
-            <article key={g.title} className={`card card--pad hue-${(i % 6) + 1} load-item`} style={{ animationDelay: `${i * 100}ms` }}>
-              <div className="group-head">
-                <h3 className="group-head__title">{g.title}</h3>
-                <span className="group-head__line" />
-              </div>
-              <div className="chips">
-                {g.items.map((s) => (
-                  <span key={s} className="chip">{s}</span>
-                ))}
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {/* ===================== PROJECTS ===================== */}
-      <section id="projects" className={`section container ${loadedSections.projects ? "loaded" : ""}`}>
-        <header className="section__head">
-          <h2>Selected Projects</h2>
-          <p>Performance, UX and maintainability — proven in production.</p>
-        </header>
-
-        <div className="grid grid--cards">
-          {projects.map((p, i) => (
-            <article key={p.title} className={`card card--pad hue-${(i % 6) + 1} load-item`} style={{ animationDelay: `${i * 100}ms` }}>
-              <div className="card__top">
-                <h3 className="card__title">{p.title}</h3>
-                <span className="ribbon">Live</span>
-              </div>
-              <p className="card__blurb">{p.blurb}</p>
-              <div className="tags">
-                {p.tags.map((t) => (
-                  <span key={t} className="tag">{t}</span>
-                ))}
-              </div>
-              {!!p.links.length && (
-                <div className="links">
-                  {p.links.map((l) => (
-                    <a key={l.href} href={l.href} className="link" target="_blank" rel="noopener noreferrer">
-                      {l.label} →
-                    </a>
-                  ))}
-                </div>
-              )}
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {/* ===================== EXPERIENCE ===================== */}
-      <section id="experience" className={`section container ${loadedSections.experience ? "loaded" : ""}`}>
-        <header className="section__head">
-          <h2>Experience</h2>
-        </header>
-
-        {experiences.map((exp, i) => (
-          <article key={exp.role} className={`card card--pad hue-${(i % 6) + 2} load-item`} style={{ animationDelay: `${i * 100}ms` }}>
-            <div className="xp-head">
-              <div>
-                <div className="xp-head__role">{exp.role} · {exp.company}</div>
-                <div className="xp-head__location">{exp.location}</div>
-              </div>
-              <div className="xp-head__time">{exp.time}</div>
+            <div className="hero-ctas">
+              <a href="#products" className="btn btn-primary">Explore products</a>
+              <a href="#contact" className="btn btn-outline">Request demo</a>
             </div>
-            <ul className="list">
-              {exp.points.map((p) => (
-                <li key={p}>{p}</li>
-              ))}
-            </ul>
-          </article>
-        ))}
-      </section>
 
-      {/* ===================== EDUCATION ===================== */}
-      <section id="education" className={`section container ${loadedSections.education ? "loaded" : ""}`}>
-        <header className="section__head">
-          <h2>Education</h2>
-        </header>
-
-        <article className="card card--pad hue-3 load-item">
-          <div className="xp-head">
-            <div className="xp-head__role">BS — Computer Science</div>
-            <div className="xp-head__time">Oct 2017 – Oct 2021</div>
-          </div>
-          <p className="muted">University of Management & Technology, Lahore</p>
-        </article>
-      </section>
-
-      {/* ===================== TESTIMONIALS ===================== */}
-      <section id="testimonials" className={`section container ${loadedSections.testimonials ? "loaded" : ""}`}>
-        <header className="section__head">
-          <h2>What People Say</h2>
-        </header>
-
-        <div className="grid grid--testimonials">
-          {testimonials.map((t, i) => (
-            <article key={t.author} className={`testimonial card hue-${(i % 6) + 1} load-item`} style={{ animationDelay: `${i * 100}ms` }}>
-              <p className="testimonial__text">"{t.text}"</p>
-              <div className="testimonial__author">
-                <strong>{t.author}</strong>
-                <span>{t.role}</span>
+            <div className="trust">
+              <span>Trusted by traders & teams</span>
+              <div className="logos">
+                <div className="logo-pill">Alpha</div>
+                <div className="logo-pill">Beta</div>
+                <div className="logo-pill">Gamma</div>
               </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {/* ===================== CONTACT ===================== */}
-      <section id="contact" className={`cta container ${loadedSections.contact ? "loaded" : ""}`}>
-        <article className="card card--cta hue-5 load-item">
-          <div className="cta__row">
-            <div>
-              <h3 className="cta__title">Let's build something great.</h3>
-              <p className="cta__text">
-                Connect with me on LinkedIn or reach out directly. I'd love to discuss your project and propose a practical, high-impact plan.
-              </p>
-            </div>
-            <div className="cta__actions">
-              <a href={LINKS.linkedin} target="_blank" rel="noopener noreferrer" className="btn btn--primary">LinkedIn</a>
-              <a href={LINKS.email} className="btn btn--outline">Email</a>
-              <a href={LINKS.phone} className="btn btn--outline">Call</a>
-              <a href={LINKS.whatsapp} target="_blank" rel="noopener noreferrer" className="btn btn--outline">WhatsApp</a>
-              <a href={LINKS.github} target="_blank" rel="noopener noreferrer" className="btn btn--outline">GitHub</a>
-              <a href={LINKS.resume} target="_blank" rel="noopener noreferrer" className="btn btn--outline">Download CV</a>
             </div>
           </div>
-        </article>
-        <footer className="footer">© {new Date().getFullYear()} {NAME}. All rights reserved.</footer>
+
+          <div className="hero-right">
+            <div className="mock">
+              <div className="mock__header">Signal Stream</div>
+              <div className="mock__chart">📈 1h  •  BTC/USD</div>
+              <div className="mock__list">
+                <div className="row"><strong>BUY</strong> BTC  0.003 • 1m ago</div>
+                <div className="row"><strong>SELL</strong> ETH  0.1 • 2m ago</div>
+                <div className="row"><strong>BUY</strong> SOL  2 • 5m ago</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* ===================== STYLES ===================== */}
+      <section id="features" className="section">
+        <div className="wrap">
+          <h2>Features</h2>
+          <p className="sub">Everything traders need to find, validate and act on opportunities.</p>
+
+          <div className="grid grid-features">
+            {features.map((f) => (
+              <article key={f.title} className="feature-card">
+                <div className="feature-icon">⚡</div>
+                <h3>{f.title}</h3>
+                <p>{f.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="products" className="section alt">
+        <div className="wrap">
+          <h2>Products</h2>
+          <p className="sub">Modular tools you can mix and match.</p>
+
+          <div className="grid grid-products">
+            {products.map((p) => (
+              <article key={p.title} className="product-card">
+                <h3>{p.title}</h3>
+                <p>{p.desc}</p>
+                <a href={p.link} className="link">Learn more →</a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="testimonials" className="section">
+        <div className="wrap">
+          <h2>What people say</h2>
+          <div className="grid grid-testimonials">
+            {testimonials.map((t, i) => (
+              <blockquote key={i} className="testimonial">
+                <p>“{t.text}”</p>
+                <cite>— {t.author}</cite>
+              </blockquote>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className="section cta-section">
+        <div className="wrap cta-wrap">
+          <div className="cta-left">
+            <h2>Get a demo</h2>
+            <p>Tell us about your needs and we’ll show how MarciTrader can help.</p>
+            <a href="mailto:alibajwa102@gmail.com" className="btn btn-primary">Schedule a demo</a>
+          </div>
+          <form className="contact-form" action="mailto:alibajwa102@gmail.com" method="GET">
+            <input name="name" placeholder="Your name" aria-label="Your name" />
+            <input name="email" placeholder="Email" aria-label="Email" />
+            <textarea name="message" placeholder="How can we help?" aria-label="Message" />
+            <button type="submit" className="btn btn-ghost">Send</button>
+          </form>
+        </div>
+      </section>
+
+      <footer className="site-footer">
+        <div className="wrap foot-inner">
+          <div>© {new Date().getFullYear()} {BRAND}. All rights reserved.</div>
+          <div className="foot-links">
+            <a href={LINKS.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href={LINKS.github} target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+        </div>
+      </footer>
+
       <style>{`
-        /* ====== Design tokens (colors & radii) ====== */
-        :root{
-          --radius: 18px;
+        :root{ --bg: #0b1220; --card: #0f1724; --muted: #9aa4b2; --accent: #6c8cff; }
+        *{ box-sizing: border-box }
+        body,html,#root{ height:100%; }
+        .mt-root{ min-height:100dvh; background: linear-gradient(180deg,#071021 0%, #081426 50%, #06131a 100%); color:#eaf0ff; font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;}
+        .wrap{ max-width:1100px; margin:0 auto; padding:20px; }
 
-          /* Vibrant brand hues */
-          --c1: 255 107 107;   /* coral red */
-          --c2: 78 205 196;    /* teal */
-          --c3: 94 129 244;    /* blue */
-          --c4: 255 200 87;    /* amber */
-          --c5: 156 39 176;    /* purple */
-          --c6: 0 209 178;     /* aqua */
+        .topbar{ position: sticky; top:0; z-index:60; backdrop-filter: blur(6px); }
+        .topbar .wrap{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+        .topbar .brand{ display:flex; align-items:center; gap:10px; }
+        .topbar .logo{ border-radius:10px; }
+        .topbar .brand__name{ font-weight:800; letter-spacing:.4px }
+        .topbar .nav-desktop{ display:none; gap:14px; align-items:center }
+        .topbar .nav-desktop a{ color: #dbe8ff; text-decoration:none; font-weight:600 }
 
-          /* Card surface */
-          --card-bg: 255 255 255 / .08; /* glass */
-          --card-bd: 255 255 255 / .22;
+        .topbar.solid{ background: rgba(6,10,18,0.6); border-bottom: 1px solid rgba(255,255,255,0.03); }
 
-          /* Text */
-          --txt: 255 255 255;
-          --muted: 236 239 241;
-        }
+        .menu{ display:block }
+        .menu-btn{ padding:.4rem .8rem; border-radius:8px; background:rgba(255,255,255,0.03); cursor:pointer }
+        .menu-sheet{ position:absolute; right:18px; top:66px; width:260px; background:rgba(8,12,20,0.8); border-radius:12px; padding:10px; display:grid; gap:8px; }
+        .menu-sheet a{ padding:8px; border-radius:8px; text-decoration:none; color:#e6eefc }
+        .menu-cta{ background: linear-gradient(90deg,var(--accent), #3bd6d6); color:#06121b; font-weight:700; text-align:center }
 
-        /* ====== Site background (animated gradient) ====== */
-        .site{
-          min-height: 100dvh;
-          color: rgb(var(--txt));
-          background: linear-gradient(125deg, #0b1026, #1b0b2a 30%, #130b34 55%, #0b1e2a 85%);
-          background-size: 180% 180%;
-          animation: bgMove 18s ease-in-out infinite;
-        }
-        @keyframes bgMove {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .site { animation: none; }
-        }
+        @media(min-width:900px){ .topbar .nav-desktop{ display:flex } .menu{ display:none } }
 
-        /* Subtle floating blobs for depth */
-        .site::before, .site::after{
-          content:"";
-          position:fixed; inset:auto;
-          width:520px; height:520px; border-radius:9999px;
-          filter: blur(80px); opacity:.35; pointer-events:none; z-index:0;
-        }
-        .site::before{ background: radial-gradient(closest-side, rgba(255,107,107,.35), transparent); top:-180px; left:-160px; }
-        .site::after{ background: radial-gradient(closest-side, rgba(94,129,244,.35), transparent); bottom:-200px; right:-180px; }
+        .hero{ padding:72px 0; }
+        .hero-inner{ display:grid; grid-template-columns:1fr; gap:26px; align-items:center }
+        @media(min-width:980px){ .hero-inner{ grid-template-columns: 1fr 440px } }
+        .hero-left h1{ font-size: clamp(2rem, 3.8vw, 3.4rem); margin:0 0 12px }
+        .lead{ color: var(--muted); margin:0 0 18px; font-weight:600 }
+        .hero-ctas{ display:flex; gap:12px; margin-bottom:16px }
+        .btn{ padding:10px 14px; border-radius:10px; text-decoration:none; font-weight:700; }
+        .btn-primary{ background: linear-gradient(90deg,var(--accent), #3bd6d6); color:#081426 }
+        .btn-outline{ border:1px solid rgba(255,255,255,0.06); color:#eaf0ff; background:transparent }
+        .btn-ghost{ background:transparent; color:#eaf0ff; border:1px solid rgba(255,255,255,0.06); padding:9px 12px }
 
-        @media (max-width: 640px){
-          .site::before, .site::after { width:360px; height:360px; filter: blur(60px); }
-          .site::before { top:-140px; left:-120px; }
-          .site::after  { bottom:-150px; right:-120px; }
-        }
+        .trust{ margin-top:18px; color:var(--muted); display:flex; gap:14px; align-items:center }
+        .logos{ display:flex; gap:8px }
+        .logo-pill{ background: rgba(255,255,255,0.03); padding:6px 8px; border-radius:8px; font-weight:700 }
 
-        /* ====== Layout containers ====== */
-        .container{ max-width: 1120px; margin: 0 auto; padding: 0 16px; position: relative; z-index: 1; }
-        @media (min-width: 900px){ .container { padding: 0 20px; } }
+        .hero-right .mock{ background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); border-radius:14px; padding:16px; border:1px solid rgba(255,255,255,0.04) }
+        .mock__header{ font-weight:800; margin-bottom:8px }
+        .mock__chart{ background: rgba(0,0,0,0.18); padding:10px; border-radius:8px; margin-bottom:12px }
+        .mock__list .row{ padding:8px 10px; border-radius:8px; margin-bottom:8px; background: rgba(255,255,255,0.02) }
 
-        .section{ padding: 40px 0; }
-        @media (min-width: 900px){ .section{ padding: 56px 0; } }
-        .cta{ padding: 64px 0; }
-        @media (min-width: 900px){ .cta{ padding: 80px 0; } }
+        .section{ padding:56px 0 }
+        .section.alt{ background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent) }
+        .section h2{ margin:0 0 8px; font-size:1.6rem }
+        .sub{ color:var(--muted); margin:0 0 18px }
 
-        /* ====== Loading animations ====== */
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
+        .grid{ display:grid; gap:14px }
+        .grid-features{ grid-template-columns: 1fr; }
+        @media(min-width:720px){ .grid-features{ grid-template-columns: repeat(2,1fr) } }
+        @media(min-width:1024px){ .grid-features{ grid-template-columns: repeat(4,1fr) } }
+        .feature-card{ background: rgba(255,255,255,0.02); padding:18px; border-radius:12px; border:1px solid rgba(255,255,255,0.03) }
+        .feature-icon{ font-size:22px; margin-bottom:8px }
 
-        @keyframes fadeInScale {
-          from {
-            opacity: 0;
-            transform: scale(0.95);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
+        .grid-products{ grid-template-columns:1fr }
+        @media(min-width:900px){ .grid-products{ grid-template-columns: repeat(3,1fr) } }
+        .product-card{ background: rgba(255,255,255,0.02); padding:18px; border-radius:12px; border:1px solid rgba(255,255,255,0.03) }
+        .product-card .link{ color:var(--accent); text-decoration:none; font-weight:700 }
 
-        @keyframes slideInLeft {
-          from {
-            opacity: 0;
-            transform: translateX(-30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
+        .grid-testimonials{ grid-template-columns: 1fr }
+        @media(min-width:900px){ .grid-testimonials{ grid-template-columns: repeat(2,1fr) } }
+        .testimonial{ background: rgba(255,255,255,0.02); padding:18px; border-radius:12px; }
+        .testimonial p{ margin:0 0 8px }
+        cite{ color:var(--muted) }
 
-        @keyframes slideInRight {
-          from {
-            opacity: 0;
-            transform: translateX(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
+        .cta-section .cta-wrap{ display:grid; grid-template-columns: 1fr; gap:20px; align-items:center }
+        @media(min-width:860px){ .cta-wrap{ grid-template-columns: 1fr 420px } }
+        .contact-form{ display:flex; flex-direction:column; gap:10px; }
+        .contact-form input, .contact-form textarea{ padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color:#eaf0ff }
+        textarea{ min-height:100px; resize:vertical }
 
-        /* Section loading state */
-        .section:not(.loaded),
-        .cta:not(.loaded) {
-          opacity: 0;
-        }
+        .site-footer{ padding:22px 0; border-top:1px solid rgba(255,255,255,0.03); }
+        .foot-inner{ display:flex; gap:12px; justify-content:space-between; align-items:center }
+        .foot-links a{ color:var(--muted); text-decoration:none; margin-left:12px }
 
-        .section.loaded,
-        .cta.loaded {
-          animation: fadeInUp 0.6s ease-out forwards;
-        }
+        a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{ outline:3px solid rgba(108,140,255,0.16); outline-offset:2px }
 
-        .navbar.loaded {
-          animation: slideInDown 0.5s ease-out forwards;
-        }
-
-        @keyframes slideInDown {
-          from {
-            opacity: 0;
-            transform: translateY(-20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        /* Hero section loading */
-        .hero:not(.loaded) {
-          opacity: 0;
-        }
-
-        .hero.loaded {
-          animation: fadeInUp 0.8s ease-out forwards;
-        }
-
-        .hero.loaded .hero__text {
-          animation: slideInLeft 0.8s ease-out forwards;
-        }
-
-        .hero.loaded .hero__photo {
-          animation: slideInRight 0.8s ease-out forwards;
-        }
-
-        /* Individual item loading */
-        .load-item {
-          opacity: 0;
-          animation: fadeInScale 0.5s ease-out forwards;
-        }
-
-        /* Stagger animations for grid items */
-        .section.loaded .load-item,
-        .cta.loaded .load-item {
-          opacity: 0;
-          animation: fadeInScale 0.5s ease-out forwards;
-        }
-
-        /* ====== Navbar ====== */
-        .navbar{
-          position: sticky; top: 0; z-index: 50;
-          background: rgba(9, 13, 31, .35);
-          backdrop-filter: blur(10px);
-          border-bottom: 1px solid rgba(255,255,255,.08);
-        }
-        .navbar .container{
-          display:flex; align-items:center; justify-content:space-between; padding: 10px 16px;
-        }
-        @media (min-width: 900px){ .navbar .container{ padding: 12px 20px; } }
-
-        .brand{ display:flex; align-items:center; gap:10px; }
-        .brand__name{ font-size:.95rem; font-weight:600; opacity:.95; }
-        .avatar{ border-radius:9999px; border:2px solid rgba(255,255,255,.5); }
-
-        .nav-desktop{ display:none; gap:18px; align-items:center; }
-        .nav-link{ color:rgba(255,255,255,.92); text-decoration:none; font-size:.92rem; transition: color 0.2s ease; }
-        .nav-link:hover{ color:white; }
-
-        .menu{ display:block; }
-        .menu > summary{ cursor:pointer; padding: .6rem .9rem; border-radius: 12px; }
-        .menu__sheet{
-          position:absolute; right:10px; top:50px; width: min(92vw, 320px);
-          background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.16); border-radius:14px;
-          backdrop-filter: blur(10px);
-          padding:8px; display:grid; gap:6px;
-        }
-        .menu[open] .menu__sheet{ animation: sheet .2s ease-out both; }
-        @keyframes sheet{ from{ opacity:0; transform:translateY(-6px) } to{ opacity:1; transform:translateY(0) } }
-        .menu__item{
-          display:block; padding:.7rem .9rem; border-radius:10px; color:white; text-decoration:none; transition: background 0.2s ease;
-        }
-        .menu__item:hover{ background: rgba(255,255,255,.08); }
-        .menu__cta{
-          display:block; text-align:center; padding:.75rem .9rem; border-radius:10px; color:#0b1026; text-decoration:none;
-          background: linear-gradient(135deg, rgb(var(--c3)), rgb(var(--c2)));
-          font-weight:700; transition: filter 0.2s ease;
-        }
-        .menu__cta:hover{ filter: brightness(1.1); }
-
-        /* Desktop breakpoint */
-        @media (min-width: 900px){
-          .nav-desktop{ display:flex; }
-          .menu{ display:none; }
-        }
-
-        /* ====== Hero ====== */
-        .hero{
-          padding: 40px 0 28px;
-          display:grid; grid-template-columns: 1fr; gap: 22px; align-items:center;
-        }
-        @media (min-width: 900px){
-          .hero{ grid-template-columns: 1.2fr .8fr; gap: 40px; padding: 72px 0 40px; }
-        }
-        .hero__text{ display:flex; flex-direction:column; gap:16px; }
-
-        .hero__title{ font-size: clamp(1.6rem, 2.8vw + 0.6rem, 3.2rem); line-height:1.1; font-weight:800; letter-spacing:.2px; }
-        .hero__tagline{ max-width: 60ch; color: rgba(255,255,255,.85); font-size: clamp(.96rem, .35vw + .86rem, 1.1rem); }
-
-        .hero__cta{ display:flex; flex-wrap:wrap; gap:10px; margin-top:2px; }
-        @media (min-width: 900px){ .hero__cta{ gap:12px; } }
-
-        .btn{
-          display:inline-flex; align-items:center; justify-content:center; gap:.5rem; cursor:pointer;
-          padding:.78rem 1.1rem; border-radius:14px; font-size:.94rem; font-weight:700; text-decoration:none;
-          transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
-          border: none;
-        }
-        .btn--primary{
-          color:#0b1026; background: linear-gradient(135deg, rgb(var(--c3)), rgb(var(--c2)));
-          box-shadow: 0 12px 30px rgba(94,129,244,.25);
-        }
-        .btn--primary:hover{ transform: translateY(-1px); filter: brightness(1.02); }
-        .btn--outline{
-          color:white; border:1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.04);
-        }
-        .btn--outline:hover{ background: rgba(255,255,255,.08); transform: translateY(-1px); }
-        .btn--ghost{
-          background: transparent;
-          border: 1px solid rgba(255,255,255,.2);
-          color: white;
-        }
-        .btn--ghost:hover{
-          background: rgba(255,255,255,.05);
-          border-color: rgba(255,255,255,.4);
-        }
-
-        .hero__links{ display:flex; flex-wrap:wrap; gap:12px; margin-top:8px; }
-        .link{ color: white; text-decoration: underline; text-underline-offset: 4px; transition: filter 0.2s ease; }
-        .link:hover{ filter: brightness(1.1); }
-
-        .hero__photo{ display:flex; justify-content:center; }
-        .photo-wrap{ position:relative; display:inline-block; }
-        .photo{
-          width: clamp(150px, 42vw, 280px);
-          height: clamp(150px, 42vw, 280px);
-          object-fit: cover; border-radius:9999px; border: 4px solid rgba(255,255,255,.55); box-shadow: 0 20px 60px rgba(0,0,0,.35);
-        }
-        .photo-ring{
-          position:absolute; inset:-14px; border-radius:9999px;
-          background: conic-gradient(from 0deg, rgb(var(--c3)), rgb(var(--c5)), rgb(var(--c2)), rgb(var(--c3)));
-          filter: blur(18px); opacity:.32; z-index:-1;
-        }
-
-        /* ====== Cards & grids ====== */
-        .card{
-          position:relative; background: rgba(var(--card-bg));
-          border: 1px solid rgba(var(--card-bd)); border-radius: var(--radius);
-          overflow:hidden; transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
-          box-shadow: 0 18px 40px rgba(0,0,0,.25);
-        }
-        .card::before{
-          content:""; position:absolute; inset:0; padding:1px; border-radius:inherit;
-          background: conic-gradient(from 10deg, rgb(var(--c3)), rgb(var(--c2)), rgb(var(--c5)), rgb(var(--c4)), rgb(var(--c6)), rgb(var(--c3)));
-          -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-          -webkit-mask-composite: xor; mask-composite: exclude; opacity:.55; pointer-events:none;
-        }
-        .card:hover{ transform: translateY(-3px); box-shadow: 0 22px 60px rgba(0,0,0,.35); }
-
-        .card--pad{ padding: 16px; }
-        .card--cta{ padding: 22px; }
-        @media (min-width: 900px){ .card--pad{ padding: 22px; } .card--cta{ padding: 34px; } }
-
-        /* Color accents per card */
-        .hue-1::before{ background: conic-gradient(from 10deg, rgb(var(--c1)), rgb(var(--c2)), rgb(var(--c3))); }
-        .hue-2::before{ background: conic-gradient(from 10deg, rgb(var(--c2)), rgb(var(--c3)), rgb(var(--c4))); }
-        .hue-3::before{ background: conic-gradient(from 10deg, rgb(var(--c3)), rgb(var(--c4)), rgb(var(--c5))); }
-        .hue-4::before{ background: conic-gradient(from 10deg, rgb(var(--c4)), rgb(var(--c5)), rgb(var(--c6))); }
-        .hue-5::before{ background: conic-gradient(from 10deg, rgb(var(--c5)), rgb(var(--c6)), rgb(var(--c1))); }
-        .hue-6::before{ background: conic-gradient(from 10deg, rgb(var(--c6)), rgb(var(--c1)), rgb(var(--c2))); }
-
-        /* Stats (highlights) */
-        .grid--stats{
-          display:grid; grid-template-columns: 1fr; gap: 12px;
-        }
-        @media (min-width: 480px){ .grid--stats{ grid-template-columns: repeat(2, 1fr); gap: 14px; } }
-        @media (min-width: 900px){ .grid--stats{ grid-template-columns: repeat(4, 1fr); gap: 18px; } }
-        .stat{ padding: 16px; }
-        .stat__value{ font-size: 1.22rem; font-weight: 900; letter-spacing:.2px; }
-        .stat__label{ margin-top: 4px; font-size:.72rem; letter-spacing:.12em; text-transform: uppercase; color: rgba(var(--muted), .85); }
-
-        /* Cards grid (services, projects) */
-        .grid--cards{
-          display:grid; grid-template-columns: 1fr; gap: 14px;
-        }
-        @media (min-width: 680px){ .grid--cards{ grid-template-columns: repeat(2, 1fr); gap: 16px; } }
-        @media (min-width: 1024px){ .grid--cards{ grid-template-columns: repeat(3, 1fr); gap: 18px; } }
-
-        .card__title{ font-weight: 800; letter-spacing:.2px; }
-        .card__top{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
-        .card__blurb{ margin-top: 8px; color: rgba(255,255,255,.88); }
-        .ribbon{
-          display:inline-block; font-size:.7rem; font-weight:800; padding: .25rem .55rem; border-radius: 9999px;
-          color:#0b1026; background: linear-gradient(135deg, rgb(var(--c4)), rgb(var(--c1)));
-        }
-        .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
-        .tag{
-          display:inline-block; font-size:.72rem; padding:.18rem .52rem; border-radius:9999px;
-          background: rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18);
-        }
-        .links{ display:flex; flex-wrap:wrap; gap:12px; margin-top:12px; }
-
-        /* Skills */
-        .grid--skills{
-          display:grid; grid-template-columns: 1fr; gap: 14px;
-        }
-        @media (min-width: 700px){ .grid--skills{ grid-template-columns: repeat(2, 1fr); gap: 16px; } }
-        @media (min-width: 1024px){ .grid--skills{ grid-template-columns: repeat(3, 1fr); gap: 18px; } }
-        .group-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
-        .group-head__title{ font-weight: 900; letter-spacing:.3px; }
-        .group-head__line{ flex:1; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,.2), rgba(255,255,255,0)); }
-        .chips{ display:flex; flex-wrap:wrap; gap:10px; }
-        .chip{
-          display:inline-flex; align-items:center; justify-content:center; padding:.45rem .8rem; border-radius:12px; font-weight:700;
-          background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
-          border: 1px solid rgba(255,255,255,.18);
-          box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
-        }
-
-        /* Experience */
-        .xp-head{
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-start;
-          gap: 20px;
-          flex-wrap: wrap;
-        }
-        .xp-head__role{
-          font-weight: 800;
-          font-size: 1.1rem;
-          letter-spacing: 0.2px;
-        }
-        .xp-head__location{
-          font-size: 0.9rem;
-          color: rgba(255, 255, 255, 0.65);
-          margin-top: 4px;
-        }
-        .xp-head__time{
-          color: rgba(255, 255, 255, 0.65);
-          font-size: 0.9rem;
-          white-space: nowrap;
-        }
-
-        /* Testimonials */
-        .grid--testimonials{
-          display:grid; grid-template-columns: 1fr; gap: 14px;
-        }
-        @media (min-width: 768px){ .grid--testimonials{ grid-template-columns: 1fr 1fr; gap: 16px; } }
-        .testimonial{ min-height: 240px; padding: 24px; }
-        .testimonial__text{
-          font-size: 1rem;
-          font-style: italic;
-          color: rgba(255, 255, 255, 0.9);
-          line-height: 1.6;
-          margin: 0 0 20px;
-        }
-        .testimonial__author{
-          display: flex;
-          flex-direction: column;
-          gap: 4px;
-        }
-        .testimonial__author strong{
-          font-weight: 700;
-          font-size: 0.95rem;
-        }
-        .testimonial__author span{
-          font-size: 0.85rem;
-          color: rgba(255, 255, 255, 0.65);
-        }
-
-        /* Lists */
-        .list{ margin-top: 8px; padding-left: 1.1rem; line-height: 1.6; }
-        .list li + li{ margin-top: 6px; }
-        .muted{ color: rgba(var(--muted), .85); }
-
-        /* Section heading */
-        .section__head{ margin-bottom: 32px; }
-        .section__head h2{ margin: 0 0 12px; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; }
-        .section__head p{ margin: 0; color: rgba(255, 255, 255, 0.7); font-size: 0.95rem; }
-
-        /* CTA */
-        .card--cta{ box-shadow: 0 30px 80px rgba(0,0,0,.35); }
-        .cta__row{ display:flex; flex-direction:column; gap:18px; align-items:flex-start; }
-        @media (min-width: 880px){
-          .cta__row{ flex-direction:row; justify-content:space-between; align-items:center; gap:24px; }
-        }
-        .cta__title{ font-size: clamp(1.1rem, .9vw + 1rem, 1.6rem); font-weight:900; }
-        .cta__text{ margin-top: 6px; color: rgba(255,255,255,.9); }
-        .cta__actions{ display:flex; flex-wrap:wrap; gap:10px; margin-top:4px; }
-
-        .footer{ margin-top: 14px; text-align:center; color: rgba(255,255,255,.7); font-size:.9rem; }
-
-        /* Availability badge */
-        .availability {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          padding: 6px 14px;
-          border-radius: 9999px;
-          background: linear-gradient(135deg, rgba(78,205,196,0.15), rgba(94,129,244,0.15));
-          border: 1px solid rgba(255,255,255,0.18);
-          position: relative;
-          overflow: hidden;
-          font-size: .85rem;
-          font-weight: 600;
-          color: #fff;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-          flex-wrap: wrap;
-        }
-        .availability::after {
-          content: "";
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%);
-          transform: translateX(-100%);
-          animation: shine 3s ease-in-out infinite;
-        }
-        @keyframes shine {
-          0% { transform: translateX(-100%); }
-          50% { transform: translateX(100%); }
-          100% { transform: translateX(100%); }
-        }
-        .availability__dot {
-          width: 10px; height: 10px; border-radius: 50%;
-          background: rgb(78,205,196);
-          box-shadow: 0 0 10px rgba(78,205,196,0.7);
-          animation: pulse 1.8s infinite;
-        }
-        @keyframes pulse {
-          0%, 100% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.4); opacity: 0.7; }
-        }
-        .availability__text { position: relative; z-index: 1; white-space: nowrap; }
-        @media (max-width: 360px){ .availability__text { white-space: normal; } }
-
-        /* Accessibility */
-        @media (prefers-reduced-motion: reduce) {
-          * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-        }
-
-        /* Focus visible for keyboard navigation */
-        *:focus-visible {
-          outline: 2px solid rgb(var(--c3));
-          outline-offset: 2px;
-        }
       `}</style>
     </main>
   );
