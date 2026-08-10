@@ -1,10 +1,11 @@
-"use client";
+
 
 import Link from "next/link";
 import { getBusinessBySlug, COMPANY_INFO } from "../../data/businesses";
 
-export default function BusinessDetail({ params }: { params: { slug: string } }) {
-  const business = getBusinessBySlug(params.slug);
+export default async function BusinessDetail(props: PageProps<'/businesses/[slug]'>) {
+  const { slug } = await props.params;
+  const business = getBusinessBySlug(slug);
 
   if (!business) {
     return (

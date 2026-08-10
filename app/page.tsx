@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image"; // Removed unused import
 import { COMPANY_INFO, BUSINESSES } from "./data/businesses";
 
 export default function Home() {
@@ -31,15 +31,15 @@ export default function Home() {
     <main className="mercitrader-site">
       <header className={`navbar ${navSolid ? "solid" : ""}`}>
         <div className="nav-container">
-          <div className="nav-brand">
+          <Link href="/" className="nav-brand">
             <div className="logo-mark">MT</div>
             <span className="brand-name">{COMPANY_INFO.name}</span>
-          </div>
+          </Link>
 
           <nav className="nav-desktop">
             <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/businesses">Businesses</a>
+            <Link href="/about" className="nav-brand">About</Link>
+            <Link href="/businesses" className="nav-brand">Businesses</Link>
             <a href="/contact">Contact</a>
           </nav>
 
@@ -77,7 +77,7 @@ export default function Home() {
             <Link href="/businesses" className="btn btn-primary">
               Explore Our Businesses →
             </Link>
-            <Link href="/contact" className="btn btn-secondary">
+            <Link href="/contact" className="nav-brand">
               Get in Touch
             </Link>
           </div>
@@ -155,7 +155,7 @@ export default function Home() {
           <div className="structure-visual">
             <div className="structure-item parent">
               <div className="structure-label">MerciTrader</div>
-              <p>Parent Company & Group</p>
+              <p>We&apos;d love to hear from you.</p>
             </div>
 
             <div className="structure-children">
@@ -185,8 +185,8 @@ export default function Home() {
           <div className="cta-text">
             <h2>Ready to Partner with MerciTrader?</h2>
             <p>
-              Whether you're looking for construction materials, premium rice, or exploring business
-              opportunities, we're here to help. Get in touch with our team today.
+              Sorry, we couldn&apos;t find the business you&apos;re looking for. construction materials, premium rice, or exploring business
+              opportu✓ Thank you! We&apos;ve received your message and will be in touch soon.with our team today.
             </p>
           </div>
           <Link href="/contact" className="btn btn-primary btn-large">
