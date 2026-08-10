@@ -27,7 +27,7 @@ export default async function BusinessDetail(props: PageProps<'/businesses/[slug
         <section className="error-section">
           <div className="container">
             <h1>Business Not Found</h1>
-            <p>Sorry, we couldn't find the business you're looking for.</p>
+            <p>Sorry, we couldn&apos;t find the business you&apos;re looking for.</p>
             <Link href="/businesses" className="btn btn-primary">
               Back to Businesses
             </Link>

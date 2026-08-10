@@ -50,7 +50,7 @@ export default function ContactPage() {
       <section className="hero-section">
         <div className="hero-content">
           <h1>Get in Touch</h1>
-          <p>We'd love to hear from you. Contact us with any questions or inquiries.</p>
+          <p>We&apos;d love to hear from you. Contact us with any questions or inquiries.</p>
         </div>
       </section>
 
@@ -132,11 +132,11 @@ export default function ContactPage() {
             <div className="contact-form-wrapper">
               <div className="form-card">
                 <h2>Send us a Message</h2>
-                <p>Fill out the form below and we'll get back to you as soon as possible.</p>
+                <p>Fill out the form below and we&apos;ll get back to you as soon as possible.</p>
 
                 {submitted && (
                   <div className="success-message">
-                    ✓ Thank you! We've received your message and will be in touch soon.
+                    ✓ Thank you! We&apos;ve received your message and will be in touch soon.
                   </div>
                 )}
 
@@ -231,7 +231,7 @@ export default function ContactPage() {
               <h4>How can I place an order?</h4>
               <p>
                 Please contact the specific business directly through their contact information or
-                fill out our contact form and we'll direct your inquiry accordingly.
+                fill out our contact form and we&apos;ll direct your inquiry accordingly.
               </p>
             </div>
 
