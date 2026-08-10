@@ -48,18 +48,18 @@ export default function Home() {
               ☰
             </summary>
             <div className="menu-items">
-              <Link href="/" onClick={closeMenu}>
-                Home
-              </a>
-              <Link href="/about" onClick={closeMenu}>
-                About
-              </a>
-              <Link href="/businesses" onClick={closeMenu}>
-                Businesses
-              </a>
-              <Link href="/contact" onClick={closeMenu}>
-                Contact
-              </a>
+                <Link href="/" onClick={closeMenu}>
+                  Home
+                </Link>
+                <Link href="/about" onClick={closeMenu}>
+                  About
+                </Link>
+                <Link href="/businesses" onClick={closeMenu}>
+                  Businesses
+                </Link>
+                <Link href="/contact" onClick={closeMenu}>
+                  Contact
+                </Link>
             </div>
           </details>
         </div>
@@ -155,7 +155,7 @@ export default function Home() {
           <div className="structure-visual">
             <div className="structure-item parent">
               <div className="structure-label">MerciTrader</div>
-              <p>We&apos;d love to hear from you.</p>
+                <p>We&#39;d love to hear from you.</p>
             </div>
 
             <div className="structure-children">
@@ -185,7 +185,7 @@ export default function Home() {
           <div className="cta-text">
             <h2>Ready to Partner with MerciTrader?</h2>
             <p>
-               We couldn't find the business you're looking for. Whether it's construction materials, premium rice, or other opportunities, let us know how we can help. Thank you! We've received your message and will be in touch soon.
+                We couldn&#39;t find the business you&#39;re looking for. Whether it&#39;s construction materials, premium rice, or other opportunities, let us know how we can help. Thank you! We&#39;ve received your message and will be in touch soon.
             </p>
           </div>
           <Link href="/contact" className="btn btn-primary btn-large">
