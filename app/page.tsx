@@ -37,10 +37,10 @@ export default function Home() {
           </Link>
 
           <nav className="nav-desktop">
-            <a href="/">Home</a>
+            <Link href="/" className="nav-brand">Home</Link>
             <Link href="/about" className="nav-brand">About</Link>
             <Link href="/businesses" className="nav-brand">Businesses</Link>
-            <a href="/contact">Contact</a>
+            <Link href="/contact" className="nav-brand">Contact</Link>
           </nav>
 
           <details ref={menuRef} className="nav-menu">
@@ -48,16 +48,16 @@ export default function Home() {
               ☰
             </summary>
             <div className="menu-items">
-              <a href="/" onClick={closeMenu}>
+              <Link href="/" onClick={closeMenu}>
                 Home
               </a>
-              <a href="/about" onClick={closeMenu}>
+              <Link href="/about" onClick={closeMenu}>
                 About
               </a>
-              <a href="/businesses" onClick={closeMenu}>
+              <Link href="/businesses" onClick={closeMenu}>
                 Businesses
               </a>
-              <a href="/contact" onClick={closeMenu}>
+              <Link href="/contact" onClick={closeMenu}>
                 Contact
               </a>
             </div>
@@ -185,8 +185,7 @@ export default function Home() {
           <div className="cta-text">
             <h2>Ready to Partner with MerciTrader?</h2>
             <p>
-              Sorry, we couldn&apos;t find the business you&apos;re looking for. construction materials, premium rice, or exploring business
-              opportu✓ Thank you! We&apos;ve received your message and will be in touch soon.with our team today.
+               We couldn't find the business you're looking for. Whether it's construction materials, premium rice, or other opportunities, let us know how we can help. Thank you! We've received your message and will be in touch soon.
             </p>
           </div>
           <Link href="/contact" className="btn btn-primary btn-large">
