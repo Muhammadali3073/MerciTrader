@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { getBusinessBySlug, COMPANY_INFO } from "../../data/businesses";
 
-export default async function BusinessDetail(props: PageProps<'/businesses/[slug]'>) {
-  const { slug } = await props.params;
+export default async function BusinessDetail({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const business = getBusinessBySlug(slug);
 
   if (!business) {
@@ -238,7 +238,7 @@ export default async function BusinessDetail(props: PageProps<'/businesses/[slug
       <section className="cta-section">
         <div className="container cta-content">
           <h2>Get in Touch</h2>
-          <p>Have questions? We'd love to hear from you.</p>
+          <p>Have questions? We&apos;d love to hear from you.</p>
 
           <div className="contact-options">
             {business.contact?.email && (

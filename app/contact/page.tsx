@@ -50,7 +50,7 @@ export default function ContactPage() {
       <section className="hero-section">
         <div className="hero-content">
           <h1>Get in Touch</h1>
-          <p>We&apos;d love to hear from you. Contact us with any questions or inquiries.</p>
+          <p>Have questions? We&apos;d love to hear from you. Contact us with any questions or inquiries.</p>
         </div>
       </section>
 
@@ -225,6 +225,7 @@ export default function ContactPage() {
                 MerciTrader is a diversified business group with operations in construction materials
                 (Al-Sadiq Bricks) and agriculture (Al-Sadiq Rice).
               </p>
+              <p>Sorry, we couldn&apos;t find the business you&apos;re looking for.</p>
             </div>
 
             <div className="faq-item">
