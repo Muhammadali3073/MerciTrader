@@ -1,29 +1,18 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import Head from "next/head";
+import Link from "next/link";
 import Image from "next/image";
-
-const BRAND = "MarciTrader";
-const TAGLINE = "Smart trading tools. Clear signals. Faster decisions.";
-
-const LINKS = {
-  linkedin: "https://www.linkedin.com/",
-  github: "https://github.com/Muhammadali3073",
-  email: "mailto:alibajwa102@gmail.com",
-  phone: "tel:+923047222234",
-  resume: "/resume.pdf",
-  profilePic: "/marci/logo.png",
-  heroImg: "/marci/hero.png",
-};
+import { COMPANY_INFO, BUSINESSES } from "./data/businesses";
 
 export default function Home() {
   const menuRef = useRef<HTMLDetailsElement | null>(null);
+  const [navSolid, setNavSolid] = useState(false);
+
   const closeMenu = () => {
     if (menuRef.current) menuRef.current.open = false;
   };
 
-  const [navSolid, setNavSolid] = useState(false);
   useEffect(() => {
     const onScroll = () => setNavSolid(window.scrollY > 24);
     onScroll();
@@ -31,244 +20,890 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const features = [
-    { title: "Realtime Signals", body: "Low-latency market signals curated by proven strategies." },
-    { title: "Portfolio Insights", body: "Visualize exposure, P&L, and risk in a single dashboard." },
-    { title: "Backtesting", body: "Test strategies against historical data with ease." },
-    { title: "Alerts & Automation", body: "Email, SMS and webhook alerts; automate routine actions." },
-  ];
-
-  const products = [
-    { title: "Signal Stream", desc: "Fast, filtered signals for active traders.", link: "#" },
-    { title: "Trade Journal", desc: "Capture trades, notes and outcomes to improve edge.", link: "#" },
-    { title: "Strategy Lab", desc: "A/B test ideas and iterate quickly.", link: "#" },
-  ];
-
-  const testimonials = [
-    { text: "MarciTrader helped me cut my reaction time in half — signals are clean and reliable.", author: "A. Khan, Trader" },
-    { text: "A simple interface with powerful analytics under the hood.", author: "S. Patel, Quant" },
+  const coreValues = [
+    { icon: "✓", title: "Quality", desc: "Excellence in everything we do" },
+    { icon: "🤝", title: "Integrity", desc: "Honest and ethical practices" },
+    { icon: "⚡", title: "Reliability", desc: "Consistent and dependable service" },
+    { icon: "👥", title: "Customer Focus", desc: "Your success is our priority" },
   ];
 
   return (
-    <main className="mt-root">
-      <Head>
-        <title>MarciTrader — Smart trading tools & signals</title>
-        <meta name="description" content="MarciTrader provides realtime trading signals, portfolio insights, and backtesting tools for active traders." />
-        <meta property="og:title" content="MarciTrader — Smart trading tools" />
-        <meta property="og:description" content="Realtime signals, portfolio insights and backtesting for traders." />
-        <meta property="og:image" content="/marci/og-image.png" />
-        <meta name="twitter:card" content="summary_large_image" />
-      </Head>
-
-      <header className={`topbar ${navSolid ? 'solid' : ''}`}>
-        <div className="wrap">
-          <div className="brand">
-            <Image src={LINKS.profilePic} alt={`${BRAND} logo`} width={44} height={44} className="logo" />
-            <div className="brand__name">{BRAND}</div>
+    <main className="mercitrader-site">
+      <header className={`navbar ${navSolid ? "solid" : ""}`}>
+        <div className="nav-container">
+          <div className="nav-brand">
+            <div className="logo-mark">MT</div>
+            <span className="brand-name">{COMPANY_INFO.name}</span>
           </div>
+
           <nav className="nav-desktop">
-            <a href="#features">Features</a>
-            <a href="#products">Products</a>
-            <a href="#pricing">Pricing</a>
-            <a href="#contact">Contact</a>
-            <a href={LINKS.github} target="_blank" rel="noreferrer" className="btn">GitHub</a>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/businesses">Businesses</a>
+            <a href="/contact">Contact</a>
           </nav>
 
-          <details ref={menuRef} className="menu">
-            <summary className="menu-btn" aria-label="Open menu">Menu</summary>
-            <div className="menu-sheet">
-              <a href="#features" onClick={closeMenu}>Features</a>
-              <a href="#products" onClick={closeMenu}>Products</a>
-              <a href="#pricing" onClick={closeMenu}>Pricing</a>
-              <a href="#contact" onClick={closeMenu}>Contact</a>
-              <a href={LINKS.github} target="_blank" rel="noreferrer" className="menu-cta" onClick={closeMenu}>GitHub</a>
+          <details ref={menuRef} className="nav-menu">
+            <summary className="menu-toggle" aria-label="Toggle menu">
+              ☰
+            </summary>
+            <div className="menu-items">
+              <a href="/" onClick={closeMenu}>
+                Home
+              </a>
+              <a href="/about" onClick={closeMenu}>
+                About
+              </a>
+              <a href="/businesses" onClick={closeMenu}>
+                Businesses
+              </a>
+              <a href="/contact" onClick={closeMenu}>
+                Contact
+              </a>
             </div>
           </details>
         </div>
       </header>
 
+      {/* HERO SECTION */}
       <section className="hero">
-        <div className="wrap hero-inner">
-          <div className="hero-left">
-            <h1>{BRAND}</h1>
-            <p className="lead">{TAGLINE}</p>
+        <div className="hero-bg"></div>
+        <div className="hero-content">
+          <h1 className="hero-title">{COMPANY_INFO.name}</h1>
+          <p className="hero-subtitle">{COMPANY_INFO.tagline}</p>
+          <p className="hero-description">{COMPANY_INFO.description}</p>
 
-            <div className="hero-ctas">
-              <a href="#products" className="btn btn-primary">Explore products</a>
-              <a href="#contact" className="btn btn-outline">Request demo</a>
-            </div>
+          <div className="hero-ctas">
+            <Link href="/businesses" className="btn btn-primary">
+              Explore Our Businesses →
+            </Link>
+            <Link href="/contact" className="btn btn-secondary">
+              Get in Touch
+            </Link>
+          </div>
+        </div>
+      </section>
 
-            <div className="trust">
-              <span>Trusted by traders & teams</span>
-              <div className="logos">
-                <div className="logo-pill">Alpha</div>
-                <div className="logo-pill">Beta</div>
-                <div className="logo-pill">Gamma</div>
+      {/* BUSINESS GROUP OVERVIEW */}
+      <section className="section section-businesses">
+        <div className="container">
+          <div className="section-header">
+            <h2>Our Business Group</h2>
+            <p className="section-subtitle">
+              MerciTrader operates multiple successful businesses, each committed to quality and customer excellence.
+            </p>
+          </div>
+
+          <div className="businesses-grid">
+            {BUSINESSES.map((business) => (
+              <div key={business.id} className="business-card">
+                <div className="card-accent"></div>
+                <h3>{business.name}</h3>
+                <p className="business-category">{business.category}</p>
+                <p className="business-desc">{business.shortDescription}</p>
+                <div className="business-meta">
+                  <span className="meta-item">
+                    📦 {business.products.length} Products
+                  </span>
+                  {business.branches && (
+                    <span className="meta-item">
+                      📍 {business.branches.length} Locations
+                    </span>
+                  )}
+                </div>
+                <Link href={`/businesses/${business.slug}`} className="card-link">
+                  Learn More →
+                </Link>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WHY MERCITRADER */}
+      <section className="section section-values alt-bg">
+        <div className="container">
+          <div className="section-header">
+            <h2>Why MerciTrader</h2>
+            <p className="section-subtitle">
+              We believe in building lasting relationships through quality, integrity, and innovation.
+            </p>
+          </div>
+
+          <div className="values-grid">
+            {coreValues.map((value, idx) => (
+              <div key={idx} className="value-card">
+                <div className="value-icon">{value.icon}</div>
+                <h4>{value.title}</h4>
+                <p>{value.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* GROUP STRUCTURE */}
+      <section className="section section-structure">
+        <div className="container">
+          <div className="section-header">
+            <h2>Our Structure</h2>
+            <p className="section-subtitle">
+              One parent company. Multiple specialized businesses. United by quality and values.
+            </p>
+          </div>
+
+          <div className="structure-visual">
+            <div className="structure-item parent">
+              <div className="structure-label">MerciTrader</div>
+              <p>Parent Company & Group</p>
+            </div>
+
+            <div className="structure-children">
+              {BUSINESSES.map((business) => (
+                <div key={business.id} className="structure-child">
+                  <div className="structure-label">{business.name}</div>
+                  <p>{business.category}</p>
+                  {business.branches && business.branches.length > 0 && (
+                    <div className="branches-list">
+                      {business.branches.map((branch) => (
+                        <span key={branch.id} className="branch-badge">
+                          {branch.location}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
-
-          <div className="hero-right">
-            {/* hero image (replace /marci/hero.png in /public) */}
-            <div className="hero-image-wrap">
-              <Image src={LINKS.heroImg} alt="MarciTrader dashboard" width={560} height={340} className="hero-visual" priority />
-            </div>
-          </div>
         </div>
       </section>
 
-      <section id="features" className="section">
-        <div className="wrap">
-          <h2>Features</h2>
-          <p className="sub">Everything traders need to find, validate and act on opportunities.</p>
-
-          <div className="grid grid-features">
-            {features.map((f) => (
-              <article key={f.title} className="feature-card">
-                <div className="feature-icon">⚡</div>
-                <h3>{f.title}</h3>
-                <p>{f.body}</p>
-              </article>
-            ))}
+      {/* CTA SECTION */}
+      <section className="section section-cta">
+        <div className="container cta-content">
+          <div className="cta-text">
+            <h2>Ready to Partner with MerciTrader?</h2>
+            <p>
+              Whether you're looking for construction materials, premium rice, or exploring business
+              opportunities, we're here to help. Get in touch with our team today.
+            </p>
           </div>
+          <Link href="/contact" className="btn btn-primary btn-large">
+            Contact Us
+          </Link>
         </div>
       </section>
 
-      <section id="products" className="section alt">
-        <div className="wrap">
-          <h2>Products</h2>
-          <p className="sub">Modular tools you can mix and match.</p>
-
-          <div className="grid grid-products">
-            {products.map((p) => (
-              <article key={p.title} className="product-card">
-                <h3>{p.title}</h3>
-                <p>{p.desc}</p>
-                <a href={p.link} className="link">Learn more →</a>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="testimonials" className="section">
-        <div className="wrap">
-          <h2>What people say</h2>
-          <div className="grid grid-testimonials">
-            {testimonials.map((t, i) => (
-              <blockquote key={i} className="testimonial">
-                <p>“{t.text}”</p>
-                <cite>— {t.author}</cite>
-              </blockquote>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" className="section cta-section">
-        <div className="wrap cta-wrap">
-          <div className="cta-left">
-            <h2>Get a demo</h2>
-            <p>Tell us about your needs and we’ll show how MarciTrader can help.</p>
-            <a href="mailto:alibajwa102@gmail.com" className="btn btn-primary">Schedule a demo</a>
-          </div>
-          <form className="contact-form" action="mailto:alibajwa102@gmail.com" method="GET">
-            <input name="name" placeholder="Your name" aria-label="Your name" />
-            <input name="email" placeholder="Email" aria-label="Email" />
-            <textarea name="message" placeholder="How can we help?" aria-label="Message" />
-            <button type="submit" className="btn btn-ghost">Send</button>
-          </form>
-        </div>
-      </section>
-
+      {/* FOOTER */}
       <footer className="site-footer">
-        <div className="wrap foot-inner">
-          <div>© {new Date().getFullYear()} {BRAND}. All rights reserved.</div>
-          <div className="foot-links">
-            <a href={LINKS.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-            <a href={LINKS.github} target="_blank" rel="noreferrer">GitHub</a>
+        <div className="footer-container">
+          <div className="footer-section">
+            <h4>{COMPANY_INFO.name}</h4>
+            <p>{COMPANY_INFO.description}</p>
           </div>
+
+          <div className="footer-section">
+            <h5>Businesses</h5>
+            <ul>
+              {BUSINESSES.map((b) => (
+                <li key={b.id}>
+                  <Link href={`/businesses/${b.slug}`}>{b.name}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="footer-section">
+            <h5>Company</h5>
+            <ul>
+              <li>
+                <Link href="/">Home</Link>
+              </li>
+              <li>
+                <Link href="/about">About</Link>
+              </li>
+              <li>
+                <Link href="/businesses">Businesses</Link>
+              </li>
+              <li>
+                <Link href="/contact">Contact</Link>
+              </li>
+            </ul>
+          </div>
+
+          <div className="footer-section">
+            <h5>Contact</h5>
+            <p>
+              Email:{" "}
+              <a href={`mailto:${COMPANY_INFO.contact.email}`}>{COMPANY_INFO.contact.email}</a>
+            </p>
+            <p>
+              Phone:{" "}
+              <a href={`tel:${COMPANY_INFO.contact.phone}`}>{COMPANY_INFO.contact.phone}</a>
+            </p>
+            <p>{COMPANY_INFO.contact.address}</p>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <p>© {new Date().getFullYear()} {COMPANY_INFO.name}. All rights reserved.</p>
         </div>
       </footer>
 
       <style>{`
-        :root{ --bg: #0b1220; --card: #0f1724; --muted: #9aa4b2; --accent: #6c8cff; }
-        *{ box-sizing: border-box }
-        body,html,#root{ height:100%; }
-        .mt-root{ min-height:100dvh; background: linear-gradient(180deg,#071021 0%, #081426 50%, #06131a 100%); color:#eaf0ff; font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;}
-        .wrap{ max-width:1100px; margin:0 auto; padding:20px; }
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
 
-        .topbar{ position: sticky; top:0; z-index:60; backdrop-filter: blur(6px); }
-        .topbar .wrap{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
-        .topbar .brand{ display:flex; align-items:center; gap:10px; }
-        .topbar .logo{ border-radius:10px; }
-        .topbar .brand__name{ font-weight:800; letter-spacing:.4px }
-        .topbar .nav-desktop{ display:none; gap:14px; align-items:center }
-        .topbar .nav-desktop a{ color: #dbe8ff; text-decoration:none; font-weight:600 }
+        :root {
+          --primary: #1a472a;
+          --primary-light: #2d6a43;
+          --accent: #d4a574;
+          --accent-light: #e8c59f;
+          --white: #f8f7f4;
+          --dark: #0f1513;
+          --gray: #8b8b8b;
+          --gray-light: #e8e8e8;
+          --border: #e0ddd8;
+        }
 
-        .topbar.solid{ background: rgba(6,10,18,0.6); border-bottom: 1px solid rgba(255,255,255,0.03); }
+        body,
+        html {
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+            sans-serif;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
 
-        .menu{ display:block }
-        .menu-btn{ padding:.4rem .8rem; border-radius:8px; background:rgba(255,255,255,0.03); cursor:pointer }
-        .menu-sheet{ position:absolute; right:18px; top:66px; width:260px; background:rgba(8,12,20,0.8); border-radius:12px; padding:10px; display:grid; gap:8px; }
-        .menu-sheet a{ padding:8px; border-radius:8px; text-decoration:none; color:#e6eefc }
-        .menu-cta{ background: linear-gradient(90deg,var(--accent), #3bd6d6); color:#06121b; font-weight:700; text-align:center }
+        .mercitrader-site {
+          background: var(--white);
+          color: var(--dark);
+          min-height: 100vh;
+        }
 
-        @media(min-width:900px){ .topbar .nav-desktop{ display:flex } .menu{ display:none } }
+        /* NAVBAR */
+        .navbar {
+          position: sticky;
+          top: 0;
+          z-index: 100;
+          background: transparent;
+          transition: all 0.3s ease;
+          border-bottom: 1px solid transparent;
+        }
 
-        .hero{ padding:72px 0; }
-        .hero-inner{ display:grid; grid-template-columns:1fr; gap:26px; align-items:center }
-        @media(min-width:980px){ .hero-inner{ grid-template-columns: 1fr 440px } }
-        .hero-left h1{ font-size: clamp(2rem, 3.8vw, 3.4rem); margin:0 0 12px }
-        .lead{ color: var(--muted); margin:0 0 18px; font-weight:600 }
-        .hero-ctas{ display:flex; gap:12px; margin-bottom:16px }
-        .btn{ padding:10px 14px; border-radius:10px; text-decoration:none; font-weight:700; }
-        .btn-primary{ background: linear-gradient(90deg,var(--accent), #3bd6d6); color:#081426 }
-        .btn-outline{ border:1px solid rgba(255,255,255,0.06); color:#eaf0ff; background:transparent }
-        .btn-ghost{ background:transparent; color:#eaf0ff; border:1px solid rgba(255,255,255,0.06); padding:9px 12px }
+        .navbar.solid {
+          background: rgba(248, 247, 244, 0.95);
+          border-bottom: 1px solid var(--border);
+          backdrop-filter: blur(8px);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
 
-        .trust{ margin-top:18px; color:var(--muted); display:flex; gap:14px; align-items:center }
-        .logos{ display:flex; gap:8px }
-        .logo-pill{ background: rgba(255,255,255,0.03); padding:6px 8px; border-radius:8px; font-weight:700 }
+        .nav-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 16px 20px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
 
-        .hero-right .hero-image-wrap{ border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,0.04); box-shadow: 0 18px 40px rgba(0,0,0,0.3); }
-        .hero-visual{ display:block; width:100%; height:auto }
+        .nav-brand {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          font-size: 20px;
+          font-weight: 800;
+          color: var(--primary);
+          text-decoration: none;
+          letter-spacing: -0.5px;
+        }
 
-        .section{ padding:56px 0 }
-        .section.alt{ background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent) }
-        .section h2{ margin:0 0 8px; font-size:1.6rem }
-        .sub{ color:var(--muted); margin:0 0 18px }
+        .logo-mark {
+          width: 40px;
+          height: 40px;
+          background: var(--primary);
+          color: var(--white);
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 14px;
+          font-weight: 900;
+        }
 
-        .grid{ display:grid; gap:14px }
-        .grid-features{ grid-template-columns: 1fr; }
-        @media(min-width:720px){ .grid-features{ grid-template-columns: repeat(2,1fr) } }
-        @media(min-width:1024px){ .grid-features{ grid-template-columns: repeat(4,1fr) } }
-        .feature-card{ background: rgba(255,255,255,0.02); padding:18px; border-radius:12px; border:1px solid rgba(255,255,255,0.03) }
-        .feature-icon{ font-size:22px; margin-bottom:8px }
+        .nav-desktop {
+          display: none;
+          gap: 32px;
+          align-items: center;
+        }
 
-        .grid-products{ grid-template-columns:1fr }
-        @media(min-width:900px){ .grid-products{ grid-template-columns: repeat(3,1fr) } }
-        .product-card{ background: rgba(255,255,255,0.02); padding:18px; border-radius:12px; border:1px solid rgba(255,255,255,0.03) }
-        .product-card .link{ color:var(--accent); text-decoration:none; font-weight:700 }
+        @media (min-width: 768px) {
+          .nav-desktop {
+            display: flex;
+          }
+          .nav-menu {
+            display: none;
+          }
+        }
 
-        .grid-testimonials{ grid-template-columns: 1fr }
-        @media(min-width:900px){ .grid-testimonials{ grid-template-columns: repeat(2,1fr) } }
-        .testimonial{ background: rgba(255,255,255,0.02); padding:18px; border-radius:12px; }
-        .testimonial p{ margin:0 0 8px }
-        cite{ color:var(--muted) }
+        .nav-desktop a {
+          color: var(--dark);
+          text-decoration: none;
+          font-weight: 500;
+          font-size: 15px;
+          transition: color 0.2s;
+          position: relative;
+        }
 
-        .cta-section .cta-wrap{ display:grid; grid-template-columns: 1fr; gap:20px; align-items:center }
-        @media(min-width:860px){ .cta-wrap{ grid-template-columns: 1fr 420px } }
-        .contact-form{ display:flex; flex-direction:column; gap:10px; }
-        .contact-form input, .contact-form textarea{ padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color:#eaf0ff }
-        textarea{ min-height:100px; resize:vertical }
+        .nav-desktop a:hover {
+          color: var(--primary);
+        }
 
-        .site-footer{ padding:22px 0; border-top:1px solid rgba(255,255,255,0.03); }
-        .foot-inner{ display:flex; gap:12px; justify-content:space-between; align-items:center }
-        .foot-links a{ color:var(--muted); text-decoration:none; margin-left:12px }
+        .nav-desktop a::after {
+          content: "";
+          position: absolute;
+          bottom: -4px;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background: var(--accent);
+          transition: width 0.2s;
+        }
 
-        a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{ outline:3px solid rgba(108,140,255,0.16); outline-offset:2px }
+        .nav-desktop a:hover::after {
+          width: 100%;
+        }
 
+        /* Mobile Menu */
+        .nav-menu {
+          display: block;
+        }
+
+        .menu-toggle {
+          background: none;
+          border: none;
+          font-size: 24px;
+          cursor: pointer;
+          color: var(--primary);
+          padding: 8px;
+        }
+
+        .menu-items {
+          position: absolute;
+          top: 66px;
+          right: 20px;
+          background: var(--white);
+          border: 1px solid var(--border);
+          border-radius: 12px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+          width: 200px;
+          display: grid;
+          gap: 8px;
+          padding: 12px;
+          z-index: 50;
+        }
+
+        .menu-items a {
+          padding: 10px 12px;
+          text-decoration: none;
+          color: var(--dark);
+          border-radius: 8px;
+          transition: background 0.2s;
+          font-size: 14px;
+          font-weight: 500;
+        }
+
+        .menu-items a:hover {
+          background: #f0f0f0;
+        }
+
+        /* HERO SECTION */
+        .hero {
+          position: relative;
+          min-height: 600px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          padding: 80px 20px;
+        }
+
+        .hero-bg {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+          z-index: -1;
+        }
+
+        .hero::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(circle at 20% 80%, rgba(212, 165, 116, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(212, 165, 116, 0.1) 0%, transparent 50%);
+          z-index: -1;
+        }
+
+        .hero-content {
+          text-align: center;
+          max-width: 700px;
+          animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-title {
+          font-size: clamp(2.5rem, 6vw, 4rem);
+          font-weight: 900;
+          color: var(--white);
+          margin-bottom: 16px;
+          letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+          font-size: 24px;
+          font-weight: 600;
+          color: var(--accent-light);
+          margin-bottom: 12px;
+        }
+
+        .hero-description {
+          font-size: 18px;
+          color: rgba(248, 247, 244, 0.9);
+          line-height: 1.6;
+          margin-bottom: 32px;
+        }
+
+        .hero-ctas {
+          display: flex;
+          gap: 16px;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
+        /* BUTTONS */
+        .btn {
+          padding: 12px 28px;
+          border-radius: 8px;
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 15px;
+          transition: all 0.3s ease;
+          border: none;
+          cursor: pointer;
+          display: inline-block;
+        }
+
+        .btn-primary {
+          background: var(--accent);
+          color: var(--dark);
+        }
+
+        .btn-primary:hover {
+          background: var(--accent-light);
+          transform: translateY(-2px);
+          box-shadow: 0 8px 16px rgba(212, 165, 116, 0.2);
+        }
+
+        .btn-secondary {
+          background: transparent;
+          color: var(--white);
+          border: 2px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+          background: rgba(212, 165, 116, 0.1);
+          transform: translateY(-2px);
+        }
+
+        .btn-large {
+          padding: 14px 36px;
+          font-size: 16px;
+        }
+
+        /* SECTIONS */
+        .section {
+          padding: 80px 20px;
+        }
+
+        .alt-bg {
+          background: #fafaf8;
+        }
+
+        .container {
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .section-header {
+          text-align: center;
+          margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+          font-size: clamp(2rem, 4vw, 3rem);
+          color: var(--primary);
+          margin-bottom: 12px;
+          font-weight: 800;
+        }
+
+        .section-subtitle {
+          font-size: 18px;
+          color: var(--gray);
+          line-height: 1.6;
+          max-width: 500px;
+          margin: 0 auto;
+        }
+
+        /* BUSINESSES GRID */
+        .businesses-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 28px;
+          margin-top: 48px;
+        }
+
+        .business-card {
+          background: var(--white);
+          border: 1px solid var(--border);
+          border-radius: 12px;
+          padding: 32px;
+          position: relative;
+          transition: all 0.3s ease;
+          overflow: hidden;
+        }
+
+        .business-card::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(135deg, rgba(212, 165, 116, 0.05), transparent);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+
+        .business-card:hover {
+          transform: translateY(-8px);
+          border-color: var(--accent);
+          box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .business-card:hover::before {
+          opacity: 1;
+        }
+
+        .card-accent {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 4px;
+          background: var(--accent);
+          transform: scaleX(0);
+          transition: transform 0.3s ease;
+        }
+
+        .business-card:hover .card-accent {
+          transform: scaleX(1);
+        }
+
+        .business-card h3 {
+          font-size: 22px;
+          color: var(--primary);
+          margin-bottom: 8px;
+          font-weight: 700;
+        }
+
+        .business-category {
+          display: inline-block;
+          background: rgba(212, 165, 116, 0.1);
+          color: var(--primary-light);
+          padding: 4px 12px;
+          border-radius: 6px;
+          font-size: 12px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          margin-bottom: 16px;
+        }
+
+        .business-desc {
+          color: var(--gray);
+          line-height: 1.6;
+          font-size: 14px;
+          margin-bottom: 16px;
+        }
+
+        .business-meta {
+          display: flex;
+          gap: 16px;
+          margin-bottom: 20px;
+          font-size: 13px;
+        }
+
+        .meta-item {
+          color: var(--gray);
+        }
+
+        .card-link {
+          display: inline-block;
+          color: var(--primary);
+          text-decoration: none;
+          font-weight: 600;
+          transition: all 0.2s;
+          font-size: 14px;
+        }
+
+        .card-link:hover {
+          color: var(--accent);
+        }
+
+        /* VALUES GRID */
+        .values-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 28px;
+        }
+
+        .value-card {
+          background: var(--white);
+          border: 1px solid var(--border);
+          border-radius: 12px;
+          padding: 28px;
+          text-align: center;
+          transition: all 0.3s ease;
+        }
+
+        .value-card:hover {
+          transform: translateY(-4px);
+          border-color: var(--accent);
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+        }
+
+        .value-icon {
+          font-size: 40px;
+          margin-bottom: 16px;
+        }
+
+        .value-card h4 {
+          font-size: 18px;
+          color: var(--primary);
+          margin-bottom: 8px;
+          font-weight: 700;
+        }
+
+        .value-card p {
+          color: var(--gray);
+          font-size: 14px;
+          line-height: 1.6;
+        }
+
+        /* STRUCTURE SECTION */
+        .structure-visual {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 40px;
+          margin-top: 48px;
+        }
+
+        .structure-item {
+          background: var(--white);
+          border: 2px solid var(--primary);
+          border-radius: 12px;
+          padding: 24px 32px;
+          text-align: center;
+          min-width: 280px;
+        }
+
+        .structure-item.parent {
+          border: 3px solid var(--primary);
+          background: linear-gradient(135deg, rgba(26, 71, 42, 0.05), transparent);
+        }
+
+        .structure-label {
+          font-size: 20px;
+          font-weight: 800;
+          color: var(--primary);
+          margin-bottom: 4px;
+        }
+
+        .structure-item p {
+          color: var(--gray);
+          font-size: 13px;
+        }
+
+        .structure-children {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 28px;
+          width: 100%;
+        }
+
+        .structure-child {
+          background: #fafaf8;
+          border: 1px solid var(--accent);
+          border-radius: 12px;
+          padding: 20px;
+          position: relative;
+        }
+
+        .structure-child::before {
+          content: "";
+          position: absolute;
+          top: -28px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 2px;
+          height: 28px;
+          background: var(--accent);
+        }
+
+        .branches-list {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-top: 12px;
+          justify-content: center;
+        }
+
+        .branch-badge {
+          background: rgba(212, 165, 116, 0.15);
+          color: var(--primary-light);
+          padding: 4px 10px;
+          border-radius: 6px;
+          font-size: 11px;
+          font-weight: 600;
+        }
+
+        /* CTA SECTION */
+        .section-cta {
+          background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+          color: var(--white);
+          text-align: center;
+        }
+
+        .cta-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 32px;
+        }
+
+        .cta-text h2 {
+          font-size: clamp(1.8rem, 4vw, 2.8rem);
+          color: var(--white);
+          margin-bottom: 16px;
+          font-weight: 800;
+        }
+
+        .cta-text p {
+          font-size: 18px;
+          color: rgba(248, 247, 244, 0.9);
+          line-height: 1.6;
+          max-width: 500px;
+        }
+
+        /* FOOTER */
+        .site-footer {
+          background: var(--dark);
+          color: var(--gray-light);
+          padding: 60px 20px 20px;
+        }
+
+        .footer-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 40px;
+          margin-bottom: 40px;
+        }
+
+        .footer-section h4,
+        .footer-section h5 {
+          color: var(--white);
+          font-size: 16px;
+          margin-bottom: 12px;
+          font-weight: 700;
+        }
+
+        .footer-section p {
+          font-size: 14px;
+          line-height: 1.6;
+          margin-bottom: 8px;
+        }
+
+        .footer-section a {
+          color: var(--gray-light);
+          text-decoration: none;
+          transition: color 0.2s;
+        }
+
+        .footer-section a:hover {
+          color: var(--accent);
+        }
+
+        .footer-section ul {
+          list-style: none;
+        }
+
+        .footer-section li {
+          margin-bottom: 8px;
+        }
+
+        .footer-section li a {
+          font-size: 14px;
+        }
+
+        .footer-bottom {
+          border-top: 1px solid rgba(248, 247, 244, 0.1);
+          padding-top: 20px;
+          text-align: center;
+          font-size: 13px;
+          color: var(--gray);
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+          .hero {
+            min-height: 500px;
+            padding: 60px 20px;
+          }
+
+          .section {
+            padding: 60px 20px;
+          }
+
+          .hero-ctas {
+            gap: 12px;
+          }
+
+          .btn {
+            width: 100%;
+          }
+
+          .cta-content {
+            width: 100%;
+          }
+
+          .cta-content .btn {
+            width: auto;
+          }
+        }
       `}</style>
     </main>
   );
