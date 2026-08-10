@@ -40,26 +40,27 @@ export default function Home() {
             <Link href="/" className="nav-brand">Home</Link>
             <Link href="/about" className="nav-brand">About</Link>
             <Link href="/businesses" className="nav-brand">Businesses</Link>
+            <Link href="/businesses/details" className="nav-brand">Details</Link>
             <Link href="/contact" className="nav-brand">Contact</Link>
           </nav>
 
           <details ref={menuRef} className="nav-menu">
             <summary className="menu-toggle" aria-label="Toggle menu">
-              ☰
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="none" width="24" height="24"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
             </summary>
             <div className="menu-items">
-                <Link href="/" onClick={closeMenu}>
-                  Home
-                </Link>
-                <Link href="/about" onClick={closeMenu}>
-                  About
-                </Link>
-                <Link href="/businesses" onClick={closeMenu}>
-                  Businesses
-                </Link>
-                <Link href="/contact" onClick={closeMenu}>
-                  Contact
-                </Link>
+              <Link href="/" onClick={closeMenu}>
+                Home
+              </Link>
+              <Link href="/about" onClick={closeMenu}>
+                About
+              </Link>
+              <Link href="/businesses" onClick={closeMenu}>
+                Businesses
+              </Link>
+              <Link href="/contact" onClick={closeMenu}>
+                Contact
+              </Link>
             </div>
           </details>
         </div>
@@ -69,9 +70,9 @@ export default function Home() {
       <section className="hero">
         <div className="hero-bg"></div>
         <div className="hero-content">
-          <h1 className="hero-title">{COMPANY_INFO.name}</h1>
-          <p className="hero-subtitle">{COMPANY_INFO.tagline}</p>
-          <p className="hero-description">{COMPANY_INFO.description}</p>
+          <h1 className="hero-title" style={{ color: "var(--primary)" }}>MerciTrader</h1>
+          <p className="hero-subtitle" style={{ color: "var(--primary)" }}>Building businesses. Delivering quality. Growing together.</p>
+          <p className="hero-description" style={{ color: "var(--primary)" }}>MerciTrader is a diversified business group operating multiple companies including Al-Sadiq Bricks and Al-Sadiq Rice. We are committed to quality, reliability, and long-term partnerships.</p>
 
           <div className="hero-ctas">
             <Link href="/businesses" className="btn btn-primary">
@@ -155,7 +156,7 @@ export default function Home() {
           <div className="structure-visual">
             <div className="structure-item parent">
               <div className="structure-label">MerciTrader</div>
-                <p>We&#39;d love to hear from you.</p>
+              <p>We&#39;d love to hear from you.</p>
             </div>
 
             <div className="structure-children">
@@ -185,7 +186,7 @@ export default function Home() {
           <div className="cta-text">
             <h2>Ready to Partner with MerciTrader?</h2>
             <p>
-                We couldn&#39;t find the business you&#39;re looking for. Whether it&#39;s construction materials, premium rice, or other opportunities, let us know how we can help. Thank you! We&#39;ve received your message and will be in touch soon.
+              We couldn&#39;t find the business you&#39;re looking for. Whether it&#39;s construction materials, premium rice, or other opportunities, let us know how we can help. Thank you! We&#39;ve received your message and will be in touch soon.
             </p>
           </div>
           <Link href="/contact" className="btn btn-primary btn-large">

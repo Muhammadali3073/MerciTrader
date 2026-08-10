@@ -59,6 +59,13 @@ select:focus-visible {
 }
 
 /* Selection styling */
+
+/* Hide default details marker for menu toggle */
+summary.menu-toggle::-webkit-details-marker { display:none; }
+summary.menu-toggle::marker { display:none; }
+details > summary { list-style: none; }
+summary::-webkit-details-marker { display:none; }
+summary::marker { display:none; }
 ::selection {
   background-color: var(--accent);
   color: var(--dark);

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { getBusinessBySlug, COMPANY_INFO } from "../../data/businesses";
+import Head from "next/head";
 
 export default async function BusinessDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -10,20 +11,6 @@ export default async function BusinessDetail({ params }: { params: Promise<{ slu
   if (!business) {
     return (
       <main className="business-detail">
-        <header className="navbar">
-          <div className="nav-container">
-            <Link href="/" className="nav-brand">
-              <div className="logo-mark">MT</div>
-              <span className="brand-name">{COMPANY_INFO.name}</span>
-            </Link>
-            <nav className="nav-desktop">
-              <Link href="/">Home</Link>
-              <Link href="/about">About</Link>
-              <Link href="/businesses">Businesses</Link>
-              <Link href="/contact">Contact</Link>
-            </nav>
-          </div>
-        </header>
         <section className="error-section">
           <div className="container">
             <h1>Business Not Found</h1>
@@ -39,7 +26,31 @@ export default async function BusinessDetail({ params }: { params: Promise<{ slu
 
   return (
     <main className="business-detail">
-      <header className="navbar">
+  <Head>
+    <title>{business?.name ?? 'Business'} – {COMPANY_INFO.name}</title>
+    <meta name="description" content={business?.shortDescription ?? COMPANY_INFO.tagline} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:title" content={business?.name ?? COMPANY_INFO.name} />
+    <meta property="og:description" content={business?.shortDescription ?? COMPANY_INFO.tagline} />
+    <meta property="og:image" content={business?.heroImage ?? '/default-hero.jpg'} />
+    <meta property="og:url" content={`https://example.com/businesses/${business?.slug}`} />
+    <meta property="og:type" content="website" />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      name: business?.name,
+      image: business?.heroImage,
+      description: business?.shortDescription,
+      url: `https://example.com/businesses/${business?.slug}`,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: business?.branches?.[0]?.address || "",
+        addressLocality: business?.branches?.[0]?.location || "",
+      },
+      telephone: business?.contact?.phone,
+    }) }} />
+  </Head>
+      <header className="navbar" aria-label="Primary navigation">
         <div className="nav-container">
           <Link href="/" className="nav-brand">
             <div className="logo-mark">MT</div>
@@ -257,62 +268,6 @@ export default async function BusinessDetail({ params }: { params: Promise<{ slu
           </div>
         </div>
       </section>
-
-      {/* FOOTER */}
-      <footer className="site-footer">
-        <div className="footer-container">
-          <div className="footer-section">
-            <h4>{COMPANY_INFO.name}</h4>
-            <p>{COMPANY_INFO.description}</p>
-          </div>
-
-          <div className="footer-section">
-            <h5>Businesses</h5>
-            <ul>
-              <li>
-                <Link href="/businesses/al-sadiq-bricks">Al-Sadiq Bricks</Link>
-              </li>
-              <li>
-                <Link href="/businesses/al-sadiq-rice">Al-Sadiq Rice</Link>
-              </li>
-            </ul>
-          </div>
-
-          <div className="footer-section">
-            <h5>Company</h5>
-            <ul>
-              <li>
-                <Link href="/">Home</Link>
-              </li>
-              <li>
-                <Link href="/about">About</Link>
-              </li>
-              <li>
-                <Link href="/businesses">Businesses</Link>
-              </li>
-              <li>
-                <Link href="/contact">Contact</Link>
-              </li>
-            </ul>
-          </div>
-
-          <div className="footer-section">
-            <h5>Contact</h5>
-            <p>
-              Email:{" "}
-              <a href={`mailto:${COMPANY_INFO.contact.email}`}>{COMPANY_INFO.contact.email}</a>
-            </p>
-            <p>
-              Phone:{" "}
-              <a href={`tel:${COMPANY_INFO.contact.phone}`}>{COMPANY_INFO.contact.phone}</a>
-            </p>
-          </div>
-        </div>
-
-        <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} {COMPANY_INFO.name}. All rights reserved.</p>
-        </div>
-      </footer>
 
       <style>{`
         * {
