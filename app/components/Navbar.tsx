@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+// Navbar component - updated on 2026-08-10
 
 export default function Navbar() {
   return (
