@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import { BUSINESSES, COMPANY_INFO } from "../../data/businesses";
 
 export default function AllBusinessDetails() {
@@ -11,15 +12,15 @@ export default function AllBusinessDetails() {
       </Head>
       <header className="navbar" aria-label="Primary navigation">
         <div className="nav-container">
-          <a href="/" className="nav-brand">
+          <Link href="/" className="nav-brand">
             <div className="logo-mark">MT</div>
             <span className="brand-name">{COMPANY_INFO.name}</span>
-          </a>
+          </Link>
           <nav className="nav-desktop">
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/businesses">Businesses</a>
-            <a href="/contact">Contact</a>
+            <Link href="/">Home</Link>
+            <Link href="/about">About</Link>
+            <Link href="/businesses">Businesses</Link>
+            <Link href="/contact">Contact</Link>
           </nav>
         </div>
       </header>
