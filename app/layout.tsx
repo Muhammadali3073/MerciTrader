@@ -1,14 +1,13 @@
-// app/layout.tsx
 import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
-// Local variable fonts
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
+
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
@@ -16,46 +15,42 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Muhammad Ali Nawaz · Flutter Developer",
+  title: "MerciTrader | Business Group - Al-Sadiq Bricks & Rice",
   description:
-    "Senior Flutter Developer building high-performance apps with clean architecture, smooth UX, and robust integrations.",
+    "MerciTrader is a diversified business group operating Al-Sadiq Bricks (construction materials) and Al-Sadiq Rice (agriculture). Quality, reliability, and customer focus.",
   keywords: [
-    "Muhammad Ali Nawaz",
-    "Flutter Developer",
-    "Mobile App",
-    "Sortevo",
-    "Software Solutions",
-    "Cross-Platform Development",
-    "Android Development",
-    "iOS Development",
-    "Web Development",
-    "Full-Stack Development",
-    "UX/UI Design",
+    "MerciTrader",
+    "Business Group",
+    "Al-Sadiq Bricks",
+    "Al-Sadiq Rice",
+    "Construction Materials",
+    "Rice Trading",
+    "Business Solutions",
+    "Quality Products",
   ],
   openGraph: {
-    url: "https://sortevo.com",
+    url: "https://mercitrader.com",
     type: "website",
-    title: "Muhammad Ali Nawaz · Flutter Developer",
+    title: "MerciTrader | Business Group",
     description:
-      "Senior Flutter Developer building high-performance apps with clean architecture, smooth UX, and robust integrations.",
+      "MerciTrader operates multiple businesses including Al-Sadiq Bricks and Al-Sadiq Rice.",
     images: [
       {
-        url: "https://sortevo.com/assets/images/og-image.jpg",
+        url: "https://mercitrader.com/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Sortevo – Professional Software Solutions",
+        alt: "MerciTrader – Business Group",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Muhammad Ali Nawaz · Flutter Developer",
+    title: "MerciTrader | Business Group",
     description:
-      "Senior Flutter Developer building high-performance apps with clean architecture, smooth UX, and robust integrations.",
-    images: ["https://sortevo.com/assets/images/twitter-card.jpg"],
+      "Diversified business group: Al-Sadiq Bricks & Al-Sadiq Rice",
+    images: ["https://mercitrader.com/twitter-card.jpg"],
   },
   icons: {
-    // Serve both ICO (classic browsers) and PNG (hi-res / Apple)
     icon: [
       { url: "/favicon.ico?v=2", type: "image/x-icon" },
       { url: "/favicon.png?v=2", type: "image/png", sizes: "512x512" },
@@ -63,15 +58,17 @@ export const metadata: Metadata = {
     shortcut: [{ url: "/favicon.ico?v=2", type: "image/x-icon" }],
     apple: [{ url: "/favicon.png?v=2", type: "image/png" }],
   },
-  // Optional but nice for crawlers
   robots: { index: true, follow: true },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Pre-hydration theme: uses saved preference if present, else OS */}
         <script
           dangerouslySetInnerHTML={{
             __html: `(() => {
@@ -84,11 +81,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 })();`,
           }}
         />
-        {/* Optional: PWA manifest (uncomment when you add /public/manifest.webmanifest)
-        <link rel="manifest" href="/manifest.webmanifest" />
-        */}
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}
+      >
         {children}
       </body>
     </html>
