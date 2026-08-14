@@ -1,14 +1,16 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Exo, Inter } from "next/font/google";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import { cn } from "@/lib/utils";
 
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
+const geistSans = Exo({
   variable: "--font-geist-sans",
-  weight: "100 900",
+  subsets: ["latin"],
 });
 
 const geistMono = localFont({
@@ -36,8 +38,7 @@ export const metadata: Metadata = {
     url: "https://mercitrader.com",
     type: "website",
     title: "MerciTrader | Business Group",
-    description:
-      "MerciTrader operates multiple businesses including AL-SADIQ BRICKS KILN, Merci Mart, and Merci Rice.",
+    description: "MerciTrader operates multiple businesses including AL-SADIQ BRICKS KILN, Merci Mart, and Merci Rice.",
     images: [
       {
         url: "https://mercitrader.com/og-image.jpg",
@@ -50,8 +51,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "MerciTrader | Business Group",
-    description:
-      "Diversified business group: AL-SADIQ BRICKS KILN, Merci Mart & Merci Rice",
+    description: "Diversified business group: AL-SADIQ BRICKS KILN, Merci Mart & Merci Rice",
     images: ["https://mercitrader.com/twitter-card.jpg"],
   },
   icons: {
@@ -65,35 +65,13 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(() => {
-  try {
-    const t = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const dark = t ? t === 'dark' : prefersDark;
-    document.documentElement.classList.toggle('dark', dark);
-  } catch {}
-})();`,
-          }}
-        />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}
-      >
-
+    <html lang="en" suppressHydrationWarning className={cn("font-sans", inter.variable)}>
+      <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}>
         <NavBar />
         {children}
         <Footer />
-
       </body>
     </html>
   );
