@@ -526,10 +526,10 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
                   <div className="group relative overflow-hidden rounded-2xl border border-[#e0ddd8] bg-white p-8 shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-1 hover:border-[#d4a574]/40 hover:shadow-[0_16px_32px_rgba(0,0,0,0.08)]">
                     <div className="absolute left-0 top-0 h-1.5 w-full origin-left scale-x-0 bg-gradient-to-r from-[#d4a574] to-[#e8c59f] transition-transform duration-500 group-hover:scale-x-100" />
 
-                    <div className="mb-4 inline-flex items-center gap-2 rounded-lg bg-[#d4a574]/10 px-3 py-1.5 text-[12px] font-bold uppercase tracking-wider text-[#d4a574]">
+                    {/*<div className="mb-4 inline-flex items-center gap-2 rounded-lg bg-[#d4a574]/10 px-3 py-1.5 text-[12px] font-bold uppercase tracking-wider text-[#d4a574]">
                       <MapPin className="h-3.5 w-3.5" />
                       {branch.location}
-                    </div>
+                    </div>*/}
 
                     <h4 className="mb-6 text-xl font-bold text-[#1a472a]">{branch.name}</h4>
 

@@ -54,8 +54,7 @@ export const BUSINESSES: Business[] = [
       "AL-SADIQ BRICKS KILN is a leading supplier of high-quality construction materials, specializing in premium bricks and building solutions. With multiple branches strategically located, we serve residential, commercial, and industrial construction projects with consistent quality and reliable supply.",
     category: "Construction Materials",
     heroImage: "/mercitrader/bricks-hero.jpg",
-    vision:
-      "To be the most trusted and reliable supplier of quality construction materials in the region.",
+    vision: "To be the most trusted and reliable supplier of quality construction materials in the region.",
     mission:
       "Deliver superior quality bricks and construction materials with exceptional customer service and competitive pricing.",
     products: [
@@ -92,7 +91,7 @@ export const BUSINESSES: Business[] = [
         address: "123 Construction Avenue, Central Business District",
         phone: "+923008471335",
         email: "contact@mercitraders.com",
-        openingHours: "Saturday 8:00 AM – 6:00 PM Sunday 8:00 AM – 6:00 PM Monday 8:00 AM – 6:00 PM Tuesday 8:00 AM – 6:00 PM Wednesday 8:00 AM – 6:00 PM Thursday 8:00 AM – 6:00 PM Friday Closed",
+        openingHours: "Sat–Thu: 8:00 AM – 6:00 PM; Fri: Closed.",
         mapUrl: "https://maps.app.goo.gl/xnUWjwyTqjgJfYaG7",
       },
       {
@@ -102,7 +101,7 @@ export const BUSINESSES: Business[] = [
         address: "456 Industrial Park Road, Business Complex",
         phone: "+923008471335",
         email: "contact@mercitraders.com",
-        openingHours: "Saturday 8:00 AM – 6:00 PM Sunday 8:00 AM – 6:00 PM Monday 8:00 AM – 6:00 PM Tuesday 8:00 AM – 6:00 PM Wednesday 8:00 AM – 6:00 PM Thursday 8:00 AM – 6:00 PM Friday Closed",
+        openingHours: "Sat–Thu: 8:00 AM – 6:00 PM; Fri: Closed.",
         mapUrl: "https://maps.app.goo.gl/wgodzm4Q9kYWfBSi6",
       },
     ],
@@ -133,13 +132,65 @@ export const BUSINESSES: Business[] = [
     name: "Merci Mart",
     slug: "merci-mart",
     shortDescription: "Convenient retail mart offering everyday essentials",
-    description: "Merci Mart provides a wide range of everyday consumer goods, groceries, and household items with a focus on quality and affordability.",
+    description:
+      "Merci Mart is your neighborhood retail destination for everyday essentials. From fresh groceries and household supplies to personal care and packaged goods, we stock a wide selection of quality products at affordable prices. Whether you're shopping for your home or business, Merci Mart delivers convenience, value, and friendly service.",
     category: "Retail",
     heroImage: "/mercitrader/merci-mart-hero.jpg",
-    products: [],
-    branches: [],
-    services: [],
-    highlights: [],
+    vision: "To become the most trusted neighborhood retail brand known for convenience, quality, and fair pricing.",
+    mission: "Provide everyday essentials with a focus on quality, affordability, and exceptional customer experience.",
+    products: [
+      {
+        id: "fresh-groceries",
+        name: "Fresh Groceries",
+        description: "Fruits, vegetables, dairy, and daily fresh produce",
+        category: "Food",
+      },
+      {
+        id: "packaged-foods",
+        name: "Packaged Foods",
+        description: "Snacks, cereals, spices, and ready-to-cook items",
+        category: "Grocery",
+      },
+      {
+        id: "household-supplies",
+        name: "Household Supplies",
+        description: "Cleaning products, kitchenware, and home essentials",
+        category: "Home",
+      },
+      {
+        id: "personal-care",
+        name: "Personal Care",
+        description: "Hygiene products, skincare, and wellness items",
+        category: "Care",
+      },
+      {
+        id: "beverages",
+        name: "Beverages",
+        description: "Soft drinks, juices, bottled water, and energy drinks",
+        category: "Drinks",
+      },
+    ],
+    branches: [
+      {
+        id: "mart",
+        name: "Merci Mart",
+        location: "Downtown Market",
+        address: "45 Market Street, Downtown Commercial Area",
+        phone: "+923008471335",
+        email: "contact@mercitraders.com",
+        openingHours: "Mon–Sun: 8:00 AM – 10:00 PM",
+        mapUrl: "https://maps.app.goo.gl/iok3UeEHBpEAzRWg9",
+      },
+    ],
+    services: ["In-store shopping", "Home delivery", "Wholesale supply", "Bulk orders", "Gift packaging", "Loyalty rewards"],
+    highlights: [
+      "Wide range of everyday essentials",
+      "Competitive retail and wholesale pricing",
+      "Two convenient locations",
+      "Home delivery available",
+      "Fresh stock updated daily",
+      "Friendly customer service",
+    ],
     contact: {
       phone: "+923008471335",
       email: "contact@mercitraders.com",
@@ -151,9 +202,14 @@ export const BUSINESSES: Business[] = [
     name: "Merci Rice",
     slug: "merci-rice",
     shortDescription: "Premium rice products for homes and businesses",
-    description: "Merci Rice offers high-quality rice varieties sourced from trusted producers, catering to both retail and wholesale customers.",
+    description:
+      "Merci Rice offers high-quality rice varieties sourced from trusted producers, catering to both retail and wholesale customers.",
     category: "Agriculture & Food",
     heroImage: "/mercitrader/merci-rice-hero.jpg",
+    vision:
+      "To be the leading provider of premium rice products, recognized for quality, purity, and customer trust across the region.",
+    mission:
+      "Source, process, and deliver the finest rice varieties with uncompromising quality standards and exceptional service.",
     products: [
       {
         id: "basmati-white",
@@ -186,6 +242,18 @@ export const BUSINESSES: Business[] = [
         category: "Specialty",
       },
     ],
+    branches: [
+      {
+        id: "rice",
+        name: "Merci Rice",
+        location: "Trade District",
+        address: "789 Agriculture Park, Trade District",
+        phone: "+923008471335",
+        email: "contact@mercitraders.com",
+        openingHours: "Sat–Thu: 9:00 AM – 7:00 PM; Fri: Closed",
+        mapUrl: "https://maps.app.goo.gl/iok3UeEHBpEAzRWg9",
+      },
+    ],
     services: [
       "Wholesale distribution",
       "Retail supply",
@@ -216,8 +284,7 @@ export const COMPANY_INFO = {
   description:
     "MerciTrader is a diversified business group operating multiple companies including AL-SADIQ BRICKS KILN, Merci Mart, and Merci Rice. We are committed to quality, reliability, and long-term partnerships.",
   founded: "2015",
-  vision:
-    "To be a respected and innovative business group known for quality, integrity, and customer focus.",
+  vision: "To be a respected and innovative business group known for quality, integrity, and customer focus.",
   mission:
     "To build and operate successful, customer-focused businesses that deliver value through quality products and exceptional service.",
   values: [
@@ -265,7 +332,5 @@ export function getBranchBySlug(businessSlug: string, branchSlug: string): Branc
   const business = getBusinessBySlug(businessSlug);
   if (!business || !business.branches) return undefined;
 
-  return business.branches.find(
-    (b) => b.id === branchSlug || b.name.toLowerCase().replace(/\s+/g, "-") === branchSlug
-  );
+  return business.branches.find((b) => b.id === branchSlug || b.name.toLowerCase().replace(/\s+/g, "-") === branchSlug);
 }

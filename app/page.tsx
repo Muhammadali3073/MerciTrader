@@ -415,7 +415,7 @@ export default function Home() {
                     </div>
                     <p className="mb-4 text-sm font-medium text-[#8b8b8b]">{business.category}</p>
 
-                    {business.branches && business.branches.length > 0 && (
+                    {/*{business.branches && business.branches.length > 0 && (
                       <div className="mb-4 flex flex-wrap justify-center gap-2">
                         {business.branches.map((branch) => (
                           <span
@@ -427,7 +427,7 @@ export default function Home() {
                           </span>
                         ))}
                       </div>
-                    )}
+                    )}*/}
 
                     <span className="mt-auto inline-flex items-center gap-1.5 text-xs font-bold text-[#1a472a] opacity-70 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100 group-hover:text-[#d4a574]">
                       View Business Details

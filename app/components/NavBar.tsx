@@ -62,7 +62,7 @@ export default function NavBar() {
         </nav>
 
         {/* Actions */}
-        <div className="flex items-center gap-2">
+        <div className="relative flex items-center gap-2">
           <button
             className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#e0ddd8] bg-white text-[#0f1513] shadow-sm transition-all duration-200 hover:border-[#d4a574]/40 hover:bg-[#f0efe9] md:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -93,32 +93,23 @@ export default function NavBar() {
               )}
             </AnimatePresence>
           </button>
-        </div>
-      </div>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.nav
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden border-t border-[#e0ddd8] bg-[#f8f7f4] md:hidden"
-            aria-label="Mobile Navigation"
-          >
-            <div className="mx-auto max-w-6xl px-5 py-4">
-              <div className="flex flex-col gap-1">
-                {navLinks.map((link, i) => {
-                  const isActive = pathname === link.href;
-                  return (
-                    <motion.div
-                      key={link.href}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.05 }}
-                    >
+          {/* Floating Mobile Menu */}
+          <AnimatePresence>
+            {mobileMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -6, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -6, scale: 0.98 }}
+                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute right-0 top-full mt-3 w-64 overflow-hidden rounded-2xl border border-[#e0ddd8] bg-white/95 shadow-xl backdrop-blur-md md:hidden"
+              >
+                <div className="flex flex-col gap-1 p-2">
+                  {navLinks.map((link) => {
+                    const isActive = pathname === link.href;
+                    return (
                       <Link
+                        key={link.href}
                         href={link.href}
                         onClick={closeMobile}
                         className={`flex items-center justify-between rounded-xl px-4 py-3 text-[15px] font-semibold transition-all duration-200 ${
@@ -128,14 +119,16 @@ export default function NavBar() {
                         {link.label}
                         {isActive && <div className="h-2 w-2 rounded-full bg-[#d4a574]" />}
                       </Link>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </div>
-          </motion.nav>
-        )}
-      </AnimatePresence>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+
+      {/* Remove the old inline mobile <nav> that was pushing the page down */}
     </header>
   );
 }

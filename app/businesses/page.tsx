@@ -308,7 +308,7 @@ export default function BusinessesPage() {
 
                     {business.branches && business.branches.length > 0 && (
                       <div className="flex flex-col gap-2">
-                        {business.branches.map((branch) => (
+                        {/*{business.branches.map((branch) => (
                           <div
                             key={branch.id}
                             className="flex items-center justify-center gap-2 rounded-lg border border-[#e0ddd8] bg-[#fafaf8] px-3 py-2 text-sm text-[#6b6b6b] transition-all hover:border-[#d4a574]/40 hover:bg-[#d4a574]/5"
@@ -316,7 +316,7 @@ export default function BusinessesPage() {
                             <MapPin className="h-3.5 w-3.5 text-[#d4a574]" />
                             {branch.location}
                           </div>
-                        ))}
+                        ))}*/}
                       </div>
                     )}
                   </div>
