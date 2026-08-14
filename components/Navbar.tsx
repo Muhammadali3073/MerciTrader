@@ -20,6 +20,7 @@ export default function Navbar() {
           {/* Navigation Links */}
           <div className="hidden md:flex space-x-4">
             <Link href="/" className="text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+            <Link href="/businesses" className="text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium">Businesses</Link>
             <Link href="/about" className="text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium">About</Link>
             <Link href="/contact" className="text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium">Contact</Link>
           </div>

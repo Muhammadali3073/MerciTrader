@@ -1,27 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { COMPANY_INFO } from "../data/businesses";
+import { BUSINESSES, COMPANY_INFO } from "../data/businesses";
 
 export default function About() {
   return (
     <main className="about-page">
-      <header className="navbar">
-        <div className="nav-container">
-          <div className="nav-brand">
-            <div className="logo-mark">MT</div>
-            <span className="brand-name">{COMPANY_INFO.name}</span>
-          </div>
-
-          <nav className="nav-desktop">
-            <Link href="/">Home</Link>
-            <Link href="/about">About</Link>
-            <Link href="/businesses">Businesses</Link>
-            <Link href="/contact">Contact</Link>
-          </nav>
-        </div>
-      </header>
-
       {/* HERO */}
       <section className="hero-section">
         <div className="hero-content">
@@ -37,7 +21,11 @@ export default function About() {
             <div className="content-block">
               <h2>Who We Are</h2>
               <p>
-                {COMPANY_INFO.name} is a diversified business group founded in {COMPANY_INFO.founded}. We operate multiple successful businesses, each specializing in different sectors while maintaining unified values of quality, integrity, and customer focus.
+                {COMPANY_INFO.name} is a diversified business group founded in {COMPANY_INFO.founded}. We operate multiple successful businesses including{" "}
+                <Link href="/businesses/al-sadiq-bricks-kiln" className="inline-link">AL-SADIQ BRICKS KILN</Link>,{" "}
+                <Link href="/businesses/merci-mart" className="inline-link">Merci Mart</Link>, and{" "}
+                <Link href="/businesses/merci-rice" className="inline-link">Merci Rice</Link>
+                —each specializing in different sectors while maintaining unified values of quality, integrity, and customer focus.
               </p>
               <p>
                 Our group structure allows us to leverage specialized expertise in each business while maintaining consistent standards of excellence across all operations.
@@ -136,61 +124,44 @@ export default function About() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="cta-section">
-        <div className="container cta-content">
-          <h2>Explore Our Businesses</h2>
-          <p>Discover how each of our specialized businesses can serve your needs.</p>
-          <Link href="/businesses" className="btn btn-primary">
-            View Businesses →
-          </Link>
+      {/* OUR BUSINESSES PORTFOLIO */}
+      <section className="content-section alt-bg">
+        <div className="container">
+          <h2 className="section-title">Our Business Portfolio</h2>
+          <div className="portfolio-grid">
+            {BUSINESSES.map((business) => (
+              <div key={business.id} className="portfolio-card">
+                <h3>
+                  <Link href={`/businesses/${business.slug}`}>
+                    {business.name}
+                  </Link>
+                </h3>
+                <span className="portfolio-category">{business.category}</span>
+                <p>{business.shortDescription}</p>
+                <Link href={`/businesses/${business.slug}`} className="btn-card">
+                  Learn More <span>→</span>
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="site-footer">
-        <div className="footer-container">
-          <div className="footer-section">
-            <h4>{COMPANY_INFO.name}</h4>
-            <p>{COMPANY_INFO.description}</p>
-          </div>
-
-          <div className="footer-section">
-            <h5>Quick Links</h5>
-            <ul>
-              <li>
-                <Link href="/">Home</Link>
-              </li>
-              <li>
-                <Link href="/about">About</Link>
-              </li>
-              <li>
-                <Link href="/businesses">Businesses</Link>
-              </li>
-              <li>
-                <Link href="/contact">Contact</Link>
-              </li>
-            </ul>
-          </div>
-
-          <div className="footer-section">
-            <h5>Contact</h5>
-            <p>
-              Email:{" "}
-              <a href={`mailto:${COMPANY_INFO.contact.email}`}>{COMPANY_INFO.contact.email}</a>
-            </p>
-            <p>
-              Phone:{" "}
-              <a href={`tel:${COMPANY_INFO.contact.phone}`}>{COMPANY_INFO.contact.phone}</a>
-            </p>
-            <p>{COMPANY_INFO.contact.address}</p>
+      {/* CTA */}
+      <section className="cta-section">
+        <div className="container cta-content">
+          <h2>Ready to Partner with Us?</h2>
+          <p>Discover how each of our specialized businesses can serve your needs.</p>
+          <div className="cta-buttons">
+            <Link href="/businesses" className="btn btn-primary">
+              Explore All Businesses →
+            </Link>
+            <Link href="/contact" className="btn btn-secondary">
+              Contact Us
+            </Link>
           </div>
         </div>
-
-        <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} {COMPANY_INFO.name}. All rights reserved.</p>
-        </div>
-      </footer>
+      </section>
 
       <style>{`
         * {
@@ -222,68 +193,6 @@ export default function About() {
           background: var(--white);
           color: var(--dark);
           min-height: 100vh;
-        }
-
-        /* NAVBAR */
-        .navbar {
-          position: sticky;
-          top: 0;
-          z-index: 100;
-          background: rgba(248, 247, 244, 0.95);
-          border-bottom: 1px solid var(--border);
-          backdrop-filter: blur(8px);
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-        }
-
-        .nav-container {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 16px 20px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-
-        .nav-brand {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          font-size: 20px;
-          font-weight: 800;
-          color: var(--primary);
-          text-decoration: none;
-          letter-spacing: -0.5px;
-        }
-
-        .logo-mark {
-          width: 40px;
-          height: 40px;
-          background: var(--primary);
-          color: var(--white);
-          border-radius: 8px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 14px;
-          font-weight: 900;
-        }
-
-        .nav-desktop {
-          display: flex;
-          gap: 32px;
-          align-items: center;
-        }
-
-        .nav-desktop a {
-          color: var(--dark);
-          text-decoration: none;
-          font-weight: 500;
-          font-size: 15px;
-          transition: color 0.2s;
-        }
-
-        .nav-desktop a:hover {
-          color: var(--primary);
         }
 
         /* HERO SECTION */
@@ -484,6 +393,106 @@ export default function About() {
           line-height: 1.6;
         }
 
+        .inline-link {
+          color: var(--primary);
+          font-weight: 600;
+          text-decoration: underline;
+          text-underline-offset: 3px;
+          transition: color 0.2s ease;
+        }
+
+        .inline-link:hover {
+          color: var(--accent);
+        }
+
+        /* PORTFOLIO GRID */
+        .portfolio-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 28px;
+          margin-top: 32px;
+        }
+
+        .portfolio-card {
+          background: var(--white);
+          border: 1px solid var(--border);
+          border-radius: 12px;
+          padding: 28px;
+          display: flex;
+          flex-direction: column;
+          transition: all 0.3s ease;
+        }
+
+        .portfolio-card:hover {
+          transform: translateY(-6px);
+          border-color: var(--accent);
+          box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .portfolio-card h3 a {
+          color: var(--primary);
+          text-decoration: none;
+          font-size: 20px;
+          font-weight: 800;
+          transition: color 0.2s ease;
+        }
+
+        .portfolio-card h3 a:hover {
+          color: var(--accent);
+        }
+
+        .portfolio-category {
+          display: inline-block;
+          background: rgba(212, 165, 116, 0.15);
+          color: var(--primary-light);
+          padding: 4px 10px;
+          border-radius: 6px;
+          font-size: 11px;
+          font-weight: 600;
+          text-transform: uppercase;
+          margin-top: 6px;
+          margin-bottom: 14px;
+          align-self: flex-start;
+        }
+
+        .portfolio-card p {
+          font-size: 14px;
+          color: var(--gray);
+          line-height: 1.6;
+          margin-bottom: 20px;
+        }
+
+        .btn-card {
+          margin-top: auto;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          padding: 10px 20px;
+          background: var(--primary);
+          color: #ffffff;
+          border-radius: 8px;
+          font-weight: 600;
+          font-size: 14px;
+          text-decoration: none;
+          transition: all 0.25s ease;
+        }
+
+        .btn-card:hover {
+          background: var(--accent);
+          color: var(--dark);
+          transform: translateY(-2px);
+          box-shadow: 0 6px 16px rgba(212, 165, 116, 0.35);
+        }
+
+        .btn-card span {
+          transition: transform 0.2s ease;
+        }
+
+        .btn-card:hover span {
+          transform: translateX(4px);
+        }
+
         /* CTA SECTION */
         .cta-section {
           background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
@@ -510,6 +519,13 @@ export default function About() {
           line-height: 1.6;
         }
 
+        .cta-buttons {
+          display: flex;
+          gap: 16px;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
         /* BUTTONS */
         .btn {
           padding: 12px 28px;
@@ -534,62 +550,16 @@ export default function About() {
           box-shadow: 0 8px 16px rgba(212, 165, 116, 0.2);
         }
 
-        /* FOOTER */
-        .site-footer {
-          background: var(--dark);
-          color: var(--gray-light);
-          padding: 60px 20px 20px;
-        }
-
-        .footer-container {
-          max-width: 1200px;
-          margin: 0 auto;
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          gap: 40px;
-          margin-bottom: 40px;
-        }
-
-        .footer-section h4,
-        .footer-section h5 {
+        .btn-secondary {
+          background: transparent;
           color: var(--white);
-          font-size: 16px;
-          margin-bottom: 12px;
-          font-weight: 700;
+          border: 2px solid rgba(248, 247, 244, 0.4);
         }
 
-        .footer-section p {
-          font-size: 14px;
-          line-height: 1.6;
-          margin-bottom: 8px;
-        }
-
-        .footer-section a {
-          color: var(--gray-light);
-          text-decoration: none;
-          transition: color 0.2s;
-        }
-
-        .footer-section a:hover {
-          color: var(--accent);
-        }
-
-        .footer-section ul {
-          list-style: none;
-        }
-
-        .footer-section li {
-          margin-bottom: 8px;
-        }
-
-        .footer-bottom {
-          border-top: 1px solid rgba(248, 247, 244, 0.1);
-          padding-top: 20px;
-          text-align: center;
-          font-size: 13px;
-          color: var(--gray);
-          max-width: 1200px;
-          margin: 0 auto;
+        .btn-secondary:hover {
+          background: rgba(248, 247, 244, 0.1);
+          border-color: var(--white);
+          transform: translateY(-2px);
         }
 
         /* RESPONSIVE */

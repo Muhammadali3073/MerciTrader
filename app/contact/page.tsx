@@ -1,51 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import React from 'react';
 import Link from "next/link";
 import { BUSINESSES, COMPANY_INFO } from "../data/businesses";
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    business: "general",
-    message: "",
-  });
-
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // In a real app, this would send to a backend
-    console.log("Form submitted:", formData);
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
-    setFormData({ name: "", email: "", business: "general", message: "" });
-  };
-
   return (
-    <main className="contact-page">
-      <header className="navbar">
-        <div className="nav-container">
-          <Link href="/" className="nav-brand">
-            <div className="logo-mark">MT</div>
-            <span className="brand-name">{COMPANY_INFO.name}</span>
-          </Link>
-
-          <nav className="nav-desktop">
-            <Link href="/">Home</Link>
-            <Link href="/about">About</Link>
-            <Link href="/businesses">Businesses</Link>
-            <Link href="/contact">Contact</Link>
-          </nav>
-        </div>
-      </header>
-
+    <div className="contact-page">
       {/* HERO */}
       <section className="hero-section">
         <div className="hero-content">
@@ -104,7 +65,11 @@ export default function ContactPage() {
                 <div className="business-contact-list">
                   {BUSINESSES.map((business) => (
                     <div key={business.id} className="business-contact">
-                      <h5>{business.name}</h5>
+                      <h5>
+                        <Link href={`/businesses/${business.slug}`}>
+                          {business.name}
+                        </Link>
+                      </h5>
                       {business.contact?.email && (
                         <p>
                           <a href={`mailto:${business.contact.email}`}>
@@ -120,7 +85,7 @@ export default function ContactPage() {
                         </p>
                       )}
                       <Link href={`/businesses/${business.slug}`} className="view-link">
-                        View Business →
+                        Learn More →
                       </Link>
                     </div>
                   ))}
@@ -128,27 +93,19 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* RIGHT: Contact Form */}
+            {/* RIGHT: Static Contact Form (no JS handling) */}
             <div className="contact-form-wrapper">
               <div className="form-card">
                 <h2>Send us a Message</h2>
                 <p>Fill out the form below and we&apos;ll get back to you as soon as possible.</p>
 
-                {submitted && (
-                  <div className="success-message">
-                    ✓ Thank you! We&apos;ve received your message and will be in touch soon.
-                  </div>
-                )}
-
-                <form onSubmit={handleSubmit} className="contact-form">
+                <form action="#" method="post" className="contact-form">
                   <div className="form-group">
                     <label htmlFor="name">Your Name *</label>
                     <input
                       type="text"
                       id="name"
                       name="name"
-                      value={formData.name}
-                      onChange={handleChange}
                       required
                       placeholder="John Doe"
                       aria-label="Your name"
@@ -161,8 +118,6 @@ export default function ContactPage() {
                       type="email"
                       id="email"
                       name="email"
-                      value={formData.email}
-                      onChange={handleChange}
                       required
                       placeholder="john@example.com"
                       aria-label="Email address"
@@ -174,14 +129,13 @@ export default function ContactPage() {
                     <select
                       id="business"
                       name="business"
-                      value={formData.business}
-                      onChange={handleChange}
                       required
                       aria-label="Select business"
                     >
                       <option value="general">General MerciTrader Inquiry</option>
-                      <option value="al-sadiq-bricks">Al-Sadiq Bricks</option>
-                      <option value="al-sadiq-rice">Al-Sadiq Rice</option>
+                      {BUSINESSES.map((b) => (
+                        <option key={b.id} value={b.slug}>{b.name}</option>
+                      ))}
                     </select>
                   </div>
 
@@ -190,8 +144,6 @@ export default function ContactPage() {
                     <textarea
                       id="message"
                       name="message"
-                      value={formData.message}
-                      onChange={handleChange}
                       required
                       placeholder="Tell us how we can help..."
                       rows={5}
@@ -222,10 +174,11 @@ export default function ContactPage() {
             <div className="faq-item">
               <h4>What businesses does MerciTrader operate?</h4>
               <p>
-                MerciTrader is a diversified business group with operations in construction materials
-                (Al-Sadiq Bricks) and agriculture (Al-Sadiq Rice).
+                MerciTrader is a diversified business group operating{" "}
+                <Link href="/businesses/al-sadiq-bricks-kiln">AL-SADIQ BRICKS KILN</Link>,{" "}
+                <Link href="/businesses/merci-mart">Merci Mart</Link>, and{" "}
+                <Link href="/businesses/merci-rice">Merci Rice</Link>.
               </p>
-              <p>Sorry, we couldn&apos;t find the business you&apos;re looking for.</p>
             </div>
 
             <div className="faq-item">
@@ -239,7 +192,7 @@ export default function ContactPage() {
             <div className="faq-item">
               <h4>Do you offer bulk pricing?</h4>
               <p>
-                Yes, both of our businesses offer wholesale and bulk pricing options. Contact us for
+                Yes, our businesses offer wholesale and bulk pricing options. Contact us for
                 specific quotes and terms.
               </p>
             </div>
@@ -247,8 +200,8 @@ export default function ContactPage() {
             <div className="faq-item">
               <h4>What areas do you serve?</h4>
               <p>
-                Our businesses operate through multiple locations. Check the specific business pages
-                for locations and service areas.
+                Our businesses operate through multiple locations. Check the{" "}
+                <Link href="/businesses">Businesses page</Link> for locations and service areas.
               </p>
             </div>
 
@@ -270,62 +223,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-
-      {/* FOOTER */}
-      <footer className="site-footer">
-        <div className="footer-container">
-          <div className="footer-section">
-            <h4>{COMPANY_INFO.name}</h4>
-            <p>{COMPANY_INFO.description}</p>
-          </div>
-
-          <div className="footer-section">
-            <h5>Businesses</h5>
-            <ul>
-              {BUSINESSES.map((b) => (
-                <li key={b.id}>
-                  <Link href={`/businesses/${b.slug}`}>{b.name}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="footer-section">
-            <h5>Company</h5>
-            <ul>
-              <li>
-                <Link href="/">Home</Link>
-              </li>
-              <li>
-                <Link href="/about">About</Link>
-              </li>
-              <li>
-                <Link href="/businesses">Businesses</Link>
-              </li>
-              <li>
-                <Link href="/contact">Contact</Link>
-              </li>
-            </ul>
-          </div>
-
-          <div className="footer-section">
-            <h5>Contact</h5>
-            <p>
-              Email:{" "}
-              <a href={`mailto:${COMPANY_INFO.contact.email}`}>{COMPANY_INFO.contact.email}</a>
-            </p>
-            <p>
-              Phone:{" "}
-              <a href={`tel:${COMPANY_INFO.contact.phone}`}>{COMPANY_INFO.contact.phone}</a>
-            </p>
-            <p>{COMPANY_INFO.contact.address}</p>
-          </div>
-        </div>
-
-        <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} {COMPANY_INFO.name}. All rights reserved.</p>
-        </div>
-      </footer>
 
       <style>{`
         * {
@@ -358,68 +255,6 @@ export default function ContactPage() {
           background: var(--white);
           color: var(--dark);
           min-height: 100vh;
-        }
-
-        /* NAVBAR */
-        .navbar {
-          position: sticky;
-          top: 0;
-          z-index: 100;
-          background: rgba(248, 247, 244, 0.95);
-          border-bottom: 1px solid var(--border);
-          backdrop-filter: blur(8px);
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-        }
-
-        .nav-container {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 16px 20px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-
-        .nav-brand {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          font-size: 20px;
-          font-weight: 800;
-          color: var(--primary);
-          text-decoration: none;
-          letter-spacing: -0.5px;
-        }
-
-        .logo-mark {
-          width: 40px;
-          height: 40px;
-          background: var(--primary);
-          color: var(--white);
-          border-radius: 8px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 14px;
-          font-weight: 900;
-        }
-
-        .nav-desktop {
-          display: flex;
-          gap: 32px;
-          align-items: center;
-        }
-
-        .nav-desktop a {
-          color: var(--dark);
-          text-decoration: none;
-          font-weight: 500;
-          font-size: 15px;
-          transition: color 0.2s;
-        }
-
-        .nav-desktop a:hover {
-          color: var(--primary);
         }
 
         /* HERO SECTION */
@@ -772,64 +607,6 @@ export default function ContactPage() {
           line-height: 1.6;
         }
 
-        /* FOOTER */
-        .site-footer {
-          background: var(--dark);
-          color: var(--gray-light);
-          padding: 60px 20px 20px;
-        }
-
-        .footer-container {
-          max-width: 1200px;
-          margin: 0 auto;
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          gap: 40px;
-          margin-bottom: 40px;
-        }
-
-        .footer-section h4,
-        .footer-section h5 {
-          color: var(--white);
-          font-size: 16px;
-          margin-bottom: 12px;
-          font-weight: 700;
-        }
-
-        .footer-section p {
-          font-size: 14px;
-          line-height: 1.6;
-          margin-bottom: 8px;
-        }
-
-        .footer-section a {
-          color: var(--gray-light);
-          text-decoration: none;
-          transition: color 0.2s;
-        }
-
-        .footer-section a:hover {
-          color: var(--accent);
-        }
-
-        .footer-section ul {
-          list-style: none;
-        }
-
-        .footer-section li {
-          margin-bottom: 8px;
-        }
-
-        .footer-bottom {
-          border-top: 1px solid rgba(248, 247, 244, 0.1);
-          padding-top: 20px;
-          text-align: center;
-          font-size: 13px;
-          color: var(--gray);
-          max-width: 1200px;
-          margin: 0 auto;
-        }
-
         /* RESPONSIVE */
         @media (max-width: 768px) {
           .nav-desktop {
@@ -851,6 +628,6 @@ export default function ContactPage() {
           }
         }
       `}</style>
-    </main>
+    </div>
   );
 }

@@ -1,6 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
 
 
 const geistSans = localFont({
@@ -16,14 +18,15 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "MerciTrader | Business Group - Al-Sadiq Bricks & Rice",
+  title: "MerciTrader | Business Group",
   description:
-    "MerciTrader is a diversified business group operating Al-Sadiq Bricks (construction materials) and Al-Sadiq Rice (agriculture). Quality, reliability, and customer focus.",
+    "MerciTrader is a diversified business group operating AL-SADIQ BRICKS KILN, Merci Mart, and Merci Rice. Quality, reliability, and customer focus.",
   keywords: [
     "MerciTrader",
     "Business Group",
-    "Al-Sadiq Bricks",
-    "Al-Sadiq Rice",
+    "AL-SADIQ BRICKS KILN",
+    "Merci Mart",
+    "Merci Rice",
     "Construction Materials",
     "Rice Trading",
     "Business Solutions",
@@ -34,7 +37,7 @@ export const metadata: Metadata = {
     type: "website",
     title: "MerciTrader | Business Group",
     description:
-      "MerciTrader operates multiple businesses including Al-Sadiq Bricks and Al-Sadiq Rice.",
+      "MerciTrader operates multiple businesses including AL-SADIQ BRICKS KILN, Merci Mart, and Merci Rice.",
     images: [
       {
         url: "https://mercitrader.com/og-image.jpg",
@@ -48,7 +51,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "MerciTrader | Business Group",
     description:
-      "Diversified business group: Al-Sadiq Bricks & Al-Sadiq Rice",
+      "Diversified business group: AL-SADIQ BRICKS KILN, Merci Mart & Merci Rice",
     images: ["https://mercitrader.com/twitter-card.jpg"],
   },
   icons: {
@@ -87,7 +90,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}
       >
 
+        <NavBar />
         {children}
+        <Footer />
 
       </body>
     </html>

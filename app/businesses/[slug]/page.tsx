@@ -1,8 +1,33 @@
 
 
+import type { Metadata } from "next";
 import Link from "next/link";
-import { getBusinessBySlug, COMPANY_INFO } from "../../data/businesses";
-import Head from "next/head";
+import { getBusinessBySlug, BUSINESSES, COMPANY_INFO } from "../../data/businesses";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const business = getBusinessBySlug(slug);
+
+  if (!business) {
+    return {
+      title: `Business Not Found – ${COMPANY_INFO.name}`,
+    };
+  }
+
+  return {
+    title: `${business.name} – ${COMPANY_INFO.name}`,
+    description: business.shortDescription || COMPANY_INFO.tagline,
+    openGraph: {
+      title: `${business.name} – ${COMPANY_INFO.name}`,
+      description: business.shortDescription || COMPANY_INFO.tagline,
+      images: [{ url: business.heroImage || "/default-hero.jpg" }],
+    },
+  };
+}
 
 export default async function BusinessDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -26,49 +51,36 @@ export default async function BusinessDetail({ params }: { params: Promise<{ slu
 
   return (
     <main className="business-detail">
-  <Head>
-    <title>{business?.name ?? 'Business'} – {COMPANY_INFO.name}</title>
-    <meta name="description" content={business?.shortDescription ?? COMPANY_INFO.tagline} />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta property="og:title" content={business?.name ?? COMPANY_INFO.name} />
-    <meta property="og:description" content={business?.shortDescription ?? COMPANY_INFO.tagline} />
-    <meta property="og:image" content={business?.heroImage ?? '/default-hero.jpg'} />
-    <meta property="og:url" content={`https://example.com/businesses/${business?.slug}`} />
-    <meta property="og:type" content="website" />
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      name: business?.name,
-      image: business?.heroImage,
-      description: business?.shortDescription,
-      url: `https://example.com/businesses/${business?.slug}`,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: business?.branches?.[0]?.address || "",
-        addressLocality: business?.branches?.[0]?.location || "",
-      },
-      telephone: business?.contact?.phone,
-    }) }} />
-  </Head>
-      <header className="navbar" aria-label="Primary navigation">
-        <div className="nav-container">
-          <Link href="/" className="nav-brand">
-            <div className="logo-mark">MT</div>
-            <span className="brand-name">{COMPANY_INFO.name}</span>
-          </Link>
-
-          <nav className="nav-desktop">
-            <Link href="/">Home</Link>
-            <Link href="/about">About</Link>
-            <Link href="/businesses">Businesses</Link>
-            <Link href="/contact">Contact</Link>
-          </nav>
-        </div>
-      </header>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            name: business.name,
+            image: business.heroImage,
+            description: business.shortDescription,
+            url: `https://mercitrader.com/businesses/${business.slug}`,
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: business.branches?.[0]?.address || "",
+              addressLocality: business.branches?.[0]?.location || "",
+            },
+            telephone: business.contact?.phone,
+          }),
+        }}
+      />
 
       {/* HERO */}
       <section className="hero-section">
         <div className="hero-content">
+          <nav className="breadcrumb-nav" aria-label="Breadcrumb">
+            <Link href="/">Home</Link>
+            <span className="separator">/</span>
+            <Link href="/businesses">Businesses</Link>
+            <span className="separator">/</span>
+            <span className="current">{business.name}</span>
+          </nav>
           <h1>{business.name}</h1>
           <p className="hero-category">{business.category}</p>
           <p className="hero-desc">{business.shortDescription}</p>
@@ -245,6 +257,27 @@ export default async function BusinessDetail({ params }: { params: Promise<{ slu
         </section>
       )}
 
+      {/* EXPLORE OTHER BUSINESSES */}
+      <section className="section alt-bg">
+        <div className="container">
+          <h2 className="section-title">Explore Other Businesses</h2>
+          <div className="other-businesses-grid">
+            {BUSINESSES.filter((b) => b.slug !== business.slug).map((other) => (
+              <div key={other.id} className="other-business-card">
+                <h4>
+                  <Link href={`/businesses/${other.slug}`}>{other.name}</Link>
+                </h4>
+                <p className="other-category">{other.category}</p>
+                <p className="other-desc">{other.shortDescription}</p>
+                <Link href={`/businesses/${other.slug}`} className="btn-link">
+                  Learn More →
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CONTACT CTA */}
       <section className="cta-section">
         <div className="container cta-content">
@@ -301,66 +334,98 @@ export default async function BusinessDetail({ params }: { params: Promise<{ slu
           min-height: 100vh;
         }
 
-        /* NAVBAR */
-        .navbar {
-          position: sticky;
-          top: 0;
-          z-index: 100;
-          background: rgba(248, 247, 244, 0.95);
-          border-bottom: 1px solid var(--border);
-          backdrop-filter: blur(8px);
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-        }
-
-        .nav-container {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 16px 20px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-
-        .nav-brand {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          font-size: 20px;
-          font-weight: 800;
-          color: var(--primary);
-          text-decoration: none;
-          letter-spacing: -0.5px;
-        }
-
-        .logo-mark {
-          width: 40px;
-          height: 40px;
-          background: var(--primary);
-          color: var(--white);
-          border-radius: 8px;
+        .breadcrumb-nav {
           display: flex;
           align-items: center;
           justify-content: center;
+          gap: 8px;
           font-size: 14px;
-          font-weight: 900;
+          margin-bottom: 16px;
         }
 
-        .nav-desktop {
-          display: flex;
-          gap: 32px;
-          align-items: center;
-        }
-
-        .nav-desktop a {
-          color: var(--dark);
+        .breadcrumb-nav a {
+          color: rgba(255, 255, 255, 0.8);
           text-decoration: none;
-          font-weight: 500;
-          font-size: 15px;
-          transition: color 0.2s;
+          transition: color 0.2s ease;
         }
 
-        .nav-desktop a:hover {
+        .breadcrumb-nav a:hover {
+          color: var(--accent);
+        }
+
+        .breadcrumb-nav .separator {
+          color: rgba(255, 255, 255, 0.4);
+        }
+
+        .breadcrumb-nav .current {
+          color: var(--accent);
+          font-weight: 600;
+        }
+
+        /* OTHER BUSINESSES */
+        .other-businesses-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 24px;
+          margin-top: 32px;
+        }
+
+        .other-business-card {
+          background: var(--white);
+          border: 1px solid var(--border);
+          border-radius: 12px;
+          padding: 24px;
+          display: flex;
+          flex-direction: column;
+          transition: all 0.3s ease;
+        }
+
+        .other-business-card:hover {
+          transform: translateY(-4px);
+          border-color: var(--accent);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .other-business-card h4 a {
           color: var(--primary);
+          text-decoration: none;
+          font-size: 18px;
+          font-weight: 700;
+          transition: color 0.2s ease;
+        }
+
+        .other-business-card h4 a:hover {
+          color: var(--accent);
+        }
+
+        .other-category {
+          display: inline-block;
+          font-size: 12px;
+          font-weight: 600;
+          color: var(--primary-light);
+          margin-top: 4px;
+          margin-bottom: 12px;
+          text-transform: uppercase;
+        }
+
+        .other-desc {
+          font-size: 14px;
+          color: var(--gray);
+          line-height: 1.6;
+          margin-bottom: 16px;
+        }
+
+        .btn-link {
+          margin-top: auto;
+          color: var(--primary);
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 14px;
+          transition: color 0.2s ease;
+        }
+
+        .btn-link:hover {
+          color: var(--accent);
         }
 
         /* HERO SECTION */
@@ -808,64 +873,6 @@ export default async function BusinessDetail({ params }: { params: Promise<{ slu
           gap: 16px;
           justify-content: center;
           flex-wrap: wrap;
-        }
-
-        /* FOOTER */
-        .site-footer {
-          background: var(--dark);
-          color: var(--gray-light);
-          padding: 60px 20px 20px;
-        }
-
-        .footer-container {
-          max-width: 1200px;
-          margin: 0 auto;
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          gap: 40px;
-          margin-bottom: 40px;
-        }
-
-        .footer-section h4,
-        .footer-section h5 {
-          color: var(--white);
-          font-size: 16px;
-          margin-bottom: 12px;
-          font-weight: 700;
-        }
-
-        .footer-section p {
-          font-size: 14px;
-          line-height: 1.6;
-          margin-bottom: 8px;
-        }
-
-        .footer-section a {
-          color: var(--gray-light);
-          text-decoration: none;
-          transition: color 0.2s;
-        }
-
-        .footer-section a:hover {
-          color: var(--accent);
-        }
-
-        .footer-section ul {
-          list-style: none;
-        }
-
-        .footer-section li {
-          margin-bottom: 8px;
-        }
-
-        .footer-bottom {
-          border-top: 1px solid rgba(248, 247, 244, 0.1);
-          padding-top: 20px;
-          text-align: center;
-          font-size: 13px;
-          color: var(--gray);
-          max-width: 1200px;
-          margin: 0 auto;
         }
 
         /* ERROR SECTION */

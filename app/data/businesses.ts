@@ -46,12 +46,12 @@ export interface Business {
 
 export const BUSINESSES: Business[] = [
   {
-    id: "al-sadiq-bricks",
-    name: "Al-Sadiq Bricks",
-    slug: "al-sadiq-bricks",
+    id: "al-sadiq-bricks-kiln",
+    name: "AL-SADIQ BRICKS KILN",
+    slug: "al-sadiq-bricks-kiln",
     shortDescription: "Professional construction and brick solutions",
     description:
-      "Al-Sadiq Bricks is a leading supplier of high-quality construction materials, specializing in premium bricks and building solutions. With multiple branches strategically located, we serve residential, commercial, and industrial construction projects with consistent quality and reliable supply.",
+      "AL-SADIQ BRICKS KILN is a leading supplier of high-quality construction materials, specializing in premium bricks and building solutions. With multiple branches strategically located, we serve residential, commercial, and industrial construction projects with consistent quality and reliable supply.",
     category: "Construction Materials",
     heroImage: "/mercitrader/bricks-hero.jpg",
     vision:
@@ -87,23 +87,23 @@ export const BUSINESSES: Business[] = [
     branches: [
       {
         id: "branch-01",
-        name: "Al-Sadiq Bricks — Branch 1",
+        name: "AL-SADIQ BRICKS KILN — Branch 1",
         location: "Central District",
         address: "123 Construction Avenue, Central Business District",
-        phone: "+92 (300) 1234567",
-        email: "branch1@alsadiqbricks.com",
-        openingHours: "8:00 AM - 6:00 PM (Monday - Saturday)",
-        mapUrl: "https://maps.google.com/?q=Al-Sadiq+Bricks+Branch+1",
+        phone: "+923008471335",
+        email: "contact@mercitraders.com",
+        openingHours: "Saturday 8:00 AM – 6:00 PM Sunday 8:00 AM – 6:00 PM Monday 8:00 AM – 6:00 PM Tuesday 8:00 AM – 6:00 PM Wednesday 8:00 AM – 6:00 PM Thursday 8:00 AM – 6:00 PM Friday Closed",
+        mapUrl: "https://maps.app.goo.gl/xnUWjwyTqjgJfYaG7",
       },
       {
         id: "branch-02",
-        name: "Al-Sadiq Bricks — Branch 2",
+        name: "AL-SADIQ BRICKS KILN — Branch 2",
         location: "Industrial Zone",
         address: "456 Industrial Park Road, Business Complex",
-        phone: "+92 (300) 7654321",
-        email: "branch2@alsadiqbricks.com",
-        openingHours: "7:00 AM - 7:00 PM (Monday - Sunday)",
-        mapUrl: "https://maps.google.com/?q=Al-Sadiq+Bricks+Branch+2",
+        phone: "+923008471335",
+        email: "contact@mercitraders.com",
+        openingHours: "Saturday 8:00 AM – 6:00 PM Sunday 8:00 AM – 6:00 PM Monday 8:00 AM – 6:00 PM Tuesday 8:00 AM – 6:00 PM Wednesday 8:00 AM – 6:00 PM Thursday 8:00 AM – 6:00 PM Friday Closed",
+        mapUrl: "https://maps.app.goo.gl/wgodzm4Q9kYWfBSi6",
       },
     ],
     services: [
@@ -123,24 +123,37 @@ export const BUSINESSES: Business[] = [
       "Expert technical support",
     ],
     contact: {
-      phone: "+92 (300) 1234567",
-      email: "info@alsadiqbricks.com",
+      phone: "+923008471335",
+      email: "contact@mercitraders.com",
       address: "123 Construction Avenue, Central Business District",
     },
   },
   {
-    id: "al-sadiq-rice",
-    name: "Al-Sadiq Rice",
-    slug: "al-sadiq-rice",
-    shortDescription: "Premium quality rice trading and distribution",
-    description:
-      "Al-Sadiq Rice is a professional rice trading and distribution business, specializing in premium quality rice varieties. We source from the finest producers, ensuring superior taste, quality, and consistency for both wholesale and retail customers across diverse markets.",
+    id: "merci-mart",
+    name: "Merci Mart",
+    slug: "merci-mart",
+    shortDescription: "Convenient retail mart offering everyday essentials",
+    description: "Merci Mart provides a wide range of everyday consumer goods, groceries, and household items with a focus on quality and affordability.",
+    category: "Retail",
+    heroImage: "/mercitrader/merci-mart-hero.jpg",
+    products: [],
+    branches: [],
+    services: [],
+    highlights: [],
+    contact: {
+      phone: "+923008471335",
+      email: "contact@mercitraders.com",
+      address: "45 Market Street, Downtown",
+    },
+  },
+  {
+    id: "merci-rice",
+    name: "Merci Rice",
+    slug: "merci-rice",
+    shortDescription: "Premium rice products for homes and businesses",
+    description: "Merci Rice offers high-quality rice varieties sourced from trusted producers, catering to both retail and wholesale customers.",
     category: "Agriculture & Food",
-    heroImage: "/mercitrader/rice-hero.jpg",
-    vision:
-      "To become the preferred rice supplier known for quality, reliability, and customer excellence.",
-    mission:
-      "Supply premium quality rice products with integrity and exceptional customer service to retailers and consumers alike.",
+    heroImage: "/mercitrader/merci-rice-hero.jpg",
     products: [
       {
         id: "basmati-white",
@@ -190,8 +203,8 @@ export const BUSINESSES: Business[] = [
       "Customer-focused service",
     ],
     contact: {
-      phone: "+92 (300) 9876543",
-      email: "info@alsadiqrice.com",
+      phone: "+923008471335",
+      email: "contact@mercitraders.com",
       address: "789 Agriculture Park, Trade District",
     },
   },
@@ -201,8 +214,8 @@ export const COMPANY_INFO = {
   name: "MerciTrader",
   tagline: "Building businesses. Delivering quality. Growing together.",
   description:
-    "MerciTrader is a diversified business group operating multiple companies including Al-Sadiq Bricks and Al-Sadiq Rice. We are committed to quality, reliability, and long-term partnerships.",
-  founded: "2010",
+    "MerciTrader is a diversified business group operating multiple companies including AL-SADIQ BRICKS KILN, Merci Mart, and Merci Rice. We are committed to quality, reliability, and long-term partnerships.",
+  founded: "2015",
   vision:
     "To be a respected and innovative business group known for quality, integrity, and customer focus.",
   mission:
@@ -234,8 +247,8 @@ export const COMPANY_INFO = {
     },
   ],
   contact: {
-    email: "contact@mercitrader.com",
-    phone: "+92 (300) 1234567",
+    email: "contact@mercitraders.com",
+    phone: "+923008471335",
     address: "Business Plaza, Corporate District",
   },
   socialMedia: {
