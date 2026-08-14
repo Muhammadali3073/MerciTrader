@@ -47,11 +47,11 @@ export interface Business {
 export const BUSINESSES: Business[] = [
   {
     id: "al-sadiq-bricks-kiln",
-    name: "AL-SADIQ BRICKS KILN",
+    name: "AL-SADIQ BRICKS KILN (4 Stars)",
     slug: "al-sadiq-bricks-kiln",
     shortDescription: "Professional construction and brick solutions",
     description:
-      "AL-SADIQ BRICKS KILN is a leading supplier of high-quality construction materials, specializing in premium bricks and building solutions. With multiple branches strategically located, we serve residential, commercial, and industrial construction projects with consistent quality and reliable supply.",
+      "AL-SADIQ BRICKS KILN (4 Stars) is a leading supplier of high-quality construction materials, specializing in premium bricks and building solutions. With multiple branches strategically located, we serve residential, commercial, and industrial construction projects with consistent quality and reliable supply.",
     category: "Construction Materials",
     heroImage: "/mercitrader/bricks-hero.jpg",
     vision: "To be the most trusted and reliable supplier of quality construction materials in the region.",
@@ -86,7 +86,7 @@ export const BUSINESSES: Business[] = [
     branches: [
       {
         id: "branch-01",
-        name: "AL-SADIQ BRICKS KILN — Branch 1",
+        name: "AL-SADIQ BRICKS KILN (4 Stars) — Branch 1",
         location: "Central District",
         address: "123 Construction Avenue, Central Business District",
         phone: "+923008471335",
@@ -96,7 +96,7 @@ export const BUSINESSES: Business[] = [
       },
       {
         id: "branch-02",
-        name: "AL-SADIQ BRICKS KILN — Branch 2",
+        name: "AL-SADIQ BRICKS KILN (4 Stars) — Branch 2",
         location: "Industrial Zone",
         address: "456 Industrial Park Road, Business Complex",
         phone: "+923008471335",
@@ -282,7 +282,7 @@ export const COMPANY_INFO = {
   name: "MerciTrader",
   tagline: "Building businesses. Delivering quality. Growing together.",
   description:
-    "MerciTrader is a diversified business group operating multiple companies including AL-SADIQ BRICKS KILN, Merci Mart, and Merci Rice. We are committed to quality, reliability, and long-term partnerships.",
+    "MerciTrader is a diversified business group operating multiple companies including AL-SADIQ BRICKS KILN (4 Stars), Merci Mart, and Merci Rice. We are committed to quality, reliability, and long-term partnerships.",
   founded: "2015",
   vision: "To be a respected and innovative business group known for quality, integrity, and customer focus.",
   mission:

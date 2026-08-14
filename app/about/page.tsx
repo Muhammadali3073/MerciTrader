@@ -176,7 +176,7 @@ export default function About() {
                   href="/businesses/al-sadiq-bricks-kiln"
                   className="font-semibold text-[#1a472a] underline decoration-[#d4a574]/40 underline-offset-4 transition-colors hover:text-[#d4a574] hover:decoration-[#d4a574]"
                 >
-                  AL-SADIQ BRICKS KILN
+                  AL-SADIQ BRICKS KILN (4 Stars)
                 </Link>
                 ,{" "}
                 <Link

@@ -31,7 +31,7 @@ export default function NavBar() {
           onClick={closeMobile}
         >
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#1a472a] to-[#2d6a43] text-sm font-black text-white shadow-md shadow-[#1a472a]/15 transition-shadow duration-300 group-hover:shadow-lg group-hover:shadow-[#1a472a]/25">
-            MT
+            <img src="/logo.jpg" alt={COMPANY_INFO.name} className="h-full w-full object-cover" />
           </div>
           <span className="text-lg font-extrabold tracking-tight">{COMPANY_INFO.name}</span>
         </Link>

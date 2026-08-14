@@ -111,7 +111,7 @@ export default function Home() {
             custom={3}
             className="mx-auto mb-10 max-w-2xl text-base leading-relaxed text-[#f8f7f4]/75 sm:text-lg"
           >
-            MerciTrader is a diversified business group operating multiple companies including AL-SADIQ BRICKS KILN, Merci Mart,
+            MerciTrader is a diversified business group operating multiple companies including AL-SADIQ BRICKS KILN (4 Stars), Merci Mart,
             and Merci Rice. We are committed to quality, reliability, and long-term partnerships.
           </motion.p>
 
