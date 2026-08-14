@@ -2,15 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Building2,
-  ArrowUpRight,
-  ChevronRight,
-  Network,
-} from "lucide-react";
+import { Mail, Phone, MapPin, Building2, ArrowUpRight, ChevronRight, Network } from "lucide-react";
 import { COMPANY_INFO, BUSINESSES } from "../data/businesses";
 
 const footerLinks = [
@@ -47,7 +39,7 @@ export default function Footer() {
             whileInView="visible"
             viewport={{ once: true }}
             // @ts-expect-error trust me bro
-            
+
             variants={fadeInUp}
             custom={0}
             className="lg:col-span-4"
@@ -56,13 +48,9 @@ export default function Footer() {
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#1a472a] to-[#2d6a43] text-sm font-black text-white shadow-lg shadow-[#1a472a]/30">
                 MT
               </div>
-              <span className="text-xl font-extrabold tracking-tight text-white">
-                {COMPANY_INFO.name}
-              </span>
+              <span className="text-xl font-extrabold tracking-tight text-white">{COMPANY_INFO.name}</span>
             </Link>
-            <p className="max-w-xs text-[15px] leading-relaxed text-[#8b8b8b]">
-              {COMPANY_INFO.description}
-            </p>
+            <p className="max-w-xs text-[15px] leading-relaxed text-[#8b8b8b]">{COMPANY_INFO.description}</p>
           </motion.div>
 
           {/* Businesses */}
@@ -71,7 +59,7 @@ export default function Footer() {
             whileInView="visible"
             viewport={{ once: true }}
             // @ts-expect-error trust me bro
-            
+
             variants={fadeInUp}
             custom={1}
             className="lg:col-span-3"
@@ -101,7 +89,7 @@ export default function Footer() {
             whileInView="visible"
             viewport={{ once: true }}
             // @ts-expect-error trust me bro
-            
+
             variants={fadeInUp}
             custom={2}
             className="lg:col-span-2"
@@ -131,7 +119,7 @@ export default function Footer() {
             whileInView="visible"
             viewport={{ once: true }}
             // @ts-expect-error trust me bro
-            
+
             variants={fadeInUp}
             custom={3}
             className="lg:col-span-3"
@@ -168,7 +156,9 @@ export default function Footer() {
                   <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#1a472a]/20 text-[#d4a574]">
                     <MapPin className="h-4 w-4" />
                   </div>
-                  <span className="leading-snug">{COMPANY_INFO.contact.address}</span>
+                  <Link href={"https://maps.app.goo.gl/iok3UeEHBpEAzRWg9"} className="leading-snug hover:text-[#d4a574]">
+                    {COMPANY_INFO.contact.address}
+                  </Link>
                 </div>
               </li>
             </ul>

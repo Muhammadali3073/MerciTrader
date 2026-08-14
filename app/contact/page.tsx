@@ -3,16 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  MessageSquare,
-  MapPin,
-  Mail,
-  Phone,
-  ChevronRight,
-  Send,
-  Clock,
-  HelpCircle,
-} from "lucide-react";
+import { MessageSquare, MapPin, Mail, Phone, ChevronRight, Send, Clock, HelpCircle } from "lucide-react";
 import { BUSINESSES, COMPANY_INFO } from "../data/businesses";
 
 const fadeInUp = {
@@ -110,15 +101,10 @@ export default function ContactPage() {
           }}
         />
 
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer}
-          className="relative z-10 mx-auto max-w-3xl"
-        >
+        <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="relative z-10 mx-auto max-w-3xl">
           <motion.div
             // @ts-expect-error trust me bro
-            
+
             variants={fadeInUp}
             custom={0}
             className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-[#d4a574]/20 bg-[#d4a574]/10 px-5 py-2 text-sm font-semibold text-[#e8c59f] backdrop-blur-md"
@@ -129,7 +115,7 @@ export default function ContactPage() {
 
           <motion.h1
             // @ts-expect-error trust me bro
-            
+
             variants={fadeInUp}
             custom={1}
             className="mb-4 text-4xl font-black tracking-tight text-[#f8f7f4] sm:text-5xl md:text-6xl"
@@ -139,29 +125,19 @@ export default function ContactPage() {
 
           <motion.p
             // @ts-expect-error trust me bro
-            
+
             variants={fadeInUp}
             custom={2}
             className="mx-auto max-w-xl text-base leading-relaxed text-[#f8f7f4]/75 sm:text-lg"
           >
-            Have questions? We&apos;d love to hear from you. Contact us with any
-            questions or inquiries.
+            Have questions? We&apos;d love to hear from you. Contact us with any questions or inquiries.
           </motion.p>
         </motion.div>
 
         {/* Bottom curve */}
         <div className="absolute -bottom-1 left-0 right-0">
-          <svg
-            viewBox="0 0 1440 60"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-full"
-            preserveAspectRatio="none"
-          >
-            <path
-              d="M0 60L1440 60L1440 0C1440 0 1140 60 720 60C300 60 0 0 0 0L0 60Z"
-              fill="#f8f7f4"
-            />
+          <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full" preserveAspectRatio="none">
+            <path d="M0 60L1440 60L1440 0C1440 0 1140 60 720 60C300 60 0 0 0 0L0 60Z" fill="#f8f7f4" />
           </svg>
         </div>
       </section>
@@ -179,10 +155,11 @@ export default function ContactPage() {
             >
               <motion.div
                 // @ts-expect-error trust me bro
-                 variants={fadeInUp} custom={0} className="mb-10">
-                <span className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#d4a574]">
-                  Reach Out
-                </span>
+                variants={fadeInUp}
+                custom={0}
+                className="mb-10"
+              >
+                <span className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#d4a574]">Reach Out</span>
                 <h2 className="mb-3 text-3xl font-black tracking-tight text-[#1a472a] sm:text-4xl">
                   {COMPANY_INFO.name} Headquarters
                 </h2>
@@ -193,7 +170,7 @@ export default function ContactPage() {
 
               <motion.div
                 // @ts-expect-error trust me bro
-                
+
                 variants={fadeInUp}
                 custom={1}
                 className="mb-10 flex flex-col gap-4"
@@ -204,12 +181,13 @@ export default function ContactPage() {
                       <MapPin className="h-5 w-5" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <h4 className="text-[15px] font-bold text-[#1a472a]">
-                        Address
-                      </h4>
-                      <p className="text-[14px] leading-relaxed text-[#8b8b8b]">
+                      <h4 className="text-[15px] font-bold text-[#1a472a]">Address</h4>
+                      <Link
+                        href={"https://maps.app.goo.gl/iok3UeEHBpEAzRWg9"}
+                        className="text-[14px] leading-relaxed text-[#8b8b8b] hover:text-[#d4a574]"
+                      >
                         {COMPANY_INFO.contact.address}
-                      </p>
+                      </Link>
                     </div>
                   </div>
                 )}
@@ -223,9 +201,7 @@ export default function ContactPage() {
                       <Mail className="h-5 w-5" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <h4 className="text-[15px] font-bold text-[#1a472a]">
-                        Email
-                      </h4>
+                      <h4 className="text-[15px] font-bold text-[#1a472a]">Email</h4>
                       <p className="text-[14px] font-medium text-[#1a472a] transition-colors group-hover:text-[#d4a574]">
                         {COMPANY_INFO.contact.email}
                       </p>
@@ -242,9 +218,7 @@ export default function ContactPage() {
                       <Phone className="h-5 w-5" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <h4 className="text-[15px] font-bold text-[#1a472a]">
-                        Phone
-                      </h4>
+                      <h4 className="text-[15px] font-bold text-[#1a472a]">Phone</h4>
                       <p className="text-[14px] font-medium text-[#1a472a] transition-colors group-hover:text-[#d4a574]">
                         {COMPANY_INFO.contact.phone}
                       </p>
@@ -254,12 +228,12 @@ export default function ContactPage() {
               </motion.div>
 
               {/* Business Contacts */}
-              <motion.div 
+              <motion.div
                 // @ts-expect-error trust me bro
-                variants={fadeInUp} custom={2}>
-                <h3 className="mb-5 text-lg font-bold text-[#1a472a]">
-                  Business Contacts
-                </h3>
+                variants={fadeInUp}
+                custom={2}
+              >
+                <h3 className="mb-5 text-lg font-bold text-[#1a472a]">Business Contacts</h3>
                 <div className="flex flex-col gap-4">
                   {BUSINESSES.map((b) => (
                     <div
@@ -311,7 +285,7 @@ export default function ContactPage() {
             >
               <motion.div
                 // @ts-expect-error trust me bro
-                
+
                 variants={fadeInUp}
                 custom={0}
                 className="sticky top-28 rounded-2xl border border-[#e0ddd8] bg-white p-8 shadow-[0_4px_24px_rgba(0,0,0,0.06)] sm:p-10"
@@ -321,23 +295,17 @@ export default function ContactPage() {
                     <Send className="h-5 w-5" strokeWidth={1.5} />
                   </div>
                   <div>
-                    <h2 className="text-xl font-extrabold text-[#1a472a]">
-                      Send us a Message
-                    </h2>
+                    <h2 className="text-xl font-extrabold text-[#1a472a]">Send us a Message</h2>
                   </div>
                 </div>
 
                 <p className="mb-8 text-[14px] leading-relaxed text-[#8b8b8b]">
-                  Fill out the form below and we&apos;ll get back to you as soon
-                  as possible.
+                  Fill out the form below and we&apos;ll get back to you as soon as possible.
                 </p>
 
                 <form action="#" method="post" className="flex flex-col gap-5">
                   <div className="flex flex-col gap-2">
-                    <label
-                      htmlFor="name"
-                      className="text-[13px] font-bold uppercase tracking-wider text-[#1a472a]"
-                    >
+                    <label htmlFor="name" className="text-[13px] font-bold uppercase tracking-wider text-[#1a472a]">
                       Your Name *
                     </label>
                     <input
@@ -352,10 +320,7 @@ export default function ContactPage() {
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label
-                      htmlFor="email"
-                      className="text-[13px] font-bold uppercase tracking-wider text-[#1a472a]"
-                    >
+                    <label htmlFor="email" className="text-[13px] font-bold uppercase tracking-wider text-[#1a472a]">
                       Email Address *
                     </label>
                     <input
@@ -370,10 +335,7 @@ export default function ContactPage() {
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label
-                      htmlFor="business"
-                      className="text-[13px] font-bold uppercase tracking-wider text-[#1a472a]"
-                    >
+                    <label htmlFor="business" className="text-[13px] font-bold uppercase tracking-wider text-[#1a472a]">
                       Which Business Are You Inquiring About? *
                     </label>
                     <div className="relative">
@@ -384,9 +346,7 @@ export default function ContactPage() {
                         aria-label="Select business"
                         className="w-full appearance-none rounded-xl border border-[#e0ddd8] bg-[#fafaf8] px-4 py-3 pr-10 text-[15px] text-[#0f1513] transition-all focus:border-[#d4a574] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#d4a574]/10"
                       >
-                        <option value="general">
-                          General MerciTrader Inquiry
-                        </option>
+                        <option value="general">General MerciTrader Inquiry</option>
                         {BUSINESSES.map((b) => (
                           <option key={b.id} value={b.slug}>
                             {b.name}
@@ -398,10 +358,7 @@ export default function ContactPage() {
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label
-                      htmlFor="message"
-                      className="text-[13px] font-bold uppercase tracking-wider text-[#1a472a]"
-                    >
+                    <label htmlFor="message" className="text-[13px] font-bold uppercase tracking-wider text-[#1a472a]">
                       Message *
                     </label>
                     <textarea
@@ -446,7 +403,7 @@ export default function ContactPage() {
           >
             <motion.span
               // @ts-expect-error trust me bro
-              
+
               variants={fadeInUp}
               custom={0}
               className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#d4a574]"
@@ -455,7 +412,7 @@ export default function ContactPage() {
             </motion.span>
             <motion.h2
               // @ts-expect-error trust me bro
-              
+
               variants={fadeInUp}
               custom={1}
               className="text-3xl font-black tracking-tight text-[#1a472a] sm:text-4xl"
@@ -472,7 +429,7 @@ export default function ContactPage() {
                 whileInView="visible"
                 viewport={{ once: true, margin: "-40px" }}
                 // @ts-expect-error trust me bro
-                
+
                 variants={fadeInUp}
                 custom={i}
               >
@@ -480,12 +437,8 @@ export default function ContactPage() {
                   <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#1a472a]/10 to-[#2d6a43]/5 text-[#1a472a] transition-colors group-hover:bg-gradient-to-br group-hover:from-[#d4a574]/20 group-hover:to-[#e8c59f]/10 group-hover:text-[#d4a574]">
                     <HelpCircle className="h-5 w-5" strokeWidth={1.5} />
                   </div>
-                  <h4 className="mb-3 text-[15px] font-bold leading-snug text-[#1a472a]">
-                    {faq.q}
-                  </h4>
-                  <p className="flex-1 text-[14px] leading-relaxed text-[#6b6b6b]">
-                    {faq.a}
-                  </p>
+                  <h4 className="mb-3 text-[15px] font-bold leading-snug text-[#1a472a]">{faq.q}</h4>
+                  <p className="flex-1 text-[14px] leading-relaxed text-[#6b6b6b]">{faq.a}</p>
                 </div>
               </motion.div>
             ))}
