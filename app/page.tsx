@@ -398,7 +398,6 @@ export default function Home() {
                   whileInView="visible"
                   viewport={{ once: true, margin: "-60px" }}
                   // @ts-expect-error trust me bro
-                  
                   variants={fadeInUp}
                   custom={i}
                   className="relative flex flex-col items-center"
@@ -408,26 +407,12 @@ export default function Home() {
 
                   <Link
                     href={`/businesses/${business.slug}`}
-                    className="group flex w-full flex-col items-center rounded-2xl border border-[#e0ddd8] bg-white p-7 text-center shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-1 hover:border-[#d4a574]/40 hover:shadow-[0_16px_32px_rgba(0,0,0,0.07)]"
+                    className="group flex w-full flex-col items-center rounded-2xl border border-[#e0ddd8] bg-white p-7 text-center shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-1 hover:border-[#d4a574]/40 hover:shadow-[0_16px_32px_rgba(0,0,0,0.07)] h-full"
                   >
                     <div className="mb-2 text-lg font-extrabold text-[#1a472a] transition-colors duration-300 group-hover:text-[#d4a574]">
                       {business.name}
                     </div>
                     <p className="mb-4 text-sm font-medium text-[#8b8b8b]">{business.category}</p>
-
-                    {/*{business.branches && business.branches.length > 0 && (
-                      <div className="mb-4 flex flex-wrap justify-center gap-2">
-                        {business.branches.map((branch) => (
-                          <span
-                            key={branch.id}
-                            className="inline-flex items-center gap-1.5 rounded-lg bg-[#1a472a]/5 px-3 py-1.5 text-[11px] font-bold text-[#2d6a43]"
-                          >
-                            <MapPin className="h-3 w-3 text-[#d4a574]" />
-                            {branch.location}
-                          </span>
-                        ))}
-                      </div>
-                    )}*/}
 
                     <span className="mt-auto inline-flex items-center gap-1.5 text-xs font-bold text-[#1a472a] opacity-70 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100 group-hover:text-[#d4a574]">
                       View Business Details

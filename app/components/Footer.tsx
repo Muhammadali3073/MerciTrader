@@ -46,7 +46,7 @@ export default function Footer() {
           >
             <Link href="/" className="group mb-6 inline-flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#1a472a] to-[#2d6a43] text-sm font-black text-white shadow-lg shadow-[#1a472a]/30">
-                MT
+                <img src="/logo.jpg" alt={COMPANY_INFO.name} className="h-full w-full object-cover" />
               </div>
               <span className="text-xl font-extrabold tracking-tight text-white">{COMPANY_INFO.name}</span>
             </Link>
