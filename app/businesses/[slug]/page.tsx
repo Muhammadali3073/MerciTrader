@@ -1,56 +1,85 @@
+"use client";
 
-
-import type { Metadata } from "next";
 import Link from "next/link";
-import { getBusinessBySlug, BUSINESSES, COMPANY_INFO } from "../../data/businesses";
+import { motion } from "framer-motion";
+import {
+  Home,
+  ChevronRight,
+  Package,
+  MapPin,
+  Wrench,
+  Check,
+  Sparkles,
+  ArrowRight,
+  Mail,
+  Phone,
+  Target,
+  Rocket,
+  Clock,
+  ExternalLink,
+  MessageSquare,
+  SearchX,
+} from "lucide-react";
+import { getBusinessBySlug, BUSINESSES } from "../../data/businesses";
+import { use } from "react";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
-  const { slug } = await params;
-  const business = getBusinessBySlug(slug);
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
 
-  if (!business) {
-    return {
-      title: `Business Not Found – ${COMPANY_INFO.name}`,
-    };
-  }
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
+  },
+};
 
-  return {
-    title: `${business.name} – ${COMPANY_INFO.name}`,
-    description: business.shortDescription || COMPANY_INFO.tagline,
-    openGraph: {
-      title: `${business.name} – ${COMPANY_INFO.name}`,
-      description: business.shortDescription || COMPANY_INFO.tagline,
-      images: [{ url: business.heroImage || "/default-hero.jpg" }],
-    },
-  };
-}
-
-export default async function BusinessDetail({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+export default function BusinessDetail({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params);
   const business = getBusinessBySlug(slug);
 
   if (!business) {
     return (
-      <main className="business-detail">
-        <section className="error-section">
-          <div className="container">
-            <h1>Business Not Found</h1>
-            <p>Sorry, we couldn&apos;t find the business you&apos;re looking for.</p>
-            <Link href="/businesses" className="btn btn-primary">
-              Back to Businesses
-            </Link>
+      <main className="relative flex min-h-[80vh] flex-col items-center justify-center overflow-hidden bg-[#f8f7f4] px-5 py-24 text-center">
+        <div className="pointer-events-none absolute -left-20 top-1/4 h-80 w-80 rounded-full bg-[#d4a574] opacity-[0.06] blur-[100px]" />
+        <div className="pointer-events-none absolute -right-20 bottom-1/4 h-72 w-72 rounded-full bg-[#1a472a] opacity-[0.04] blur-[80px]" />
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="relative z-10 flex max-w-lg flex-col items-center"
+        >
+          <div className="mb-8 flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-[#1a472a]/10 to-[#2d6a43]/5 shadow-[0_8px_32px_rgba(26,71,42,0.08)]">
+            <SearchX className="h-12 w-12 text-[#1a472a]" strokeWidth={1.3} />
           </div>
-        </section>
+
+          <h1 className="mb-4 text-3xl font-black text-[#1a472a] sm:text-4xl">Business Not Found</h1>
+          <p className="mb-10 max-w-sm text-base leading-relaxed text-[#8b8b8b] sm:text-lg">
+            Sorry, we couldn&apos;t find the business you&apos;re looking for.
+          </p>
+
+          <Link
+            href="/businesses"
+            className="group inline-flex items-center gap-2.5 rounded-xl bg-[#1a472a] px-8 py-4 text-[15px] font-bold text-white shadow-lg shadow-[#1a472a]/20 transition-all duration-300 hover:bg-[#2d6a43] hover:shadow-xl active:scale-[0.97]"
+          >
+            <ArrowRight className="h-4 w-4 rotate-180 transition-transform group-hover:-translate-x-0.5" />
+            Back to Businesses
+          </Link>
+        </motion.div>
       </main>
     );
   }
 
   return (
-    <main className="business-detail">
+    <main className="relative min-h-[100dvh] overflow-x-hidden bg-[#f8f7f4] text-[#0f1513] antialiased selection:bg-[#d4a574] selection:text-[#0f1513]">
+      {/* JSON-LD Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -71,857 +100,647 @@ export default async function BusinessDetail({ params }: { params: Promise<{ slu
         }}
       />
 
-      {/* HERO */}
-      <section className="hero-section">
-        <div className="hero-content">
-          <nav className="breadcrumb-nav" aria-label="Breadcrumb">
-            <Link href="/">Home</Link>
-            <span className="separator">/</span>
-            <Link href="/businesses">Businesses</Link>
-            <span className="separator">/</span>
-            <span className="current">{business.name}</span>
-          </nav>
-          <h1>{business.name}</h1>
-          <p className="hero-category">{business.category}</p>
-          <p className="hero-desc">{business.shortDescription}</p>
+      {/* ─── HERO ─── */}
+      <section className="relative flex min-h-[45vh] flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a472a] via-[#1e5232] to-[#2d6a43] px-5 py-28 text-center">
+        <div className="pointer-events-none absolute -left-20 top-1/4 h-80 w-80 rounded-full bg-[#d4a574] opacity-[0.07] blur-[100px]" />
+        <div className="pointer-events-none absolute -right-20 bottom-1/4 h-72 w-72 rounded-full bg-[#e8c59f] opacity-[0.05] blur-[80px]" />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `radial-gradient(circle, #f8f7f4 1px, transparent 1px)`,
+            backgroundSize: "32px 32px",
+          }}
+        />
+
+        <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="relative z-10 mx-auto max-w-3xl">
+          {/* Breadcrumb */}
+          <motion.nav
+            // @ts-expect-error trust me bro
+
+            variants={fadeInUp}
+            custom={0}
+            aria-label="Breadcrumb"
+            className="mb-6 flex flex-wrap items-center justify-center gap-2 text-sm"
+          >
+            <Link href="/" className="inline-flex items-center gap-1 text-[#f8f7f4]/60 transition-colors hover:text-[#e8c59f]">
+              <Home className="h-3.5 w-3.5" />
+              Home
+            </Link>
+            <ChevronRight className="h-3.5 w-3.5 text-[#f8f7f4]/30" />
+            <Link href="/businesses" className="text-[#f8f7f4]/60 transition-colors hover:text-[#e8c59f]">
+              Businesses
+            </Link>
+            <ChevronRight className="h-3.5 w-3.5 text-[#f8f7f4]/30" />
+            <span className="font-semibold text-[#e8c59f]">{business.name}</span>
+          </motion.nav>
+
+          <motion.h1
+            // @ts-expect-error trust me bro
+
+            variants={fadeInUp}
+            custom={1}
+            className="mb-4 text-4xl font-black tracking-tight text-[#f8f7f4] sm:text-5xl md:text-6xl"
+          >
+            {business.name}
+          </motion.h1>
+
+          <motion.span
+            // @ts-expect-error trust me bro
+
+            variants={fadeInUp}
+            custom={2}
+            className="mb-4 inline-block rounded-full border border-[#d4a574]/20 bg-[#d4a574]/10 px-5 py-1.5 text-[13px] font-bold uppercase tracking-wider text-[#e8c59f]"
+          >
+            {business.category}
+          </motion.span>
+
+          <motion.p
+            // @ts-expect-error trust me bro
+
+            variants={fadeInUp}
+            custom={3}
+            className="mx-auto max-w-xl text-base leading-relaxed text-[#f8f7f4]/75 sm:text-lg"
+          >
+            {business.shortDescription}
+          </motion.p>
+        </motion.div>
+
+        {/* Bottom curve */}
+        <div className="absolute -bottom-1 left-0 right-0">
+          <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full" preserveAspectRatio="none">
+            <path d="M0 60L1440 60L1440 0C1440 0 1140 60 720 60C300 60 0 0 0 0L0 60Z" fill="#f8f7f4" />
+          </svg>
         </div>
       </section>
 
-      {/* OVERVIEW */}
-      <section className="section">
-        <div className="container">
-          <div className="overview-grid">
-            <div className="overview-content">
-              <h2>About {business.name}</h2>
-              <p>{business.description}</p>
+      {/* ─── OVERVIEW ─── */}
+      <section className="px-5 py-24">
+        <div className="mx-auto max-w-6xl">
+          <div className="grid gap-12 lg:grid-cols-[2fr_1fr]">
+            {/* Content */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={staggerContainer}
+            >
+              <motion.h2
+                // @ts-expect-error trust me bro
+                variants={fadeInUp}
+                custom={0}
+                className="mb-6 text-3xl font-black tracking-tight text-[#1a472a] sm:text-4xl"
+              >
+                About {business.name}
+              </motion.h2>
+
+              <motion.p
+                // @ts-expect-error trust me bro
+                variants={fadeInUp}
+                custom={1}
+                className="mb-8 text-[17px] leading-[1.85] text-[#5a5a5a]"
+              >
+                {business.description}
+              </motion.p>
 
               {business.vision && (
-                <div className="vision-box">
-                  <h4>Our Vision</h4>
-                  <p>{business.vision}</p>
-                </div>
+                <motion.div
+                  // @ts-expect-error trust me bro
+
+                  variants={fadeInUp}
+                  custom={2}
+                  className="mb-6 rounded-2xl border-l-[4px] border-[#1a472a] bg-[#f0efe9] p-7"
+                >
+                  <div className="mb-2 flex items-center gap-2 text-[#1a472a]">
+                    <Target className="h-5 w-5" />
+                    <h4 className="text-base font-bold">Our Vision</h4>
+                  </div>
+                  <p className="text-[15px] leading-relaxed text-[#6b6b6b]">{business.vision}</p>
+                </motion.div>
               )}
 
               {business.mission && (
-                <div className="mission-box">
-                  <h4>Our Mission</h4>
-                  <p>{business.mission}</p>
-                </div>
-              )}
-            </div>
+                <motion.div
+                  // @ts-expect-error trust me bro
 
-            <div className="overview-stats">
-              <div className="stat-card">
-                <span className="stat-icon">📦</span>
-                <span className="stat-num">{business.products.length}</span>
-                <span className="stat-text">Products</span>
-              </div>
+                  variants={fadeInUp}
+                  custom={3}
+                  className="rounded-2xl border-l-[4px] border-[#d4a574] bg-[#f0efe9] p-7"
+                >
+                  <div className="mb-2 flex items-center gap-2 text-[#1a472a]">
+                    <Rocket className="h-5 w-5" />
+                    <h4 className="text-base font-bold">Our Mission</h4>
+                  </div>
+                  <p className="text-[15px] leading-relaxed text-[#6b6b6b]">{business.mission}</p>
+                </motion.div>
+              )}
+            </motion.div>
+
+            {/* Stats Sidebar */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={staggerContainer}
+              className="flex flex-col gap-4"
+            >
+              <motion.div
+                // @ts-expect-error trust me bro
+
+                variants={fadeInUp}
+                custom={0}
+                className="group rounded-2xl border border-[#e0ddd8] bg-white p-6 text-center shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-[#d4a574]/30 hover:shadow-[0_12px_24px_rgba(0,0,0,0.06)]"
+              >
+                <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#1a472a] to-[#2d6a43] text-white shadow-md shadow-[#1a472a]/15 transition-all group-hover:shadow-lg">
+                  <Package className="h-6 w-6" strokeWidth={1.5} />
+                </div>
+                <div className="text-3xl font-extrabold text-[#1a472a]">{business.products.length}</div>
+                <div className="text-xs font-semibold uppercase tracking-wider text-[#8b8b8b]">Products</div>
+              </motion.div>
 
               {business.branches && (
-                <div className="stat-card">
-                  <span className="stat-icon">📍</span>
-                  <span className="stat-num">{business.branches.length}</span>
-                  <span className="stat-text">Locations</span>
-                </div>
+                <motion.div
+                  // @ts-expect-error trust me bro
+
+                  variants={fadeInUp}
+                  custom={1}
+                  className="group rounded-2xl border border-[#e0ddd8] bg-white p-6 text-center shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-[#d4a574]/30 hover:shadow-[0_12px_24px_rgba(0,0,0,0.06)]"
+                >
+                  <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#d4a574] to-[#e8c59f] text-[#0f1513] shadow-md shadow-[#d4a574]/15 transition-all group-hover:shadow-lg">
+                    <MapPin className="h-6 w-6" strokeWidth={1.5} />
+                  </div>
+                  <div className="text-3xl font-extrabold text-[#1a472a]">{business.branches.length}</div>
+                  <div className="text-xs font-semibold uppercase tracking-wider text-[#8b8b8b]">Locations</div>
+                </motion.div>
               )}
 
               {business.services && (
-                <div className="stat-card">
-                  <span className="stat-icon">⚙️</span>
-                  <span className="stat-num">{business.services.length}</span>
-                  <span className="stat-text">Services</span>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
+                <motion.div
+                  // @ts-expect-error trust me bro
 
-      {/* PRODUCTS */}
-      <section className="section alt-bg">
-        <div className="container">
-          <h2 className="section-title">Our Products</h2>
-          <p className="section-subtitle">
-            Explore the range of products and solutions we offer.
-          </p>
-
-          <div className="products-grid">
-            {business.products.map((product) => (
-              <div key={product.id} className="product-card">
-                <div className="product-icon">📦</div>
-                <h4>{product.name}</h4>
-                <p>{product.description}</p>
-                {product.category && (
-                  <span className="product-category">{product.category}</span>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* SERVICES */}
-      {business.services && business.services.length > 0 && (
-        <section className="section">
-          <div className="container">
-            <h2 className="section-title">Our Services</h2>
-
-            <div className="services-list">
-              {business.services.map((service, idx) => (
-                <div key={idx} className="service-item">
-                  <span className="service-check">✓</span>
-                  <span className="service-text">{service}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* HIGHLIGHTS */}
-      {business.highlights && business.highlights.length > 0 && (
-        <section className="section alt-bg">
-          <div className="container">
-            <h2 className="section-title">Why Choose Us</h2>
-
-            <div className="highlights-grid">
-              {business.highlights.map((highlight, idx) => (
-                <div key={idx} className="highlight-item">
-                  <div className="highlight-icon">✨</div>
-                  <p>{highlight}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* BRANCHES */}
-      {business.branches && business.branches.length > 0 && (
-        <section className="section">
-          <div className="container">
-            <h2 className="section-title">Our Locations</h2>
-            <p className="section-subtitle">
-              Visit us at any of our conveniently located branches.
-            </p>
-
-            <div className="branches-grid">
-              {business.branches.map((branch) => (
-                <div key={branch.id} className="branch-card">
-                  <div className="branch-location">📍 {branch.location}</div>
-                  <h4>{branch.name}</h4>
-
-                  <div className="branch-info">
-                    {branch.address && (
-                      <div className="info-item">
-                        <span className="info-label">Address</span>
-                        <span className="info-value">{branch.address}</span>
-                      </div>
-                    )}
-
-                    {branch.phone && (
-                      <div className="info-item">
-                        <span className="info-label">Phone</span>
-                        <a href={`tel:${branch.phone}`} className="info-link">
-                          {branch.phone}
-                        </a>
-                      </div>
-                    )}
-
-                    {branch.email && (
-                      <div className="info-item">
-                        <span className="info-label">Email</span>
-                        <a href={`mailto:${branch.email}`} className="info-link">
-                          {branch.email}
-                        </a>
-                      </div>
-                    )}
-
-                    {branch.openingHours && (
-                      <div className="info-item">
-                        <span className="info-label">Hours</span>
-                        <span className="info-value">{branch.openingHours}</span>
-                      </div>
-                    )}
+                  variants={fadeInUp}
+                  custom={2}
+                  className="group rounded-2xl border border-[#e0ddd8] bg-white p-6 text-center shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-[#d4a574]/30 hover:shadow-[0_12px_24px_rgba(0,0,0,0.06)]"
+                >
+                  <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#1a472a] to-[#2d6a43] text-white shadow-md shadow-[#1a472a]/15 transition-all group-hover:shadow-lg">
+                    <Wrench className="h-6 w-6" strokeWidth={1.5} />
                   </div>
+                  <div className="text-3xl font-extrabold text-[#1a472a]">{business.services.length}</div>
+                  <div className="text-xs font-semibold uppercase tracking-wider text-[#8b8b8b]">Services</div>
+                </motion.div>
+              )}
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
-                  {branch.mapUrl && (
-                    <a href={branch.mapUrl} target="_blank" rel="noreferrer" className="btn btn-outline">
-                      View on Map
-                    </a>
+      {/* ─── PRODUCTS ─── */}
+      <section className="bg-[#f0efe9] px-5 py-24">
+        <div className="mx-auto max-w-6xl">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={staggerContainer}
+            className="mb-16 text-center"
+          >
+            <motion.span
+              // @ts-expect-error trust me bro
+
+              variants={fadeInUp}
+              custom={0}
+              className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#d4a574]"
+            >
+              What We Offer
+            </motion.span>
+            <motion.h2
+              // @ts-expect-error trust me bro
+
+              variants={fadeInUp}
+              custom={1}
+              className="mb-4 text-3xl font-black tracking-tight text-[#1a472a] sm:text-4xl"
+            >
+              Our Products
+            </motion.h2>
+            <motion.p
+              // @ts-expect-error trust me bro
+
+              variants={fadeInUp}
+              custom={2}
+              className="mx-auto max-w-xl text-lg text-[#8b8b8b]"
+            >
+              Explore the range of products and solutions we offer.
+            </motion.p>
+          </motion.div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {business.products.map((product, i) => (
+              <motion.div
+                key={product.id}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-40px" }}
+                // @ts-expect-error trust me bro
+
+                variants={fadeInUp}
+                custom={i}
+              >
+                <div className="group flex h-full flex-col items-center rounded-2xl border border-[#e0ddd8] bg-white p-8 text-center shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-2 hover:border-[#d4a574]/40 hover:shadow-[0_16px_32px_rgba(0,0,0,0.08)]">
+                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#1a472a]/10 to-[#2d6a43]/5 text-[#1a472a] transition-colors duration-300 group-hover:bg-gradient-to-br group-hover:from-[#d4a574]/20 group-hover:to-[#e8c59f]/10 group-hover:text-[#d4a574]">
+                    <Package className="h-7 w-7" strokeWidth={1.5} />
+                  </div>
+                  <h4 className="mb-2 text-lg font-bold text-[#1a472a]">{product.name}</h4>
+                  <p className="mb-4 flex-1 text-[14px] leading-relaxed text-[#8b8b8b]">{product.description}</p>
+                  {product.category && (
+                    <span className="inline-block rounded-md bg-[#d4a574]/10 px-3 py-1 text-[11px] font-bold text-[#d4a574]">
+                      {product.category}
+                    </span>
                   )}
                 </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── SERVICES ─── */}
+      {business.services && business.services.length > 0 && (
+        <section className="px-5 py-24">
+          <div className="mx-auto max-w-6xl">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={staggerContainer}
+              className="mb-16 text-center"
+            >
+              <motion.span
+                // @ts-expect-error trust me bro
+
+                variants={fadeInUp}
+                custom={0}
+                className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#d4a574]"
+              >
+                What We Do
+              </motion.span>
+              <motion.h2
+                // @ts-expect-error trust me bro
+                variants={fadeInUp}
+                custom={1}
+                className="text-3xl font-black tracking-tight text-[#1a472a] sm:text-4xl"
+              >
+                Our Services
+              </motion.h2>
+            </motion.div>
+
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {business.services.map((service, i) => (
+                <motion.div
+                  key={i}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-40px" }}
+                  // @ts-expect-error trust me bro
+
+                  variants={fadeInUp}
+                  custom={i}
+                >
+                  <div className="group flex items-center gap-4 rounded-xl border border-[#e0ddd8] bg-white px-5 py-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#d4a574]/30 hover:shadow-[0_8px_16px_rgba(0,0,0,0.05)]">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#1a472a] to-[#2d6a43] text-white shadow-sm">
+                      <Check className="h-4 w-4" strokeWidth={3} />
+                    </div>
+                    <span className="text-[15px] font-medium text-[#4a4a4a]">{service}</span>
+                  </div>
+                </motion.div>
               ))}
             </div>
           </div>
         </section>
       )}
 
-      {/* EXPLORE OTHER BUSINESSES */}
-      <section className="section alt-bg">
-        <div className="container">
-          <h2 className="section-title">Explore Other Businesses</h2>
-          <div className="other-businesses-grid">
-            {BUSINESSES.filter((b) => b.slug !== business.slug).map((other) => (
-              <div key={other.id} className="other-business-card">
-                <h4>
-                  <Link href={`/businesses/${other.slug}`}>{other.name}</Link>
-                </h4>
-                <p className="other-category">{other.category}</p>
-                <p className="other-desc">{other.shortDescription}</p>
-                <Link href={`/businesses/${other.slug}`} className="btn-link">
-                  Learn More →
-                </Link>
-              </div>
+      {/* ─── HIGHLIGHTS ─── */}
+      {business.highlights && business.highlights.length > 0 && (
+        <section className="bg-[#f0efe9] px-5 py-24">
+          <div className="mx-auto max-w-6xl">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={staggerContainer}
+              className="mb-16 text-center"
+            >
+              <motion.span
+                // @ts-expect-error trust me bro
+
+                variants={fadeInUp}
+                custom={0}
+                className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#d4a574]"
+              >
+                Advantages
+              </motion.span>
+              <motion.h2
+                // @ts-expect-error trust me bro
+                variants={fadeInUp}
+                custom={1}
+                className="text-3xl font-black tracking-tight text-[#1a472a] sm:text-4xl"
+              >
+                Why Choose Us
+              </motion.h2>
+            </motion.div>
+
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {business.highlights.map((highlight, i) => (
+                <motion.div
+                  key={i}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-40px" }}
+                  // @ts-expect-error trust me bro
+
+                  variants={fadeInUp}
+                  custom={i}
+                >
+                  <div className="group flex h-full flex-col items-center rounded-2xl border border-[#e0ddd8] bg-white p-8 text-center shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-2 hover:border-[#d4a574]/40 hover:shadow-[0_16px_32px_rgba(0,0,0,0.08)]">
+                    <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#d4a574] to-[#e8c59f] text-[#0f1513] shadow-lg shadow-[#d4a574]/20 transition-all duration-500 group-hover:scale-110">
+                      <Sparkles className="h-7 w-7" strokeWidth={1.5} />
+                    </div>
+                    <p className="text-[15px] leading-relaxed text-[#6b6b6b]">{highlight}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ─── BRANCHES ─── */}
+      {business.branches && business.branches.length > 0 && (
+        <section className="px-5 py-24">
+          <div className="mx-auto max-w-6xl">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={staggerContainer}
+              className="mb-16 text-center"
+            >
+              <motion.span
+                // @ts-expect-error trust me bro
+
+                variants={fadeInUp}
+                custom={0}
+                className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#d4a574]"
+              >
+                Find Us
+              </motion.span>
+              <motion.h2
+                // @ts-expect-error trust me bro
+
+                variants={fadeInUp}
+                custom={1}
+                className="mb-4 text-3xl font-black tracking-tight text-[#1a472a] sm:text-4xl"
+              >
+                Our Locations
+              </motion.h2>
+              <motion.p
+                // @ts-expect-error trust me bro
+                variants={fadeInUp}
+                custom={2}
+                className="mx-auto max-w-xl text-lg text-[#8b8b8b]"
+              >
+                Visit us at any of our conveniently located branches.
+              </motion.p>
+            </motion.div>
+
+            <div className="grid gap-8 sm:grid-cols-2">
+              {business.branches.map((branch, i) => (
+                <motion.div
+                  key={branch.id}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-40px" }}
+                  // @ts-expect-error trust me bro
+
+                  variants={fadeInUp}
+                  custom={i}
+                >
+                  <div className="group relative overflow-hidden rounded-2xl border border-[#e0ddd8] bg-white p-8 shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-1 hover:border-[#d4a574]/40 hover:shadow-[0_16px_32px_rgba(0,0,0,0.08)]">
+                    <div className="absolute left-0 top-0 h-1.5 w-full origin-left scale-x-0 bg-gradient-to-r from-[#d4a574] to-[#e8c59f] transition-transform duration-500 group-hover:scale-x-100" />
+
+                    <div className="mb-4 inline-flex items-center gap-2 rounded-lg bg-[#d4a574]/10 px-3 py-1.5 text-[12px] font-bold uppercase tracking-wider text-[#d4a574]">
+                      <MapPin className="h-3.5 w-3.5" />
+                      {branch.location}
+                    </div>
+
+                    <h4 className="mb-6 text-xl font-bold text-[#1a472a]">{branch.name}</h4>
+
+                    <div className="mb-6 space-y-4">
+                      {branch.address && (
+                        <div className="flex items-start gap-3">
+                          <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#1a472a]/5 text-[#1a472a]">
+                            <MapPin className="h-4 w-4" />
+                          </div>
+                          <div>
+                            <div className="text-[11px] font-bold uppercase tracking-wider text-[#8b8b8b]">Address</div>
+                            <div className="text-[14px] font-medium text-[#4a4a4a]">{branch.address}</div>
+                          </div>
+                        </div>
+                      )}
+
+                      {branch.phone && (
+                        <div className="flex items-start gap-3">
+                          <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#1a472a]/5 text-[#1a472a]">
+                            <Phone className="h-4 w-4" />
+                          </div>
+                          <div>
+                            <div className="text-[11px] font-bold uppercase tracking-wider text-[#8b8b8b]">Phone</div>
+                            <a
+                              href={`tel:${branch.phone}`}
+                              className="text-[14px] font-medium text-[#1a472a] transition-colors hover:text-[#d4a574]"
+                            >
+                              {branch.phone}
+                            </a>
+                          </div>
+                        </div>
+                      )}
+
+                      {branch.email && (
+                        <div className="flex items-start gap-3">
+                          <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#1a472a]/5 text-[#1a472a]">
+                            <Mail className="h-4 w-4" />
+                          </div>
+                          <div>
+                            <div className="text-[11px] font-bold uppercase tracking-wider text-[#8b8b8b]">Email</div>
+                            <a
+                              href={`mailto:${branch.email}`}
+                              className="text-[14px] font-medium text-[#1a472a] transition-colors hover:text-[#d4a574]"
+                            >
+                              {branch.email}
+                            </a>
+                          </div>
+                        </div>
+                      )}
+
+                      {branch.openingHours && (
+                        <div className="flex items-start gap-3">
+                          <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#1a472a]/5 text-[#1a472a]">
+                            <Clock className="h-4 w-4" />
+                          </div>
+                          <div>
+                            <div className="text-[11px] font-bold uppercase tracking-wider text-[#8b8b8b]">Hours</div>
+                            <div className="text-[14px] font-medium text-[#4a4a4a]">{branch.openingHours}</div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {branch.mapUrl && (
+                      <a
+                        href={branch.mapUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2 rounded-xl border-2 border-[#e0ddd8] px-5 py-2.5 text-[13px] font-bold text-[#1a472a] transition-all duration-300 hover:border-[#d4a574] hover:bg-[#d4a574]/5"
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                        View on Map
+                      </a>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ─── EXPLORE OTHER BUSINESSES ─── */}
+      <section className="bg-[#f0efe9] px-5 py-24">
+        <div className="mx-auto max-w-6xl">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={staggerContainer}
+            className="mb-16 text-center"
+          >
+            <motion.span
+              // @ts-expect-error trust me bro
+
+              variants={fadeInUp}
+              custom={0}
+              className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#d4a574]"
+            >
+              Portfolio
+            </motion.span>
+            <motion.h2
+              // @ts-expect-error trust me bro
+              variants={fadeInUp}
+              custom={1}
+              className="text-3xl font-black tracking-tight text-[#1a472a] sm:text-4xl"
+            >
+              Explore Other Businesses
+            </motion.h2>
+          </motion.div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {BUSINESSES.filter((b) => b.slug !== business.slug).map((other, i) => (
+              <motion.div
+                key={other.id}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-40px" }}
+                // @ts-expect-error trust me bro
+
+                variants={fadeInUp}
+                custom={i}
+              >
+                <div className="group flex h-full flex-col rounded-2xl border border-[#e0ddd8] bg-white p-7 shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-2 hover:border-[#d4a574]/40 hover:shadow-[0_16px_32px_rgba(0,0,0,0.08)]">
+                  <h4 className="mb-1 text-lg font-bold text-[#1a472a] transition-colors group-hover:text-[#d4a574]">
+                    <Link href={`/businesses/${other.slug}`}>{other.name}</Link>
+                  </h4>
+                  <span className="mb-3 text-[11px] font-bold uppercase tracking-wider text-[#2d6a43]">{other.category}</span>
+                  <p className="mb-5 flex-1 text-[14px] leading-relaxed text-[#8b8b8b]">{other.shortDescription}</p>
+                  <Link
+                    href={`/businesses/${other.slug}`}
+                    className="mt-auto inline-flex items-center gap-1.5 text-sm font-bold text-[#1a472a] transition-all group-hover:gap-2.5 group-hover:text-[#d4a574]"
+                  >
+                    Learn More
+                    <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CONTACT CTA */}
-      <section className="cta-section">
-        <div className="container cta-content">
-          <h2>Get in Touch</h2>
-          <p>Have questions? We&apos;d love to hear from you.</p>
+      {/* ─── CONTACT CTA ─── */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#1a472a] via-[#1e5232] to-[#2d6a43] px-5 py-24 text-center">
+        <div className="pointer-events-none absolute -left-20 top-1/3 h-80 w-80 rounded-full bg-[#d4a574] opacity-[0.08] blur-[80px]" />
+        <div className="pointer-events-none absolute -bottom-20 -right-20 h-96 w-96 rounded-full bg-[#e8c59f] opacity-[0.06] blur-[100px]" />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, #f8f7f4 1px, transparent 0)`,
+            backgroundSize: "40px 40px",
+          }}
+        />
 
-          <div className="contact-options">
+        <div className="relative mx-auto flex max-w-2xl flex-col items-center gap-8">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
+            <motion.h2
+              // @ts-expect-error trust me bro
+              variants={fadeInUp}
+              custom={0}
+              className="mb-4 text-3xl font-black text-[#f8f7f4] sm:text-4xl"
+            >
+              Get in Touch
+            </motion.h2>
+            <motion.p
+              // @ts-expect-error trust me bro
+              variants={fadeInUp}
+              custom={1}
+              className="text-lg leading-relaxed text-[#f8f7f4]/75"
+            >
+              Have questions? We&apos;d love to hear from you.
+            </motion.p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+
+            custom={2}
+            className="flex flex-wrap items-center justify-center gap-4"
+          >
             {business.contact?.email && (
-              <a href={`mailto:${business.contact.email}`} className="btn btn-primary">
+              <a
+                href={`mailto:${business.contact.email}`}
+                className="group inline-flex items-center gap-2.5 rounded-xl bg-[#d4a574] px-7 py-3.5 text-[15px] font-bold text-[#0f1513] shadow-lg shadow-[#d4a574]/25 transition-all duration-300 hover:bg-[#e8c59f] hover:shadow-xl active:scale-[0.97]"
+              >
+                <Mail className="h-4 w-4" />
                 Send Email
               </a>
             )}
             {business.contact?.phone && (
-              <a href={`tel:${business.contact.phone}`} className="btn btn-primary">
+              <a
+                href={`tel:${business.contact.phone}`}
+                className="group inline-flex items-center gap-2.5 rounded-xl bg-[#d4a574] px-7 py-3.5 text-[15px] font-bold text-[#0f1513] shadow-lg shadow-[#d4a574]/25 transition-all duration-300 hover:bg-[#e8c59f] hover:shadow-xl active:scale-[0.97]"
+              >
+                <Phone className="h-4 w-4" />
                 Call Now
               </a>
             )}
-            <Link href="/contact" className="btn btn-secondary">
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2.5 rounded-xl border-2 border-[#f8f7f4]/30 px-7 py-3.5 text-[15px] font-bold text-[#f8f7f4] backdrop-blur-sm transition-all duration-300 hover:border-[#f8f7f4]/60 hover:bg-[#f8f7f4]/10 active:scale-[0.97]"
+            >
+              <MessageSquare className="h-4 w-4" />
               Contact Form
             </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
-
-      <style>{`
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-        }
-
-        :root {
-          --primary: #1a472a;
-          --primary-light: #2d6a43;
-          --accent: #d4a574;
-          --accent-light: #e8c59f;
-          --white: #f8f7f4;
-          --dark: #0f1513;
-          --gray: #8b8b8b;
-          --gray-light: #e8e8e8;
-          --border: #e0ddd8;
-        }
-
-        body,
-        html {
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
-            sans-serif;
-          -webkit-font-smoothing: antialiased;
-        }
-
-        .business-detail {
-          background: var(--white);
-          color: var(--dark);
-          min-height: 100vh;
-        }
-
-        .breadcrumb-nav {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          font-size: 14px;
-          margin-bottom: 16px;
-        }
-
-        .breadcrumb-nav a {
-          color: rgba(255, 255, 255, 0.8);
-          text-decoration: none;
-          transition: color 0.2s ease;
-        }
-
-        .breadcrumb-nav a:hover {
-          color: var(--accent);
-        }
-
-        .breadcrumb-nav .separator {
-          color: rgba(255, 255, 255, 0.4);
-        }
-
-        .breadcrumb-nav .current {
-          color: var(--accent);
-          font-weight: 600;
-        }
-
-        /* OTHER BUSINESSES */
-        .other-businesses-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: 24px;
-          margin-top: 32px;
-        }
-
-        .other-business-card {
-          background: var(--white);
-          border: 1px solid var(--border);
-          border-radius: 12px;
-          padding: 24px;
-          display: flex;
-          flex-direction: column;
-          transition: all 0.3s ease;
-        }
-
-        .other-business-card:hover {
-          transform: translateY(-4px);
-          border-color: var(--accent);
-          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-        }
-
-        .other-business-card h4 a {
-          color: var(--primary);
-          text-decoration: none;
-          font-size: 18px;
-          font-weight: 700;
-          transition: color 0.2s ease;
-        }
-
-        .other-business-card h4 a:hover {
-          color: var(--accent);
-        }
-
-        .other-category {
-          display: inline-block;
-          font-size: 12px;
-          font-weight: 600;
-          color: var(--primary-light);
-          margin-top: 4px;
-          margin-bottom: 12px;
-          text-transform: uppercase;
-        }
-
-        .other-desc {
-          font-size: 14px;
-          color: var(--gray);
-          line-height: 1.6;
-          margin-bottom: 16px;
-        }
-
-        .btn-link {
-          margin-top: auto;
-          color: var(--primary);
-          text-decoration: none;
-          font-weight: 600;
-          font-size: 14px;
-          transition: color 0.2s ease;
-        }
-
-        .btn-link:hover {
-          color: var(--accent);
-        }
-
-        /* HERO SECTION */
-        .hero-section {
-          background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-          color: var(--white);
-          padding: 100px 20px;
-          text-align: center;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .hero-section::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          background: radial-gradient(circle at 20% 80%, rgba(212, 165, 116, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(212, 165, 116, 0.1) 0%, transparent 50%);
-          z-index: 0;
-        }
-
-        .hero-content {
-          max-width: 700px;
-          margin: 0 auto;
-          position: relative;
-          z-index: 1;
-        }
-
-        .hero-content h1 {
-          font-size: clamp(2.5rem, 6vw, 3.5rem);
-          font-weight: 900;
-          margin-bottom: 12px;
-          letter-spacing: -1px;
-        }
-
-        .hero-category {
-          display: inline-block;
-          background: rgba(212, 165, 116, 0.2);
-          color: var(--accent-light);
-          padding: 6px 16px;
-          border-radius: 20px;
-          font-size: 13px;
-          font-weight: 600;
-          margin-bottom: 16px;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-        }
-
-        .hero-desc {
-          font-size: 18px;
-          color: rgba(248, 247, 244, 0.9);
-          font-weight: 400;
-        }
-
-        /* SECTIONS */
-        .section {
-          padding: 80px 20px;
-        }
-
-        .alt-bg {
-          background: #fafaf8;
-        }
-
-        .container {
-          max-width: 1200px;
-          margin: 0 auto;
-        }
-
-        .section-title {
-          font-size: clamp(2rem, 4vw, 2.8rem);
-          color: var(--primary);
-          margin-bottom: 12px;
-          font-weight: 800;
-          text-align: center;
-        }
-
-        .section-subtitle {
-          text-align: center;
-          color: var(--gray);
-          font-size: 16px;
-          margin-bottom: 48px;
-          line-height: 1.6;
-        }
-
-        /* OVERVIEW */
-        .overview-grid {
-          display: grid;
-          grid-template-columns: 2fr 1fr;
-          gap: 48px;
-          align-items: start;
-        }
-
-        .overview-content h2 {
-          font-size: 28px;
-          color: var(--primary);
-          margin-bottom: 16px;
-          font-weight: 800;
-        }
-
-        .overview-content p {
-          font-size: 16px;
-          line-height: 1.8;
-          color: var(--gray);
-          margin-bottom: 20px;
-        }
-
-        .vision-box,
-        .mission-box {
-          background: #fafaf8;
-          border-left: 4px solid var(--accent);
-          padding: 20px;
-          border-radius: 8px;
-          margin-top: 20px;
-        }
-
-        .vision-box h4,
-        .mission-box h4 {
-          font-size: 16px;
-          color: var(--primary);
-          margin-bottom: 8px;
-          font-weight: 700;
-        }
-
-        .vision-box p,
-        .mission-box p {
-          font-size: 14px;
-          color: var(--gray);
-          line-height: 1.6;
-        }
-
-        .overview-stats {
-          display: grid;
-          gap: 16px;
-        }
-
-        .stat-card {
-          background: var(--white);
-          border: 1px solid var(--border);
-          border-radius: 12px;
-          padding: 24px;
-          text-align: center;
-          transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-          transform: translateY(-4px);
-          border-color: var(--accent);
-          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
-        }
-
-        .stat-icon {
-          display: block;
-          font-size: 32px;
-          margin-bottom: 8px;
-        }
-
-        .stat-num {
-          display: block;
-          font-size: 28px;
-          font-weight: 800;
-          color: var(--primary);
-          margin-bottom: 4px;
-        }
-
-        .stat-text {
-          display: block;
-          font-size: 13px;
-          color: var(--gray);
-          font-weight: 500;
-        }
-
-        /* PRODUCTS GRID */
-        .products-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: 24px;
-        }
-
-        .product-card {
-          background: var(--white);
-          border: 1px solid var(--border);
-          border-radius: 12px;
-          padding: 28px;
-          text-align: center;
-          transition: all 0.3s ease;
-        }
-
-        .product-card:hover {
-          transform: translateY(-8px);
-          border-color: var(--accent);
-          box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-        }
-
-        .product-icon {
-          font-size: 40px;
-          margin-bottom: 12px;
-        }
-
-        .product-card h4 {
-          font-size: 18px;
-          color: var(--primary);
-          margin-bottom: 8px;
-          font-weight: 700;
-        }
-
-        .product-card p {
-          color: var(--gray);
-          font-size: 14px;
-          line-height: 1.6;
-          margin-bottom: 12px;
-        }
-
-        .product-category {
-          display: inline-block;
-          background: rgba(212, 165, 116, 0.15);
-          color: var(--primary-light);
-          padding: 4px 12px;
-          border-radius: 6px;
-          font-size: 11px;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-        }
-
-        /* SERVICES LIST */
-        .services-list {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: 16px;
-        }
-
-        .service-item {
-          background: var(--white);
-          border: 1px solid var(--border);
-          border-radius: 8px;
-          padding: 20px;
-          display: flex;
-          align-items: center;
-          gap: 16px;
-          transition: all 0.2s;
-        }
-
-        .service-item:hover {
-          border-color: var(--accent);
-          background: rgba(212, 165, 116, 0.02);
-        }
-
-        .service-check {
-          font-size: 20px;
-          color: var(--accent);
-          font-weight: 700;
-          flex-shrink: 0;
-        }
-
-        .service-text {
-          font-size: 15px;
-          color: var(--gray);
-          line-height: 1.5;
-        }
-
-        /* HIGHLIGHTS */
-        .highlights-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: 24px;
-        }
-
-        .highlight-item {
-          background: var(--white);
-          border: 1px solid var(--border);
-          border-radius: 12px;
-          padding: 28px;
-          text-align: center;
-          transition: all 0.3s ease;
-        }
-
-        .highlight-item:hover {
-          transform: translateY(-4px);
-          border-color: var(--accent);
-          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
-        }
-
-        .highlight-icon {
-          font-size: 32px;
-          margin-bottom: 12px;
-        }
-
-        .highlight-item p {
-          font-size: 14px;
-          color: var(--gray);
-          line-height: 1.6;
-        }
-
-        /* BRANCHES */
-        .branches-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-          gap: 28px;
-        }
-
-        .branch-card {
-          background: var(--white);
-          border: 1px solid var(--border);
-          border-radius: 12px;
-          padding: 32px;
-          transition: all 0.3s ease;
-        }
-
-        .branch-card:hover {
-          transform: translateY(-4px);
-          border-color: var(--accent);
-          box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-        }
-
-        .branch-location {
-          display: inline-block;
-          background: rgba(212, 165, 116, 0.15);
-          color: var(--primary-light);
-          padding: 6px 14px;
-          border-radius: 8px;
-          font-size: 12px;
-          font-weight: 600;
-          margin-bottom: 12px;
-        }
-
-        .branch-card h4 {
-          font-size: 20px;
-          color: var(--primary);
-          margin-bottom: 20px;
-          font-weight: 700;
-        }
-
-        .branch-info {
-          display: grid;
-          gap: 16px;
-          margin-bottom: 24px;
-          padding-bottom: 24px;
-          border-bottom: 1px solid var(--border);
-        }
-
-        .info-item {
-          display: grid;
-          gap: 4px;
-        }
-
-        .info-label {
-          font-size: 12px;
-          color: var(--gray);
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-        }
-
-        .info-value {
-          font-size: 14px;
-          color: var(--dark);
-          font-weight: 500;
-        }
-
-        .info-link {
-          font-size: 14px;
-          color: var(--primary);
-          text-decoration: none;
-          font-weight: 500;
-          transition: color 0.2s;
-        }
-
-        .info-link:hover {
-          color: var(--accent);
-        }
-
-        /* BUTTONS */
-        .btn {
-          padding: 12px 28px;
-          border-radius: 8px;
-          text-decoration: none;
-          font-weight: 600;
-          font-size: 15px;
-          transition: all 0.3s ease;
-          border: none;
-          cursor: pointer;
-          display: inline-block;
-        }
-
-        .btn-primary {
-          background: var(--accent);
-          color: var(--dark);
-        }
-
-        .btn-primary:hover {
-          background: var(--accent-light);
-          transform: translateY(-2px);
-          box-shadow: 0 8px 16px rgba(212, 165, 116, 0.2);
-        }
-
-        .btn-outline {
-          background: transparent;
-          color: var(--primary);
-          border: 2px solid var(--border);
-        }
-
-        .btn-outline:hover {
-          border-color: var(--accent);
-          color: var(--accent);
-        }
-
-        .btn-secondary {
-          background: transparent;
-          color: var(--white);
-          border: 2px solid var(--white);
-        }
-
-        .btn-secondary:hover {
-          background: rgba(248, 247, 244, 0.1);
-        }
-
-        /* CTA SECTION */
-        .cta-section {
-          background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-          color: var(--white);
-          padding: 80px 20px;
-          text-align: center;
-        }
-
-        .cta-content {
-          max-width: 600px;
-          margin: 0 auto;
-        }
-
-        .cta-content h2 {
-          font-size: clamp(2rem, 4vw, 2.8rem);
-          font-weight: 800;
-          margin-bottom: 12px;
-        }
-
-        .cta-content p {
-          font-size: 18px;
-          color: rgba(248, 247, 244, 0.9);
-          margin-bottom: 28px;
-          line-height: 1.6;
-        }
-
-        .contact-options {
-          display: flex;
-          gap: 16px;
-          justify-content: center;
-          flex-wrap: wrap;
-        }
-
-        /* ERROR SECTION */
-        .error-section {
-          padding: 100px 20px;
-          text-align: center;
-          color: var(--dark);
-        }
-
-        .error-section h1 {
-          font-size: 32px;
-          color: var(--primary);
-          margin-bottom: 12px;
-          font-weight: 800;
-        }
-
-        .error-section p {
-          font-size: 16px;
-          color: var(--gray);
-          margin-bottom: 28px;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-          .nav-desktop {
-            display: none;
-          }
-
-          .section {
-            padding: 60px 20px;
-          }
-
-          .overview-grid {
-            grid-template-columns: 1fr;
-          }
-
-          .branches-grid {
-            grid-template-columns: 1fr;
-          }
-
-          .contact-options {
-            flex-direction: column;
-          }
-
-          .contact-options .btn {
-            width: 100%;
-          }
-        }
-      `}</style>
     </main>
   );
 }

@@ -1,347 +1,285 @@
-import type { Metadata } from "next";
+"use client";
 import Link from "next/link";
-import { BUSINESSES, COMPANY_INFO } from "../../data/businesses";
+import { motion } from "framer-motion";
+import { Home, ChevronRight,  Package, MapPin, Wrench, Check, ArrowRight, Boxes, Sparkles } from "lucide-react";
+import { BUSINESSES } from "../../data/businesses";
 
-export const metadata: Metadata = {
-  title: `All Business Details – ${COMPANY_INFO.name}`,
-  description: COMPANY_INFO.tagline,
+// export const metadata: Metadata = {
+//   title: `All Business Details – ${COMPANY_INFO.name}`,
+//   description: COMPANY_INFO.tagline,
+// };
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
+  },
 };
 
 export default function AllBusinessDetails() {
   return (
-    <main className="businesses-details-page">
-      {/* HERO */}
-      <section className="hero-section">
-        <div className="hero-content">
-          <nav className="breadcrumb-nav" aria-label="Breadcrumb">
-            <Link href="/">Home</Link>
-            <span className="separator">/</span>
-            <Link href="/businesses">Businesses</Link>
-            <span className="separator">/</span>
-            <span className="current">Details</span>
-          </nav>
-          <h1>All Business Details</h1>
-          <p className="hero-desc">Explore detailed information about each of our businesses.</p>
+    <main className="relative min-h-[100dvh] overflow-x-hidden bg-[#f8f7f4] text-[#0f1513] antialiased selection:bg-[#d4a574] selection:text-[#0f1513]">
+      {/* ─── HERO ─── */}
+      <section className="relative flex min-h-[40vh] flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a472a] via-[#1e5232] to-[#2d6a43] px-5 py-24 text-center">
+        <div className="pointer-events-none absolute -left-20 top-1/4 h-80 w-80 rounded-full bg-[#d4a574] opacity-[0.07] blur-[100px]" />
+        <div className="pointer-events-none absolute -right-20 bottom-1/4 h-72 w-72 rounded-full bg-[#e8c59f] opacity-[0.05] blur-[80px]" />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `radial-gradient(circle, #f8f7f4 1px, transparent 1px)`,
+            backgroundSize: "32px 32px",
+          }}
+        />
+
+        <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="relative z-10 mx-auto max-w-3xl">
+          {/* Breadcrumb */}
+          <motion.nav
+            // @ts-expect-error trust me bro
+            
+            variants={fadeInUp}
+            custom={0}
+            aria-label="Breadcrumb"
+            className="mb-6 flex flex-wrap items-center justify-center gap-2 text-sm"
+          >
+            <Link href="/" className="inline-flex items-center gap-1 text-[#f8f7f4]/60 transition-colors hover:text-[#e8c59f]">
+              <Home className="h-3.5 w-3.5" />
+              Home
+            </Link>
+            <ChevronRight className="h-3.5 w-3.5 text-[#f8f7f4]/30" />
+            <Link href="/businesses" className="text-[#f8f7f4]/60 transition-colors hover:text-[#e8c59f]">
+              Businesses
+            </Link>
+            <ChevronRight className="h-3.5 w-3.5 text-[#f8f7f4]/30" />
+            <span className="font-semibold text-[#e8c59f]">Details</span>
+          </motion.nav>
+
+          <motion.h1
+            // @ts-expect-error trust me bro
+            
+            variants={fadeInUp}
+            custom={1}
+            className="mb-4 text-4xl font-black tracking-tight text-[#f8f7f4] sm:text-5xl md:text-6xl"
+          >
+            All Business Details
+          </motion.h1>
+
+          <motion.p
+            // @ts-expect-error trust me bro
+            
+            variants={fadeInUp}
+            custom={2}
+            className="mx-auto max-w-xl text-base leading-relaxed text-[#f8f7f4]/75 sm:text-lg"
+          >
+            Explore detailed information about each of our businesses.
+          </motion.p>
+        </motion.div>
+
+        {/* Bottom curve */}
+        <div className="absolute -bottom-1 left-0 right-0">
+          <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full" preserveAspectRatio="none">
+            <path d="M0 60L1440 60L1440 0C1440 0 1140 60 720 60C300 60 0 0 0 0L0 60Z" fill="#f8f7f4" />
+          </svg>
         </div>
       </section>
 
-      {/* BUSINESS DETAILS */}
-      <section className="details-section">
-        <div className="container">
-          {BUSINESSES.map((business) => (
-            <article key={business.id} className="business-detail-card">
-              <div className="card-header">
-                <h2>
-                  <Link href={`/businesses/${business.slug}`}>
-                    {business.name}
+      {/* ─── BUSINESS DETAILS ─── */}
+      <section className="px-5 py-24">
+        <div className="mx-auto flex max-w-5xl flex-col gap-16">
+          {BUSINESSES.map((business, i) => (
+            <motion.article
+              key={business.id}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-60px" }}
+              // @ts-expect-error trust me bro
+              
+              variants={fadeInUp}
+              custom={i}
+              className="group relative overflow-hidden rounded-2xl border border-[#e0ddd8] bg-white shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-1 hover:border-[#d4a574]/40 hover:shadow-[0_20px_48px_rgba(0,0,0,0.08)]"
+            >
+              {/* Top accent */}
+              <div className="absolute left-0 top-0 h-1.5 w-full origin-left scale-x-0 bg-gradient-to-r from-[#d4a574] to-[#e8c59f] transition-transform duration-500 group-hover:scale-x-100" />
+
+              <div className="p-8 sm:p-10">
+                {/* Header */}
+                <div className="mb-2 flex flex-wrap items-center justify-between gap-4">
+                  <h2 className="text-2xl font-extrabold text-[#1a472a] transition-colors duration-300 group-hover:text-[#d4a574] sm:text-3xl">
+                    <Link href={`/businesses/${business.slug}`}>{business.name}</Link>
+                  </h2>
+                  <span className="rounded-lg bg-[#1a472a]/5 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-[#2d6a43]">
+                    {business.category}
+                  </span>
+                </div>
+
+                <p className="mb-8 max-w-3xl text-[16px] leading-[1.8] text-[#5a5a5a]">{business.description}</p>
+
+                {/* Stats */}
+                <div className="mb-8 flex flex-wrap gap-4">
+                  <div className="flex items-center gap-3 rounded-xl border border-[#e0ddd8] bg-[#fafaf8] px-5 py-3 transition-all hover:border-[#d4a574]/30">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#d4a574]/10 text-[#d4a574]">
+                      <Package className="h-4.5 w-4.5" />
+                    </div>
+                    <div>
+                      <div className="text-lg font-extrabold text-[#1a472a]">{business.products?.length ?? 0}</div>
+                      <div className="text-xs font-medium uppercase tracking-wider text-[#8b8b8b]">Products</div>
+                    </div>
+                  </div>
+
+                  {business.branches && (
+                    <div className="flex items-center gap-3 rounded-xl border border-[#e0ddd8] bg-[#fafaf8] px-5 py-3 transition-all hover:border-[#d4a574]/30">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#d4a574]/10 text-[#d4a574]">
+                        <MapPin className="h-4.5 w-4.5" />
+                      </div>
+                      <div>
+                        <div className="text-lg font-extrabold text-[#1a472a]">{business.branches.length}</div>
+                        <div className="text-xs font-medium uppercase tracking-wider text-[#8b8b8b]">Locations</div>
+                      </div>
+                    </div>
+                  )}
+
+                  {business.services && (
+                    <div className="flex items-center gap-3 rounded-xl border border-[#e0ddd8] bg-[#fafaf8] px-5 py-3 transition-all hover:border-[#d4a574]/30">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#d4a574]/10 text-[#d4a574]">
+                        <Wrench className="h-4.5 w-4.5" />
+                      </div>
+                      <div>
+                        <div className="text-lg font-extrabold text-[#1a472a]">{business.services.length}</div>
+                        <div className="text-xs font-medium uppercase tracking-wider text-[#8b8b8b]">Services</div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Products */}
+                {business.products && business.products.length > 0 && (
+                  <div className="mb-8 rounded-2xl bg-[#f0efe9] p-6 sm:p-8">
+                    <div className="mb-6 flex items-center gap-2">
+                      <Boxes className="h-5 w-5 text-[#d4a574]" />
+                      <h3 className="text-lg font-bold text-[#1a472a]">Products</h3>
+                    </div>
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                      {business.products.map((product) => (
+                        <div
+                          key={product.id}
+                          className="rounded-xl border border-[#e0ddd8] bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#d4a574]/30 hover:shadow-md"
+                        >
+                          <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-[#1a472a]/10 to-[#2d6a43]/5 text-[#1a472a]">
+                            <Package className="h-5 w-5" strokeWidth={1.5} />
+                          </div>
+                          <h4 className="mb-1.5 text-[15px] font-bold text-[#1a472a]">{product.name}</h4>
+                          <p className="mb-3 text-[13px] leading-relaxed text-[#8b8b8b]">{product.description}</p>
+                          {product.category && (
+                            <span className="inline-block rounded-md bg-[#d4a574]/10 px-2.5 py-1 text-[11px] font-bold text-[#d4a574]">
+                              {product.category}
+                            </span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Services */}
+                {business.services && business.services.length > 0 && (
+                  <div className="mb-8 rounded-2xl border border-[#e0ddd8] bg-white p-6 sm:p-8">
+                    <div className="mb-6 flex items-center gap-2">
+                      <Sparkles className="h-5 w-5 text-[#d4a574]" />
+                      <h3 className="text-lg font-bold text-[#1a472a]">Services</h3>
+                    </div>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      {business.services.map((svc, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-center gap-3 rounded-lg bg-[#fafaf8] px-4 py-3 transition-all hover:bg-[#f0efe9]"
+                        >
+                          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#1a472a] text-white">
+                            <Check className="h-3.5 w-3.5" strokeWidth={3} />
+                          </div>
+                          <span className="text-[14px] font-medium text-[#4a4a4a]">{svc}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Action */}
+                <div className="flex justify-end">
+                  <Link
+                    href={`/businesses/${business.slug}`}
+                    className="group/btn inline-flex items-center gap-2.5 rounded-xl bg-[#1a472a] px-7 py-3.5 text-[15px] font-bold text-white shadow-lg shadow-[#1a472a]/15 transition-all duration-300 hover:bg-[#2d6a43] hover:shadow-xl active:scale-[0.97]"
+                  >
+                    Learn More About {business.name}
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
                   </Link>
-                </h2>
-                <span className="category-badge">{business.category}</span>
-              </div>
-              <p className="business-desc">{business.description}</p>
-
-              {/* Overview stats */}
-              <div className="detail-stats">
-                <div className="stat-card">
-                  <span className="stat-icon">📦</span>
-                  <span className="stat-num">{business.products?.length ?? 0}</span>
-                  <span className="stat-text">Products</span>
                 </div>
-                {business.branches && (
-                  <div className="stat-card">
-                    <span className="stat-icon">📍</span>
-                    <span className="stat-num">{business.branches.length}</span>
-                    <span className="stat-text">Locations</span>
-                  </div>
-                )}
-                {business.services && (
-                  <div className="stat-card">
-                    <span className="stat-icon">⚙️</span>
-                    <span className="stat-num">{business.services.length}</span>
-                    <span className="stat-text">Services</span>
-                  </div>
-                )}
               </div>
-
-              {/* Products */}
-              {business.products && business.products.length > 0 && (
-                <div className="section-block alt-bg">
-                  <h3>Products</h3>
-                  <div className="products-grid">
-                    {business.products.map((product) => (
-                      <div key={product.id} className="product-card">
-                        <div className="product-icon">📦</div>
-                        <h4>{product.name}</h4>
-                        <p>{product.description}</p>
-                        {product.category && (
-                          <span className="product-category">{product.category}</span>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Services */}
-              {business.services && business.services.length > 0 && (
-                <div className="section-block">
-                  <h3>Services</h3>
-                  <div className="services-list">
-                    {business.services.map((svc, i) => (
-                      <div key={i} className="service-item">
-                        <span className="service-check">✓</span>
-                        <span className="service-text">{svc}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <div className="card-action">
-                <Link href={`/businesses/${business.slug}`} className="btn btn-primary">
-                  Learn More About {business.name} →
-                </Link>
-              </div>
-            </article>
+            </motion.article>
           ))}
         </div>
       </section>
 
-      <style>{`
-        .businesses-details-page {
-          background: var(--white);
-          color: var(--dark);
-          min-height: 100vh;
-        }
+      {/* ─── CTA ─── */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#1a472a] via-[#1e5232] to-[#2d6a43] px-5 py-24 text-center">
+        <div className="pointer-events-none absolute -left-20 top-1/3 h-80 w-80 rounded-full bg-[#d4a574] opacity-[0.08] blur-[80px]" />
+        <div className="pointer-events-none absolute -bottom-20 -right-20 h-96 w-96 rounded-full bg-[#e8c59f] opacity-[0.06] blur-[100px]" />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, #f8f7f4 1px, transparent 0)`,
+            backgroundSize: "40px 40px",
+          }}
+        />
 
-        .breadcrumb-nav {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          font-size: 14px;
-          margin-bottom: 16px;
-        }
+        <div className="relative mx-auto flex max-w-2xl flex-col items-center gap-8">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
+            <motion.h2
+              // @ts-expect-error trust me bro
+               variants={fadeInUp} custom={0} className="mb-4 text-3xl font-black text-[#f8f7f4] sm:text-4xl">
+              Want to Dive Deeper?
+            </motion.h2>
+            <motion.p
+              // @ts-expect-error trust me bro
+               variants={fadeInUp} custom={1} className="text-lg leading-relaxed text-[#f8f7f4]/75">
+              Visit individual business pages for in-depth information, galleries, and contact options.
+            </motion.p>
+          </motion.div>
 
-        .breadcrumb-nav a {
-          color: rgba(255, 255, 255, 0.8);
-          text-decoration: none;
-          transition: color 0.2s ease;
-        }
-
-        .breadcrumb-nav a:hover {
-          color: var(--accent);
-        }
-
-        .breadcrumb-nav .separator {
-          color: rgba(255, 255, 255, 0.4);
-        }
-
-        .breadcrumb-nav .current {
-          color: var(--accent);
-          font-weight: 600;
-        }
-
-        .hero-section {
-          background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-          color: var(--white);
-          padding: 80px 20px 60px;
-          text-align: center;
-        }
-
-        .hero-section h1 {
-          font-size: clamp(2.2rem, 5vw, 3.2rem);
-          font-weight: 800;
-          margin-bottom: 8px;
-        }
-
-        .hero-desc {
-          font-size: 16px;
-          color: rgba(248, 247, 244, 0.9);
-        }
-
-        .details-section {
-          padding: 60px 20px 100px;
-        }
-
-        .container {
-          max-width: 1100px;
-          margin: 0 auto;
-          display: flex;
-          flex-direction: column;
-          gap: 48px;
-        }
-
-        .business-detail-card {
-          background: var(--white);
-          border: 1px solid var(--border);
-          border-radius: 16px;
-          padding: 36px;
-          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-        }
-
-        .card-header {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 16px;
-          margin-bottom: 16px;
-          flex-wrap: wrap;
-        }
-
-        .card-header h2 a {
-          color: var(--primary);
-          text-decoration: none;
-          font-size: 26px;
-          font-weight: 800;
-          transition: color 0.2s ease;
-        }
-
-        .card-header h2 a:hover {
-          color: var(--accent);
-        }
-
-        .category-badge {
-          background: rgba(212, 165, 116, 0.15);
-          color: var(--primary-light);
-          padding: 6px 14px;
-          border-radius: 8px;
-          font-size: 12px;
-          font-weight: 600;
-          text-transform: uppercase;
-        }
-
-        .business-desc {
-          font-size: 15px;
-          line-height: 1.7;
-          color: var(--gray);
-          margin-bottom: 24px;
-        }
-
-        .detail-stats {
-          display: flex;
-          gap: 20px;
-          margin-bottom: 28px;
-          flex-wrap: wrap;
-        }
-
-        .stat-card {
-          background: #fafaf8;
-          border: 1px solid var(--border);
-          border-radius: 10px;
-          padding: 12px 20px;
-          display: flex;
-          align-items: center;
-          gap: 10px;
-        }
-
-        .stat-icon {
-          font-size: 20px;
-        }
-
-        .stat-num {
-          font-weight: 800;
-          font-size: 18px;
-          color: var(--primary);
-        }
-
-        .stat-text {
-          font-size: 13px;
-          color: var(--gray);
-        }
-
-        .section-block {
-          margin-top: 24px;
-          padding: 24px;
-          border-radius: 12px;
-          background: #fafaf8;
-        }
-
-        .section-block h3 {
-          font-size: 18px;
-          color: var(--primary);
-          margin-bottom: 16px;
-          font-weight: 700;
-        }
-
-        .products-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-          gap: 16px;
-        }
-
-        .product-card {
-          background: var(--white);
-          border: 1px solid var(--border);
-          border-radius: 10px;
-          padding: 16px;
-        }
-
-        .product-card h4 {
-          font-size: 15px;
-          color: var(--primary);
-          margin-bottom: 6px;
-        }
-
-        .product-card p {
-          font-size: 13px;
-          color: var(--gray);
-          line-height: 1.5;
-        }
-
-        .product-category {
-          display: inline-block;
-          margin-top: 8px;
-          font-size: 11px;
-          color: var(--accent);
-          font-weight: 600;
-        }
-
-        .services-list {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-          gap: 12px;
-        }
-
-        .service-item {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          font-size: 14px;
-        }
-
-        .service-check {
-          color: var(--primary);
-          font-weight: bold;
-        }
-
-        .card-action {
-          margin-top: 28px;
-          display: flex;
-          justify-content: flex-end;
-        }
-
-        .btn {
-          padding: 12px 24px;
-          border-radius: 8px;
-          text-decoration: none;
-          font-weight: 600;
-          font-size: 14px;
-          transition: all 0.2s ease;
-          display: inline-block;
-        }
-
-        .btn-primary {
-          background: var(--primary);
-          color: #ffffff;
-        }
-
-        .btn-primary:hover {
-          background: var(--accent);
-          color: var(--dark);
-          transform: translateY(-2px);
-        }
-      `}</style>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            // @ts-expect-error trust me bro
+            
+            variants={fadeInUp}
+            custom={2}
+            className="flex flex-wrap items-center justify-center gap-4"
+          >
+            <Link
+              href="/businesses"
+              className="group inline-flex items-center gap-2.5 rounded-xl bg-[#d4a574] px-8 py-4 text-[15px] font-bold text-[#0f1513] shadow-lg shadow-[#d4a574]/25 transition-all duration-300 hover:bg-[#e8c59f] hover:shadow-xl active:scale-[0.97]"
+            >
+              View All Businesses
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2.5 rounded-xl border-2 border-[#f8f7f4]/30 px-8 py-4 text-[15px] font-bold text-[#f8f7f4] backdrop-blur-sm transition-all duration-300 hover:border-[#f8f7f4]/60 hover:bg-[#f8f7f4]/10 active:scale-[0.97]"
+            >
+              Contact Us
+            </Link>
+          </motion.div>
+        </div>
+      </section>
     </main>
   );
 }

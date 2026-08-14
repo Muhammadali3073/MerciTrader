@@ -1,107 +1,345 @@
 "use client";
 
-import React from 'react';
+import React from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import {
+  MessageSquare,
+  MapPin,
+  Mail,
+  Phone,
+  ChevronRight,
+  Send,
+  Clock,
+  HelpCircle,
+} from "lucide-react";
 import { BUSINESSES, COMPANY_INFO } from "../data/businesses";
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
+  },
+};
+
+const faqs = [
+  {
+    q: "What businesses does MerciTrader operate?",
+    a: (
+      <>
+        MerciTrader is a diversified business group operating{" "}
+        <Link
+          href="/businesses/al-sadiq-bricks-kiln"
+          className="font-semibold text-[#1a472a] underline decoration-[#d4a574]/40 underline-offset-4 transition-colors hover:text-[#d4a574]"
+        >
+          AL-SADIQ BRICKS KILN
+        </Link>
+        ,{" "}
+        <Link
+          href="/businesses/merci-mart"
+          className="font-semibold text-[#1a472a] underline decoration-[#d4a574]/40 underline-offset-4 transition-colors hover:text-[#d4a574]"
+        >
+          Merci Mart
+        </Link>
+        , and{" "}
+        <Link
+          href="/businesses/merci-rice"
+          className="font-semibold text-[#1a472a] underline decoration-[#d4a574]/40 underline-offset-4 transition-colors hover:text-[#d4a574]"
+        >
+          Merci Rice
+        </Link>
+        .
+      </>
+    ),
+  },
+  {
+    q: "How can I place an order?",
+    a: "Please contact the specific business directly through their contact information or fill out our contact form and we'll direct your inquiry accordingly.",
+  },
+  {
+    q: "Do you offer bulk pricing?",
+    a: "Yes, our businesses offer wholesale and bulk pricing options. Contact us for specific quotes and terms.",
+  },
+  {
+    q: "What areas do you serve?",
+    a: (
+      <>
+        Our businesses operate through multiple locations. Check the{" "}
+        <Link
+          href="/businesses"
+          className="font-semibold text-[#1a472a] underline decoration-[#d4a574]/40 underline-offset-4 transition-colors hover:text-[#d4a574]"
+        >
+          Businesses page
+        </Link>{" "}
+        for locations and service areas.
+      </>
+    ),
+  },
+  {
+    q: "How do you ensure quality?",
+    a: "Quality is central to our operations. We maintain strict quality control standards across all our products and services.",
+  },
+  {
+    q: "Can I visit your facilities?",
+    a: "Yes, we welcome business visits. Please contact the relevant business to arrange a facility tour.",
+  },
+];
 
 export default function ContactPage() {
   return (
-    <div className="contact-page">
-      {/* HERO */}
-      <section className="hero-section">
-        <div className="hero-content">
-          <h1>Get in Touch</h1>
-          <p>Have questions? We&apos;d love to hear from you. Contact us with any questions or inquiries.</p>
+    <main className="relative min-h-[100dvh] overflow-x-hidden bg-[#f8f7f4] text-[#0f1513] antialiased selection:bg-[#d4a574] selection:text-[#0f1513]">
+      {/* ─── HERO ─── */}
+      <section className="relative flex min-h-[45vh] flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a472a] via-[#1e5232] to-[#2d6a43] px-5 py-28 text-center">
+        <div className="pointer-events-none absolute -left-20 top-1/4 h-80 w-80 rounded-full bg-[#d4a574] opacity-[0.07] blur-[100px]" />
+        <div className="pointer-events-none absolute -right-20 bottom-1/4 h-72 w-72 rounded-full bg-[#e8c59f] opacity-[0.05] blur-[80px]" />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `radial-gradient(circle, #f8f7f4 1px, transparent 1px)`,
+            backgroundSize: "32px 32px",
+          }}
+        />
+
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+          className="relative z-10 mx-auto max-w-3xl"
+        >
+          <motion.div
+            // @ts-expect-error trust me bro
+            
+            variants={fadeInUp}
+            custom={0}
+            className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-[#d4a574]/20 bg-[#d4a574]/10 px-5 py-2 text-sm font-semibold text-[#e8c59f] backdrop-blur-md"
+          >
+            <MessageSquare className="h-4 w-4" />
+            <span>Contact Us</span>
+          </motion.div>
+
+          <motion.h1
+            // @ts-expect-error trust me bro
+            
+            variants={fadeInUp}
+            custom={1}
+            className="mb-4 text-4xl font-black tracking-tight text-[#f8f7f4] sm:text-5xl md:text-6xl"
+          >
+            Get in Touch
+          </motion.h1>
+
+          <motion.p
+            // @ts-expect-error trust me bro
+            
+            variants={fadeInUp}
+            custom={2}
+            className="mx-auto max-w-xl text-base leading-relaxed text-[#f8f7f4]/75 sm:text-lg"
+          >
+            Have questions? We&apos;d love to hear from you. Contact us with any
+            questions or inquiries.
+          </motion.p>
+        </motion.div>
+
+        {/* Bottom curve */}
+        <div className="absolute -bottom-1 left-0 right-0">
+          <svg
+            viewBox="0 0 1440 60"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-full"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0 60L1440 60L1440 0C1440 0 1140 60 720 60C300 60 0 0 0 0L0 60Z"
+              fill="#f8f7f4"
+            />
+          </svg>
         </div>
       </section>
 
-      {/* CONTACT INFO & FORM */}
-      <section className="contact-section">
-        <div className="container">
-          <div className="contact-grid">
+      {/* ─── CONTACT INFO & FORM ─── */}
+      <section className="px-5 py-24">
+        <div className="mx-auto max-w-6xl">
+          <div className="grid gap-16 lg:grid-cols-[1fr_1.1fr]">
             {/* LEFT: Contact Info */}
-            <div className="contact-info">
-              <h2>{COMPANY_INFO.name} Headquarters</h2>
-              <p>Reach out to us through any of the following methods:</p>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={staggerContainer}
+            >
+              <motion.div
+                // @ts-expect-error trust me bro
+                 variants={fadeInUp} custom={0} className="mb-10">
+                <span className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#d4a574]">
+                  Reach Out
+                </span>
+                <h2 className="mb-3 text-3xl font-black tracking-tight text-[#1a472a] sm:text-4xl">
+                  {COMPANY_INFO.name} Headquarters
+                </h2>
+                <p className="text-[17px] leading-relaxed text-[#8b8b8b]">
+                  Reach out to us through any of the following methods:
+                </p>
+              </motion.div>
 
-              <div className="info-blocks">
+              <motion.div
+                // @ts-expect-error trust me bro
+                
+                variants={fadeInUp}
+                custom={1}
+                className="mb-10 flex flex-col gap-4"
+              >
                 {COMPANY_INFO.contact.address && (
-                  <div className="info-block">
-                    <div className="info-icon">📍</div>
-                    <div className="info-text">
-                      <h4>Address</h4>
-                      <p>{COMPANY_INFO.contact.address}</p>
+                  <div className="group flex gap-4 rounded-2xl border border-[#e0ddd8] bg-white p-5 shadow-[0_2px_8px_rgba(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#d4a574]/30 hover:shadow-[0_8px_16px_rgba(0,0,0,0.05)]">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#1a472a] to-[#2d6a43] text-white shadow-md shadow-[#1a472a]/15">
+                      <MapPin className="h-5 w-5" strokeWidth={1.5} />
+                    </div>
+                    <div>
+                      <h4 className="text-[15px] font-bold text-[#1a472a]">
+                        Address
+                      </h4>
+                      <p className="text-[14px] leading-relaxed text-[#8b8b8b]">
+                        {COMPANY_INFO.contact.address}
+                      </p>
                     </div>
                   </div>
                 )}
 
                 {COMPANY_INFO.contact.email && (
-                  <div className="info-block">
-                    <div className="info-icon">✉️</div>
-                    <div className="info-text">
-                      <h4>Email</h4>
-                      <a href={`mailto:${COMPANY_INFO.contact.email}`}>
-                        {COMPANY_INFO.contact.email}
-                      </a>
+                  <a
+                    href={`mailto:${COMPANY_INFO.contact.email}`}
+                    className="group flex gap-4 rounded-2xl border border-[#e0ddd8] bg-white p-5 shadow-[0_2px_8px_rgba(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#d4a574]/30 hover:shadow-[0_8px_16px_rgba(0,0,0,0.05)]"
+                  >
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#d4a574] to-[#e8c59f] text-[#0f1513] shadow-md shadow-[#d4a574]/15">
+                      <Mail className="h-5 w-5" strokeWidth={1.5} />
                     </div>
-                  </div>
+                    <div>
+                      <h4 className="text-[15px] font-bold text-[#1a472a]">
+                        Email
+                      </h4>
+                      <p className="text-[14px] font-medium text-[#1a472a] transition-colors group-hover:text-[#d4a574]">
+                        {COMPANY_INFO.contact.email}
+                      </p>
+                    </div>
+                  </a>
                 )}
 
                 {COMPANY_INFO.contact.phone && (
-                  <div className="info-block">
-                    <div className="info-icon">📞</div>
-                    <div className="info-text">
-                      <h4>Phone</h4>
-                      <a href={`tel:${COMPANY_INFO.contact.phone}`}>
-                        {COMPANY_INFO.contact.phone}
-                      </a>
+                  <a
+                    href={`tel:${COMPANY_INFO.contact.phone}`}
+                    className="group flex gap-4 rounded-2xl border border-[#e0ddd8] bg-white p-5 shadow-[0_2px_8px_rgba(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#d4a574]/30 hover:shadow-[0_8px_16px_rgba(0,0,0,0.05)]"
+                  >
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#1a472a] to-[#2d6a43] text-white shadow-md shadow-[#1a472a]/15">
+                      <Phone className="h-5 w-5" strokeWidth={1.5} />
                     </div>
-                  </div>
+                    <div>
+                      <h4 className="text-[15px] font-bold text-[#1a472a]">
+                        Phone
+                      </h4>
+                      <p className="text-[14px] font-medium text-[#1a472a] transition-colors group-hover:text-[#d4a574]">
+                        {COMPANY_INFO.contact.phone}
+                      </p>
+                    </div>
+                  </a>
                 )}
-              </div>
+              </motion.div>
 
-              <div className="business-contacts">
-                <h3>Business Contacts</h3>
-                <div className="business-contact-list">
-                  {BUSINESSES.map((business) => (
-                    <div key={business.id} className="business-contact">
-                      <h5>
-                        <Link href={`/businesses/${business.slug}`}>
-                          {business.name}
-                        </Link>
+              {/* Business Contacts */}
+              <motion.div 
+                // @ts-expect-error trust me bro
+                variants={fadeInUp} custom={2}>
+                <h3 className="mb-5 text-lg font-bold text-[#1a472a]">
+                  Business Contacts
+                </h3>
+                <div className="flex flex-col gap-4">
+                  {BUSINESSES.map((b) => (
+                    <div
+                      key={b.id}
+                      className="group rounded-xl border border-[#e0ddd8] bg-white p-5 shadow-[0_2px_8px_rgba(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#d4a574]/30 hover:shadow-[0_8px_16px_rgba(0,0,0,0.05)]"
+                    >
+                      <h5 className="mb-2 text-[15px] font-bold text-[#1a472a] transition-colors group-hover:text-[#d4a574]">
+                        <Link href={`/businesses/${b.slug}`}>{b.name}</Link>
                       </h5>
-                      {business.contact?.email && (
-                        <p>
-                          <a href={`mailto:${business.contact.email}`}>
-                            {business.contact.email}
+                      <div className="mb-3 space-y-1">
+                        {b.contact?.email && (
+                          <a
+                            href={`mailto:${b.contact.email}`}
+                            className="flex items-center gap-2 text-[13px] text-[#8b8b8b] transition-colors hover:text-[#d4a574]"
+                          >
+                            <Mail className="h-3.5 w-3.5" />
+                            {b.contact.email}
                           </a>
-                        </p>
-                      )}
-                      {business.contact?.phone && (
-                        <p>
-                          <a href={`tel:${business.contact.phone}`}>
-                            {business.contact.phone}
+                        )}
+                        {b.contact?.phone && (
+                          <a
+                            href={`tel:${b.contact.phone}`}
+                            className="flex items-center gap-2 text-[13px] text-[#8b8b8b] transition-colors hover:text-[#d4a574]"
+                          >
+                            <Phone className="h-3.5 w-3.5" />
+                            {b.contact.phone}
                           </a>
-                        </p>
-                      )}
-                      <Link href={`/businesses/${business.slug}`} className="view-link">
-                        Learn More →
+                        )}
+                      </div>
+                      <Link
+                        href={`/businesses/${b.slug}`}
+                        className="inline-flex items-center gap-1 text-[13px] font-bold text-[#1a472a] transition-all group-hover:gap-1.5 group-hover:text-[#d4a574]"
+                      >
+                        Learn More
+                        <ChevronRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                       </Link>
                     </div>
                   ))}
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
-            {/* RIGHT: Static Contact Form (no JS handling) */}
-            <div className="contact-form-wrapper">
-              <div className="form-card">
-                <h2>Send us a Message</h2>
-                <p>Fill out the form below and we&apos;ll get back to you as soon as possible.</p>
+            {/* RIGHT: Form */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={staggerContainer}
+            >
+              <motion.div
+                // @ts-expect-error trust me bro
+                
+                variants={fadeInUp}
+                custom={0}
+                className="sticky top-28 rounded-2xl border border-[#e0ddd8] bg-white p-8 shadow-[0_4px_24px_rgba(0,0,0,0.06)] sm:p-10"
+              >
+                <div className="mb-6 flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#1a472a] to-[#2d6a43] text-white shadow-md">
+                    <Send className="h-5 w-5" strokeWidth={1.5} />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-extrabold text-[#1a472a]">
+                      Send us a Message
+                    </h2>
+                  </div>
+                </div>
 
-                <form action="#" method="post" className="contact-form">
-                  <div className="form-group">
-                    <label htmlFor="name">Your Name *</label>
+                <p className="mb-8 text-[14px] leading-relaxed text-[#8b8b8b]">
+                  Fill out the form below and we&apos;ll get back to you as soon
+                  as possible.
+                </p>
+
+                <form action="#" method="post" className="flex flex-col gap-5">
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="name"
+                      className="text-[13px] font-bold uppercase tracking-wider text-[#1a472a]"
+                    >
+                      Your Name *
+                    </label>
                     <input
                       type="text"
                       id="name"
@@ -109,11 +347,17 @@ export default function ContactPage() {
                       required
                       placeholder="John Doe"
                       aria-label="Your name"
+                      className="rounded-xl border border-[#e0ddd8] bg-[#fafaf8] px-4 py-3 text-[15px] text-[#0f1513] placeholder:text-[#b0b0b0] transition-all focus:border-[#d4a574] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#d4a574]/10"
                     />
                   </div>
 
-                  <div className="form-group">
-                    <label htmlFor="email">Email Address *</label>
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="email"
+                      className="text-[13px] font-bold uppercase tracking-wider text-[#1a472a]"
+                    >
+                      Email Address *
+                    </label>
                     <input
                       type="email"
                       id="email"
@@ -121,26 +365,45 @@ export default function ContactPage() {
                       required
                       placeholder="john@example.com"
                       aria-label="Email address"
+                      className="rounded-xl border border-[#e0ddd8] bg-[#fafaf8] px-4 py-3 text-[15px] text-[#0f1513] placeholder:text-[#b0b0b0] transition-all focus:border-[#d4a574] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#d4a574]/10"
                     />
                   </div>
 
-                  <div className="form-group">
-                    <label htmlFor="business">Which Business Are You Inquiring About? *</label>
-                    <select
-                      id="business"
-                      name="business"
-                      required
-                      aria-label="Select business"
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="business"
+                      className="text-[13px] font-bold uppercase tracking-wider text-[#1a472a]"
                     >
-                      <option value="general">General MerciTrader Inquiry</option>
-                      {BUSINESSES.map((b) => (
-                        <option key={b.id} value={b.slug}>{b.name}</option>
-                      ))}
-                    </select>
+                      Which Business Are You Inquiring About? *
+                    </label>
+                    <div className="relative">
+                      <select
+                        id="business"
+                        name="business"
+                        required
+                        aria-label="Select business"
+                        className="w-full appearance-none rounded-xl border border-[#e0ddd8] bg-[#fafaf8] px-4 py-3 pr-10 text-[15px] text-[#0f1513] transition-all focus:border-[#d4a574] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#d4a574]/10"
+                      >
+                        <option value="general">
+                          General MerciTrader Inquiry
+                        </option>
+                        {BUSINESSES.map((b) => (
+                          <option key={b.id} value={b.slug}>
+                            {b.name}
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronRight className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 rotate-90 text-[#8b8b8b]" />
+                    </div>
                   </div>
 
-                  <div className="form-group">
-                    <label htmlFor="message">Message *</label>
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="message"
+                      className="text-[13px] font-bold uppercase tracking-wider text-[#1a472a]"
+                    >
+                      Message *
+                    </label>
                     <textarea
                       id="message"
                       name="message"
@@ -148,486 +411,87 @@ export default function ContactPage() {
                       placeholder="Tell us how we can help..."
                       rows={5}
                       aria-label="Your message"
-                    ></textarea>
+                      className="resize-y rounded-xl border border-[#e0ddd8] bg-[#fafaf8] px-4 py-3 text-[15px] text-[#0f1513] placeholder:text-[#b0b0b0] transition-all focus:border-[#d4a574] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#d4a574]/10"
+                    />
                   </div>
 
-                  <button type="submit" className="btn btn-primary">
+                  <button
+                    type="submit"
+                    className="group mt-2 inline-flex items-center justify-center gap-2.5 rounded-xl bg-[#1a472a] px-8 py-4 text-[15px] font-bold text-white shadow-lg shadow-[#1a472a]/15 transition-all duration-300 hover:bg-[#2d6a43] hover:shadow-xl active:scale-[0.97]"
+                  >
+                    <Send className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
                     Send Message
                   </button>
                 </form>
 
-                <p className="form-note">
-                  We typically respond to inquiries within 24-48 business hours.
-                </p>
-              </div>
-            </div>
+                <div className="mt-6 flex items-center justify-center gap-2 text-[12px] text-[#8b8b8b]">
+                  <Clock className="h-3.5 w-3.5" />
+                  We typically respond within 24-48 business hours.
+                </div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* FAQ SECTION */}
-      <section className="faq-section">
-        <div className="container">
-          <h2>Frequently Asked Questions</h2>
+      {/* ─── FAQ ─── */}
+      <section className="bg-[#f0efe9] px-5 py-24">
+        <div className="mx-auto max-w-6xl">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={staggerContainer}
+            className="mb-16 text-center"
+          >
+            <motion.span
+              // @ts-expect-error trust me bro
+              
+              variants={fadeInUp}
+              custom={0}
+              className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#d4a574]"
+            >
+              Support
+            </motion.span>
+            <motion.h2
+              // @ts-expect-error trust me bro
+              
+              variants={fadeInUp}
+              custom={1}
+              className="text-3xl font-black tracking-tight text-[#1a472a] sm:text-4xl"
+            >
+              Frequently Asked Questions
+            </motion.h2>
+          </motion.div>
 
-          <div className="faq-grid">
-            <div className="faq-item">
-              <h4>What businesses does MerciTrader operate?</h4>
-              <p>
-                MerciTrader is a diversified business group operating{" "}
-                <Link href="/businesses/al-sadiq-bricks-kiln">AL-SADIQ BRICKS KILN</Link>,{" "}
-                <Link href="/businesses/merci-mart">Merci Mart</Link>, and{" "}
-                <Link href="/businesses/merci-rice">Merci Rice</Link>.
-              </p>
-            </div>
-
-            <div className="faq-item">
-              <h4>How can I place an order?</h4>
-              <p>
-                Please contact the specific business directly through their contact information or
-                fill out our contact form and we&apos;ll direct your inquiry accordingly.
-              </p>
-            </div>
-
-            <div className="faq-item">
-              <h4>Do you offer bulk pricing?</h4>
-              <p>
-                Yes, our businesses offer wholesale and bulk pricing options. Contact us for
-                specific quotes and terms.
-              </p>
-            </div>
-
-            <div className="faq-item">
-              <h4>What areas do you serve?</h4>
-              <p>
-                Our businesses operate through multiple locations. Check the{" "}
-                <Link href="/businesses">Businesses page</Link> for locations and service areas.
-              </p>
-            </div>
-
-            <div className="faq-item">
-              <h4>How do you ensure quality?</h4>
-              <p>
-                Quality is central to our operations. We maintain strict quality control standards
-                across all our products and services.
-              </p>
-            </div>
-
-            <div className="faq-item">
-              <h4>Can I visit your facilities?</h4>
-              <p>
-                Yes, we welcome business visits. Please contact the relevant business to arrange
-                a facility tour.
-              </p>
-            </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {faqs.map((faq, i) => (
+              <motion.div
+                key={i}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-40px" }}
+                // @ts-expect-error trust me bro
+                
+                variants={fadeInUp}
+                custom={i}
+              >
+                <div className="group flex h-full flex-col rounded-2xl border border-[#e0ddd8] bg-white p-7 shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-2 hover:border-[#d4a574]/40 hover:shadow-[0_16px_32px_rgba(0,0,0,0.08)]">
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#1a472a]/10 to-[#2d6a43]/5 text-[#1a472a] transition-colors group-hover:bg-gradient-to-br group-hover:from-[#d4a574]/20 group-hover:to-[#e8c59f]/10 group-hover:text-[#d4a574]">
+                    <HelpCircle className="h-5 w-5" strokeWidth={1.5} />
+                  </div>
+                  <h4 className="mb-3 text-[15px] font-bold leading-snug text-[#1a472a]">
+                    {faq.q}
+                  </h4>
+                  <p className="flex-1 text-[14px] leading-relaxed text-[#6b6b6b]">
+                    {faq.a}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
-
-      <style>{`
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-        }
-
-        :root {
-          --primary: #1a472a;
-          --primary-light: #2d6a43;
-          --accent: #d4a574;
-          --accent-light: #e8c59f;
-          --white: #f8f7f4;
-          --dark: #0f1513;
-          --gray: #8b8b8b;
-          --gray-light: #e8e8e8;
-          --border: #e0ddd8;
-          --success: #10b981;
-        }
-
-        body,
-        html {
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
-            sans-serif;
-          -webkit-font-smoothing: antialiased;
-        }
-
-        .contact-page {
-          background: var(--white);
-          color: var(--dark);
-          min-height: 100vh;
-        }
-
-        /* HERO SECTION */
-        .hero-section {
-          background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-          color: var(--white);
-          padding: 100px 20px;
-          text-align: center;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .hero-section::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          background: radial-gradient(circle at 20% 80%, rgba(212, 165, 116, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(212, 165, 116, 0.1) 0%, transparent 50%);
-          z-index: 0;
-        }
-
-        .hero-content {
-          max-width: 700px;
-          margin: 0 auto;
-          position: relative;
-          z-index: 1;
-        }
-
-        .hero-content h1 {
-          font-size: clamp(2.5rem, 6vw, 3.5rem);
-          font-weight: 900;
-          margin-bottom: 12px;
-          letter-spacing: -1px;
-        }
-
-        .hero-content p {
-          font-size: 18px;
-          color: rgba(248, 247, 244, 0.9);
-          font-weight: 400;
-        }
-
-        /* CONTACT SECTION */
-        .contact-section {
-          padding: 80px 20px;
-        }
-
-        .container {
-          max-width: 1200px;
-          margin: 0 auto;
-        }
-
-        .contact-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 48px;
-          align-items: start;
-        }
-
-        .contact-info h2 {
-          font-size: 28px;
-          color: var(--primary);
-          margin-bottom: 8px;
-          font-weight: 800;
-        }
-
-        .contact-info > p {
-          font-size: 16px;
-          color: var(--gray);
-          margin-bottom: 28px;
-          line-height: 1.6;
-        }
-
-        .info-blocks {
-          display: grid;
-          gap: 20px;
-          margin-bottom: 40px;
-        }
-
-        .info-block {
-          display: flex;
-          gap: 16px;
-          padding: 16px;
-          background: #fafaf8;
-          border-radius: 12px;
-          transition: all 0.3s ease;
-        }
-
-        .info-block:hover {
-          background: rgba(212, 165, 116, 0.05);
-        }
-
-        .info-icon {
-          font-size: 28px;
-          flex-shrink: 0;
-        }
-
-        .info-text {
-          flex: 1;
-        }
-
-        .info-text h4 {
-          font-size: 16px;
-          color: var(--primary);
-          margin-bottom: 4px;
-          font-weight: 700;
-        }
-
-        .info-text p,
-        .info-text a {
-          font-size: 14px;
-          color: var(--gray);
-          line-height: 1.5;
-        }
-
-        .info-text a {
-          text-decoration: none;
-          color: var(--primary);
-          font-weight: 500;
-          transition: color 0.2s;
-        }
-
-        .info-text a:hover {
-          color: var(--accent);
-        }
-
-        .business-contacts {
-          border-top: 1px solid var(--border);
-          padding-top: 28px;
-        }
-
-        .business-contacts h3 {
-          font-size: 18px;
-          color: var(--primary);
-          margin-bottom: 16px;
-          font-weight: 700;
-        }
-
-        .business-contact-list {
-          display: grid;
-          gap: 16px;
-        }
-
-        .business-contact {
-          background: var(--white);
-          border: 1px solid var(--border);
-          border-radius: 12px;
-          padding: 16px;
-          transition: all 0.3s ease;
-        }
-
-        .business-contact:hover {
-          border-color: var(--accent);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-        }
-
-        .business-contact h5 {
-          font-size: 15px;
-          color: var(--primary);
-          margin-bottom: 8px;
-          font-weight: 700;
-        }
-
-        .business-contact p {
-          font-size: 13px;
-          color: var(--gray);
-          margin-bottom: 8px;
-        }
-
-        .business-contact a {
-          color: var(--primary);
-          text-decoration: none;
-          font-weight: 500;
-          transition: color 0.2s;
-        }
-
-        .business-contact a:hover {
-          color: var(--accent);
-        }
-
-        .view-link {
-          display: inline-block;
-          font-size: 13px;
-          color: var(--accent);
-          text-decoration: none;
-          font-weight: 600;
-          margin-top: 4px;
-        }
-
-        /* CONTACT FORM */
-        .contact-form-wrapper {
-          display: flex;
-          justify-content: center;
-        }
-
-        .form-card {
-          background: var(--white);
-          border: 1px solid var(--border);
-          border-radius: 12px;
-          padding: 40px;
-          width: 100%;
-          max-width: 500px;
-        }
-
-        .form-card h2 {
-          font-size: 24px;
-          color: var(--primary);
-          margin-bottom: 8px;
-          font-weight: 800;
-        }
-
-        .form-card > p {
-          font-size: 14px;
-          color: var(--gray);
-          margin-bottom: 24px;
-          line-height: 1.6;
-        }
-
-        .success-message {
-          background: rgba(16, 185, 129, 0.1);
-          border: 1px solid var(--success);
-          color: var(--success);
-          padding: 12px 16px;
-          border-radius: 8px;
-          font-size: 14px;
-          font-weight: 500;
-          margin-bottom: 20px;
-        }
-
-        .contact-form {
-          display: grid;
-          gap: 20px;
-        }
-
-        .form-group {
-          display: grid;
-          gap: 8px;
-        }
-
-        .form-group label {
-          font-size: 14px;
-          color: var(--primary);
-          font-weight: 600;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-          padding: 12px;
-          border: 1px solid var(--border);
-          border-radius: 8px;
-          font-size: 14px;
-          font-family: inherit;
-          transition: all 0.2s;
-          background: var(--white);
-          color: var(--dark);
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-          outline: none;
-          border-color: var(--accent);
-          box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
-        }
-
-        .form-group textarea {
-          resize: vertical;
-          min-height: 120px;
-        }
-
-        .form-group select {
-          cursor: pointer;
-        }
-
-        .btn {
-          padding: 12px 28px;
-          border-radius: 8px;
-          text-decoration: none;
-          font-weight: 600;
-          font-size: 15px;
-          transition: all 0.3s ease;
-          border: none;
-          cursor: pointer;
-          display: inline-block;
-        }
-
-        .btn-primary {
-          background: var(--accent);
-          color: var(--dark);
-          width: 100%;
-        }
-
-        .btn-primary:hover {
-          background: var(--accent-light);
-          transform: translateY(-2px);
-          box-shadow: 0 8px 16px rgba(212, 165, 116, 0.2);
-        }
-
-        .form-note {
-          font-size: 12px;
-          color: var(--gray);
-          margin-top: 16px;
-          text-align: center;
-        }
-
-        /* FAQ SECTION */
-        .faq-section {
-          background: #fafaf8;
-          padding: 80px 20px;
-        }
-
-        .faq-section h2 {
-          font-size: clamp(2rem, 4vw, 2.8rem);
-          color: var(--primary);
-          text-align: center;
-          margin-bottom: 48px;
-          font-weight: 800;
-        }
-
-        .faq-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-          gap: 28px;
-        }
-
-        .faq-item {
-          background: var(--white);
-          border: 1px solid var(--border);
-          border-radius: 12px;
-          padding: 28px;
-          transition: all 0.3s ease;
-        }
-
-        .faq-item:hover {
-          transform: translateY(-4px);
-          border-color: var(--accent);
-          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
-        }
-
-        .faq-item h4 {
-          font-size: 16px;
-          color: var(--primary);
-          margin-bottom: 12px;
-          font-weight: 700;
-        }
-
-        .faq-item p {
-          font-size: 14px;
-          color: var(--gray);
-          line-height: 1.6;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-          .nav-desktop {
-            display: none;
-          }
-
-          .contact-section,
-          .faq-section {
-            padding: 60px 20px;
-          }
-
-          .contact-grid {
-            grid-template-columns: 1fr;
-            gap: 36px;
-          }
-
-          .form-card {
-            padding: 28px;
-          }
-        }
-      `}</style>
-    </div>
+    </main>
   );
 }
