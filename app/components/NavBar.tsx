@@ -28,13 +28,17 @@ export default function NavBar() {
         {/* Brand */}
         <Link
           href="/"
-          className="group flex items-center gap-3 text-[#1a472a] transition-colors hover:text-[#2d6a43]"
+          className="group flex items-center gap-3 transition-opacity hover:opacity-90"
           onClick={closeMobile}
         >
-          <div className="relative flex h-10 w-10 overflow-hidden items-center justify-center rounded-xl bg-gradient-to-br from-[#1a472a] to-[#2d6a43] text-sm font-black text-white shadow-md shadow-[#1a472a]/15 transition-shadow duration-300 group-hover:shadow-lg group-hover:shadow-[#1a472a]/25">
-            <Image src="/logo.jpg" alt={COMPANY_INFO.name} width={40} height={40} className="h-full w-full object-cover" />
-          </div>
-          <span className="text-lg font-extrabold tracking-tight">{COMPANY_INFO.name}</span>
+          <Image
+            src="/logo.png"
+            alt={COMPANY_INFO.name}
+            width={180}
+            height={48}
+            className="h-9 sm:h-10 w-auto object-contain"
+            priority
+          />
         </Link>
 
         {/* Desktop Nav */}
@@ -45,9 +49,8 @@ export default function NavBar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative rounded-lg px-4 py-2 text-[15px] font-semibold transition-all duration-200 ${
-                  isActive ? "text-[#1a472a]" : "text-[#8b8b8b] hover:bg-[#1a472a]/5 hover:text-[#1a472a]"
-                }`}
+                className={`relative rounded-lg px-4 py-2 text-[15px] font-semibold transition-all duration-200 ${isActive ? "text-[#1a472a]" : "text-[#8b8b8b] hover:bg-[#1a472a]/5 hover:text-[#1a472a]"
+                  }`}
               >
                 {link.label}
                 {isActive && (
@@ -113,9 +116,8 @@ export default function NavBar() {
                         key={link.href}
                         href={link.href}
                         onClick={closeMobile}
-                        className={`flex items-center justify-between rounded-xl px-4 py-3 text-[15px] font-semibold transition-all duration-200 ${
-                          isActive ? "bg-[#1a472a]/5 text-[#1a472a]" : "text-[#8b8b8b] hover:bg-[#1a472a]/5 hover:text-[#1a472a]"
-                        }`}
+                        className={`flex items-center justify-between rounded-xl px-4 py-3 text-[15px] font-semibold transition-all duration-200 ${isActive ? "bg-[#1a472a]/5 text-[#1a472a]" : "text-[#8b8b8b] hover:bg-[#1a472a]/5 hover:text-[#1a472a]"
+                          }`}
                       >
                         {link.label}
                         {isActive && <div className="h-2 w-2 rounded-full bg-[#d4a574]" />}
