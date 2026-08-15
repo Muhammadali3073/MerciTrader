@@ -157,7 +157,7 @@ export default function BusinessDetail({
             custom={1}
             className="mb-4 text-4xl font-black tracking-tight text-[#f8f7f4] sm:text-5xl md:text-6xl"
           >
-            <BrandName name={business.name} />
+            {business.name}
           </motion.h1>
 
           <motion.span
@@ -210,7 +210,7 @@ export default function BusinessDetail({
                 custom={0}
                 className="mb-6 text-3xl font-black tracking-tight text-[#1a472a] sm:text-4xl"
               >
-                About <BrandName name={business.name} />
+                About {business.name}
               </motion.h2>
 
               <motion.p
@@ -535,25 +535,11 @@ export default function BusinessDetail({
                     <div className="absolute left-0 top-0 h-1.5 w-full origin-left scale-x-0 bg-gradient-to-r from-[#d4a574] to-[#e8c59f] transition-transform duration-500 group-hover:scale-x-100" />
 
                     <h4 className="mb-6 text-xl font-bold text-[#1a472a]">
-                      <BrandName name={branch.name} />
+                      {branch.name}
                     </h4>
 
                     <div className="mb-6 space-y-4">
-                      {branch.address && (
-                        <div className="flex items-start gap-3">
-                          <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#1a472a]/5 text-[#1a472a]">
-                            <MapPin className="h-4 w-4" />
-                          </div>
-                          <div>
-                            <div className="text-[11px] font-bold uppercase tracking-wider text-[#8b8b8b]">
-                              Address
-                            </div>
-                            <div className="text-[14px] font-medium text-[#4a4a4a]">
-                              {branch.address}
-                            </div>
-                          </div>
-                        </div>
-                      )}
+
 
                       {branch.phone && (
                         <div className="flex items-start gap-3">

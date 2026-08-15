@@ -178,7 +178,7 @@ export const BUSINESSES: Business[] = [
         address: "45 Market Street, Downtown Commercial Area",
         phone: "+923008471335",
         email: "contact@mercitraders.com",
-        openingHours: "Mon–Sun: 8:00 AM – 10:00 PM",
+        openingHours: "Sat–Thu: 8:00 AM – 6:00 PM; Fri: Closed.",
         mapUrl: "https://maps.app.goo.gl/iok3UeEHBpEAzRWg9",
       },
     ],
@@ -316,7 +316,8 @@ export const COMPANY_INFO = {
   contact: {
     email: "contact@mercitraders.com",
     phone: "+923008471335",
-    address: "Business Plaza, Corporate District",
+    address: "Narowal Road, Opposite Government Girls Degree College, Muridke",
+    mapUrl: "https://maps.app.goo.gl/iok3UeEHBpEAzRWg9",
   },
   socialMedia: {
     linkedin: "https://www.linkedin.com/company/mercitrader",
