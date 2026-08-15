@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Building2, ArrowUpRight, ChevronRight, Network } from "lucide-react";
 import { COMPANY_INFO, BUSINESSES } from "../data/businesses";
