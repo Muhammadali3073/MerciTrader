@@ -12,8 +12,6 @@ import {
     HelpCircle,
     ArrowRight,
     ExternalLink,
-    Building2,
-    Navigation,
 } from "lucide-react";
 import { BUSINESSES, COMPANY_INFO } from "../data/businesses";
 

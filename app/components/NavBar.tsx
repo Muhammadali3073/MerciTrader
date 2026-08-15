@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
@@ -30,8 +31,8 @@ export default function NavBar() {
           className="group flex items-center gap-3 text-[#1a472a] transition-colors hover:text-[#2d6a43]"
           onClick={closeMobile}
         >
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#1a472a] to-[#2d6a43] text-sm font-black text-white shadow-md shadow-[#1a472a]/15 transition-shadow duration-300 group-hover:shadow-lg group-hover:shadow-[#1a472a]/25">
-            <img src="/logo.jpg" alt={COMPANY_INFO.name} className="h-full w-full object-cover" />
+          <div className="relative flex h-10 w-10 overflow-hidden items-center justify-center rounded-xl bg-gradient-to-br from-[#1a472a] to-[#2d6a43] text-sm font-black text-white shadow-md shadow-[#1a472a]/15 transition-shadow duration-300 group-hover:shadow-lg group-hover:shadow-[#1a472a]/25">
+            <Image src="/logo.jpg" alt={COMPANY_INFO.name} width={40} height={40} className="h-full w-full object-cover" />
           </div>
           <span className="text-lg font-extrabold tracking-tight">{COMPANY_INFO.name}</span>
         </Link>

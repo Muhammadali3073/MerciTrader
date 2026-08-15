@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Building2, ArrowUpRight, ChevronRight, Network } from "lucide-react";
 import { COMPANY_INFO, BUSINESSES } from "../data/businesses";
@@ -46,8 +47,8 @@ export default function Footer() {
             className="lg:col-span-4"
           >
             <Link href="/" className="group mb-6 inline-flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#1a472a] to-[#2d6a43] text-sm font-black text-white shadow-lg shadow-[#1a472a]/30">
-                <img src="/logo.jpg" alt={COMPANY_INFO.name} className="h-full w-full object-cover" />
+              <div className="relative flex h-10 w-10 overflow-hidden items-center justify-center rounded-xl bg-gradient-to-br from-[#1a472a] to-[#2d6a43] text-sm font-black text-white shadow-lg shadow-[#1a472a]/30">
+                <Image src="/logo.jpg" alt={COMPANY_INFO.name} width={40} height={40} className="h-full w-full object-cover" />
               </div>
               <span className="text-xl font-extrabold tracking-tight text-white">{COMPANY_INFO.name}</span>
             </Link>

@@ -9,7 +9,6 @@ import {
   Package,
   MapPin,
   Wrench,
-  Network,
 } from "lucide-react";
 import { BUSINESSES, COMPANY_INFO } from "../data/businesses";
 import BrandName from "../components/BrandName";
