@@ -4,22 +4,22 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-  --primary: #1a472a;
-  --primary-light: #2d6a43;
-  --accent: #d4a574;
-  --accent-light: #e8c59f;
-  --white: #f8f7f4;
-  --dark: #0f1513;
-  --gray: #8b8b8b;
-  --gray-light: #e8e8e8;
-  --border: #e0ddd8;
+  --foreground: #0f172a;
+  --primary: #d91424;
+  --primary-light: #ef233c;
+  --accent: #0099ff;
+  --accent-light: #38bdf8;
+  --white: #f8fafc;
+  --dark: #0f172a;
+  --gray: #64748b;
+  --gray-light: #f1f5f9;
+  --border: #e2e8f0;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #090d16;
+    --foreground: #f8fafc;
   }
 }
 
@@ -30,13 +30,13 @@
 }
 
 html.dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --white: #121815;
-  --dark: #f8f7f4;
-  --border: #27332c;
-  --gray-light: #1c2420;
-  --gray: #9ca3af;
+  --background: #090d16;
+  --foreground: #f8fafc;
+  --white: #0f172a;
+  --dark: #f8fafc;
+  --border: #1e293b;
+  --gray-light: #1e293b;
+  --gray: #94a3b8;
 }
 
 * {
@@ -72,19 +72,19 @@ button:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 3px solid rgba(212, 165, 116, 0.5);
+  outline: 3px solid rgba(217, 20, 36, 0.5);
   outline-offset: 2px;
 }
 
 /* Selection styling */
 ::selection {
-  background-color: var(--accent);
-  color: var(--dark);
+  background-color: var(--primary);
+  color: #ffffff;
 }
 
 ::-moz-selection {
-  background-color: var(--accent);
-  color: var(--dark);
+  background-color: var(--primary);
+  color: #ffffff;
 }
 
 /* Hide default details marker for menu toggle */
@@ -99,7 +99,7 @@ summary::marker { display: none; }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(248, 247, 244, 0.95);
+  background: rgba(248, 250, 252, 0.95);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -108,7 +108,7 @@ summary::marker { display: none; }
 }
 
 html.dark .navbar {
-  background: rgba(18, 24, 21, 0.95);
+  background: rgba(15, 23, 42, 0.95);
   border-bottom-color: var(--border);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
