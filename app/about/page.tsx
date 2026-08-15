@@ -15,6 +15,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { COMPANY_INFO, BUSINESSES } from "../data/businesses";
+import BrandName from "../components/BrandName";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -167,7 +168,7 @@ export default function About() {
             </motion.h2>
             <motion.div
               // @ts-expect-error trust me bro
-               variants={fadeInUp} custom={2} className="space-y-5">
+              variants={fadeInUp} custom={2} className="space-y-5">
               <p className="text-[17px] leading-[1.85] text-[#5a5a5a]">
                 {COMPANY_INFO.name} is a diversified business group founded in{" "}
                 {COMPANY_INFO.founded}. We operate multiple successful businesses
@@ -176,7 +177,7 @@ export default function About() {
                   href="/businesses/al-sadiq-bricks-kiln"
                   className="font-semibold text-[#1a472a] underline decoration-[#d4a574]/40 underline-offset-4 transition-colors hover:text-[#d4a574] hover:decoration-[#d4a574]"
                 >
-                  AL-SADIQ BRICKS KILN (4 Stars)
+                  <BrandName name="AL-SADIQ BRICKS KILN ⁴ˢᵗᵃʳˢ" />
                 </Link>
                 ,{" "}
                 <Link
@@ -231,7 +232,7 @@ export default function About() {
               Our Story
             </motion.h2>
             <motion.div
-             
+
               // @ts-expect-error trust me bro
               variants={fadeInUp} custom={2} className="space-y-5">
               <p className="text-[17px] leading-[1.85] text-[#5a5a5a]">
@@ -286,7 +287,7 @@ export default function About() {
               whileInView="visible"
               viewport={{ once: true, margin: "-60px" }}
               // @ts-expect-error trust me bro
-              
+
               variants={fadeInUp}
               custom={0}
             >
@@ -308,7 +309,7 @@ export default function About() {
               whileInView="visible"
               viewport={{ once: true, margin: "-60px" }}
               // @ts-expect-error trust me bro
-              
+
               variants={fadeInUp}
               custom={1}
             >
@@ -340,7 +341,7 @@ export default function About() {
           >
             <motion.span
               // @ts-expect-error trust me bro
-              
+
               variants={fadeInUp}
               custom={0}
               className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#d4a574]"
@@ -367,7 +368,7 @@ export default function About() {
                   whileInView="visible"
                   viewport={{ once: true, margin: "-40px" }}
                   // @ts-expect-error trust me bro
-                  
+
                   variants={fadeInUp}
                   custom={i}
                 >
@@ -403,7 +404,7 @@ export default function About() {
           >
             <motion.span
               // @ts-expect-error trust me bro
-              
+
               variants={fadeInUp}
               custom={0}
               className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#d4a574]"
@@ -428,7 +429,7 @@ export default function About() {
                 whileInView="visible"
                 viewport={{ once: true, margin: "-40px" }}
                 // @ts-expect-error trust me bro
-                
+
                 variants={fadeInUp}
                 custom={i}
               >
@@ -461,7 +462,7 @@ export default function About() {
           >
             <motion.span
               // @ts-expect-error trust me bro
-              
+
               variants={fadeInUp}
               custom={0}
               className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#d4a574]"
@@ -486,7 +487,7 @@ export default function About() {
                 whileInView="visible"
                 viewport={{ once: true, margin: "-40px" }}
                 // @ts-expect-error trust me bro
-                
+
                 variants={fadeInUp}
                 custom={i}
               >
@@ -499,7 +500,7 @@ export default function About() {
 
                   <h3 className="mb-2 text-xl font-bold text-[#1a472a] transition-colors duration-300 group-hover:text-[#d4a574]">
                     <Link href={`/businesses/${business.slug}`}>
-                      {business.name}
+                      <BrandName name={business.name} />
                     </Link>
                   </h3>
 
@@ -554,7 +555,7 @@ export default function About() {
             </motion.h2>
             <motion.p
               // @ts-expect-error trust me bro
-              
+
               variants={fadeInUp}
               custom={1}
               className="text-lg leading-relaxed text-[#f8f7f4]/75"
@@ -569,7 +570,7 @@ export default function About() {
             whileInView="visible"
             viewport={{ once: true }}
             // @ts-expect-error trust me bro
-            
+
             variants={fadeInUp}
             custom={2}
             className="flex flex-wrap items-center justify-center gap-4"

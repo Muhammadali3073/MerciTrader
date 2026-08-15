@@ -19,6 +19,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { BUSINESSES } from "./data/businesses";
+import BrandName from "./components/BrandName";
 
 const coreValues = [
   { icon: Award, title: "Quality", desc: "Excellence in everything we do" },
@@ -74,7 +75,7 @@ export default function Home() {
         <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="relative z-10 mx-auto max-w-3xl">
           <motion.div
             // @ts-expect-error trust me bro
-            
+
             variants={fadeInUp}
             custom={0}
             className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-[#d4a574]/25 bg-[#d4a574]/10 px-5 py-2 text-sm font-semibold text-[#e8c59f] backdrop-blur-md"
@@ -85,7 +86,7 @@ export default function Home() {
 
           <motion.h1
             // @ts-expect-error trust me bro
-            
+
             variants={fadeInUp}
             custom={1}
             className="mb-5 text-5xl font-black tracking-tight text-[#f8f7f4] sm:text-6xl md:text-7xl"
@@ -96,7 +97,7 @@ export default function Home() {
 
           <motion.p
             // @ts-expect-error trust me bro
-            
+
             variants={fadeInUp}
             custom={2}
             className="mb-4 text-xl font-semibold text-[#e8c59f] sm:text-2xl md:text-[1.65rem]"
@@ -106,18 +107,18 @@ export default function Home() {
 
           <motion.p
             // @ts-expect-error trust me bro
-            
+
             variants={fadeInUp}
             custom={3}
             className="mx-auto mb-10 max-w-2xl text-base leading-relaxed text-[#f8f7f4]/75 sm:text-lg"
           >
-            MerciTrader is a diversified business group operating multiple companies including AL-SADIQ BRICKS KILN (4 Stars), Merci Mart,
+            MerciTrader is a diversified business group operating multiple companies including <BrandName name="AL-SADIQ BRICKS KILN ⁴ˢᵗᵃʳˢ" />, Merci Mart,
             and Merci Rice. We are committed to quality, reliability, and long-term partnerships.
           </motion.p>
 
           <motion.div
             // @ts-expect-error trust me bro
-             variants={fadeInUp} custom={4} className="mb-16 flex flex-wrap items-center justify-center gap-4">
+            variants={fadeInUp} custom={4} className="mb-16 flex flex-wrap items-center justify-center gap-4">
             <Link
               href="/businesses"
               className="group inline-flex items-center gap-2.5 rounded-xl bg-[#d4a574] px-8 py-4 text-[15px] font-bold text-[#0f1513] shadow-lg shadow-[#d4a574]/25 transition-all duration-300 hover:bg-[#e8c59f] hover:shadow-xl hover:shadow-[#d4a574]/35 active:scale-[0.97]"
@@ -137,7 +138,7 @@ export default function Home() {
           {/* Stats bar */}
           <motion.div
             // @ts-expect-error trust me bro
-            
+
             variants={fadeInUp}
             custom={5}
             className="mx-auto grid max-w-3xl grid-cols-2 gap-4 rounded-2xl border border-[#f8f7f4]/10 bg-[#f8f7f4]/5 px-6 py-6 backdrop-blur-md sm:grid-cols-4 sm:gap-6 sm:px-8"
@@ -192,19 +193,19 @@ export default function Home() {
           >
             <motion.div
               // @ts-expect-error trust me bro
-               variants={fadeInUp} custom={0}>
+              variants={fadeInUp} custom={0}>
               <span className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#d4a574]">What We Do</span>
             </motion.div>
             <motion.h2
               // @ts-expect-error trust me bro
-              
+
               variants={fadeInUp}
               custom={1}
               className="mb-4 text-3xl font-black tracking-tight text-[#1a472a] sm:text-4xl md:text-5xl"
             >
               Our Business Group
             </motion.h2>
-            <motion.p 
+            <motion.p
               // @ts-expect-error trust me bro
               variants={fadeInUp} custom={2} className="mx-auto max-w-xl text-lg leading-relaxed text-[#8b8b8b]">
               MerciTrader operates multiple successful businesses, each committed to quality and customer excellence.
@@ -219,7 +220,7 @@ export default function Home() {
                 whileInView="visible"
                 viewport={{ once: true, margin: "-60px" }}
                 // @ts-expect-error trust me bro
-                
+
                 variants={fadeInUp}
                 custom={i}
               >
@@ -236,7 +237,7 @@ export default function Home() {
                   </div>
 
                   <h3 className="mb-2 text-xl font-bold text-[#1a472a] transition-colors duration-300 group-hover:text-[#d4a574]">
-                    {business.name}
+                    <BrandName name={business.name} />
                   </h3>
 
                   <span className="mb-5 w-fit rounded-lg bg-[#1a472a]/5 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#2d6a43]">
@@ -285,21 +286,21 @@ export default function Home() {
           >
             <motion.div
               // @ts-expect-error trust me bro
-               variants={fadeInUp} custom={0}>
+              variants={fadeInUp} custom={0}>
               <span className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#d4a574]">
                 Our Foundation
               </span>
             </motion.div>
             <motion.h2
               // @ts-expect-error trust me bro
-              
+
               variants={fadeInUp}
               custom={1}
               className="mb-4 text-3xl font-black tracking-tight text-[#1a472a] sm:text-4xl md:text-5xl"
             >
               Why MerciTrader
             </motion.h2>
-            <motion.p 
+            <motion.p
               // @ts-expect-error trust me bro
               variants={fadeInUp} custom={2} className="mx-auto max-w-xl text-lg leading-relaxed text-[#8b8b8b]">
               We believe in building lasting relationships through quality, integrity, and innovation.
@@ -316,7 +317,7 @@ export default function Home() {
                   whileInView="visible"
                   viewport={{ once: true, margin: "-60px" }}
                   // @ts-expect-error trust me bro
-                  
+
                   variants={fadeInUp}
                   custom={i}
                   className="group relative rounded-2xl border border-[#e0ddd8] bg-white p-8 shadow-[0_2px_12px_rgba(0,0,0,0.03)] transition-all duration-500 hover:-translate-y-1 hover:border-[#d4a574]/30 hover:shadow-[0_16px_32px_rgba(0,0,0,0.06)]"
@@ -345,12 +346,12 @@ export default function Home() {
           >
             <motion.div
               // @ts-expect-error trust me bro
-               variants={fadeInUp} custom={0}>
+              variants={fadeInUp} custom={0}>
               <span className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#d4a574]">Organization</span>
             </motion.div>
             <motion.h2
               // @ts-expect-error trust me bro
-              
+
               variants={fadeInUp}
               custom={1}
               className="mb-4 text-3xl font-black tracking-tight text-[#1a472a] sm:text-4xl md:text-5xl"
@@ -359,7 +360,7 @@ export default function Home() {
             </motion.h2>
             <motion.p
               // @ts-expect-error trust me bro
-               variants={fadeInUp} custom={2} className="mx-auto max-w-xl text-lg leading-relaxed text-[#8b8b8b]">
+              variants={fadeInUp} custom={2} className="mx-auto max-w-xl text-lg leading-relaxed text-[#8b8b8b]">
               One parent company. Multiple specialized businesses. United by quality and values.
             </motion.p>
           </motion.div>
@@ -368,7 +369,7 @@ export default function Home() {
             {/* Parent Node */}
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }}
               // @ts-expect-error trust me bro
-               variants={fadeInUp} custom={0}>
+              variants={fadeInUp} custom={0}>
               <Link
                 href="/businesses"
                 className="group relative flex min-w-[300px] flex-col items-center rounded-2xl border-2 border-[#1a472a] bg-gradient-to-br from-[#1a472a] to-[#2d6a43] px-10 py-7 text-center shadow-xl shadow-[#1a472a]/15 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#1a472a]/25"
@@ -410,7 +411,7 @@ export default function Home() {
                     className="group flex w-full flex-col items-center rounded-2xl border border-[#e0ddd8] bg-white p-7 text-center shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-1 hover:border-[#d4a574]/40 hover:shadow-[0_16px_32px_rgba(0,0,0,0.07)] h-full"
                   >
                     <div className="mb-2 text-lg font-extrabold text-[#1a472a] transition-colors duration-300 group-hover:text-[#d4a574]">
-                      {business.name}
+                      <BrandName name={business.name} />
                     </div>
                     <p className="mb-4 text-sm font-medium text-[#8b8b8b]">{business.category}</p>
 
@@ -443,12 +444,12 @@ export default function Home() {
 
         <div className="relative mx-auto flex max-w-3xl flex-col items-center gap-10">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
-            <motion.h2 
+            <motion.h2
               // @ts-expect-error trust me bro
               variants={fadeInUp} custom={0} className="mb-5 text-3xl font-black text-[#f8f7f4] sm:text-4xl md:text-5xl">
               Ready to Partner with MerciTrader?
             </motion.h2>
-            <motion.p 
+            <motion.p
               // @ts-expect-error trust me bro
               variants={fadeInUp} custom={1} className="mx-auto max-w-xl text-lg leading-relaxed text-[#f8f7f4]/75">
               Whether it&apos;s construction materials, retail essentials, or premium rice, let us know how we can help your
@@ -458,7 +459,7 @@ export default function Home() {
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }}
             // @ts-expect-error trust me bro
-             variants={fadeInUp} custom={2}>
+            variants={fadeInUp} custom={2}>
             <Link
               href="/contact"
               className="group inline-flex items-center gap-3 rounded-xl bg-[#d4a574] px-10 py-5 text-base font-bold text-[#0f1513] shadow-xl shadow-black/10 transition-all duration-300 hover:bg-[#e8c59f] hover:shadow-2xl hover:shadow-black/15 active:scale-[0.97]"

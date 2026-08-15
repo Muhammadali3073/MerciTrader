@@ -1,7 +1,8 @@
 "use client";
 
+import { use } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import {
   Home,
   ChevronRight,
@@ -21,9 +22,9 @@ import {
   SearchX,
 } from "lucide-react";
 import { getBusinessBySlug, BUSINESSES } from "../../data/businesses";
-import { use } from "react";
+import BrandName from "../../components/BrandName";
 
-const fadeInUp = {
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: (i: number) => ({
     opacity: 1,
@@ -32,7 +33,7 @@ const fadeInUp = {
   }),
 };
 
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -40,7 +41,11 @@ const staggerContainer = {
   },
 };
 
-export default function BusinessDetail({ params }: { params: Promise<{ slug: string }> }) {
+export default function BusinessDetail({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = use(params);
   const business = getBusinessBySlug(slug);
 
@@ -60,7 +65,9 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
             <SearchX className="h-12 w-12 text-[#1a472a]" strokeWidth={1.3} />
           </div>
 
-          <h1 className="mb-4 text-3xl font-black text-[#1a472a] sm:text-4xl">Business Not Found</h1>
+          <h1 className="mb-4 text-3xl font-black text-[#1a472a] sm:text-4xl">
+            Business Not Found
+          </h1>
           <p className="mb-10 max-w-sm text-base leading-relaxed text-[#8b8b8b] sm:text-lg">
             Sorry, we couldn&apos;t find the business you&apos;re looking for.
           </p>
@@ -112,41 +119,48 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
           }}
         />
 
-        <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="relative z-10 mx-auto max-w-3xl">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+          className="relative z-10 mx-auto max-w-3xl"
+        >
           {/* Breadcrumb */}
           <motion.nav
-            // @ts-expect-error trust me bro
-
             variants={fadeInUp}
             custom={0}
             aria-label="Breadcrumb"
             className="mb-6 flex flex-wrap items-center justify-center gap-2 text-sm"
           >
-            <Link href="/" className="inline-flex items-center gap-1 text-[#f8f7f4]/60 transition-colors hover:text-[#e8c59f]">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1 text-[#f8f7f4]/60 transition-colors hover:text-[#e8c59f]"
+            >
               <Home className="h-3.5 w-3.5" />
               Home
             </Link>
             <ChevronRight className="h-3.5 w-3.5 text-[#f8f7f4]/30" />
-            <Link href="/businesses" className="text-[#f8f7f4]/60 transition-colors hover:text-[#e8c59f]">
+            <Link
+              href="/businesses"
+              className="text-[#f8f7f4]/60 transition-colors hover:text-[#e8c59f]"
+            >
               Businesses
             </Link>
             <ChevronRight className="h-3.5 w-3.5 text-[#f8f7f4]/30" />
-            <span className="font-semibold text-[#e8c59f]">{business.name}</span>
+            <span className="font-semibold text-[#e8c59f]">
+              <BrandName name={business.name} />
+            </span>
           </motion.nav>
 
           <motion.h1
-            // @ts-expect-error trust me bro
-
             variants={fadeInUp}
             custom={1}
             className="mb-4 text-4xl font-black tracking-tight text-[#f8f7f4] sm:text-5xl md:text-6xl"
           >
-            {business.name}
+            <BrandName name={business.name} />
           </motion.h1>
 
           <motion.span
-            // @ts-expect-error trust me bro
-
             variants={fadeInUp}
             custom={2}
             className="mb-4 inline-block rounded-full border border-[#d4a574]/20 bg-[#d4a574]/10 px-5 py-1.5 text-[13px] font-bold uppercase tracking-wider text-[#e8c59f]"
@@ -155,8 +169,6 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
           </motion.span>
 
           <motion.p
-            // @ts-expect-error trust me bro
-
             variants={fadeInUp}
             custom={3}
             className="mx-auto max-w-xl text-base leading-relaxed text-[#f8f7f4]/75 sm:text-lg"
@@ -167,8 +179,17 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
 
         {/* Bottom curve */}
         <div className="absolute -bottom-1 left-0 right-0">
-          <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full" preserveAspectRatio="none">
-            <path d="M0 60L1440 60L1440 0C1440 0 1140 60 720 60C300 60 0 0 0 0L0 60Z" fill="#f8f7f4" />
+          <svg
+            viewBox="0 0 1440 60"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-full"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0 60L1440 60L1440 0C1440 0 1140 60 720 60C300 60 0 0 0 0L0 60Z"
+              fill="#f8f7f4"
+            />
           </svg>
         </div>
       </section>
@@ -185,16 +206,14 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
               variants={staggerContainer}
             >
               <motion.h2
-                // @ts-expect-error trust me bro
                 variants={fadeInUp}
                 custom={0}
                 className="mb-6 text-3xl font-black tracking-tight text-[#1a472a] sm:text-4xl"
               >
-                About {business.name}
+                About <BrandName name={business.name} />
               </motion.h2>
 
               <motion.p
-                // @ts-expect-error trust me bro
                 variants={fadeInUp}
                 custom={1}
                 className="mb-8 text-[17px] leading-[1.85] text-[#5a5a5a]"
@@ -204,8 +223,6 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
 
               {business.vision && (
                 <motion.div
-                  // @ts-expect-error trust me bro
-
                   variants={fadeInUp}
                   custom={2}
                   className="mb-6 rounded-2xl border-l-[4px] border-[#1a472a] bg-[#f0efe9] p-7"
@@ -214,14 +231,14 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
                     <Target className="h-5 w-5" />
                     <h4 className="text-base font-bold">Our Vision</h4>
                   </div>
-                  <p className="text-[15px] leading-relaxed text-[#6b6b6b]">{business.vision}</p>
+                  <p className="text-[15px] leading-relaxed text-[#6b6b6b]">
+                    {business.vision}
+                  </p>
                 </motion.div>
               )}
 
               {business.mission && (
                 <motion.div
-                  // @ts-expect-error trust me bro
-
                   variants={fadeInUp}
                   custom={3}
                   className="rounded-2xl border-l-[4px] border-[#d4a574] bg-[#f0efe9] p-7"
@@ -230,7 +247,9 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
                     <Rocket className="h-5 w-5" />
                     <h4 className="text-base font-bold">Our Mission</h4>
                   </div>
-                  <p className="text-[15px] leading-relaxed text-[#6b6b6b]">{business.mission}</p>
+                  <p className="text-[15px] leading-relaxed text-[#6b6b6b]">
+                    {business.mission}
+                  </p>
                 </motion.div>
               )}
             </motion.div>
@@ -244,8 +263,6 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
               className="flex flex-col gap-4"
             >
               <motion.div
-                // @ts-expect-error trust me bro
-
                 variants={fadeInUp}
                 custom={0}
                 className="group rounded-2xl border border-[#e0ddd8] bg-white p-6 text-center shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-[#d4a574]/30 hover:shadow-[0_12px_24px_rgba(0,0,0,0.06)]"
@@ -253,14 +270,16 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
                 <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#1a472a] to-[#2d6a43] text-white shadow-md shadow-[#1a472a]/15 transition-all group-hover:shadow-lg">
                   <Package className="h-6 w-6" strokeWidth={1.5} />
                 </div>
-                <div className="text-3xl font-extrabold text-[#1a472a]">{business.products.length}</div>
-                <div className="text-xs font-semibold uppercase tracking-wider text-[#8b8b8b]">Products</div>
+                <div className="text-3xl font-extrabold text-[#1a472a]">
+                  {business.products.length}
+                </div>
+                <div className="text-xs font-semibold uppercase tracking-wider text-[#8b8b8b]">
+                  Products
+                </div>
               </motion.div>
 
               {business.branches && (
                 <motion.div
-                  // @ts-expect-error trust me bro
-
                   variants={fadeInUp}
                   custom={1}
                   className="group rounded-2xl border border-[#e0ddd8] bg-white p-6 text-center shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-[#d4a574]/30 hover:shadow-[0_12px_24px_rgba(0,0,0,0.06)]"
@@ -268,15 +287,17 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
                   <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#d4a574] to-[#e8c59f] text-[#0f1513] shadow-md shadow-[#d4a574]/15 transition-all group-hover:shadow-lg">
                     <MapPin className="h-6 w-6" strokeWidth={1.5} />
                   </div>
-                  <div className="text-3xl font-extrabold text-[#1a472a]">{business.branches.length}</div>
-                  <div className="text-xs font-semibold uppercase tracking-wider text-[#8b8b8b]">Locations</div>
+                  <div className="text-3xl font-extrabold text-[#1a472a]">
+                    {business.branches.length}
+                  </div>
+                  <div className="text-xs font-semibold uppercase tracking-wider text-[#8b8b8b]">
+                    Locations
+                  </div>
                 </motion.div>
               )}
 
               {business.services && (
                 <motion.div
-                  // @ts-expect-error trust me bro
-
                   variants={fadeInUp}
                   custom={2}
                   className="group rounded-2xl border border-[#e0ddd8] bg-white p-6 text-center shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-[#d4a574]/30 hover:shadow-[0_12px_24px_rgba(0,0,0,0.06)]"
@@ -284,8 +305,12 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
                   <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#1a472a] to-[#2d6a43] text-white shadow-md shadow-[#1a472a]/15 transition-all group-hover:shadow-lg">
                     <Wrench className="h-6 w-6" strokeWidth={1.5} />
                   </div>
-                  <div className="text-3xl font-extrabold text-[#1a472a]">{business.services.length}</div>
-                  <div className="text-xs font-semibold uppercase tracking-wider text-[#8b8b8b]">Services</div>
+                  <div className="text-3xl font-extrabold text-[#1a472a]">
+                    {business.services.length}
+                  </div>
+                  <div className="text-xs font-semibold uppercase tracking-wider text-[#8b8b8b]">
+                    Services
+                  </div>
                 </motion.div>
               )}
             </motion.div>
@@ -304,8 +329,6 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
             className="mb-16 text-center"
           >
             <motion.span
-              // @ts-expect-error trust me bro
-
               variants={fadeInUp}
               custom={0}
               className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#d4a574]"
@@ -313,8 +336,6 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
               What We Offer
             </motion.span>
             <motion.h2
-              // @ts-expect-error trust me bro
-
               variants={fadeInUp}
               custom={1}
               className="mb-4 text-3xl font-black tracking-tight text-[#1a472a] sm:text-4xl"
@@ -322,8 +343,6 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
               Our Products
             </motion.h2>
             <motion.p
-              // @ts-expect-error trust me bro
-
               variants={fadeInUp}
               custom={2}
               className="mx-auto max-w-xl text-lg text-[#8b8b8b]"
@@ -339,8 +358,6 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-40px" }}
-                // @ts-expect-error trust me bro
-
                 variants={fadeInUp}
                 custom={i}
               >
@@ -348,8 +365,12 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
                   <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#1a472a]/10 to-[#2d6a43]/5 text-[#1a472a] transition-colors duration-300 group-hover:bg-gradient-to-br group-hover:from-[#d4a574]/20 group-hover:to-[#e8c59f]/10 group-hover:text-[#d4a574]">
                     <Package className="h-7 w-7" strokeWidth={1.5} />
                   </div>
-                  <h4 className="mb-2 text-lg font-bold text-[#1a472a]">{product.name}</h4>
-                  <p className="mb-4 flex-1 text-[14px] leading-relaxed text-[#8b8b8b]">{product.description}</p>
+                  <h4 className="mb-2 text-lg font-bold text-[#1a472a]">
+                    {product.name}
+                  </h4>
+                  <p className="mb-4 flex-1 text-[14px] leading-relaxed text-[#8b8b8b]">
+                    {product.description}
+                  </p>
                   {product.category && (
                     <span className="inline-block rounded-md bg-[#d4a574]/10 px-3 py-1 text-[11px] font-bold text-[#d4a574]">
                       {product.category}
@@ -374,8 +395,6 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
               className="mb-16 text-center"
             >
               <motion.span
-                // @ts-expect-error trust me bro
-
                 variants={fadeInUp}
                 custom={0}
                 className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#d4a574]"
@@ -383,7 +402,6 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
                 What We Do
               </motion.span>
               <motion.h2
-                // @ts-expect-error trust me bro
                 variants={fadeInUp}
                 custom={1}
                 className="text-3xl font-black tracking-tight text-[#1a472a] sm:text-4xl"
@@ -399,8 +417,6 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, margin: "-40px" }}
-                  // @ts-expect-error trust me bro
-
                   variants={fadeInUp}
                   custom={i}
                 >
@@ -408,7 +424,9 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#1a472a] to-[#2d6a43] text-white shadow-sm">
                       <Check className="h-4 w-4" strokeWidth={3} />
                     </div>
-                    <span className="text-[15px] font-medium text-[#4a4a4a]">{service}</span>
+                    <span className="text-[15px] font-medium text-[#4a4a4a]">
+                      {service}
+                    </span>
                   </div>
                 </motion.div>
               ))}
@@ -429,8 +447,6 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
               className="mb-16 text-center"
             >
               <motion.span
-                // @ts-expect-error trust me bro
-
                 variants={fadeInUp}
                 custom={0}
                 className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#d4a574]"
@@ -438,7 +454,6 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
                 Advantages
               </motion.span>
               <motion.h2
-                // @ts-expect-error trust me bro
                 variants={fadeInUp}
                 custom={1}
                 className="text-3xl font-black tracking-tight text-[#1a472a] sm:text-4xl"
@@ -454,8 +469,6 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, margin: "-40px" }}
-                  // @ts-expect-error trust me bro
-
                   variants={fadeInUp}
                   custom={i}
                 >
@@ -463,7 +476,9 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
                     <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#d4a574] to-[#e8c59f] text-[#0f1513] shadow-lg shadow-[#d4a574]/20 transition-all duration-500 group-hover:scale-110">
                       <Sparkles className="h-7 w-7" strokeWidth={1.5} />
                     </div>
-                    <p className="text-[15px] leading-relaxed text-[#6b6b6b]">{highlight}</p>
+                    <p className="text-[15px] leading-relaxed text-[#6b6b6b]">
+                      {highlight}
+                    </p>
                   </div>
                 </motion.div>
               ))}
@@ -484,8 +499,6 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
               className="mb-16 text-center"
             >
               <motion.span
-                // @ts-expect-error trust me bro
-
                 variants={fadeInUp}
                 custom={0}
                 className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#d4a574]"
@@ -493,8 +506,6 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
                 Find Us
               </motion.span>
               <motion.h2
-                // @ts-expect-error trust me bro
-
                 variants={fadeInUp}
                 custom={1}
                 className="mb-4 text-3xl font-black tracking-tight text-[#1a472a] sm:text-4xl"
@@ -502,7 +513,6 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
                 Our Locations
               </motion.h2>
               <motion.p
-                // @ts-expect-error trust me bro
                 variants={fadeInUp}
                 custom={2}
                 className="mx-auto max-w-xl text-lg text-[#8b8b8b]"
@@ -518,20 +528,15 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, margin: "-40px" }}
-                  // @ts-expect-error trust me bro
-
                   variants={fadeInUp}
                   custom={i}
                 >
                   <div className="group relative overflow-hidden rounded-2xl border border-[#e0ddd8] bg-white p-8 shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-1 hover:border-[#d4a574]/40 hover:shadow-[0_16px_32px_rgba(0,0,0,0.08)]">
                     <div className="absolute left-0 top-0 h-1.5 w-full origin-left scale-x-0 bg-gradient-to-r from-[#d4a574] to-[#e8c59f] transition-transform duration-500 group-hover:scale-x-100" />
 
-                    {/*<div className="mb-4 inline-flex items-center gap-2 rounded-lg bg-[#d4a574]/10 px-3 py-1.5 text-[12px] font-bold uppercase tracking-wider text-[#d4a574]">
-                      <MapPin className="h-3.5 w-3.5" />
-                      {branch.location}
-                    </div>*/}
-
-                    <h4 className="mb-6 text-xl font-bold text-[#1a472a]">{branch.name}</h4>
+                    <h4 className="mb-6 text-xl font-bold text-[#1a472a]">
+                      <BrandName name={branch.name} />
+                    </h4>
 
                     <div className="mb-6 space-y-4">
                       {branch.address && (
@@ -540,8 +545,12 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
                             <MapPin className="h-4 w-4" />
                           </div>
                           <div>
-                            <div className="text-[11px] font-bold uppercase tracking-wider text-[#8b8b8b]">Address</div>
-                            <div className="text-[14px] font-medium text-[#4a4a4a]">{branch.address}</div>
+                            <div className="text-[11px] font-bold uppercase tracking-wider text-[#8b8b8b]">
+                              Address
+                            </div>
+                            <div className="text-[14px] font-medium text-[#4a4a4a]">
+                              {branch.address}
+                            </div>
                           </div>
                         </div>
                       )}
@@ -552,7 +561,9 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
                             <Phone className="h-4 w-4" />
                           </div>
                           <div>
-                            <div className="text-[11px] font-bold uppercase tracking-wider text-[#8b8b8b]">Phone</div>
+                            <div className="text-[11px] font-bold uppercase tracking-wider text-[#8b8b8b]">
+                              Phone
+                            </div>
                             <a
                               href={`tel:${branch.phone}`}
                               className="text-[14px] font-medium text-[#1a472a] transition-colors hover:text-[#d4a574]"
@@ -569,7 +580,9 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
                             <Mail className="h-4 w-4" />
                           </div>
                           <div>
-                            <div className="text-[11px] font-bold uppercase tracking-wider text-[#8b8b8b]">Email</div>
+                            <div className="text-[11px] font-bold uppercase tracking-wider text-[#8b8b8b]">
+                              Email
+                            </div>
                             <a
                               href={`mailto:${branch.email}`}
                               className="text-[14px] font-medium text-[#1a472a] transition-colors hover:text-[#d4a574]"
@@ -586,8 +599,12 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
                             <Clock className="h-4 w-4" />
                           </div>
                           <div>
-                            <div className="text-[11px] font-bold uppercase tracking-wider text-[#8b8b8b]">Hours</div>
-                            <div className="text-[14px] font-medium text-[#4a4a4a]">{branch.openingHours}</div>
+                            <div className="text-[11px] font-bold uppercase tracking-wider text-[#8b8b8b]">
+                              Hours
+                            </div>
+                            <div className="text-[14px] font-medium text-[#4a4a4a]">
+                              {branch.openingHours}
+                            </div>
                           </div>
                         </div>
                       )}
@@ -623,8 +640,6 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
             className="mb-16 text-center"
           >
             <motion.span
-              // @ts-expect-error trust me bro
-
               variants={fadeInUp}
               custom={0}
               className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#d4a574]"
@@ -632,7 +647,6 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
               Portfolio
             </motion.span>
             <motion.h2
-              // @ts-expect-error trust me bro
               variants={fadeInUp}
               custom={1}
               className="text-3xl font-black tracking-tight text-[#1a472a] sm:text-4xl"
@@ -642,33 +656,39 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
           </motion.div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {BUSINESSES.filter((b) => b.slug !== business.slug).map((other, i) => (
-              <motion.div
-                key={other.id}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-40px" }}
-                // @ts-expect-error trust me bro
-
-                variants={fadeInUp}
-                custom={i}
-              >
-                <div className="group flex h-full flex-col rounded-2xl border border-[#e0ddd8] bg-white p-7 shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-2 hover:border-[#d4a574]/40 hover:shadow-[0_16px_32px_rgba(0,0,0,0.08)]">
-                  <h4 className="mb-1 text-lg font-bold text-[#1a472a] transition-colors group-hover:text-[#d4a574]">
-                    <Link href={`/businesses/${other.slug}`}>{other.name}</Link>
-                  </h4>
-                  <span className="mb-3 text-[11px] font-bold uppercase tracking-wider text-[#2d6a43]">{other.category}</span>
-                  <p className="mb-5 flex-1 text-[14px] leading-relaxed text-[#8b8b8b]">{other.shortDescription}</p>
-                  <Link
-                    href={`/businesses/${other.slug}`}
-                    className="mt-auto inline-flex items-center gap-1.5 text-sm font-bold text-[#1a472a] transition-all group-hover:gap-2.5 group-hover:text-[#d4a574]"
-                  >
-                    Learn More
-                    <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
+            {BUSINESSES.filter((b) => b.slug !== business.slug).map(
+              (other, i) => (
+                <motion.div
+                  key={other.id}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-40px" }}
+                  variants={fadeInUp}
+                  custom={i}
+                >
+                  <div className="group flex h-full flex-col rounded-2xl border border-[#e0ddd8] bg-white p-7 shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-2 hover:border-[#d4a574]/40 hover:shadow-[0_16px_32px_rgba(0,0,0,0.08)]">
+                    <h4 className="mb-1 text-lg font-bold text-[#1a472a] transition-colors group-hover:text-[#d4a574]">
+                      <Link href={`/businesses/${other.slug}`}>
+                        <BrandName name={other.name} />
+                      </Link>
+                    </h4>
+                    <span className="mb-3 text-[11px] font-bold uppercase tracking-wider text-[#2d6a43]">
+                      {other.category}
+                    </span>
+                    <p className="mb-5 flex-1 text-[14px] leading-relaxed text-[#8b8b8b]">
+                      {other.shortDescription}
+                    </p>
+                    <Link
+                      href={`/businesses/${other.slug}`}
+                      className="mt-auto inline-flex items-center gap-1.5 text-sm font-bold text-[#1a472a] transition-all group-hover:gap-2.5 group-hover:text-[#d4a574]"
+                    >
+                      Learn More
+                      <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                  </div>
+                </motion.div>
+              )
+            )}
           </div>
         </div>
       </section>
@@ -686,9 +706,13 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
         />
 
         <div className="relative mx-auto flex max-w-2xl flex-col items-center gap-8">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
             <motion.h2
-              // @ts-expect-error trust me bro
               variants={fadeInUp}
               custom={0}
               className="mb-4 text-3xl font-black text-[#f8f7f4] sm:text-4xl"
@@ -696,7 +720,6 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
               Get in Touch
             </motion.h2>
             <motion.p
-              // @ts-expect-error trust me bro
               variants={fadeInUp}
               custom={1}
               className="text-lg leading-relaxed text-[#f8f7f4]/75"
@@ -709,7 +732,7 @@ export default function BusinessDetail({ params }: { params: Promise<{ slug: str
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-
+            variants={fadeInUp}
             custom={2}
             className="flex flex-wrap items-center justify-center gap-4"
           >

@@ -1,15 +1,22 @@
 "use client";
+
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { Home, ChevronRight,  Package, MapPin, Wrench, Check, ArrowRight, Boxes, Sparkles } from "lucide-react";
+import { motion, type Variants } from "framer-motion";
+import {
+  Home,
+  ChevronRight,
+  Package,
+  MapPin,
+  Wrench,
+  Check,
+  ArrowRight,
+  Boxes,
+  Sparkles,
+} from "lucide-react";
 import { BUSINESSES } from "../../data/businesses";
+import BrandName from "../../components/BrandName";
 
-// export const metadata: Metadata = {
-//   title: `All Business Details – ${COMPANY_INFO.name}`,
-//   description: COMPANY_INFO.tagline,
-// };
-
-const fadeInUp = {
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: (i: number) => ({
     opacity: 1,
@@ -18,7 +25,7 @@ const fadeInUp = {
   }),
 };
 
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -41,22 +48,31 @@ export default function AllBusinessDetails() {
           }}
         />
 
-        <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="relative z-10 mx-auto max-w-3xl">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+          className="relative z-10 mx-auto max-w-3xl"
+        >
           {/* Breadcrumb */}
           <motion.nav
-            // @ts-expect-error trust me bro
-            
             variants={fadeInUp}
             custom={0}
             aria-label="Breadcrumb"
             className="mb-6 flex flex-wrap items-center justify-center gap-2 text-sm"
           >
-            <Link href="/" className="inline-flex items-center gap-1 text-[#f8f7f4]/60 transition-colors hover:text-[#e8c59f]">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1 text-[#f8f7f4]/60 transition-colors hover:text-[#e8c59f]"
+            >
               <Home className="h-3.5 w-3.5" />
               Home
             </Link>
             <ChevronRight className="h-3.5 w-3.5 text-[#f8f7f4]/30" />
-            <Link href="/businesses" className="text-[#f8f7f4]/60 transition-colors hover:text-[#e8c59f]">
+            <Link
+              href="/businesses"
+              className="text-[#f8f7f4]/60 transition-colors hover:text-[#e8c59f]"
+            >
               Businesses
             </Link>
             <ChevronRight className="h-3.5 w-3.5 text-[#f8f7f4]/30" />
@@ -64,8 +80,6 @@ export default function AllBusinessDetails() {
           </motion.nav>
 
           <motion.h1
-            // @ts-expect-error trust me bro
-            
             variants={fadeInUp}
             custom={1}
             className="mb-4 text-4xl font-black tracking-tight text-[#f8f7f4] sm:text-5xl md:text-6xl"
@@ -74,8 +88,6 @@ export default function AllBusinessDetails() {
           </motion.h1>
 
           <motion.p
-            // @ts-expect-error trust me bro
-            
             variants={fadeInUp}
             custom={2}
             className="mx-auto max-w-xl text-base leading-relaxed text-[#f8f7f4]/75 sm:text-lg"
@@ -86,8 +98,17 @@ export default function AllBusinessDetails() {
 
         {/* Bottom curve */}
         <div className="absolute -bottom-1 left-0 right-0">
-          <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full" preserveAspectRatio="none">
-            <path d="M0 60L1440 60L1440 0C1440 0 1140 60 720 60C300 60 0 0 0 0L0 60Z" fill="#f8f7f4" />
+          <svg
+            viewBox="0 0 1440 60"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-full"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0 60L1440 60L1440 0C1440 0 1140 60 720 60C300 60 0 0 0 0L0 60Z"
+              fill="#f8f7f4"
+            />
           </svg>
         </div>
       </section>
@@ -101,8 +122,6 @@ export default function AllBusinessDetails() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-60px" }}
-              // @ts-expect-error trust me bro
-              
               variants={fadeInUp}
               custom={i}
               className="group relative overflow-hidden rounded-2xl border border-[#e0ddd8] bg-white shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-1 hover:border-[#d4a574]/40 hover:shadow-[0_20px_48px_rgba(0,0,0,0.08)]"
@@ -114,14 +133,18 @@ export default function AllBusinessDetails() {
                 {/* Header */}
                 <div className="mb-2 flex flex-wrap items-center justify-between gap-4">
                   <h2 className="text-2xl font-extrabold text-[#1a472a] transition-colors duration-300 group-hover:text-[#d4a574] sm:text-3xl">
-                    <Link href={`/businesses/${business.slug}`}>{business.name}</Link>
+                    <Link href={`/businesses/${business.slug}`}>
+                      <BrandName name={business.name} />
+                    </Link>
                   </h2>
                   <span className="rounded-lg bg-[#1a472a]/5 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-[#2d6a43]">
                     {business.category}
                   </span>
                 </div>
 
-                <p className="mb-8 max-w-3xl text-[16px] leading-[1.8] text-[#5a5a5a]">{business.description}</p>
+                <p className="mb-8 max-w-3xl text-[16px] leading-[1.8] text-[#5a5a5a]">
+                  {business.description}
+                </p>
 
                 {/* Stats */}
                 <div className="mb-8 flex flex-wrap gap-4">
@@ -130,8 +153,12 @@ export default function AllBusinessDetails() {
                       <Package className="h-4.5 w-4.5" />
                     </div>
                     <div>
-                      <div className="text-lg font-extrabold text-[#1a472a]">{business.products?.length ?? 0}</div>
-                      <div className="text-xs font-medium uppercase tracking-wider text-[#8b8b8b]">Products</div>
+                      <div className="text-lg font-extrabold text-[#1a472a]">
+                        {business.products?.length ?? 0}
+                      </div>
+                      <div className="text-xs font-medium uppercase tracking-wider text-[#8b8b8b]">
+                        Products
+                      </div>
                     </div>
                   </div>
 
@@ -141,8 +168,12 @@ export default function AllBusinessDetails() {
                         <MapPin className="h-4.5 w-4.5" />
                       </div>
                       <div>
-                        <div className="text-lg font-extrabold text-[#1a472a]">{business.branches.length}</div>
-                        <div className="text-xs font-medium uppercase tracking-wider text-[#8b8b8b]">Locations</div>
+                        <div className="text-lg font-extrabold text-[#1a472a]">
+                          {business.branches.length}
+                        </div>
+                        <div className="text-xs font-medium uppercase tracking-wider text-[#8b8b8b]">
+                          Locations
+                        </div>
                       </div>
                     </div>
                   )}
@@ -153,8 +184,12 @@ export default function AllBusinessDetails() {
                         <Wrench className="h-4.5 w-4.5" />
                       </div>
                       <div>
-                        <div className="text-lg font-extrabold text-[#1a472a]">{business.services.length}</div>
-                        <div className="text-xs font-medium uppercase tracking-wider text-[#8b8b8b]">Services</div>
+                        <div className="text-lg font-extrabold text-[#1a472a]">
+                          {business.services.length}
+                        </div>
+                        <div className="text-xs font-medium uppercase tracking-wider text-[#8b8b8b]">
+                          Services
+                        </div>
                       </div>
                     </div>
                   )}
@@ -165,7 +200,9 @@ export default function AllBusinessDetails() {
                   <div className="mb-8 rounded-2xl bg-[#f0efe9] p-6 sm:p-8">
                     <div className="mb-6 flex items-center gap-2">
                       <Boxes className="h-5 w-5 text-[#d4a574]" />
-                      <h3 className="text-lg font-bold text-[#1a472a]">Products</h3>
+                      <h3 className="text-lg font-bold text-[#1a472a]">
+                        Products
+                      </h3>
                     </div>
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                       {business.products.map((product) => (
@@ -176,8 +213,12 @@ export default function AllBusinessDetails() {
                           <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-[#1a472a]/10 to-[#2d6a43]/5 text-[#1a472a]">
                             <Package className="h-5 w-5" strokeWidth={1.5} />
                           </div>
-                          <h4 className="mb-1.5 text-[15px] font-bold text-[#1a472a]">{product.name}</h4>
-                          <p className="mb-3 text-[13px] leading-relaxed text-[#8b8b8b]">{product.description}</p>
+                          <h4 className="mb-1.5 text-[15px] font-bold text-[#1a472a]">
+                            {product.name}
+                          </h4>
+                          <p className="mb-3 text-[13px] leading-relaxed text-[#8b8b8b]">
+                            {product.description}
+                          </p>
                           {product.category && (
                             <span className="inline-block rounded-md bg-[#d4a574]/10 px-2.5 py-1 text-[11px] font-bold text-[#d4a574]">
                               {product.category}
@@ -194,7 +235,9 @@ export default function AllBusinessDetails() {
                   <div className="mb-8 rounded-2xl border border-[#e0ddd8] bg-white p-6 sm:p-8">
                     <div className="mb-6 flex items-center gap-2">
                       <Sparkles className="h-5 w-5 text-[#d4a574]" />
-                      <h3 className="text-lg font-bold text-[#1a472a]">Services</h3>
+                      <h3 className="text-lg font-bold text-[#1a472a]">
+                        Services
+                      </h3>
                     </div>
                     <div className="grid gap-3 sm:grid-cols-2">
                       {business.services.map((svc, idx) => (
@@ -205,7 +248,9 @@ export default function AllBusinessDetails() {
                           <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#1a472a] text-white">
                             <Check className="h-3.5 w-3.5" strokeWidth={3} />
                           </div>
-                          <span className="text-[14px] font-medium text-[#4a4a4a]">{svc}</span>
+                          <span className="text-[14px] font-medium text-[#4a4a4a]">
+                            {svc}
+                          </span>
                         </div>
                       ))}
                     </div>
@@ -218,7 +263,7 @@ export default function AllBusinessDetails() {
                     href={`/businesses/${business.slug}`}
                     className="group/btn inline-flex items-center gap-2.5 rounded-xl bg-[#1a472a] px-7 py-3.5 text-[15px] font-bold text-white shadow-lg shadow-[#1a472a]/15 transition-all duration-300 hover:bg-[#2d6a43] hover:shadow-xl active:scale-[0.97]"
                   >
-                    Learn More About {business.name}
+                    Learn More About <BrandName name={business.name} />
                     <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
                   </Link>
                 </div>
@@ -241,16 +286,26 @@ export default function AllBusinessDetails() {
         />
 
         <div className="relative mx-auto flex max-w-2xl flex-col items-center gap-8">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
             <motion.h2
-              // @ts-expect-error trust me bro
-               variants={fadeInUp} custom={0} className="mb-4 text-3xl font-black text-[#f8f7f4] sm:text-4xl">
+              variants={fadeInUp}
+              custom={0}
+              className="mb-4 text-3xl font-black text-[#f8f7f4] sm:text-4xl"
+            >
               Want to Dive Deeper?
             </motion.h2>
             <motion.p
-              // @ts-expect-error trust me bro
-               variants={fadeInUp} custom={1} className="text-lg leading-relaxed text-[#f8f7f4]/75">
-              Visit individual business pages for in-depth information, galleries, and contact options.
+              variants={fadeInUp}
+              custom={1}
+              className="text-lg leading-relaxed text-[#f8f7f4]/75"
+            >
+              Visit individual business pages for in-depth information,
+              galleries, and contact options.
             </motion.p>
           </motion.div>
 
@@ -258,8 +313,6 @@ export default function AllBusinessDetails() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            // @ts-expect-error trust me bro
-            
             variants={fadeInUp}
             custom={2}
             className="flex flex-wrap items-center justify-center gap-4"

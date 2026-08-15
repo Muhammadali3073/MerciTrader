@@ -22,11 +22,11 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "MerciTrader | Business Group",
   description:
-    "MerciTrader is a diversified business group operating AL-SADIQ BRICKS KILN (4 Stars), Merci Mart, and Merci Rice. Quality, reliability, and customer focus.",
+    "MerciTrader is a diversified business group operating AL-SADIQ BRICKS KILN, Merci Mart, and Merci Rice. Quality, reliability, and customer focus.",
   keywords: [
     "MerciTrader",
     "Business Group",
-    "AL-SADIQ BRICKS KILN (4 Stars)",
+    "AL-SADIQ BRICKS KILN",
     "Merci Mart",
     "Merci Rice",
     "Construction Materials",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     url: "https://mercitrader.com",
     type: "website",
     title: "MerciTrader | Business Group",
-    description: "MerciTrader operates multiple businesses including AL-SADIQ BRICKS KILN (4 Stars), Merci Mart, and Merci Rice.",
+    description: "MerciTrader operates multiple businesses including AL-SADIQ BRICKS KILN, Merci Mart, and Merci Rice.",
     images: [
       {
         url: "https://mercitrader.com/og-image.jpg",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "MerciTrader | Business Group",
-    description: "Diversified business group: AL-SADIQ BRICKS KILN (4 Stars), Merci Mart & Merci Rice",
+    description: "Diversified business group: AL-SADIQ BRICKS KILN, Merci Mart & Merci Rice",
     images: ["https://mercitrader.com/twitter-card.jpg"],
   },
   icons: {
@@ -68,7 +68,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning className={cn("font-sans", inter.variable)}>
-      <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}>
+      <body
+        suppressHydrationWarning
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}
+      >
         <NavBar />
         {children}
         <Footer />

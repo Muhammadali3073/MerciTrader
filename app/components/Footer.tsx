@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Building2, ArrowUpRight, ChevronRight, Network } from "lucide-react";
 import { COMPANY_INFO, BUSINESSES } from "../data/businesses";
+import BrandName from "./BrandName";
 
 const footerLinks = [
   { href: "/", label: "Home" },
@@ -76,7 +77,7 @@ export default function Footer() {
                     className="group inline-flex items-center gap-1.5 text-[15px] text-[#a1a1a1] transition-colors duration-200 hover:text-[#d4a574]"
                   >
                     <ChevronRight className="h-3.5 w-3.5 opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 text-[#d4a574]" />
-                    <span>{b.name}</span>
+                    <BrandName name={b.name} />
                   </Link>
                 </li>
               ))}
