@@ -12,6 +12,7 @@ interface Props {
 export default function GlobalError({ error, reset }: Props) {
   // Log the error for debugging purposes
   useEffect(() => {
+    
     console.error('Error caught by GlobalError:', error);
   }, [error]);
 
